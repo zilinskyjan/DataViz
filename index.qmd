@@ -4,58 +4,60 @@
 
 Creating effective visualizations of social and political data can help you discover and communicate new insights. This is a course designed to help students become better communicators with R. The focus is on graphing various types of evidence including:
 
+```         
+- summaries of statistical models
+- quantitative representations of text (e.g. content of social media post and the accompanying metadata)
+- macro-economic data
 
-	- summaries of statistical models
-	- quantitative representations of text (e.g. content of social media post and the accompanying metadata)
-	- macro-economic data
-
-	Students are encouraged to think creatively about visualizing different types of information and data. Significant coding experience with R is expected, but prior knowledge of issues related to design, style, and principles of data visualization is not required. 
+Students are encouraged to think creatively about visualizing different types of information and data. Significant coding experience with R is expected, but prior knowledge of issues related to design, style, and principles of data visualization is not required. 
+```
 
 After taking this course, students will be expected to be able to present real data clearly and to identify strengths and weakness of existing data displays and dashboards.
 
 ### Topics:
 
-- What works and what to avoid even if it works?
-- Principles of visual perception and effect communication
-- Getting familiar with ggplot
+-   What works and what to avoid even if it works?
+-   Principles of visual perception and effect communication
+-   Getting familiar with ggplot
 
 ### A ggplot deep dive
 
-	- Toplines, cross-tabs
-	- Geometries, statistics and coordinates
-	- Facets, themes
-	- Refining plots
-	- 3-way cross-tabs
-	- Heatmaps
-	- Visualizing output from statistical models
-	- Coefficients and uncertainty
-	
+```         
+- Toplines, cross-tabs
+- Geometries, statistics and coordinates
+- Facets, themes
+- Refining plots
+- 3-way cross-tabs
+- Heatmaps
+- Visualizing output from statistical models
+- Coefficients and uncertainty
+```
+
 ### Other lessons
 
-	- Predicted probabilities, marginal effects, and interactions
-	- Model performance (in-sample and out-of-sample comparisons) 
-	- Machine learning output (regression trees, most important variables, etc.)
-
+```         
+- Predicted probabilities, marginal effects, and interactions
+- Model performance (in-sample and out-of-sample comparisons) 
+- Machine learning output (regression trees, most important variables, etc.)
+```
 
 **Assignments:**
 
+-   Create your own dataset (30%).
+    -   Create your own dataset. It needs to have at least one of these 3 attributes
+        1.  Multiple levels (at least 2).
+        2.  Original topic, subject or angle.
+        3.  Impressive scope (e.g. time dimension)
+    -   Easy example of #1: rating things you like.
+        -   Suppose you decide go the "quantified self" route and create a dataset with evaluations the favorite TV shows of the members of your group.
 
-- Create your own dataset (30%).
-	- Create your own dataset. It needs to have at least one of these 3 attributes
-		1. Multiple levels (at least 2).
-		2. Original topic, subject or angle.
-		3. Impressive scope (e.g. time dimension)
-	- Easy example of #1: rating things you like.
-		- Suppose you decide go the “quantified self” route and create a dataset with evaluations the favorite TV shows of the members of your group.
-		- What’s the outcome variable? (Multiple attributes can be assessed.)
-		- What levels can be measured?
+        -   What's the outcome variable? (Multiple attributes can be assessed.)
 
-			- If you are rating a TV show, the natural components would be seasons, and episodes. Within episodes there might be themes or actors. Unpacking these attributes opens possibilities for creating stories, making interactive visualizations, etc.
+        -   What levels can be measured?
 
-
-- Final project (70%)
-	- Form a group of 3 (max. 4) classmates
-	- Start thinking about topic after lecture 3
-	- Prepare a compelling data visualization 
-	- Some elements in R are expected, you could also use [D3](https://github.com/scotthmurray/d3-book) or another language if you wish.
-
+            -   If you are rating a TV show, the natural components would be seasons, and episodes. Within episodes there might be themes or actors. Unpacking these attributes opens possibilities for creating stories, making interactive visualizations, etc.
+-   Final project (70%)
+    -   Form a group of 3 (max. 4) classmates
+    -   Start thinking about topic after lecture 3
+    -   Prepare a compelling data visualization
+    -   Some elements in R are expected, you could also use [D3](https://github.com/scotthmurray/d3-book) or another language if you wish.
