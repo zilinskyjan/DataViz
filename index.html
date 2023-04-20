@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jan Zilinsky">
+<meta name="author" content="Jane Doe">
+<meta name="dcterms.date" content="2023-04-20">
 
-<title>Telling stories with R: Data Visualization</title>
+<title>DV</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -31,7 +66,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./1_principles.html" rel="next">
+<link href="./intro.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -73,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Telling stories with R: Data Visualization</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -88,7 +123,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Telling stories with R: Data Visualization</a> 
+      <a href="./">DV</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -101,37 +136,19 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Telling stories with R: Data Visualization</span></a>
+ <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1_principles.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Principles</span></span></a>
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_toplines-and-cross-tabs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Toplines and crosstabs</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./3_standard-charts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Standard charts</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./4_advanced-ggplot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./5_visualizing-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span></a>
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -150,12 +167,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#telling-stories-with-r-data-visualization" id="toc-telling-stories-with-r-data-visualization" class="nav-link active" data-scroll-target="#telling-stories-with-r-data-visualization">Telling stories with R: Data Visualization</a>
-  <ul class="collapse">
-  <li><a href="#topics" id="toc-topics" class="nav-link" data-scroll-target="#topics">Topics:</a></li>
-  <li><a href="#a-ggplot-deep-dive" id="toc-a-ggplot-deep-dive" class="nav-link" data-scroll-target="#a-ggplot-deep-dive">A ggplot deep dive</a></li>
-  <li><a href="#other-lessons" id="toc-other-lessons" class="nav-link" data-scroll-target="#other-lessons">Other lessons</a></li>
-  </ul></li>
+  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
   </ul>
 </nav>
     </div>
@@ -164,7 +176,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Telling stories with R: Data Visualization</h1>
+<h1 class="title">DV</h1>
 </div>
 
 
@@ -174,10 +186,16 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Jan Zilinsky </p>
+             <p>Jane Doe </p>
           </div>
   </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 20, 2023</p>
+    </div>
+  </div>
   
     
   </div>
@@ -185,71 +203,18 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="telling-stories-with-r-data-visualization" class="level1 unnumbered">
-<h1 class="unnumbered">Telling stories with R: Data Visualization</h1>
-<p><strong>Instructor</strong>: Jan Zilinsky</p>
-<p>Creating effective visualizations of social and political data can help you discover and communicate new insights. This is a course designed to help students become better communicators with R. The focus is on graphing various types of evidence including:</p>
-<pre><code>- summaries of statistical models
-- quantitative representations of text (e.g. content of social media post and the accompanying metadata)
-- macro-economic data
-
-Students are encouraged to think creatively about visualizing different types of information and data. Significant coding experience with R is expected, but prior knowledge of issues related to design, style, and principles of data visualization is not required. </code></pre>
-<p>After taking this course, students will be expected to be able to present real data clearly and to identify strengths and weakness of existing data displays and dashboards.</p>
-<section id="topics" class="level3">
-<h3 class="anchored" data-anchor-id="topics">Topics:</h3>
-<ul>
-<li>What works and what to avoid even if it works?</li>
-<li>Principles of visual perception and effect communication</li>
-<li>Getting familiar with ggplot</li>
-</ul>
-</section>
-<section id="a-ggplot-deep-dive" class="level3">
-<h3 class="anchored" data-anchor-id="a-ggplot-deep-dive">A ggplot deep dive</h3>
-<pre><code>- Toplines, cross-tabs
-- Geometries, statistics and coordinates
-- Facets, themes
-- Refining plots
-- 3-way cross-tabs
-- Heatmaps
-- Visualizing output from statistical models
-- Coefficients and uncertainty</code></pre>
-</section>
-<section id="other-lessons" class="level3">
-<h3 class="anchored" data-anchor-id="other-lessons">Other lessons</h3>
-<pre><code>- Predicted probabilities, marginal effects, and interactions
-- Model performance (in-sample and out-of-sample comparisons) 
-- Machine learning output (regression trees, most important variables, etc.)</code></pre>
-<p><strong>Assignments:</strong></p>
-<ul>
-<li>Create your own dataset (30%).
-<ul>
-<li>Create your own dataset. It needs to have at least one of these 3 attributes
-<ol type="1">
-<li>Multiple levels (at least 2).</li>
-<li>Original topic, subject or angle.</li>
-<li>Impressive scope (e.g.&nbsp;time dimension)</li>
-</ol></li>
-<li>Easy example of #1: rating things you like.
-<ul>
-<li><p>Suppose you decide go the “quantified self” route and create a dataset with evaluations the favorite TV shows of the members of your group.</p></li>
-<li><p>What’s the outcome variable? (Multiple attributes can be assessed.)</p></li>
-<li><p>What levels can be measured?</p>
-<ul>
-<li>If you are rating a TV show, the natural components would be seasons, and episodes. Within episodes there might be themes or actors. Unpacking these attributes opens possibilities for creating stories, making interactive visualizations, etc.</li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li>Final project (70%)
-<ul>
-<li>Form a group of 3 (max. 4) classmates</li>
-<li>Start thinking about topic after lecture 3</li>
-<li>Prepare a compelling data visualization</li>
-<li>Some elements in R are expected, you could also use <a href="https://github.com/scotthmurray/d3-book">D3</a> or another language if you wish.</li>
-</ul></li>
-</ul>
+<section id="preface" class="level1 unnumbered">
+<h1 class="unnumbered">Preface</h1>
+<p>This is a Quarto book.</p>
+<p>To learn more about Quarto books visit <a href="https://quarto.org/docs/books" class="uri">https://quarto.org/docs/books</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -490,8 +455,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./1_principles.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Principles</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./intro.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
