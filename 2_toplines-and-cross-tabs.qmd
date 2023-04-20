@@ -1,7 +1,30 @@
-# Summary
+# Toplines and crosstabs
 
 In summary, this book has no content whatsoever.
 
-```{r}
-1 + 1
+```{r, echo=FALSE}
+source("data_AJPS2021/0_ajps_recode.R")
+```
+
+
+```{r, echo=TRUE}
+d1
+```
+
+```{r, echo=TRUE}
+table(d2$climatechange)
+```
+
+```{r, echo=TRUE}
+table(d2$climatechangeBIN)
+```
+
+```{r, echo=TRUE}
+d2 %>% count(climatechangeBIN)
+```
+
+Are the missing observations the same for the original and the recoded variable? (If not, we would want to check whether earlier code did something unintended.)
+
+```{r, echo=TRUE}
+d2 %>% count(climatechangeBIN,climatechange)
 ```

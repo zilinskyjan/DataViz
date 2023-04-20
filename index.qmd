@@ -2,7 +2,7 @@
 
 **Instructor**: Jan Zilinsky
 
-	Creating effective visualizations of social and political data can help you discover and communicate new insights. This is a course designed to help students become better communicators with R. The focus is on graphing various types of evidence including:
+Creating effective visualizations of social and political data can help you discover and communicate new insights. This is a course designed to help students become better communicators with R. The focus is on graphing various types of evidence including:
 
 
 	- summaries of statistical models
@@ -11,7 +11,31 @@
 
 	Students are encouraged to think creatively about visualizing different types of information and data. Significant coding experience with R is expected, but prior knowledge of issues related to design, style, and principles of data visualization is not required. 
 
-	After taking this course, students will be expected to be able to present real data clearly and to identify strengths and weakness of existing data displays and dashboards.
+After taking this course, students will be expected to be able to present real data clearly and to identify strengths and weakness of existing data displays and dashboards.
+
+### Topics:
+
+- What works and what to avoid even if it works?
+- Principles of visual perception and effect communication
+- Getting familiar with ggplot
+
+### A ggplot deep dive
+
+	- Toplines, cross-tabs
+	- Geometries, statistics and coordinates
+	- Facets, themes
+	- Refining plots
+	- 3-way cross-tabs
+	- Heatmaps
+	- Visualizing output from statistical models
+	- Coefficients and uncertainty
+	
+### Other lessons
+
+	- Predicted probabilities, marginal effects, and interactions
+	- Model performance (in-sample and out-of-sample comparisons) 
+	- Machine learning output (regression trees, most important variables, etc.)
+
 
 **Assignments:**
 
@@ -35,9 +59,3 @@
 	- Prepare a compelling data visualization 
 	- Some elements in R are expected, you could also use [D3](https://github.com/scotthmurray/d3-book) or another language if you wish.
 
-#### **Expectations**
-
-	- Please use your devices only to take notes
-	- No multitasking
-	- You are already fluent in R and R Studio
-	- Get the most recent version of R; Install R Studio; install the tidyverse library

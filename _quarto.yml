@@ -2,8 +2,8 @@ project:
   type: book
 
 book:
-  title: "DV"
-  author: "Jane Doe"
+  title: "Telling stories with R: Data Visualization"
+  author: "Jan Zilinsky"
   date: ""
   chapters:
     - index.qmd

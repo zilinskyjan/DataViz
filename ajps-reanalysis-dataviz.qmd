@@ -1,0 +1,601 @@
+---
+title: "ggplot practice"
+subtitle: "Context: American politics in 2 dimensions"
+format: 
+  revealjs:
+    slide-number: c
+execute:
+  echo: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(tidyverse)
+library(haven)
+library(labelled)
+library(stargazer)
+
+
+theme_set(theme_minimal())
+theme_update(text = element_text(size=13),
+             #text = element_text(family="Source Sans Pro")
+)
+             
+# READ IN RECODED DATA
+source("0_ajps_recode.R")
+```
+
+## 
+
+A binary (and moralizing) view of politics
+
+```{r}
+d2 %>% 
+  count(goodevil) %>%
+  mutate(percent = n/sum(n)*100)
+```
+
+## 
+
+A binary (and moralizing) view of politics
+
+```{r}
+d2 %>% group_by(pid) %>%
+  count(goodevil) %>%
+  mutate(percent = n/sum(n)*100)
+```
+
+## {.smaller}
+
+A binary (and moralizing) view of politics
+
+```{r}
+d2 %>% 
+  count(goodevil) %>%
+  mutate(percent = n/sum(n)*100) %>%
+  ggplot(aes(y=as_factor(goodevil),x=percent)) +
+  geom_bar(position="dodge", stat="identity") + xlab("Percent") + ylab(NULL) +
+  ggtitle("Opinion: Politics is a battle between good and evil")
+```
+
+## {.smaller}
+
+A binary (and moralizing) view of politics
+
+```{r}
+d2 %>% 
+  count(goodevil) %>%
+  mutate(percent = n/sum(n)*100) %>%
+  ggplot(aes(y=as_factor(goodevil),x=percent,fill=as_factor(goodevil))) +
+  geom_col()
+```
+
+## {.smaller}
+
+A binary (and moralizing) view of politics
+
+```{r}
+d2 %>% 
+  count(goodevil) %>%
+  mutate(percent = n/sum(n)*100) %>%
+  ggplot(aes(y=as_factor(goodevil),x=percent,fill=as_factor(goodevil))) +
+  geom_col() +
+  scale_fill_viridis_d() +
+  labs(x="Proportion of respondents", y= "", fill = "",
+       subtitle = "Opinion: Politics is a battle between good and evil", caption= "Data: Uscinski et al. (AJPS, 2021).")
+```
+
+## {.smaller}
+
+A binary (and moralizing) view of politics by PID
+
+```{r}
+d2 %>% group_by(pid) %>%
+  count(goodevil) %>%
+  mutate(percent = n/sum(n)*100) %>%
+  ggplot(aes(y=as_factor(goodevil),x=percent,fill=as_factor(goodevil))) +
+  geom_col() + scale_fill_viridis_d() +
+  labs(x="Proportion of respondents", y= "", fill = "", subtitle = "Opinion: Politics is a battle between good and evil", caption= "Data: Uscinski et al. (AJPS, 2021).") +
+  facet_wrap(~pid)
+```
+
+## {.smaller}
+
+A binary (and moralizing) view of politics by PID
+
+```{r}
+d2 %>% group_by(pid) %>%
+  count(goodevil) %>%
+  mutate(percent = n/sum(n)*100) %>%
+  ggplot(aes(y=as_factor(goodevil),x=percent,fill=as_factor(goodevil))) +
+  geom_col() + scale_fill_viridis_d() +
+  labs(x="Proportion of respondents", y= "", fill = "", subtitle = "Opinion: Politics is a battle between good and evil", caption= "Data: Uscinski et al. (AJPS, 2021).") +
+  facet_wrap(~as_factor(pid))
+```
+
+## {.smaller}
+
+Stronger partisans are more manichean on average
+
+```{r goodevil-b}
+d2 %>% group_by(pid) %>%
+  count(goodevil) %>%
+  mutate(percent = n/sum(n)*100) %>%
+  ggplot(aes(y=as_factor(pid),x=percent,fill=as_factor(goodevil))) +
+  geom_col() +
+  scale_fill_viridis_d(alpha=.885) +
+  labs(x="Proportion of respondents", y= "", fill = "",
+      title = "Opinion: Politics is a battle between good and evil", caption= "Data: Uscinski et al. (AJPS, 2021).")
+```
+
+## {.smaller}
+
+```{r}
+#| echo: true
+
+pop2share <- d2 %>% 
+              count(pop2) %>%
+              mutate(percent = n/sum(n)*100) %>%
+              mutate(categories = as_factor(pop2)) %>%
+              mutate(q = "People who have studied for a long time\nand have many diplomas do not really know\nwhat makes the world go round.")
+
+officialshare <- d2 %>% 
+              count(official) %>%
+              mutate(percent = n/sum(n)*100) %>%
+              mutate(categories = as_factor(official)) %>%
+              mutate(q = "Official government accounts of events\ncannot be trusted.")
+
+con1share <- d2 %>% 
+              count(con1) %>%
+              mutate(percent = n/sum(n)*100) %>%
+              mutate(categories = as_factor(con1)) %>%
+              mutate(q = "Even though we live in a democracy,\na few people will always run things anyway")
+
+con4share <- d2 %>% 
+              count(con4) %>%
+              mutate(percent = n/sum(n)*100) %>%
+              mutate(categories = as_factor(con4)) %>%
+              mutate(q = "Much of our lives are being controlled\nby plots hatched in secret places.")
+
+con4share
+```
+
+## 
+
+```{r}
+shareShow <-
+  bind_rows(
+    pop2share,
+    officialshare,
+    con1share,
+    con4share
+  ) %>%
+  filter(!is.na(categories))
+
+head(shareShow)
+```
+
+## {.smaller}
+
+```{r}
+#| fig-height: 7
+#| fig-width: 12
+
+shareShow %>%
+  ggplot(aes(y=as_factor(q),x=percent,fill=as_factor(categories))) +
+  geom_bar(position="stack", stat="identity", width = .5) +
+  jcolors::scale_fill_jcolors(palette = "pal4") +
+  theme_minimal() + theme(text = element_text(size=15)) +
+  labs(y = "",x = "Percent", fill = "",title = "Uscinski et al. (AJPS, 2021) survey data\non anti-establishment sentiment")
+```
+
+##
+
+```{r}
+jcolors::display_all_jcolors()
+```
+
+## {.smaller}
+
+#### Putting anti-establishment thinking on the 2nd axis
+
+
+```{r}
+#| fig-height: 7
+#| fig-width: 8
+#| fig-align: center
+
+d1 %>% ggplot(aes(x = leftright2, y = suspicion2)) +
+  geom_point() +
+  labs(x = "Left vs. Right dimension\n(party ID, symbolic ideology, and party thermometer ratings)",
+       y = "Anti-establishment thinking") + theme_gray()
+```
+
+## {.smaller}
+
+#### Putting anti-establishment thinking on the 2nd axis
+
+
+```{r}
+#| fig-height: 7
+#| fig-width: 8
+#| fig-align: center
+
+d1 %>% ggplot(aes(x = leftright2, y = suspicion2)) +
+  geom_point() +
+  labs(x = "Left vs. Right dimension\n(party ID, symbolic ideology, and party thermometer ratings)",
+       y = "Anti-establishment thinking") +
+  theme_bw()
+```
+
+## {.smaller}
+
+#### Putting anti-establishment thinking on the 2nd axis
+
+
+```{r}
+#| fig-height: 7
+#| fig-width: 8
+#| fig-align: center
+
+d1 %>% ggplot(aes(x = leftright2, y = suspicion2)) +
+  geom_point() +
+  labs(x = "Left vs. Right dimension\n(party ID, symbolic ideology, and party thermometer ratings)",
+       y = "Anti-establishment thinking") +
+  theme_minimal()
+```
+
+## {.smaller}
+
+#### Putting anti-establishment thinking on the 2nd axis
+
+
+```{r}
+#| fig-height: 7
+#| fig-width: 8
+#| fig-align: center
+
+d1 %>% ggplot(aes(x = leftright2, y = suspicion2)) +
+  geom_point(color = "purple", alpha=.55) +
+  labs(x = "Left vs. Right dimension\n(party ID, symbolic ideology, and party thermometer ratings)",
+       y = "Anti-establishment thinking", title = "Conspiracy, populist, and Manichean orientations\nare orthogonal to the standard partisan divide", caption = "Data: Uscinski et al. (AJPS, 2021).") +
+  theme_minimal()
+```
+
+## 
+
+Conspiratorial orientation and PID
+
+```{r}
+d2 %>% 
+  ggplot(aes(x=as_factor(pid), y=consp_Index)) +
+  geom_boxplot(size=.4) +
+  theme_minimal() 
+```
+
+## 
+
+Conspiratorial orientation and PID
+
+```{r}
+d2 %>% 
+  ggplot(aes(x=as_factor(pid), y=consp_Index)) +
+  geom_boxplot(size=.4) +
+  geom_jitter(color="purple",alpha=.4,width = .1) +
+  theme_minimal() 
+```
+
+## {.smaller}
+
+Conspiratorial orientation and PID
+
+```{r}
+#| fig-align: center
+d2 %>% 
+  ggplot(aes(x=as_factor(pid), y=consp_Index)) +
+  geom_boxplot(size=.4) + geom_jitter(color="purple",alpha=.4,width = .1) + theme_minimal() +
+  labs(y="Conspiratorial thinking\n(Average agreement with 4 questions)",x = "")
+```
+
+## {.smaller}
+
+Conspiratorial orientation and PID
+
+```{r}
+#| fig-align: center
+d2 %>% 
+  ggplot(aes(x=as_factor(pid), y=consp_Index)) +
+  geom_boxplot(size=.4) + geom_jitter(color="purple",alpha=.4,width = .1) + theme_minimal() +
+  labs(y="Conspiratorial thinking\n(Average agreement with 4 questions)",x = "",subtitle = "Conspiratorial thinking is uncorrelated with partisanship",
+       caption = "Q1: Even though we live in a democracy, a few people will always run things anyway.
+Q2: The people who really run the country, are not known to the voters.
+Q3: Big events like wars, the recent recession, and the outcomes of elections are controlled\nby small groups of people who are working in secret against the rest of us.
+Q4: Much of our lives are being controlled by plots hatched in secret places.")
+```
+
+## {.smaller}
+
+### All 3 components of the anti-est. orienation
+
+```{r}
+#| fig-align: center
+d2 %>% 
+  ggplot(aes(x=as_factor(pid), y=suspicion2)) +
+  geom_boxplot(fill="purple", alpha=.2) +
+  geom_jitter(alpha=.2,width = .11,color="purple4") +
+  theme_minimal() +
+  labs(y="Conspiratorial thinking + Populism + Manichean outlook",x = "")
+```
+
+
+## 
+
+Narcissism as a correlate for conspiracy thinking? 
+
+```{r}
+d1 %>% filter(!is.na(attent1)) %>%
+  ggplot(aes(y = as_factor(attent1), x= suspicion2)) +
+  geom_density_ridges()
+```
+
+## {.smaller}
+
+```{r}
+d1 %>% filter(!is.na(attent1)) %>%
+  ggplot(aes(y = as_factor(attent1), x= suspicion2)) +
+  geom_density_ridges(
+    fill = "#00AFBB",
+    quantile_lines = TRUE, quantiles = 2,alpha = .9,color = "white") +
+  labs(y= "I tend to want others to admire me",x="Conspiracy thinking")
+```
+
+## {.smaller}
+
+```{r}
+d1 %>% filter(!is.na(attent1)) %>%
+  ggplot(aes(y = as_factor(attent1), x= suspicion2)) +
+  geom_density_ridges(
+    fill = "#00AFBB",
+    quantile_lines = TRUE, quantiles = 2,alpha = .9,color = "white") +
+    xlim(0,1) + labs(y= "I tend to want others to admire me",x="Conspiracy thinking")
+```
+
+
+## {.smaller}
+
+```{r}
+d1 %>% filter(!is.na(attent1)) %>%
+  ggplot(aes(y = as_factor(attent1), x= suspicion2)) +
+  geom_density_ridges(
+    fill = "#00AFBB",
+    quantile_lines = TRUE, quantiles = 2,alpha = .9,color = "white") +
+  xlim(0,1) + labs(y= "I tend to want others to admire me",
+       x = "The horizontal dimension measures how strongly respondents exhibit 3 traits:
+1. Conspiratorial thinking (e.g. \"Our lives are controlled by secret plots\")
+2. Populist beliefs
+3. Manichean political views",caption = "Data: Uscinski et al. (AJPS, 2021).")
+```
+
+##  {.smaller}
+
+```{r}
+d1 %>%
+  ggplot(aes(x=narcissism,y=suspicion2)) +
+  geom_smooth() + labs(x = "Narcissism", y="Anti-establishment orientation") 
+```
+
+##  {.smaller}
+
+```{r}
+d1 %>%
+  ggplot(aes(x=narcissism,y=suspicion2)) +
+  geom_smooth() + labs(x = "Narcissism", y="Anti-establishment orientation") +
+  ggside::geom_xsidehistogram() +
+  ggside::ggside(x.pos = "bottom") 
+```
+
+##
+
+Mainstream news
+
+```{r}
+#| fig-height: 7
+#| fig-width: 12
+#| output: false
+  
+ggpubr::ggarrange(
+  d1 %>%
+  ggplot(aes(x=suspicion2,y=msm)) +
+  geom_smooth() +
+  labs(x = "Anti-establihment orientation", y="Much of the mainstream news is deliberately slanted to mislead us") +
+  ggside::geom_xsidehistogram() +
+  ggside::ggside(x.pos = "bottom") ,
+  
+d1 %>%
+  ggplot(aes(x=narcissism,y=msm)) +
+  geom_smooth() +
+  labs(x = "Narcissism", y="Much of the mainstream news is deliberately slanted to mislead us") +
+  ggside::geom_xsidehistogram() +
+  ggside::ggside(x.pos = "bottom") 
+)
+```
+
+##
+
+Mainstream news
+
+```{r}
+#| fig-height: 7
+#| fig-width: 12
+#| echo: false
+  
+ggpubr::ggarrange(
+  d1 %>%
+  ggplot(aes(x=suspicion2,y=msm)) +
+  geom_smooth() +
+  labs(x = "Anti-establihment orientation", y="Much of the mainstream news is deliberately slanted to mislead us") +
+  ggside::geom_xsidehistogram() +
+  ggside::ggside(x.pos = "bottom") ,
+  
+d1 %>%
+  ggplot(aes(x=narcissism,y=msm)) +
+  geom_smooth() +
+  labs(x = "Narcissism", y="Much of the mainstream news is deliberately slanted to mislead us") +
+  ggside::geom_xsidehistogram() +
+  ggside::ggside(x.pos = "bottom") 
+)
+```
+
+
+
+##
+
+#### Mainstream news
+
+```{r}
+collmod <- lm(msm ~ clintonft*suspicion2, data=d1)
+ggeffects::ggeffect(collmod, terms=c("suspicion2","clintonft")) %>% plot() +
+  labs(color="Rating of Hillary Clinton",y="Much of the mainstream news is deliberately slanted to mislead us",
+       x="Anti-establishment orientation",title="")
+```
+
+
+
+## {.smaller}
+
+I often disagree with conventional views about the world
+
+```{r}
+ggpubr::ggarrange(
+d1 %>%
+  ggplot(aes(x=suspicion2,y=conwis)) +
+  geom_smooth() +
+  labs(x = "Anti-establihment orientation", y="I often disagree with conventional views about the world") +
+  ylim(c(1,5)),
+d1 %>%
+  ggplot(aes(x=narcissism,y=conwis)) +
+  geom_smooth() +
+  labs(x = "Narcissism", y="I often disagree with conventional views about the world") +
+  ylim(c(1,5))
+)
+```
+
+## {.smaller}
+
+```{r}
+#| eval: false
+
+# CT seems correlated with Trump FT among Dems
+# Pop seems correlated with Trump FT among Reps 
+# Manich. correlated with Trump FT among all
+
+int1 <- lm(cexaggerate ~ pid*pop_Index, data=d3)
+int2 <- lm(trumpft ~ pid*pop_Index, data=d3)
+int3 <- lm(trumpft ~ pid*consp_Index, data=d3)
+int4 <- lm(trumpft ~ pid*goodevil + consp_Index + pop_Index, data=d3)
+
+ggeffects::ggeffect(int1, terms=c("pid","pop_Index")) %>% plot()
+ggeffects::ggeffect(int1, terms=c("pop_Index","pid")) %>% plot()
+
+ggeffects::ggeffect(int2, terms=c("pop_Index","pid")) %>% plot()
+ggeffects::ggeffect(int3, terms=c("consp_Index","pid")) %>% plot()
+ggeffects::ggeffect(int4, terms=c("goodevil","pid")) %>% plot()
+
+library(rpart)
+
+rpart(trumpft ~ pid3 + consp_Index + pop_Index + goodevil + edu + income + age, data = d3,
+      control = rpart.control(cp = 0.003)) %>%
+ rpart.plot::rpart.plot(., type=2, extra=1)
+```
+
+### Trump feeling thermometer
+
+```{r}
+library(rpart)
+rpart::rpart(trumpft ~ pid3 + consp_Index + pop_Index + goodevil, data = d3,
+      control = rpart.control(cp = 0.003)) %>%
+ rpart.plot::rpart.plot(., type=2, extra=1)
+```
+
+Agnostic modeling:
+
+- Among Democrats, conspiracy thinking is prognostic.
+- Among Republicans, a Manichean view of politics is a useful predictor.
+
+##
+
+### Birth certificate theory
+
+#### Which variables are prognostic?
+
+```{r}
+lb0 <- glm(birtherBIN ~ suspicion2, data=d2constantSample, family = "binomial")
+lb1 <- glm(birtherBIN ~ Republican, data=d2constantSample, family = "binomial")
+lb2 <- glm(birtherBIN ~ trumpft2, data=d2constantSample, family = "binomial")
+lb3 <- glm(birtherBIN ~ Republican + trumpft2, data=d2constantSample, family = "binomial")
+lb4 <- glm(birtherBIN ~ Republican + trumpft2 + ideo2, data=d2constantSample, family = "binomial")
+lb5 <- glm(birtherBIN ~ Republican + trumpft2 + ideo2 + suspicion2, data=d2constantSample, family = "binomial")
+
+trb <- tribble(
+  ~mod, ~PCP,
+  "Anti-est. (only)",      getPCP(lb0),
+  "PID (only)",      getPCP(lb1),
+  "Trump FT (only)",      getPCP(lb2),
+  "PID + Trump FT",      getPCP(lb3),
+  "PID + Trump FT + Ideo."      ,getPCP(lb4),
+  "PID + Trump FT + Ideo. + AEO",      getPCP(lb5)
+)
+
+trb %>%
+  mutate(rowid = row_number()) %>%
+  ggplot(aes(x=PCP,y=fct_reorder(mod,-rowid))) +
+  geom_point() +
+  #geom_col() +
+  #scale_x_continuous(limits = c(70,88)) +
+    labs(x="% Correctly predicted", y= "", title = "Opinion: Barack Obama faked his citizenship to become president")
+```
+
+
+```{r}
+#| eval: false
+l0 <- glm(climatechangeBIN ~ suspicion2, data=d2constantSample, family = "binomial")
+l1 <- glm(climatechangeBIN ~ Republican, data=d2constantSample, family = "binomial")
+l2 <- glm(climatechangeBIN ~ trumpft2, data=d2constantSample, family = "binomial")
+l3 <- glm(climatechangeBIN ~ Republican + trumpft2, data=d2constantSample, family = "binomial")
+l4 <- glm(climatechangeBIN ~ Republican + trumpft2 + ideo2, data=d2constantSample, family = "binomial")
+l5 <- glm(climatechangeBIN ~ Republican + trumpft2 + ideo2 + suspicion2, data=d2constantSample, family = "binomial")
+
+trb_climate <- tribble(
+  ~mod, ~PCP,
+  "Anti-est. (only)",      getPCP(l0),
+  "PID (only)",      getPCP(l1),
+  "Trump FT (only)",      getPCP(l2),
+  "PID + Trump FT",      getPCP(l3),
+  "PID + Trump FT + Ideo."      ,getPCP(l4),
+  "PID + Trump FT + Ideo. + AEO",      getPCP(l5)
+)
+
+trb_climate %>%
+  mutate(rowid = row_number()) %>%
+  ggplot(aes(x=PCP,y=fct_reorder(mod,-rowid))) +
+  geom_point() +
+  #geom_col() +
+  #scale_x_continuous(limits = c(70,88)) +
+    labs(x="% Correctly predicted", y= "", title = "Opinion: Climate change is a hoax perpetrated by corrupt scientists and politicians")
+```
+
+```{r}
+#| eval: false
+list(
+lm(collusion ~ consp_Index2, data = d2) ,
+lm(collusion ~ goodevil2, data = d2) ,
+lm(collusion ~ suspicion2 + 
+     Democrat +
+     Republican +
+     college_grad + 
+     female + 
+     interest2, data = d2) 
+) %>%
+  modelsummary::modelsummary()
+```

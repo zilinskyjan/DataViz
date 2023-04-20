@@ -1,6 +1,6 @@
-# Summary
+# Advanced ggplot
 
-In summary, this book has no content whatsoever.
+## Heatmaps
 
 ```{r}
 1 + 1
