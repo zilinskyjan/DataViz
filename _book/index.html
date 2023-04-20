@@ -73,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Telling stories with R: Data Visualization</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Overview of this class</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -101,7 +101,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Telling stories with R: Data Visualization</span></a>
+ <span class="menu-text">Overview of this class</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -150,11 +150,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#telling-stories-with-r-data-visualization" id="toc-telling-stories-with-r-data-visualization" class="nav-link active" data-scroll-target="#telling-stories-with-r-data-visualization">Telling stories with R: Data Visualization</a>
+  <li><a href="#overview-of-this-class" id="toc-overview-of-this-class" class="nav-link active" data-scroll-target="#overview-of-this-class">Overview of this class</a>
   <ul class="collapse">
-  <li><a href="#topics" id="toc-topics" class="nav-link" data-scroll-target="#topics">Topics:</a></li>
+  <li><a href="#introductory-topics" id="toc-introductory-topics" class="nav-link" data-scroll-target="#introductory-topics">Introductory topics</a></li>
   <li><a href="#a-ggplot-deep-dive" id="toc-a-ggplot-deep-dive" class="nav-link" data-scroll-target="#a-ggplot-deep-dive">A ggplot deep dive</a></li>
-  <li><a href="#other-lessons" id="toc-other-lessons" class="nav-link" data-scroll-target="#other-lessons">Other lessons</a></li>
+  <li><a href="#visualizing-output-from-statistical-models" id="toc-visualizing-output-from-statistical-models" class="nav-link" data-scroll-target="#visualizing-output-from-statistical-models">Visualizing output from statistical models</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -185,18 +185,18 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="telling-stories-with-r-data-visualization" class="level1 unnumbered">
-<h1 class="unnumbered">Telling stories with R: Data Visualization</h1>
-<p><strong>Instructor</strong>: Jan Zilinsky</p>
+<section id="overview-of-this-class" class="level1 unnumbered">
+<h1 class="unnumbered">Overview of this class</h1>
 <p>Creating effective visualizations of social and political data can help you discover and communicate new insights. This is a course designed to help students become better communicators with R. The focus is on graphing various types of evidence including:</p>
-<pre><code>- summaries of statistical models
-- quantitative representations of text (e.g. content of social media post and the accompanying metadata)
+<pre><code>- public opinion data
 - macro-economic data
+- summaries of statistical models
+- quantitative representations of text (e.g. content of social media post and the accompanying metadata)
 
 Students are encouraged to think creatively about visualizing different types of information and data. Significant coding experience with R is expected, but prior knowledge of issues related to design, style, and principles of data visualization is not required. </code></pre>
 <p>After taking this course, students will be expected to be able to present real data clearly and to identify strengths and weakness of existing data displays and dashboards.</p>
-<section id="topics" class="level3">
-<h3 class="anchored" data-anchor-id="topics">Topics:</h3>
+<section id="introductory-topics" class="level3">
+<h3 class="anchored" data-anchor-id="introductory-topics">Introductory topics</h3>
 <ul>
 <li>What works and what to avoid even if it works?</li>
 <li>Principles of visual perception and effect communication</li>
@@ -210,13 +210,12 @@ Students are encouraged to think creatively about visualizing different types of
 - Facets, themes
 - Refining plots
 - 3-way cross-tabs
-- Heatmaps
-- Visualizing output from statistical models
-- Coefficients and uncertainty</code></pre>
+- Heatmaps</code></pre>
 </section>
-<section id="other-lessons" class="level3">
-<h3 class="anchored" data-anchor-id="other-lessons">Other lessons</h3>
-<pre><code>- Predicted probabilities, marginal effects, and interactions
+<section id="visualizing-output-from-statistical-models" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-output-from-statistical-models">Visualizing output from statistical models</h3>
+<pre><code>- Coefficients and uncertainty
+- Predicted probabilities, marginal effects, and interactions
 - Model performance (in-sample and out-of-sample comparisons) 
 - Machine learning output (regression trees, most important variables, etc.)</code></pre>
 <p><strong>Assignments:</strong></p>
@@ -227,22 +226,12 @@ Students are encouraged to think creatively about visualizing different types of
 <ol type="1">
 <li>Multiple levels (at least 2).</li>
 <li>Original topic, subject or angle.</li>
-<li>Impressive scope (e.g.&nbsp;time dimension)</li>
+<li>Impressive scope</li>
 </ol></li>
-<li>Easy example of #1: rating things you like.
-<ul>
-<li><p>Suppose you decide go the “quantified self” route and create a dataset with evaluations the favorite TV shows of the members of your group.</p></li>
-<li><p>What’s the outcome variable? (Multiple attributes can be assessed.)</p></li>
-<li><p>What levels can be measured?</p>
-<ul>
-<li>If you are rating a TV show, the natural components would be seasons, and episodes. Within episodes there might be themes or actors. Unpacking these attributes opens possibilities for creating stories, making interactive visualizations, etc.</li>
-</ul></li>
-</ul></li>
 </ul></li>
 <li>Final project (70%)
 <ul>
-<li>Form a group of 3 (max. 4) classmates</li>
-<li>Start thinking about topic after lecture 3</li>
+<li>Form a group of 2-3 students</li>
 <li>Prepare a compelling data visualization</li>
 <li>Some elements in R are expected, you could also use <a href="https://github.com/scotthmurray/d3-book">D3</a> or another language if you wish.</li>
 </ul></li>
