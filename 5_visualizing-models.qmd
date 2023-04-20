@@ -1,7 +1,4 @@
-# Summary
+# Visualizing statistical models
 
-In summary, this book has no content whatsoever.
+A more accurate title, of course, woudl be "visualizing *outputs* from statistical models".
 
-```{r}
-1 + 1
-```
