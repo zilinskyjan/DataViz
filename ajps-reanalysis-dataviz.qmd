@@ -23,7 +23,7 @@ theme_update(text = element_text(size=13),
 )
              
 # READ IN RECODED DATA
-source("0_ajps_recode.R")
+source("data_AJPS2021/0_ajps_recode.R")
 ```
 
 ## 
@@ -46,7 +46,7 @@ d2 %>% group_by(pid) %>%
   mutate(percent = n/sum(n)*100)
 ```
 
-## {.smaller}
+##  {.smaller}
 
 A binary (and moralizing) view of politics
 
@@ -59,7 +59,7 @@ d2 %>%
   ggtitle("Opinion: Politics is a battle between good and evil")
 ```
 
-## {.smaller}
+##  {.smaller}
 
 A binary (and moralizing) view of politics
 
@@ -71,7 +71,7 @@ d2 %>%
   geom_col()
 ```
 
-## {.smaller}
+##  {.smaller}
 
 A binary (and moralizing) view of politics
 
@@ -86,7 +86,7 @@ d2 %>%
        subtitle = "Opinion: Politics is a battle between good and evil", caption= "Data: Uscinski et al. (AJPS, 2021).")
 ```
 
-## {.smaller}
+##  {.smaller}
 
 A binary (and moralizing) view of politics by PID
 
@@ -100,7 +100,7 @@ d2 %>% group_by(pid) %>%
   facet_wrap(~pid)
 ```
 
-## {.smaller}
+##  {.smaller}
 
 A binary (and moralizing) view of politics by PID
 
@@ -114,7 +114,7 @@ d2 %>% group_by(pid) %>%
   facet_wrap(~as_factor(pid))
 ```
 
-## {.smaller}
+##  {.smaller}
 
 Stronger partisans are more manichean on average
 
@@ -129,7 +129,7 @@ d2 %>% group_by(pid) %>%
       title = "Opinion: Politics is a battle between good and evil", caption= "Data: Uscinski et al. (AJPS, 2021).")
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 #| echo: true
@@ -176,7 +176,7 @@ shareShow <-
 head(shareShow)
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 #| fig-height: 7
@@ -190,16 +190,15 @@ shareShow %>%
   labs(y = "",x = "Percent", fill = "",title = "Uscinski et al. (AJPS, 2021) survey data\non anti-establishment sentiment")
 ```
 
-##
+## 
 
 ```{r}
 jcolors::display_all_jcolors()
 ```
 
-## {.smaller}
+##  {.smaller}
 
 #### Putting anti-establishment thinking on the 2nd axis
-
 
 ```{r}
 #| fig-height: 7
@@ -212,10 +211,9 @@ d1 %>% ggplot(aes(x = leftright2, y = suspicion2)) +
        y = "Anti-establishment thinking") + theme_gray()
 ```
 
-## {.smaller}
+##  {.smaller}
 
 #### Putting anti-establishment thinking on the 2nd axis
-
 
 ```{r}
 #| fig-height: 7
@@ -229,10 +227,9 @@ d1 %>% ggplot(aes(x = leftright2, y = suspicion2)) +
   theme_bw()
 ```
 
-## {.smaller}
+##  {.smaller}
 
 #### Putting anti-establishment thinking on the 2nd axis
-
 
 ```{r}
 #| fig-height: 7
@@ -246,10 +243,9 @@ d1 %>% ggplot(aes(x = leftright2, y = suspicion2)) +
   theme_minimal()
 ```
 
-## {.smaller}
+##  {.smaller}
 
 #### Putting anti-establishment thinking on the 2nd axis
-
 
 ```{r}
 #| fig-height: 7
@@ -286,7 +282,7 @@ d2 %>%
   theme_minimal() 
 ```
 
-## {.smaller}
+##  {.smaller}
 
 Conspiratorial orientation and PID
 
@@ -298,7 +294,7 @@ d2 %>%
   labs(y="Conspiratorial thinking\n(Average agreement with 4 questions)",x = "")
 ```
 
-## {.smaller}
+##  {.smaller}
 
 Conspiratorial orientation and PID
 
@@ -314,7 +310,7 @@ Q3: Big events like wars, the recent recession, and the outcomes of elections ar
 Q4: Much of our lives are being controlled by plots hatched in secret places.")
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ### All 3 components of the anti-est. orienation
 
@@ -328,10 +324,9 @@ d2 %>%
   labs(y="Conspiratorial thinking + Populism + Manichean outlook",x = "")
 ```
 
-
 ## 
 
-Narcissism as a correlate for conspiracy thinking? 
+Narcissism as a correlate for conspiracy thinking?
 
 ```{r}
 d1 %>% filter(!is.na(attent1)) %>%
@@ -339,7 +334,7 @@ d1 %>% filter(!is.na(attent1)) %>%
   geom_density_ridges()
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 d1 %>% filter(!is.na(attent1)) %>%
@@ -350,7 +345,7 @@ d1 %>% filter(!is.na(attent1)) %>%
   labs(y= "I tend to want others to admire me",x="Conspiracy thinking")
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 d1 %>% filter(!is.na(attent1)) %>%
@@ -361,8 +356,7 @@ d1 %>% filter(!is.na(attent1)) %>%
     xlim(0,1) + labs(y= "I tend to want others to admire me",x="Conspiracy thinking")
 ```
 
-
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 d1 %>% filter(!is.na(attent1)) %>%
@@ -395,7 +389,7 @@ d1 %>%
   ggside::ggside(x.pos = "bottom") 
 ```
 
-##
+## 
 
 Mainstream news
 
@@ -421,7 +415,7 @@ d1 %>%
 )
 ```
 
-##
+## 
 
 Mainstream news
 
@@ -447,9 +441,7 @@ d1 %>%
 )
 ```
 
-
-
-##
+## 
 
 #### Mainstream news
 
@@ -460,9 +452,7 @@ ggeffects::ggeffect(collmod, terms=c("suspicion2","clintonft")) %>% plot() +
        x="Anti-establishment orientation",title="")
 ```
 
-
-
-## {.smaller}
+##  {.smaller}
 
 I often disagree with conventional views about the world
 
@@ -481,7 +471,7 @@ d1 %>%
 )
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 #| eval: false
@@ -520,10 +510,10 @@ rpart::rpart(trumpft ~ pid3 + consp_Index + pop_Index + goodevil, data = d3,
 
 Agnostic modeling:
 
-- Among Democrats, conspiracy thinking is prognostic.
-- Among Republicans, a Manichean view of politics is a useful predictor.
+-   Among Democrats, conspiracy thinking is prognostic.
+-   Among Republicans, a Manichean view of politics is a useful predictor.
 
-##
+## 
 
 ### Birth certificate theory
 
@@ -555,7 +545,6 @@ trb %>%
   #scale_x_continuous(limits = c(70,88)) +
     labs(x="% Correctly predicted", y= "", title = "Opinion: Barack Obama faked his citizenship to become president")
 ```
-
 
 ```{r}
 #| eval: false

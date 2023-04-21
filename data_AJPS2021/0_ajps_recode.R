@@ -176,3 +176,11 @@ var_label(d2$con1) <- "Even though we live in a democracy, a few people will alw
 var_label(d2$con4) <- "Much of our lives are being controlled by plots hatched in secret places"                 
 
 d2$trumpft_tercile <- cut(d2$trumpft,3)
+
+d2constantSample <- d2 %>% filter(
+  !is.na(pid2),
+  !is.na(trumpft2),
+  !is.na(ideo2),
+  !is.na(suspicion2)
+)
+
