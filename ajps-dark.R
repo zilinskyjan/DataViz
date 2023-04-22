@@ -3,7 +3,6 @@ source("data_AJPS2021/0_ajps_recode.R")
 d1 %>% ggplot(aes(x=consp_Index2)) +
   geom_histogram()
 
-
 d1 %>% ggplot(aes(x=consp_Index2)) +
   geom_density()
 
@@ -76,6 +75,11 @@ d1$nondark <- ifelse(d1$manipulate2 <=.2 & d1$sociopathy2 <= .2 & d1$attend2 <=.
 
 d1 %>% select(consp_Index2,
               nondark,
+              all_of(x)) %>% 
+  pivot_longer(cols = -consp_Index2)
+
+d1 %>% select(consp_Index2,
+              nondark,
               all_of(x)) %>% pivot_longer(cols = -consp_Index2) %>%
   mutate(name2 = case_when(
     name == "argue1" ~  "I like to argue online with other people",
@@ -103,7 +107,7 @@ d1 %>% select(consp_Index2,
     name %in% c("nondark") ~ "Non-dark"
   )) %>%
   filter(!is.na(value) & !is.na(consp_Index2)) %>%
-  mutate(agree = ifelse(value>=4,1,0)) %>% 
+  mutate(agree = ifelse(value>=5,1,0)) %>% 
   group_by(name) %>% mutate(avg_agree = mean(agree)) %>%
   group_by(name,agree) %>% mutate(avg_cons = mean(consp_Index2)) %>%
   ungroup() %>%

@@ -1,7 +1,12 @@
 # Principles
 
-In summary, this book has no content whatsoever.
+## There are always tradeoffs 
 
-```{r}
-1 + 1
-```
+The central tradeoff often is **trutfulness** vs. 
+
+- Readability vs. "completeness"
+- Concise vs. "attention-gabbing"
+- Simplicity vs. other goals
+
+If you drop outliers, for example, your chart's readability will almost surely improve, but it could be less truthful.
+
