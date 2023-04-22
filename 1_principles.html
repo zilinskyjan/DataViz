@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jan Zilinsky">
 
-<title>Telling stories with R: Data Visualization</title>
+<title>Telling stories with R: Data Visualization - 1&nbsp; Principles</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./1_principles.html" rel="next">
+<link href="./2_toplines-and-cross-tabs.html" rel="next">
+<link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,7 +70,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Telling stories with R: Data Visualization</h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Principles</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -95,12 +95,12 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">Overview of this class</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Overview of this class</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1_principles.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Principles</span></a>
+  <a href="./1_principles.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Principles</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -137,12 +137,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#overview-of-this-class" id="toc-overview-of-this-class" class="nav-link active" data-scroll-target="#overview-of-this-class">Overview of this class</a>
-  <ul class="collapse">
-  <li><a href="#introductory-topics" id="toc-introductory-topics" class="nav-link" data-scroll-target="#introductory-topics">Introductory topics</a></li>
-  <li><a href="#a-ggplot-deep-dive" id="toc-a-ggplot-deep-dive" class="nav-link" data-scroll-target="#a-ggplot-deep-dive">A ggplot deep dive</a></li>
-  <li><a href="#visualizing-output-from-statistical-models" id="toc-visualizing-output-from-statistical-models" class="nav-link" data-scroll-target="#visualizing-output-from-statistical-models">Visualizing output from statistical models</a></li>
-  </ul></li>
+  <li><a href="#there-are-always-tradeoffs" id="toc-there-are-always-tradeoffs" class="nav-link active" data-scroll-target="#there-are-always-tradeoffs"><span class="toc-section-number">1.1</span>  There are always tradeoffs</a></li>
   </ul>
 </nav>
     </div>
@@ -151,19 +146,13 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Telling stories with R: Data Visualization</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Principles</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Jan Zilinsky </p>
-          </div>
-  </div>
     
   
     
@@ -172,60 +161,17 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="overview-of-this-class" class="level1 unnumbered">
-<h1 class="unnumbered">Overview of this class</h1>
-<p>Creating effective visualizations of social and political data can help you discover and communicate new insights. This is a course designed to help students become better communicators with R. The focus is on graphing various types of evidence including:</p>
-<pre><code>- public opinion data
-- macro-economic data
-- summaries of statistical models
-- quantitative representations of text (e.g. content of social media post and the accompanying metadata)
-
-Students are encouraged to think creatively about visualizing different types of information and data. Significant coding experience with R is expected, but prior knowledge of issues related to design, style, and principles of data visualization is not required. </code></pre>
-<p>After taking this course, students will be expected to be able to present real data clearly and to identify strengths and weakness of existing data displays and dashboards.</p>
-<section id="introductory-topics" class="level3">
-<h3 class="anchored" data-anchor-id="introductory-topics">Introductory topics</h3>
+<section id="there-are-always-tradeoffs" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="there-are-always-tradeoffs"><span class="header-section-number">1.1</span> There are always tradeoffs</h2>
+<p>The central tradeoff often is <strong>trutfulness</strong> vs.&nbsp;</p>
 <ul>
-<li>What works and what to avoid even if it works?</li>
-<li>Principles of visual perception and effect communication</li>
-<li>Getting familiar with ggplot</li>
+<li>Readability vs.&nbsp;“completeness”</li>
+<li>Concise vs.&nbsp;“attention-gabbing”</li>
+<li>Simplicity vs.&nbsp;other goals</li>
 </ul>
-</section>
-<section id="a-ggplot-deep-dive" class="level3">
-<h3 class="anchored" data-anchor-id="a-ggplot-deep-dive">A ggplot deep dive</h3>
-<pre><code>- Toplines, cross-tabs
-- Geometries, statistics and coordinates
-- Facets, themes
-- Refining plots
-- 3-way cross-tabs
-- Heatmaps</code></pre>
-</section>
-<section id="visualizing-output-from-statistical-models" class="level3">
-<h3 class="anchored" data-anchor-id="visualizing-output-from-statistical-models">Visualizing output from statistical models</h3>
-<pre><code>- Coefficients and uncertainty
-- Predicted probabilities, marginal effects, and interactions
-- Model performance (in-sample and out-of-sample comparisons) 
-- Machine learning output (regression trees, most important variables, etc.)</code></pre>
-<p><strong>Assignments:</strong></p>
-<ul>
-<li>Create your own dataset (30%).
-<ul>
-<li>Create your own dataset. It needs to have at least one of these 3 attributes
-<ol type="1">
-<li>Multiple levels (at least 2).</li>
-<li>Original topic, subject or angle.</li>
-<li>Impressive scope</li>
-</ol></li>
-</ul></li>
-<li>Final project (70%)
-<ul>
-<li>Form a group of 2-3 students</li>
-<li>Prepare a compelling data visualization</li>
-<li>Some elements in R are expected, you could also use <a href="https://github.com/scotthmurray/d3-book">D3</a> or another language if you wish.</li>
-</ul></li>
-</ul>
+<p>If you drop outliers, for example, your chart’s readability will almost surely improve, but it could be less truthful.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -364,10 +310,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Overview of this class</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./1_principles.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Principles</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./2_toplines-and-cross-tabs.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Toplines and crosstabs</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
