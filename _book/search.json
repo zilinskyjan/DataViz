@@ -47,5 +47,12 @@
     "title": "References",
     "section": "Useful resources include:",
     "text": "Useful resources include:\nGestalt Principles\nGestalt Principles (Part 2)\nhttps://socviz.co/\nhttps://ggplot2-book.org/index.html\nhttps://cssbook.net/content/chapter06.html\nhttps://storymaps.arcgis.com/stories/1e7f582d478a4b99bd0c70fffeac4c8b\nhttps://cup.columbia.edu/book/better-data-visualizations/9780231193115\nhttps://journals.sagepub.com/doi/pdf/10.1177/15291006211057899"
+  },
+  {
+    "objectID": "1_principles.html#there-are-always-tradeoffs",
+    "href": "1_principles.html#there-are-always-tradeoffs",
+    "title": "1  Principles",
+    "section": "1.1 There are always tradeoffs",
+    "text": "1.1 There are always tradeoffs\nThe central tradeoff often is trutfulness vs. \n\nReadability vs. “completeness”\nConcise vs. “attention-gabbing”\nSimplicity vs. other goals\n\nIf you drop outliers, for example, your chart’s readability will almost surely improve, but it could be less truthful."
   }
 ]
