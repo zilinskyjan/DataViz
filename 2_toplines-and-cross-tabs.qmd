@@ -1,11 +1,21 @@
-# Toplines and crosstabs
+In many, maybe most, situations, your dataset will have so many rows that it would not be realistic to plot every single observations.
 
-In summary, this book has no content whatsoever.
+This means that you will want to:
+
+1.  Calculate some aggregate statisitcs first. Think of this "new" data object as just a new spreadsheet.
+2.  Pass the smaller object (often a tibble or a data frame) into ggplot(). This the first layer.
+3.  Choose the parts (rows and columns) which are most relevant.
+4.  Experiment with...\
+    ... arrangements within aes()\
+    ... different geoms\
+    ... sub-groups of the data (faceting may or may not be informative)\
+    ... themes, labels, and so on.
+
+# Toplines and crosstabs
 
 ```{r, echo=FALSE}
 source("data_AJPS2021/0_ajps_recode.R")
 ```
-
 
 ```{r, echo=TRUE}
 d1
