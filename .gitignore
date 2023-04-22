@@ -2,5 +2,11 @@
 .Rhistory
 .RData
 .Ruserdata
+<<<<<<< HEAD
 
 /.quarto/
+=======
+/.quarto/
+/_site/
+/_book/
+>>>>>>> 7fb20a5 (f1)
