@@ -24,10 +24,11 @@ theme_update(text = element_text(size=13),
 )
              
 # READ IN RECODED DATA
-a <- readRDS("Nationscape_first10waves.rds")
+a <- readRDS("data_nationscape2019/Nationscape_first10waves.rds")
 ```
 
 ## 
+
 ### List of variables
 
 ```{r}
@@ -37,16 +38,19 @@ names(a)
 ```
 
 ## We subset the data to the first 10 waves
+
 ```{r}
 # Weekly number of respondents
 a %>% group_by(week) %>% tally() %>% head()
 ```
+
 . . .
+
 ```{r}
 a %>% summarise(first = min(date), last = max(date))
 ```
 
-##
+## 
 
 ```{r}
 a %>% group_by(week) %>% tally() %>%
@@ -54,7 +58,7 @@ a %>% group_by(week) %>% tally() %>%
   labs(x="",y="Respondents",title="Weekly number of Nationscape respondents")
 ```
 
-##
+## 
 
 ```{r}
 a %>% group_by(week) %>% tally() %>%
@@ -63,7 +67,7 @@ a %>% group_by(week) %>% tally() %>%
   scale_x_date(date_breaks = "2 weeks", date_labels = "%W")
 ```
 
-##
+## 
 
 ```{r}
 a %>% group_by(week) %>% tally() %>%
@@ -72,7 +76,7 @@ a %>% group_by(week) %>% tally() %>%
   scale_x_date(date_breaks = "1 months", minor_breaks = "1 weeks",date_labels = "%b %y")
 ```
 
-##
+## 
 
 ```{r}
 a %>% group_by(week) %>% tally() %>%
@@ -81,8 +85,7 @@ a %>% group_by(week) %>% tally() %>%
   scale_x_date(date_breaks = "1 months", minor_breaks = "1 days",date_labels = "%B %Y")
 ```
 
-
-##
+## 
 
 ```{r}
 a %>% group_by(week) %>% tally() %>%
@@ -91,19 +94,23 @@ a %>% group_by(week) %>% tally() %>%
   scale_x_date(date_breaks = "1 months", minor_breaks = "1 days",date_labels = "%B %Y") +
   ylim(c(0,8000))
 ```
- 
- 
+
 ## 
+
 ### Favorability of AOC
 
 ```{r}
 table(a$aoc_Favorable)
 ```
-. . .
+
+##
+
 ```{r}
 a %>% summarise(AOC_fav = mean(aoc_Favorable))
 ```
+
 . . .
+
 ```{r}
 a %>% summarise(AOC_fav = mean(aoc_Favorable,na.rm=T),
                 
@@ -112,19 +119,24 @@ a %>% summarise(AOC_fav = mean(aoc_Favorable,na.rm=T),
                                              na.rm=T))
 ```
 
-## 
+## Toplines vs. cross-tabs
+
 Favorability of AOC
 
 ```{r}
 pollster::topline(a,aoc_Favorable,weight = weight)
 ```
+
 . . .
+
 ```{r}
 pollster::crosstab(df = a, 
                         x = gender, 
                         y = aoc_Favorable,weight = weight) 
 ```
-. . .
+
+## 
+
 ```{r}
 pollster::crosstab(df = a, x = gender, 
                         y = aoc_Favorable,weight = weight,format = "long") 
@@ -153,6 +165,17 @@ pollster::crosstab(df = a, x = trump_biden,
                         y = aoc_Favorable,weight = weight,format = "long") %>%
   filter(aoc_Favorable==1) 
 # ggplot(aes(x= ..., y = ...))
+```
+
+## Favorability by vote choice (intent)
+
+What if we had not specified `format = "wide"`?
+
+```{r}
+#| eval: true
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,
+                   weight = weight)
 ```
 
 ## Favorability by vote choice (intent)
@@ -260,7 +283,6 @@ pollster::crosstab(df = a, x = trump_biden,
   geom_label(aes(label=round(pct,1)))
 ```
 
-
 # From 2-way to 3-way crosstabs
 
 ## 
@@ -273,8 +295,7 @@ moe_crosstab(df= a %>% filter(registered==1,trump_biden != 999),
                   y = trump_biden,weight = weight,format="long",n=F,unwt_n=TRUE)
 ```
 
-
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 #| fig-alight: center
@@ -286,7 +307,7 @@ moe_crosstab(df= a %>% filter(registered==1,trump_biden != 999),
   labs(x="",y="",fill="")
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 moe_crosstab_3way(df= a %>% filter(registered==1,trump_biden != 999),
@@ -294,7 +315,9 @@ moe_crosstab_3way(df= a %>% filter(registered==1,trump_biden != 999),
                   y = trump_biden,z=monthyear,
                   weight = weight,n=F,unwt_n=TRUE) %>% head()
 ```
+
 . . .
+
 ```{r}
 moe_crosstab_3way(df= a %>% filter(registered==1,trump_biden != 999),
                   x = educ_category,
@@ -302,7 +325,7 @@ moe_crosstab_3way(df= a %>% filter(registered==1,trump_biden != 999),
                   weight = weight,format="long",n=F,unwt_n=TRUE)
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 #| echo: false
@@ -323,7 +346,7 @@ moe_crosstab_3way(df= a %>% filter(registered==1,trump_biden != 999),
   scale_x_date(date_breaks = "1 month",date_labels = "%b 20%y")
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 moe_crosstab_3way(df= a %>% filter(registered==1,trump_biden != 999),
@@ -337,7 +360,7 @@ moe_crosstab_3way(df= a %>% filter(registered==1,trump_biden != 999),
   theme_minimal() + facet_grid(~educ_category)
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 moe_crosstab_3way(df= a %>% filter(registered==1,trump_biden != 999),
@@ -376,8 +399,8 @@ moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
   guides(color = guide_legend(nrow = 2))
 ```
 
+##  {.smaller}
 
-## {.smaller}
 ### Favorability of AOC by age and vote intent
 
 ```{r}
@@ -385,7 +408,7 @@ moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
                   weight = weight,format="long",n=F,unwt_n=TRUE)
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
@@ -393,8 +416,7 @@ moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
   filter(aoc_Favorable==1)
 ```
 
-
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
@@ -404,7 +426,7 @@ moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
   geom_point()
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
@@ -414,8 +436,7 @@ moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
    geom_point(size=2.5, position=position_dodge(width=.1))
 ```
 
-
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
@@ -425,7 +446,7 @@ moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
   geom_point(size=2.5, position=position_dodge(width=.1))
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
@@ -438,7 +459,7 @@ moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
   theme_minimal() + scale_color_brewer(palette = "Set2") 
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
@@ -451,7 +472,8 @@ moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
   guides(color = guide_legend(nrow = 2))
 ```
 
-## {.smaller}
+##  {.smaller}
+
 ```{r}
 moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
                   weight = weight,format="long",n=F,unwt_n=TRUE) %>%
@@ -470,6 +492,7 @@ moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
 # Visualizing model coefficients
 
 ## 
+
 ### Favorability of AOC: a set of models
 
 ```{r}
@@ -484,13 +507,13 @@ aoc_Favorable <- a %>% filter(
                White + Black + Hispanic, data = .)))
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 aoc_Favorable
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 aoc_Favorable %>% 
@@ -498,7 +521,7 @@ aoc_Favorable %>%
   count(term)
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 aoc_Favorable %>%
@@ -510,8 +533,7 @@ aoc_Favorable %>%
   geom_point()
 ```
 
-
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 aoc_Favorable %>%
@@ -536,7 +558,7 @@ aoc_Favorable %>% filter(pid3 <= 3,term == "age") %>%
   geom_pointrange() + labs(x="",y="Coefficient estimate",color="")
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 aoc_Favorable %>% filter(pid3 <= 3,term == "age") %>%
@@ -548,7 +570,7 @@ aoc_Favorable %>% filter(pid3 <= 3,term == "age") %>%
   geom_hline(yintercept=0) 
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 aoc_Favorable %>% filter(pid3 <= 3,term == "age") %>%
@@ -560,7 +582,7 @@ aoc_Favorable %>% filter(pid3 <= 3,term == "age") %>%
   geom_hline(yintercept=0, linetype=2) 
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 aoc_Favorable %>% filter(pid3 <= 3,term == "age") %>%
@@ -573,7 +595,7 @@ aoc_Favorable %>% filter(pid3 <= 3,term == "age") %>%
   geom_hline(yintercept=0, linetype=2) 
 ```
 
-## {.smaller}
+##  {.smaller}
 
 Run regressions by ethnicity
 
@@ -587,7 +609,7 @@ aoc_Fav_by_eth <- a %>% filter(
                age + college_grad, data = .)))
 ```
 
-## {.smaller}
+##  {.smaller}
 
 Run regressions by ethnicity
 
@@ -595,7 +617,7 @@ Run regressions by ethnicity
 aoc_Fav_by_eth
 ```
 
-## {.smaller}
+##  {.smaller}
 
 Display a subset of results
 
@@ -603,7 +625,7 @@ Display a subset of results
 aoc_Fav_by_eth %>% filter(race_ethnicity==2)
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 aoc_Fav_by_eth %>% filter(term == "age",race_ethnicity<=10) %>%
@@ -614,7 +636,7 @@ aoc_Fav_by_eth %>% filter(term == "age",race_ethnicity<=10) %>%
   ggtitle("Association between age and AOC favorability")
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 aoc_Fav_by_eth %>% filter(term == "age",race_ethnicity<=10) %>%
@@ -627,7 +649,7 @@ aoc_Fav_by_eth %>% filter(term == "age",race_ethnicity<=10) %>%
   theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=.5))
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 aoc_Fav_by_eth %>% filter(term == "college_grad",race_ethnicity<=10) %>%
@@ -639,7 +661,7 @@ aoc_Fav_by_eth %>% filter(term == "college_grad",race_ethnicity<=10) %>%
   theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=.5))
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 aoc_Fav_by_eth %>% filter(term == "factor(pid3)2",race_ethnicity<=10) %>%
@@ -651,7 +673,7 @@ aoc_Fav_by_eth %>% filter(term == "factor(pid3)2",race_ethnicity<=10) %>%
   theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=.5))
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 aoc_Fav_by_eth %>% filter(term == "gender_att3_by1SD",race_ethnicity<=10) %>%
@@ -663,7 +685,7 @@ aoc_Fav_by_eth %>% filter(term == "gender_att3_by1SD",race_ethnicity<=10) %>%
   theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=.5))
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 aoc_Fav_by_eth %>% filter(term == "gender_att3_by1SD",race_ethnicity<=10) %>%
@@ -677,8 +699,7 @@ aoc_Fav_by_eth %>% filter(term == "gender_att3_by1SD",race_ethnicity<=10) %>%
 
 # Heatmaps
 
-## {.smaller}
-
+##  {.smaller}
 
 Immigration and vote choice
 
@@ -708,9 +729,9 @@ pollster::crosstab_3way(df = a,
   theme(axis.text.x = element_text(angle = 40, vjust = 0.5, hjust=.5))
 ```
 
-## {.smaller}
+##  {.smaller}
 
-The underlying data: 
+The underlying data:
 
 ```{r}
 pollster::crosstab_3way(df = a,
@@ -720,7 +741,7 @@ pollster::crosstab_3way(df = a,
                         weight = weight)
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 pollster::crosstab_3way(df = a,
@@ -732,7 +753,7 @@ pollster::crosstab_3way(df = a,
              fill = `1`)) + geom_tile()
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 pollster::crosstab_3way(df = a,
@@ -747,7 +768,7 @@ pollster::crosstab_3way(df = a,
        title = "Trump vote in 2016 by preferences on immigration")
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 pollster::crosstab_3way(df = a,
@@ -763,7 +784,7 @@ pollster::crosstab_3way(df = a,
   labs(fill = "% Trump\nvote",x = "",y = "", title = "Trump vote in 2016 by preferences on immigration")
 ```
 
-## {.smaller}
+##  {.smaller}
 
 ```{r}
 #| fig-align: center
@@ -783,7 +804,7 @@ pollster::crosstab_3way(df = a,
   theme(axis.text.x = element_text(angle = 40, vjust = 0.5, hjust=.5))
 ```
 
-##
+## 
 
 ```{r}
 # a %>%
@@ -802,4 +823,3 @@ pollster::crosstab_3way(df = a,
 #          x = "American Identity importance",
 #          caption = "Data: Nationscape")
 ```
-

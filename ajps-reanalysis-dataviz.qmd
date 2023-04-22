@@ -5,7 +5,6 @@ format:
   revealjs:
     slide-number: c
 execute:
-  echo: true
 editor_options: 
   chunk_output_type: console
 ---

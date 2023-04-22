@@ -1,7 +1,8 @@
-
+source("data_AJPS2021/0_ajps_recode.R")
 
 d1 %>% ggplot(aes(x=consp_Index2)) +
   geom_histogram()
+
 
 d1 %>% ggplot(aes(x=consp_Index2)) +
   geom_density()
@@ -10,7 +11,8 @@ d1 %>% ggplot(aes(x=consp_Index2)) +
   geom_density(fill="grey")
 
 d1 %>% 
-  mutate(narc_binary1 = ifelse(attent1 >=4,TRUE,FALSE)) %>%
+  mutate(narc_binary1 = ifelse(attent1 >=4,"High","Low")) %>%
+  filter(!is.na(attent1)) %>%
   ggplot(aes(x=consp_Index2,
              y=narc_binary1)) +
   geom_density_ridges()
@@ -24,7 +26,6 @@ d1 %>%
 
 d1 %>% 
   filter(!is.na(attent1)) %>%
-  mutate(narc_binary1 = ifelse(attent1 >=4,TRUE,FALSE)) %>%
   ggplot(aes(x=consp_Index2,
              y=as_factor(attent1))) +
   geom_density_ridges() + labs(y="I tend to want others to admire me",
@@ -117,4 +118,4 @@ d1 %>% select(consp_Index2,
   #scale_fill_manual(values=Prism5) +
   see::scale_fill_social() +
   scale_x_continuous(limits = c(0,1))
-#ggsave("dark-triad-plus-arguing.png",width = 9,height = 11 )
+ggsave("dark-triad-plus-argumentative-plus-nondark.png",width = 9,height = 11 )
