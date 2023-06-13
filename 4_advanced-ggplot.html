@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -174,7 +208,98 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>[See the lecture notes on the course website]</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"data_AJPS2021/0_ajps_recode.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Grab a subset of variables (i.e.&nbsp;psychological measurements), and show the distribution of conspiracy thinking when respondents report a particular trait:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"argue1"</span>, <span class="st">"argue2"</span>, <span class="st">"argue3"</span>, <span class="st">"manip1"</span>, <span class="st">"manip2"</span>, <span class="st">"manip3"</span>, <span class="st">"manip4"</span>, </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>       <span class="st">"attent1"</span>, <span class="st">"attent2"</span>, <span class="st">"attent3"</span>, <span class="st">"attent4"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>       <span class="st">"insens1"</span>,<span class="st">"insens2"</span>,<span class="st">"insens3"</span>,<span class="st">"insens4"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#d1$nondark &lt;- ifelse(d1$insens3 &lt;=2 &amp; d1$manip4 &lt;=2 &amp; d1$insens1&lt;=2, 1,0)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>d1<span class="sc">$</span>nondark <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(d1<span class="sc">$</span>manipulate2 <span class="sc">&lt;=</span>.<span class="dv">2</span> <span class="sc">&amp;</span> d1<span class="sc">$</span>sociopathy2 <span class="sc">&lt;=</span> .<span class="dv">2</span> <span class="sc">&amp;</span> d1<span class="sc">$</span>attend2 <span class="sc">&lt;=</span>.<span class="dv">2</span>, <span class="dv">1</span>,<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="4_advanced-ggplot_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<p>The most important step is the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(consp_Index2,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              nondark,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">all_of</span>(x)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>consp_Index2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 32,000 × 3
+   consp_Index2 name    value             
+          &lt;dbl&gt; &lt;chr&gt;   &lt;dbl+lbl&gt;         
+ 1        0.938 nondark 0                 
+ 2        0.938 argue1  3 [Neither]       
+ 3        0.938 argue2  4 [Agree]         
+ 4        0.938 argue3  4 [Agree]         
+ 5        0.938 manip1  5 [Strongly agree]
+ 6        0.938 manip2  5 [Strongly agree]
+ 7        0.938 manip3  5 [Strongly agree]
+ 8        0.938 manip4  5 [Strongly agree]
+ 9        0.938 attent1 4 [Agree]         
+10        0.938 attent2 3 [Neither]       
+# ℹ 31,990 more rows</code></pre>
+</div>
+</div>
+<p>And the full plot can be generated with the following code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(consp_Index2,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>              nondark,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">all_of</span>(x)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>consp_Index2) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name2 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"argue1"</span> <span class="sc">~</span>  <span class="st">"I like to argue online with other people"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"argue2"</span> <span class="sc">~</span>  <span class="st">"I enjoy a good argument over a controversial issue"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"argue3"</span> <span class="sc">~</span>  <span class="st">"I am willing to express my opinion online</span><span class="sc">\n</span><span class="st">even if others strongly disagree with me"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"manip1"</span> <span class="sc">~</span>  <span class="st">"I tend to manipulate others to get my way"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"manip2"</span> <span class="sc">~</span>  <span class="st">"I have used deceit or lied to get my way"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"manip3"</span> <span class="sc">~</span>  <span class="st">"I have used flattery to get my way"</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"manip4"</span> <span class="sc">~</span>  <span class="st">"I tend to exploit others towards my own end"</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"attent1"</span> <span class="sc">~</span>  <span class="st">"I tend to want others to admire me"</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"attent2"</span> <span class="sc">~</span>  <span class="st">"I tend to want others to pay attention to me"</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"attent3"</span> <span class="sc">~</span>  <span class="st">"I tend to seek prestige or status"</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"attent4"</span> <span class="sc">~</span>  <span class="st">"I tend to expect special favors from others"</span>,</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"insens1"</span> <span class="sc">~</span> <span class="st">"I tend to lack remorse"</span>,</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"insens2"</span> <span class="sc">~</span> <span class="st">"I tend to be unconcerned with the morality</span><span class="sc">\n</span><span class="st">of my actions"</span>,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"insens3"</span> <span class="sc">~</span> <span class="st">"I tend to be callous or insensitive"</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"insens4"</span> <span class="sc">~</span> <span class="st">"I tend to be cynical"</span>,</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"nondark"</span> <span class="sc">~</span> <span class="st">"Low on narcissism, mach., and sociopathy"</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">concept =</span> <span class="fu">case_when</span>(</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"argue1"</span>,<span class="st">"argue2"</span>,<span class="st">"argue3"</span>) <span class="sc">~</span> <span class="st">"Argumentativeness"</span>,</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"manip1"</span>, <span class="st">"manip2"</span>, <span class="st">"manip3"</span>, <span class="st">"manip4"</span>) <span class="sc">~</span> <span class="st">"Machiavellianism"</span>,</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"attent1"</span>, <span class="st">"attent2"</span>, <span class="st">"attent3"</span>, <span class="st">"attent4"</span>) <span class="sc">~</span> <span class="st">"Narcissism"</span>,</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"insens1"</span>,<span class="st">"insens2"</span>,<span class="st">"insens3"</span>,<span class="st">"insens4"</span>) <span class="sc">~</span> <span class="st">"Sociopathy"</span>,</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"nondark"</span>) <span class="sc">~</span> <span class="st">"Non-dark"</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(consp_Index2)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">agree =</span> <span class="fu">ifelse</span>(value<span class="sc">&gt;=</span><span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">avg_agree =</span> <span class="fu">mean</span>(agree)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name,agree) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">avg_cons =</span> <span class="fu">mean</span>(consp_Index2)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(agree<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> (name<span class="sc">==</span><span class="st">"nondark"</span> <span class="sc">&amp;</span> value<span class="sc">==</span><span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>consp_Index2,<span class="at">y=</span><span class="fu">fct_reorder</span>(name2,avg_cons),</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill=</span>concept)) <span class="sc">+</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges</span>() <span class="sc">+</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()  <span class="sc">+</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>) <span class="sc">+</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Conspiracy thinking"</span>,<span class="at">y=</span><span class="st">""</span>,<span class="at">color=</span><span class="st">""</span>,<span class="at">fill=</span><span class="st">"Concept"</span>,</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Distribution of conspiracy thinking</span><span class="sc">\n</span><span class="st">broken down by responses to psychological questions</span><span class="sc">\n</span><span class="st">and color-coded by trait (dark triad + argumentativeness)"</span>) <span class="sc">+</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>  <span class="co">#scale_fill_manual(values=Prism5) +</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>  see<span class="sc">::</span><span class="fu">scale_fill_social</span>() <span class="sc">+</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>```{r}</p>
+<hr>
+<p>[See the lecture notes on the course website for additional code]</p>
 
 
 

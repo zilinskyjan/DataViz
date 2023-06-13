@@ -192,12 +192,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#ocasio-cortez-toplines" id="toc-ocasio-cortez-toplines" class="nav-link active" data-scroll-target="#ocasio-cortez-toplines"><span class="header-section-number">2.1</span> Ocasio-Cortez toplines</a></li>
   <li><a href="#favorability-by-vote-choice-intent" id="toc-favorability-by-vote-choice-intent" class="nav-link" data-scroll-target="#favorability-by-vote-choice-intent"><span class="header-section-number">2.2</span> Favorability by vote choice (intent)</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">2.3</span> </a>
+  <li><a href="#taking-a-step-getting-to-know-your-dataset" id="toc-taking-a-step-getting-to-know-your-dataset" class="nav-link" data-scroll-target="#taking-a-step-getting-to-know-your-dataset"><span class="header-section-number">2.3</span> Taking a step: getting to know your dataset</a>
   <ul class="collapse">
   <li><a href="#list-of-variables" id="toc-list-of-variables" class="nav-link" data-scroll-target="#list-of-variables"><span class="header-section-number">2.3.1</span> List of variables</a></li>
+  <li><a href="#how-many-respondents-were-recruited-each-week" id="toc-how-many-respondents-were-recruited-each-week" class="nav-link" data-scroll-target="#how-many-respondents-were-recruited-each-week"><span class="header-section-number">2.3.2</span> How many respondents were recruited each week?</a></li>
+  <li><a href="#what-is-the-date-range" id="toc-what-is-the-date-range" class="nav-link" data-scroll-target="#what-is-the-date-range"><span class="header-section-number">2.3.3</span> What is the date range?</a></li>
+  <li><a href="#plotting-some-decriptive-statistics" id="toc-plotting-some-decriptive-statistics" class="nav-link" data-scroll-target="#plotting-some-decriptive-statistics"><span class="header-section-number">2.3.4</span> Plotting some decriptive statistics</a></li>
+  <li><a href="#switching-to-a-line-graph" id="toc-switching-to-a-line-graph" class="nav-link" data-scroll-target="#switching-to-a-line-graph"><span class="header-section-number">2.3.5</span> Switching to a line graph</a></li>
+  <li><a href="#modifying-the-y-axis-range" id="toc-modifying-the-y-axis-range" class="nav-link" data-scroll-target="#modifying-the-y-axis-range"><span class="header-section-number">2.3.6</span> Modifying the y-axis range</a></li>
   </ul></li>
-  <li><a href="#we-subset-the-data-to-the-first-10-waves" id="toc-we-subset-the-data-to-the-first-10-waves" class="nav-link" data-scroll-target="#we-subset-the-data-to-the-first-10-waves"><span class="header-section-number">2.4</span> We subset the data to the first 10 waves</a></li>
-  <li><a href="#ajps-2021-dataset" id="toc-ajps-2021-dataset" class="nav-link" data-scroll-target="#ajps-2021-dataset"><span class="header-section-number">3</span> AJPS 2021 dataset</a></li>
   </ul>
 </nav>
     </div>
@@ -430,6 +433,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="2_toplines-and-cross-tabs_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>A different way to display the equivalent information would be the following:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pollster<span class="sc">::</span><span class="fu">crosstab</span>(<span class="at">df =</span> a, </span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">x =</span> trump_biden, </span>
@@ -442,11 +446,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> .<span class="dv">3</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span> </span>
 <span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
 <span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"RdGy"</span>) <span class="sc">+</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Percent"</span>, <span class="at">x =</span> <span class="st">"2020 vote intent"</span>, <span class="at">title =</span> <span class="st">"AOC favorability"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Percent"</span>, <span class="at">x =</span> <span class="st">"2020 vote intent"</span>, <span class="at">title =</span> <span class="st">"AOC favorability"</span>, <span class="at">fill=</span><span class="st">"Evaluations</span><span class="sc">\n</span><span class="st">of AOC"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="2_toplines-and-cross-tabs_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>Or we can plot the (weighted) distribution of the binarized variable (<code>aoc_Favorable</code>), then simply use <code>filter(aoc_Favorable==1)</code>, and again apply our friend <code>geom_col()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>pollster<span class="sc">::</span><span class="fu">crosstab</span>(<span class="at">df =</span> a, </span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">x =</span> trump_biden, </span>
@@ -465,8 +470,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="section" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="section"><span class="header-section-number">2.3</span> </h2>
+<section id="taking-a-step-getting-to-know-your-dataset" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="taking-a-step-getting-to-know-your-dataset"><span class="header-section-number">2.3</span> Taking a step: getting to know your dataset</h2>
 <section id="list-of-variables" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="list-of-variables"><span class="header-section-number">2.3.1</span> List of variables</h3>
 <div class="cell">
@@ -499,9 +504,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-</section>
-<section id="we-subset-the-data-to-the-first-10-waves" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="we-subset-the-data-to-the-first-10-waves"><span class="header-section-number">2.4</span> We subset the data to the first 10 waves</h2>
+<section id="how-many-respondents-were-recruited-each-week" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="how-many-respondents-were-recruited-each-week"><span class="header-section-number">2.3.2</span> How many respondents were recruited each week?</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Weekly number of respondents</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(week) <span class="sc">%&gt;%</span> <span class="fu">tally</span>() <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -517,7 +521,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 6 2019-08-18  7685</code></pre>
 </div>
 </div>
-<p>. . .</p>
+</section>
+<section id="what-is-the-date-range" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="what-is-the-date-range"><span class="header-section-number">2.3.3</span> What is the date range?</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">first =</span> <span class="fu">min</span>(date), <span class="at">last =</span> <span class="fu">max</span>(date))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -527,6 +533,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 1 2019-07-18 2019-09-25</code></pre>
 </div>
 </div>
+</section>
+<section id="plotting-some-decriptive-statistics" class="level3" data-number="2.3.4">
+<h3 data-number="2.3.4" class="anchored" data-anchor-id="plotting-some-decriptive-statistics"><span class="header-section-number">2.3.4</span> Plotting some decriptive statistics</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(week) <span class="sc">%&gt;%</span> <span class="fu">tally</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>week,<span class="at">y=</span>n)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span></span>
@@ -535,33 +544,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="2_toplines-and-cross-tabs_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>We could choose other options for the x-axis, using <code>scale_x_date()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(week) <span class="sc">%&gt;%</span> <span class="fu">tally</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>week,<span class="at">y=</span>n)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>,<span class="at">y=</span><span class="st">"Respondents"</span>,<span class="at">title=</span><span class="st">"Weekly number of Nationscape respondents"</span>) <span class="sc">+</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Week of the year"</span>,<span class="at">y=</span><span class="st">"Respondents"</span>,<span class="at">title=</span><span class="st">"Weekly number of Nationscape respondents"</span>) <span class="sc">+</span></span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"2 weeks"</span>, <span class="at">date_labels =</span> <span class="st">"%W"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="2_toplines-and-cross-tabs_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>Note that <code>date_labels</code> include various combinations of <code>"%B %Y"</code> or <code>"%b %y"</code>, etc.:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(week) <span class="sc">%&gt;%</span> <span class="fu">tally</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>week,<span class="at">y=</span>n)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span></span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>,<span class="at">y=</span><span class="st">"Respondents"</span>,<span class="at">title=</span><span class="st">"Weekly number of Nationscape respondents"</span>) <span class="sc">+</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"1 months"</span>, <span class="at">minor_breaks =</span> <span class="st">"1 weeks"</span>,<span class="at">date_labels =</span> <span class="st">"%b %y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"1 months"</span>, <span class="at">minor_breaks =</span> <span class="st">"1 weeks"</span>,<span class="at">date_labels =</span> <span class="st">"%B %Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="2_toplines-and-cross-tabs_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
+<section id="switching-to-a-line-graph" class="level3" data-number="2.3.5">
+<h3 data-number="2.3.5" class="anchored" data-anchor-id="switching-to-a-line-graph"><span class="header-section-number">2.3.5</span> Switching to a line graph</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(week) <span class="sc">%&gt;%</span> <span class="fu">tally</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>week,<span class="at">y=</span>n)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>,<span class="at">y=</span><span class="st">"Respondents"</span>,<span class="at">title=</span><span class="st">"Weekly number of Nationscape respondents"</span>) <span class="sc">+</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"1 months"</span>, <span class="at">minor_breaks =</span> <span class="st">"1 days"</span>,<span class="at">date_labels =</span> <span class="st">"%B %Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>week,<span class="at">y=</span>n)) <span class="sc">+</span> </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>,<span class="at">y=</span><span class="st">"Respondents"</span>,<span class="at">title=</span><span class="st">"Weekly number of Nationscape respondents"</span>) <span class="sc">+</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"1 months"</span>, <span class="at">minor_breaks =</span> <span class="st">"1 days"</span>,<span class="at">date_labels =</span> <span class="st">"%b %y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="2_toplines-and-cross-tabs_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
+<section id="modifying-the-y-axis-range" class="level3" data-number="2.3.6">
+<h3 data-number="2.3.6" class="anchored" data-anchor-id="modifying-the-y-axis-range"><span class="header-section-number">2.3.6</span> Modifying the y-axis range</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(week) <span class="sc">%&gt;%</span> <span class="fu">tally</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>week,<span class="at">y=</span>n)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -695,78 +714,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="2_toplines-and-cross-tabs_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+
+
 </section>
-<section id="ajps-2021-dataset" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> AJPS 2021 dataset</h1>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>d1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2,000 × 94
-   caseid   female   edu black hispanic   age income   pid  ideo interest attend
-   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
- 1 R_24COU…      1     5     0        0    23      2     7     3        5      3
- 2 R_2B2nP…      0     6     0        0    39      7     4     6        3      2
- 3 R_p5eQb…      0     3     0        0    43      4     4     1        3      2
- 4 R_2dYYB…      0     2     1        0    22      2     1     7        4      3
- 5 R_3sgIL…      0     3     1        0    40      5     1     1        4      3
- 6 R_31Ab1…      0     6     0        0    28      4     4     4        3      1
- 7 R_2f36X…      0     6     0        0    41      7     4     2        4      2
- 8 R_2XcYI…      0     2     1        0    21      4     1     3        4      4
- 9 R_339E8…      1     6     0        0    58      6     3     3        4      4
-10 R_3mlfI…      0     5     0        0    43      6     1     1        5      4
-# ℹ 1,990 more rows
-# ℹ 83 more variables: facebook &lt;dbl+lbl&gt;, twitter &lt;dbl+lbl&gt;, reddit &lt;dbl+lbl&gt;,
-#   chans &lt;dbl&gt;, con1 &lt;dbl&gt;, con2 &lt;dbl&gt;, con3 &lt;dbl&gt;, con4 &lt;dbl&gt;, conwis &lt;dbl&gt;,
-#   msm &lt;dbl&gt;, onepercent &lt;dbl&gt;, deepstate &lt;dbl&gt;, goodevil &lt;dbl+lbl&gt;,
-#   vio1 &lt;dbl&gt;, vio2 &lt;dbl&gt;, violence &lt;dbl&gt;, argue1 &lt;dbl&gt;, argue2 &lt;dbl&gt;,
-#   argue3 &lt;dbl&gt;, argument &lt;dbl&gt;, pop1 &lt;dbl&gt;, pop2 &lt;dbl&gt;, official &lt;dbl&gt;,
-#   manip1 &lt;dbl&gt;, manip2 &lt;dbl&gt;, manip3 &lt;dbl&gt;, manip4 &lt;dbl&gt;, manipulate &lt;dbl&gt;, …</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(d2<span class="sc">$</span>climatechange)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-  1   2   3   4   5 
-733 454 395 233 206 </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(d2<span class="sc">$</span>climatechangeBIN)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-   0    1 
-1582  439 </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">count</span>(climatechangeBIN)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 2
-  climatechangeBIN     n
-             &lt;dbl&gt; &lt;int&gt;
-1                0  1582
-2                1   439
-3               NA     2</code></pre>
-</div>
-</div>
-<p>Are the missing observations the same for the original and the recoded variable? (If not, we would want to check whether earlier code did something unintended.)</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">count</span>(climatechangeBIN,climatechange)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 3
-  climatechangeBIN climatechange     n
-             &lt;dbl&gt;         &lt;dbl&gt; &lt;int&gt;
-1                0             1   733
-2                0             2   454
-3                0             3   395
-4                1             4   233
-5                1             5   206
-6               NA            NA     2</code></pre>
-</div>
-</div>
-
-
 </section>
 
 </main> <!-- /main -->
