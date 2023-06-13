@@ -1,17 +1,29 @@
 # Overview of this class {.unnumbered}
 
-Creating effective visualizations of social and political data can help you discover and communicate new insights. This is a course designed to help students become better communicators with R. The focus is on graphing various types of evidence including:
+Creating effective visualizations of social and political data can help you discover and communicate new insights. This website contains much of the material I use in my course designed to help students become better communicators with R. Most of what students would need to do can be accomplished with `ggplot2`.
+
+If I had to compress the content of this course into just two lessons, I would say this:
+
+## Lesson 1: Think of output from statistical models as data. Summarize it visually. 
+
+There is a lot we can do after extracting relevatn information from statistical models. What is the distribution of predictions when you change your machine learning algortihm? How stable are coefficients from linear models across specifications. What do we lose/gain when we display aggregates (e.g. average marginal effects) rather than individual data-points?
+
+## Lesson 2: The first chart you produce is your "draft #1". Iterate and create reasonably clear and self-contained visual exhibits.
+
+\-\-\-\--
+
+Students are encouraged to think creatively about visualizing different types of information and data. Significant coding experience with R is expected, but prior knowledge of issues related to design, style, and principles of data visualization is not required.
+
+After taking this course, students will be expected to be able to present real data clearly and to identify strengths and weakness of existing data displays and dashboards.
+
+We will be graphing various types of evidence including:
 
 ```         
 - public opinion data
 - macro-economic data
 - summaries of statistical models
 - quantitative representations of text (e.g. content of social media post and the accompanying metadata)
-
-Students are encouraged to think creatively about visualizing different types of information and data. Significant coding experience with R is expected, but prior knowledge of issues related to design, style, and principles of data visualization is not required. 
 ```
-
-After taking this course, students will be expected to be able to present real data clearly and to identify strengths and weakness of existing data displays and dashboards.
 
 ### Introductory topics
 

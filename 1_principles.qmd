@@ -81,7 +81,7 @@ econ2022 %>%
         x="Public deficit (% of GDP)", y= "Inflation (%)")
 ```
 
-Or, even better, you can highlight a subset of subset of observations relevant for your analysis:
+Or you can highlight a subset of subset of observations relevant for your analysis:
 
 ```{r}
 econ2022 %>%
