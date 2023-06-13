@@ -6,18 +6,17 @@
 
 [Gestalt Principles (Part 2)](https://www.nature.com/articles/nmeth1210-941)
 
-[https://socviz.co/](https://socviz.co/)
+<https://socviz.co/>
 
-[https://ggplot2-book.org/index.html](https://ggplot2-book.org/index.html)
+<https://ggplot2-book.org/index.html>
 
-[https://cssbook.net/content/chapter06.html](https://cssbook.net/content/chapter06.html)
+<https://cssbook.net/content/chapter06.html>
 
-[https://storymaps.arcgis.com/stories/1e7f582d478a4b99bd0c70fffeac4c8b](https://storymaps.arcgis.com/stories/1e7f582d478a4b99bd0c70fffeac4c8b)
+<https://storymaps.arcgis.com/stories/1e7f582d478a4b99bd0c70fffeac4c8b>
 
-[https://cup.columbia.edu/book/better-data-visualizations/9780231193115](https://cup.columbia.edu/book/better-data-visualizations/9780231193115)
+<https://cup.columbia.edu/book/better-data-visualizations/9780231193115>
 
-[https://journals.sagepub.com/doi/pdf/10.1177/15291006211057899](https://journals.sagepub.com/doi/pdf/10.1177/15291006211057899)
-
+<https://journals.sagepub.com/doi/pdf/10.1177/15291006211057899>
 
 ::: {#refs}
 :::

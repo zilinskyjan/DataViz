@@ -2,13 +2,14 @@ project:
   type: book
 
 book:
-  title: "Telling stories with R: Data Visualization"
+  title: "Data Visualization with R and ggplot"
   author: "Jan Zilinsky"
   date: ""
   chapters:
     - index.qmd
     - 1_principles.qmd
     - 2_toplines-and-cross-tabs.qmd
+    - 3_B_timeseries.qmd
     - 3_standard-charts.qmd
     - 4_advanced-ggplot.qmd
     - 5_visualizing-models.qmd
@@ -19,8 +20,10 @@ bibliography: references.bib
 format:
   html:
     theme: cosmo
+    opts_chunk:
+      message: FALSE
+      warning: FALSE
   pdf:
     documentclass: scrreprt
 
 editor: visual
-

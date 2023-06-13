@@ -1,7 +1,3 @@
 # Advanced ggplot
 
-## Heatmaps
-
-```{r}
-1 + 1
-```
+[See the lecture notes on the course website]
