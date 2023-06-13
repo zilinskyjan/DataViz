@@ -1,11 +1,120 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Principles
 
 ## There are always tradeoffs
 
-The central tradeoff often is **trutfulness** vs.
+A frequent tradeoff can be thought of as **truthfulness** vs. simplicity.
+
+In other words, you will need to balance:
 
 -   Readability vs. "completeness"
 -   Concise vs. "attention-gabbing"
 -   Simplicity vs. other goals
 
-If you drop outliers, for example, your chart's readability will almost surely improve, but it could be less truthful.
+If you drop outliers, for example, your chart's readability will almost surely improve. But it could be less truthful.
+
+If you label a subset of your observations, then arguably some information "is lost", unless you post your data.
+
+But I would still assert that you should almost ever make graphs that look like this:
+
+```{r}
+library(tidyverse)
+# Get fiscal data
+imf <- read_csv("data_macro/imf-fiscalmonitor-apr2023.csv")
+imf
+```
+
+```{r}
+# Reformat data to wide and keep only the latest year
+imf_wide2022 <- imf %>% select(variable,country,`2022`) %>%
+  pivot_wider(names_from = variable, values_from = `2022`)
+
+imf_wide2022
+```
+
+```{r}
+# Merge in inflation data:
+inf <- read_csv("data_macro/inflation_WDI.csv")
+inf2022 <- inf %>% filter(year==2022)
+
+econ2022 <- left_join(imf_wide2022,inf2022,by="country")
+```
+
+```{r}
+# Make a simpe plot:
+econ2022 %>%
+  filter(country != "Norway") %>%
+  ggplot(aes(y=inflation,
+         x=`Overall Balance`,
+         label=country)) + 
+  geom_point() +
+  geom_text() +
+  labs(title = "Economic situation in 2022",
+        x="Public deficit (% of GDP)", y= "Inflation (%)")
+```
+
+Starting in 2021, inflation increased in many countries and became a source of serious concern for citizens and politicians. One set of substantive questions dealt with this: should governments be blamed for excessive spending (and borrowing)? Were fiscal decisions responsible for inflation? Here, we'll deal with potential approach to design visual exhibits that might faciliate some international comparisons.[^1: But also remember that these type of evidence can inform factual debates but they wouldn't settle the debate.]
+
+This chart plots the relationship between between public budget deficits and inflation.
+
+A few things to notice:
+
+* We are not displaying Norway (can you check why?)
+* We added an informative title to the scatterplot
+* We made the questionable choice to use `geom_text()` which uses what we placed inside `aes(... label=country)`.
+
+The same data can be displayed this way:
+
+```{r}
+econ2022 %>%
+  filter(country != "Norway") %>%
+  ggplot(aes(y=inflation,
+         x=`Overall Balance`,
+         label=country)) + 
+  geom_point() +
+  ggrepel::geom_text_repel() +
+  labs(title = "Economic situation in 2022",
+        x="Public deficit (% of GDP)", y= "Inflation (%)")
+```
+
+Or, even better, you can highlight a subset of subset of observations relevant for your analysis:
+
+```{r}
+econ2022 %>%
+  filter(country != "Norway") %>%
+  ggplot(aes(y=inflation,
+         x=`Overall Balance`)) + 
+  geom_point() +
+  ggrepel::geom_text_repel(data=econ2022 %>% 
+                             filter(country %in% c("Italy",
+                                                   "Sweden",
+                                                   "United States")),
+           aes(label=country),nudge_x=.75) +
+  labs(title = "Economic situation in 2022",
+        x="Public deficit (% of GDP)", y= "Inflation (%)") +
+  theme_classic()
+```
+
+We see that deficit spending is not informative: moderately high inflation was common across OECD countries, and neither large deficits, nor budget surpruses, were prognostic of better/worse outcomes.
+
+What about total government spending?
+
+```{r}
+econ2022 %>%
+  ggplot(aes(y=inflation,
+         x=`General Government Expenditure`)) + 
+  geom_point() +
+  ggrepel::geom_text_repel(data=econ2022 %>% 
+                             filter(country %in% c("Italy",
+                                                   "Sweden",
+                                                   "United States")),
+           aes(label=country),nudge_y=1.5) +
+  labs(title = "Economic situation in 2022",
+        x="Public deficit (% of GDP)", y= "Inflation (%)") 
+```
+
+

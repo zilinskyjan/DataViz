@@ -13,6 +13,290 @@ This means that you will want to:
 
 # Toplines and crosstabs
 
+```{r}
+library(tidyverse)
+library(haven)
+library(labelled)
+library(pollster)
+
+a <- readRDS("data_nationscape2019/Nationscape_first10waves.rds")
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, 
+                   x = trump_biden, 
+                   y = cand_favorability_cortez,
+                   weight = weight,
+                   format = "long") %>%
+  filter(trump_biden!="Don't Know") %>%
+  ggplot(aes(x= fct_reorder(trump_biden,pct), 
+             y = pct,fill=cand_favorability_cortez)) + 
+  geom_col(width = .3) + 
+      theme_classic() +
+  scale_fill_brewer(palette = "RdGy") +
+  labs(y="Percent", x = "2020 vote intent", title = "AOC favorability")
+```
+
+```{r}
+pollster::crosstab(df = a, 
+                   x = trump_biden, 
+                   y = cand_favorability_cortez,
+                   weight = weight,
+                   format = "long") %>%
+  filter(trump_biden!="Don't Know") %>%
+  ggplot(aes(x= fct_reorder(trump_biden,pct), 
+             y = pct,fill=cand_favorability_cortez)) + 
+  geom_col(width = .3, position = position_dodge()) + 
+      theme_classic() +
+  scale_fill_brewer(palette = "RdGy") +
+  labs(y="Percent", x = "2020 vote intent", title = "AOC favorability")
+```
+
+
+```{r}
+pollster::crosstab(df = a, 
+                   x = trump_biden, 
+                   y = aoc_Favorable,
+                   weight = weight,
+                   format = "long") %>%
+  filter(aoc_Favorable==1, trump_biden!="Don't Know") %>%
+  ggplot(aes(y= fct_reorder(trump_biden,pct), 
+             x = pct)) + 
+  geom_col(width = .3,fill=c("blue3","firebrick2")) + 
+      theme_classic() +
+  labs(x="Percent", y = "Supporters of...", title = "AOC favorability") +
+  geom_label(aes(label=round(pct,1)))
+```
+
+## 
+### List of variables
+
+```{r}
+dim(a)
+
+names(a)
+```
+
+## We subset the data to the first 10 waves
+```{r}
+# Weekly number of respondents
+a %>% group_by(week) %>% tally() %>% head()
+```
+. . .
+```{r}
+a %>% summarise(first = min(date), last = max(date))
+```
+
+##
+
+```{r}
+a %>% group_by(week) %>% tally() %>%
+  ggplot(aes(x=week,y=n)) + geom_bar(stat="identity") +
+  labs(x="",y="Respondents",title="Weekly number of Nationscape respondents")
+```
+
+##
+
+```{r}
+a %>% group_by(week) %>% tally() %>%
+  ggplot(aes(x=week,y=n)) + geom_bar(stat="identity") +
+  labs(x="",y="Respondents",title="Weekly number of Nationscape respondents") +
+  scale_x_date(date_breaks = "2 weeks", date_labels = "%W")
+```
+
+##
+
+```{r}
+a %>% group_by(week) %>% tally() %>%
+  ggplot(aes(x=week,y=n)) + geom_bar(stat="identity") +
+  labs(x="",y="Respondents",title="Weekly number of Nationscape respondents") +
+  scale_x_date(date_breaks = "1 months", minor_breaks = "1 weeks",date_labels = "%b %y")
+```
+
+##
+
+```{r}
+a %>% group_by(week) %>% tally() %>%
+  ggplot(aes(x=week,y=n)) + geom_line() + geom_point() +
+  labs(x="",y="Respondents",title="Weekly number of Nationscape respondents") +
+  scale_x_date(date_breaks = "1 months", minor_breaks = "1 days",date_labels = "%B %Y")
+```
+
+
+##
+
+```{r}
+a %>% group_by(week) %>% tally() %>%
+  ggplot(aes(x=week,y=n)) + geom_line() + geom_point() +
+  labs(x="",y="Respondents",title="Weekly number of Nationscape respondents") +
+  scale_x_date(date_breaks = "1 months", minor_breaks = "1 days",date_labels = "%B %Y") +
+  ylim(c(0,8000))
+```
+ 
+ 
+## 
+### Favorability of AOC
+
+```{r}
+table(a$aoc_Favorable)
+```
+. . .
+```{r}
+a %>% summarise(AOC_fav = mean(aoc_Favorable))
+```
+. . .
+```{r}
+a %>% summarise(AOC_fav = mean(aoc_Favorable,na.rm=T),
+                
+                AOC_fav_w = weighted.mean(aoc_Favorable,
+                                             w=weight,
+                                             na.rm=T))
+```
+
+## 
+Favorability of AOC
+
+```{r}
+pollster::topline(a,aoc_Favorable,weight = weight)
+```
+. . .
+```{r}
+pollster::crosstab(df = a, 
+                        x = gender, 
+                        y = aoc_Favorable,weight = weight) 
+```
+. . .
+```{r}
+pollster::crosstab(df = a, x = gender, 
+                        y = aoc_Favorable,weight = weight,format = "long") 
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") 
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1)
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+#| eval: false
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) 
+# ggplot(aes(x= ..., y = ...))
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+#| eval: false
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(x= trump_biden, y = pct)) + geom_col()
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(x= trump_biden, y = pct)) + geom_col()
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(y= trump_biden, x = pct)) + geom_col()
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(y= trump_biden, x = pct)) + geom_col() + theme_classic()
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(y= fct_reorder(trump_biden,pct), 
+             x = pct)) + geom_col() + theme_classic() + ggtitle("AOC favorability") 
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(y= fct_reorder(trump_biden,pct), 
+             x = pct)) + geom_col() + theme_classic() +
+  labs(x="Percent", y = "", title = "AOC favorability")
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(y= fct_reorder(trump_biden,pct), 
+             x = pct)) + geom_col(width = .3,fill="darkorange") + theme_classic() +
+  labs(x="Percent", y = "", title = "AOC favorability") 
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(y= fct_reorder(trump_biden,pct), 
+             x = pct)) + geom_col(width = .3,fill="darkorange") + theme_classic() +
+  labs(x="Percent", y = "", title = "AOC favorability") +
+  geom_label(aes(label=pct))
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(y= fct_reorder(trump_biden,pct), 
+             x = pct)) + geom_col(width = .3,fill="darkorange") + theme_classic() +
+  labs(x="Percent", y = "", title = "AOC favorability") +
+  geom_label(aes(label=round(pct,1)))
+```
+
+
+
+
+
+# AJPS 2021 dataset
+
 ```{r, echo=FALSE}
 source("data_AJPS2021/0_ajps_recode.R")
 ```
