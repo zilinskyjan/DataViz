@@ -190,7 +190,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#there-are-always-tradeoffs" id="toc-there-are-always-tradeoffs" class="nav-link active" data-scroll-target="#there-are-always-tradeoffs"><span class="header-section-number">1.1</span> There are always tradeoffs</a></li>
+  <li><a href="#there-are-always-tradeoffs" id="toc-there-are-always-tradeoffs" class="nav-link active" data-scroll-target="#there-are-always-tradeoffs"><span class="header-section-number">2</span> There are always tradeoffs</a>
+  <ul class="collapse">
+  <li><a href="#example-making-scatterplots-better" id="toc-example-making-scatterplots-better" class="nav-link" data-scroll-target="#example-making-scatterplots-better"><span class="header-section-number">2.1</span> Example: Making scatterplots better</a>
+  <ul class="collapse">
+  <li><a href="#exercise-inflation-and-government-spending" id="toc-exercise-inflation-and-government-spending" class="nav-link" data-scroll-target="#exercise-inflation-and-government-spending"><span class="header-section-number">2.1.1</span> Exercise: Inflation and government spending</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -214,8 +220,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="there-are-always-tradeoffs" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="there-are-always-tradeoffs"><span class="header-section-number">1.1</span> There are always tradeoffs</h2>
+<section id="there-are-always-tradeoffs" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> There are always tradeoffs</h1>
 <p>A frequent tradeoff can be thought of as <strong>truthfulness</strong> vs.&nbsp;simplicity.</p>
 <p>In other words, you will need to balance:</p>
 <ul>
@@ -225,36 +231,77 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>If you drop outliers, for example, your chart’s readability will almost surely improve. But it could be less truthful.</p>
 <p>If you label a subset of your observations, then arguably some information “is lost”, unless you post your data.</p>
-<p>But I would still assert that you should almost ever make graphs that look like this:</p>
+<p>You may agree that you should almost ever make graphs that look like this:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="1_principles_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>When you can make charts like this instead:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="1_principles_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="example-making-scatterplots-better" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="example-making-scatterplots-better"><span class="header-section-number">2.1</span> Example: Making scatterplots better</h2>
+<p>Starting in 2021, inflation increased in many countries and became a source of serious concern for citizens and politicians. One set of substantive questions dealt with this: should governments be blamed for excessive spending (and borrowing)? Were fiscal decisions responsible for inflation? Here, we’ll deal with potential approach to design visual exhibits that might faciliate some international comparisons.[^1]</p>
+<p>[^1: But also remember that these type of evidence can inform factual debates but they wouldn’t settle the debate.]</p>
+<p>Let’s get some <a href="https://github.com/zilinskyjan/DataViz/tree/main/data_macro">data</a>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Get fiscal data</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>imf <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data_macro/imf-fiscalmonitor-apr2023.csv"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>imf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>imf <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data_macro/imf-fiscalmonitor-apr2023.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The following variables are available, all expressed as percentage of GDP:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(imf<span class="sc">$</span>variable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 108 × 12
-   variable      country `2014` `2015` `2016` `2017` `2018` `2019` `2020` `2021`
-   &lt;chr&gt;         &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
- 1 General Gove… Austra…   36.9   37.4   37.4   36.9   37.0   39.1   44.6   42.2
- 2 General Gove… Austria   52.3   51.0   50.1   49.3   48.8   48.6   56.7   56.0
- 3 General Gove… Belgium   55.6   53.7   53.1   52.0   52.3   51.9   58.9   55.5
- 4 General Gove… Canada    38.4   40.0   40.8   40.5   40.7   40.6   52.7   45.9
- 5 General Gove… Croatia   48.6   47.5   46.4   44.7   45.5   46.1   54.0   48.5
- 6 General Gove… Cyprus    40.3   39.3   37.3   36.4   42.6   38.1   44.6   43.1
- 7 General Gove… Czechia   42.6   41.9   39.8   39.0   40.6   41.1   47.2   46.5
- 8 General Gove… Denmark   55.2   54.5   52.5   50.5   50.5   49.7   53.5   50.8
- 9 General Gove… Estonia   37.8   39.5   39.4   39.2   39.3   39.4   44.8   41.3
-10 General Gove… Finland   57.3   56.5   55.6   53.6   53.4   53.3   57.1   55.7
-# ℹ 98 more rows
+<pre><code>[1] "General Government Expenditure" "Overall Balance"               
+[3] "Gross public debt"             </code></pre>
+</div>
+</div>
+<p>Let’s view the first 3 rows to get a sense of the structure:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(imf,<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 12
+  variable       country `2014` `2015` `2016` `2017` `2018` `2019` `2020` `2021`
+  &lt;chr&gt;          &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 General Gover… Austra…   36.9   37.4   37.4   36.9   37.0   39.1   44.6   42.2
+2 General Gover… Austria   52.3   51.0   50.1   49.3   48.8   48.6   56.7   56.0
+3 General Gover… Belgium   55.6   53.7   53.1   52.0   52.3   51.9   58.9   55.5
 # ℹ 2 more variables: `2022` &lt;dbl&gt;, `2023` &lt;dbl&gt;</code></pre>
 </div>
 </div>
+<p>If we wanted each row to correspond to one country-year observation, we would run this snippet:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reformat data to wide and keep only the latest year</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>imf_wide2022 <span class="ot">&lt;-</span> imf <span class="sc">%&gt;%</span> <span class="fu">select</span>(variable,country,<span class="st">`</span><span class="at">2022</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable, <span class="at">values_from =</span> <span class="st">`</span><span class="at">2022</span><span class="st">`</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>imf_wide2022</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>imf <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="st">`</span><span class="at">2014</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2023</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,080 × 4
+   variable                       country   name  value
+   &lt;chr&gt;                          &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;
+ 1 General Government Expenditure Australia 2014   36.9
+ 2 General Government Expenditure Australia 2015   37.4
+ 3 General Government Expenditure Australia 2016   37.4
+ 4 General Government Expenditure Australia 2017   36.9
+ 5 General Government Expenditure Australia 2018   37.0
+ 6 General Government Expenditure Australia 2019   39.1
+ 7 General Government Expenditure Australia 2020   44.6
+ 8 General Government Expenditure Australia 2021   42.2
+ 9 General Government Expenditure Australia 2022   38.4
+10 General Government Expenditure Australia 2023   39.0
+# ℹ 1,070 more rows</code></pre>
+</div>
+</div>
+<p>But we’ll focus here on year 2022, so let’s simply create 3 conformative columns:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reformat data to wide and keep only the latest year</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>imf_wide2022 <span class="ot">&lt;-</span> imf <span class="sc">%&gt;%</span> <span class="fu">select</span>(variable,country,<span class="st">`</span><span class="at">2022</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> variable, <span class="at">values_from =</span> <span class="st">`</span><span class="at">2022</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>imf_wide2022</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 36 × 4
    country   General Government Expendit…¹ `Overall Balance` `Gross public debt`
@@ -273,90 +320,117 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ abbreviated name: ¹​`General Government Expenditure`</code></pre>
 </div>
 </div>
+<p>Finally, we want to add inflation data to our fiscal data:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge in inflation data:</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>inf <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data_macro/inflation_WDI.csv"</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>inf2022 <span class="ot">&lt;-</span> inf <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2022</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>econ2022 <span class="ot">&lt;-</span> <span class="fu">left_join</span>(imf_wide2022,inf2022,<span class="at">by=</span><span class="st">"country"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge in inflation data:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>inf <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data_macro/inflation_WDI.csv"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>inf2022 <span class="ot">&lt;-</span> inf <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2022</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>econ2022 <span class="ot">&lt;-</span> <span class="fu">left_join</span>(imf_wide2022,inf2022,<span class="at">by=</span><span class="st">"country"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a simpe plot:</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>econ2022 <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">!=</span> <span class="st">"Norway"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>inflation,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">x=</span><span class="st">`</span><span class="at">Overall Balance</span><span class="st">`</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">label=</span>country)) <span class="sc">+</span> </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>() <span class="sc">+</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Economic situation in 2022"</span>,</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">x=</span><span class="st">"Public deficit (% of GDP)"</span>, <span class="at">y=</span> <span class="st">"Inflation (%)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="1_principles_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Starting in 2021, inflation increased in many countries and became a source of serious concern for citizens and politicians. One set of substantive questions dealt with this: should governments be blamed for excessive spending (and borrowing)? Were fiscal decisions responsible for inflation? Here, we’ll deal with potential approach to design visual exhibits that might faciliate some international comparisons.[^1: But also remember that these type of evidence can inform factual debates but they wouldn’t settle the debate.]</p>
+<p>So we will work for a moment with the <code>econ2022</code> data object.</p>
 <p>This chart plots the relationship between between public budget deficits and inflation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a simple plot:</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>econ2022 <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">!=</span> <span class="st">"Norway"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>inflation,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">x=</span><span class="st">`</span><span class="at">Overall Balance</span><span class="st">`</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">label=</span>country)) <span class="sc">+</span> </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>() <span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Economic situation in 2022"</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">x=</span><span class="st">"Public deficit (% of GDP)"</span>, <span class="at">y=</span> <span class="st">"Inflation (%)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="1_principles_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>A few things to notice:</p>
 <ul>
 <li>We are not displaying Norway (can you check why?)</li>
 <li>We added an informative title to the scatterplot</li>
 <li>We made the questionable choice to use <code>geom_text()</code> which uses what we placed inside <code>aes(... label=country)</code>.</li>
 </ul>
-<p>The same data can be displayed this way:</p>
+<p>The same data can be displayed this way; <code>ggrepel::geom_text_repel()</code> is helpful in this context:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>econ2022 <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">!=</span> <span class="st">"Norway"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>inflation,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">x=</span><span class="st">`</span><span class="at">Overall Balance</span><span class="st">`</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">label=</span>country)) <span class="sc">+</span> </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>() <span class="sc">+</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Economic situation in 2022"</span>,</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">x=</span><span class="st">"Public deficit (% of GDP)"</span>, <span class="at">y=</span> <span class="st">"Inflation (%)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>econ2022 <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">!=</span> <span class="st">"Norway"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>inflation,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">x=</span><span class="st">`</span><span class="at">Overall Balance</span><span class="st">`</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">label=</span>country)) <span class="sc">+</span> </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>() <span class="sc">+</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Economic situation in 2022"</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">x=</span><span class="st">"Public deficit (% of GDP)"</span>, <span class="at">y=</span> <span class="st">"Inflation (%)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="1_principles_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="1_principles_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Or you can highlight a subset of subset of observations relevant for your analysis:</p>
+<p>Or you can highlight a subset of subset of observations relevant for your analysis.</p>
+<p>Let’s create a vector of country names:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>econ2022 <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">!=</span> <span class="st">"Norway"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>inflation,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">x=</span><span class="st">`</span><span class="at">Overall Balance</span><span class="st">`</span>)) <span class="sc">+</span> </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="at">data=</span>econ2022 <span class="sc">%&gt;%</span> </span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">filter</span>(country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Italy"</span>,</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"Sweden"</span>,</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"United States"</span>)),</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>           <span class="fu">aes</span>(<span class="at">label=</span>country),<span class="at">nudge_x=</span>.<span class="dv">75</span>,<span class="at">nudge_y=</span>.<span class="dv">75</span>) <span class="sc">+</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Economic situation in 2022"</span>,</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">x=</span><span class="st">"Public deficit (% of GDP)"</span>, <span class="at">y=</span> <span class="st">"Inflation (%)"</span>) <span class="sc">+</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="1_principles_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>subset <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Italy"</span>,<span class="st">"Sweden"</span>,<span class="st">"United States"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<p>We see that deficit spending is not informative: moderately high inflation was common across OECD countries, and neither large deficits, nor budget surpruses, were prognostic of better/worse outcomes.</p>
-<p>What about total government spending?</p>
+<p>We’ll want to insert <code>data=econ2022 %&gt;% filter(country %in% subset)</code> into <code>geom_text_repel</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>econ2022 <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>inflation,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">x=</span><span class="st">`</span><span class="at">General Government Expenditure</span><span class="st">`</span>)) <span class="sc">+</span> </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="at">data=</span>econ2022 <span class="sc">%&gt;%</span> </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">filter</span>(country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Italy"</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"Sweden"</span>,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"United States"</span>)),</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>           <span class="fu">aes</span>(<span class="at">label=</span>country),<span class="at">nudge_y=</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Economic situation in 2022"</span>,</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">x=</span><span class="st">"Public deficit (% of GDP)"</span>, <span class="at">y=</span> <span class="st">"Inflation (%)"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>scatter1 <span class="ot">&lt;-</span> econ2022 <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">!=</span> <span class="st">"Norway"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>inflation,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">x=</span><span class="st">`</span><span class="at">Overall Balance</span><span class="st">`</span>)) <span class="sc">+</span> </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="at">data=</span>econ2022 <span class="sc">%&gt;%</span> </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">filter</span>(country <span class="sc">%in%</span> subset),</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>           <span class="fu">aes</span>(<span class="at">label=</span>country),<span class="at">nudge_x=</span>.<span class="dv">75</span>,<span class="at">nudge_y=</span>.<span class="dv">75</span>) <span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Economic situation in 2022"</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">x=</span><span class="st">"Public deficit (% of GDP)"</span>, <span class="at">y=</span> <span class="st">"Inflation (%)"</span>) <span class="sc">+</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>scatter1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="1_principles_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="1_principles_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>Adding a layer and selecting attributes for a a specific subset of points - is a general, more widely applicable approach:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>scatter1 <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>econ2022 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(country <span class="sc">%in%</span> subset),</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">color=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="1_principles_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We see that deficit spending is not informative: moderately high inflation was common across OECD countries; neither large deficits, nor budget surpluses, were prognostic of better/worse outcomes.</p>
+<p>What about total government spending? We can check:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>econ2022 <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>inflation,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">x=</span><span class="st">`</span><span class="at">General Government Expenditure</span><span class="st">`</span>)) <span class="sc">+</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="at">data=</span>econ2022 <span class="sc">%&gt;%</span> </span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">filter</span>(country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Italy"</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"Sweden"</span>,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"United States"</span>)),</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>           <span class="fu">aes</span>(<span class="at">label=</span>country),<span class="at">nudge_y=</span>.<span class="dv">5</span>,<span class="at">nudge_x=</span><span class="sc">-</span>.<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Economic situation in 2022"</span>,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">x=</span><span class="st">"Public spending (% of GDP)"</span>, <span class="at">y=</span> <span class="st">"Inflation (%)"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="1_principles_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>This would seem to suggest that higher (government) spending is not necessarily associate with faster price growth.</p>
+<p>To be sure, a more careful analysis here would require looking it <strong>changes</strong> in government expenditures.</p>
+<section id="exercise-inflation-and-government-spending" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="exercise-inflation-and-government-spending"><span class="header-section-number">2.1.1</span> Exercise: Inflation and government spending</h3>
+<p>Use the provided datasets to explore whether <strong>an increase</strong> in government spending predicts (current or future) inflation.</p>
+<p>Consider the following issues are provide brief justifications:</p>
+<ul>
+<li>Let the outcome year of interest be T = 2022. Is it sensible to compare T with T-1? What if the fiscal effect materializes with a lag? And would it be appropriate to compare current spending to pre-pandemic spending?</li>
+<li>Should past spending be subtracted from “current” (T) spending? If your answer is yes, remember that you would be reporting differences <em>expressed in percentage points</em>. (Don’t slip, using the symbol “%” would be misleading…)</li>
+</ul>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
