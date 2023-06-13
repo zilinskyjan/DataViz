@@ -11,14 +11,28 @@
     "href": "index.html#lesson-1-think-of-output-from-statistical-models-as-data.-summarize-it-visually.",
     "title": "Data Visualization with R and ggplot",
     "section": "Lesson 1: Think of output from statistical models as data. Summarize it visually.",
-    "text": "Lesson 1: Think of output from statistical models as data. Summarize it visually.\nThere is a lot we can do after extracting relevatn information from statistical models. What is the distribution of predictions when you change your machine learning algortihm? How stable are coefficients from linear models across specifications. What do we lose/gain when we display aggregates (e.g. average marginal effects) rather than individual data-points?"
+    "text": "Lesson 1: Think of output from statistical models as data. Summarize it visually.\nThere is a lot we can do after extracting relevant information from statistical models. Start asking yourself questions similar to these:\n\nWhat is the distribution of predictions when you change your machine learning algorithm?\nHow stable are coefficients from linear models across specifications?\nWhat do we lose/gain when we display aggregates (e.g. average marginal effects) rather than individual data-points?"
   },
   {
     "objectID": "index.html#lesson-2-the-first-chart-you-produce-is-your-draft-1.-iterate-and-create-reasonably-clear-and-self-contained-visual-exhibits.",
     "href": "index.html#lesson-2-the-first-chart-you-produce-is-your-draft-1.-iterate-and-create-reasonably-clear-and-self-contained-visual-exhibits.",
     "title": "Data Visualization with R and ggplot",
     "section": "Lesson 2: The first chart you produce is your “draft #1”. Iterate and create reasonably clear and self-contained visual exhibits.",
-    "text": "Lesson 2: The first chart you produce is your “draft #1”. Iterate and create reasonably clear and self-contained visual exhibits.\n-----\nStudents are encouraged to think creatively about visualizing different types of information and data. Significant coding experience with R is expected, but prior knowledge of issues related to design, style, and principles of data visualization is not required.\nAfter taking this course, students will be expected to be able to present real data clearly and to identify strengths and weakness of existing data displays and dashboards.\nWe will be graphing various types of evidence including:\n- public opinion data\n- macro-economic data\n- summaries of statistical models\n- quantitative representations of text (e.g. content of social media post and the accompanying metadata)\n\nIntroductory topics\n\nWhat works and what to avoid even if it works?\nPrinciples of visual perception and effect communication\nGetting familiar with ggplot\n\n\n\nA ggplot deep dive\n- Toplines, cross-tabs\n- Geometries, statistics and coordinates\n- Facets, themes\n- Refining plots\n- 3-way cross-tabs\n- Heatmaps\n\n\nVisualizing output from statistical models\n- Coefficients and uncertainty\n- Predicted probabilities, marginal effects, and interactions\n- Model performance (in-sample and out-of-sample comparisons) \n- Machine learning output (regression trees, most important variables, etc.)\nAssignments:\n\nCreate your own dataset (30%).\n\nCreate your own dataset. It needs to have at least one of these 3 attributes\n\nMultiple levels (at least 2).\nOriginal topic, subject or angle.\nImpressive scope\n\n\nFinal project (70%)\n\nForm a group of 2-3 students\nPrepare a compelling data visualization\nSome elements in R are expected, you could also use D3 or another language if you wish."
+    "text": "Lesson 2: The first chart you produce is your “draft #1”. Iterate and create reasonably clear and self-contained visual exhibits.\n\nStudents are encouraged to think creatively about visualizing different types of information and data. Significant coding experience with R is expected, but prior knowledge of issues related to design, style, and principles of data visualization is not required.\nAfter taking this course, students will be expected to be able to present real data clearly and to identify strengths and weakness of existing data displays and dashboards.\nWe will be graphing various types of evidence including:\n- macro-economic data\n- public opinion data\n- summaries of statistical models\n- quantitative representations of text (e.g. content of social media post and the accompanying metadata)"
+  },
+  {
+    "objectID": "index.html#course-outline",
+    "href": "index.html#course-outline",
+    "title": "Data Visualization with R and ggplot",
+    "section": "Course outline",
+    "text": "Course outline\n\nIntroductory topics\n\nWhat works and what to avoid even if it works?\nPrinciples of visual perception and effect communication\nGetting familiar with ggplot\n\n\n\nA ggplot deep dive\n- Toplines, cross-tabs\n- Geometries, statistics and coordinates\n- Facets, themes\n- Refining plots\n- 3-way cross-tabs\n- Heatmaps\n\n\nVisualizing output from statistical models\n- Coefficients and uncertainty\n- Predicted probabilities, marginal effects, and interactions\n- Model performance (in-sample and out-of-sample comparisons) \n- Machine learning output (regression trees, most important variables, etc.)"
+  },
+  {
+    "objectID": "index.html#assignments",
+    "href": "index.html#assignments",
+    "title": "Data Visualization with R and ggplot",
+    "section": "Assignments",
+    "text": "Assignments\n\nCreate your own dataset (30%).\n\nCreate your own dataset. It needs to have at least one of these 3 attributes\n\nMultiple levels (at least 2).\nOriginal topic, subject or angle.\nImpressive scope\n\n\nFinal project (70%)\n\nForm a group of 2-3 students\nPrepare a compelling data visualization\nSome elements in R are expected, you could also use D3 or another language if you wish."
   },
   {
     "objectID": "1_principles.html#there-are-always-tradeoffs",
