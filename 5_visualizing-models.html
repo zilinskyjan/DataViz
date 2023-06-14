@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Visualization with R and ggplot - 6&nbsp; Visualizing statistical models</title>
+<title>Data Visualization with R and ggplot - 7&nbsp; Visualizing statistical models</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -107,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./5_visualizing-models.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./5_visualizing-models.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -146,32 +146,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./typology.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Typology of charts</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./2_toplines-and-cross-tabs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Toplines and crosstabs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Toplines and crosstabs</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_B_timeseries.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Economic data over time</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Economic data over time</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_standard-charts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Standard charts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Standard charts</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4_advanced-ggplot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./5_visualizing-models.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -190,12 +196,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#nationscape-data" id="toc-nationscape-data" class="nav-link active" data-scroll-target="#nationscape-data"><span class="header-section-number">6.1</span> Nationscape data</a>
+  <li><a href="#nationscape-data" id="toc-nationscape-data" class="nav-link active" data-scroll-target="#nationscape-data"><span class="header-section-number">7.1</span> Nationscape data</a>
   <ul class="collapse">
-  <li><a href="#association-between-sexism-and-aoc-favorability-over-time" id="toc-association-between-sexism-and-aoc-favorability-over-time" class="nav-link" data-scroll-target="#association-between-sexism-and-aoc-favorability-over-time"><span class="header-section-number">6.1.1</span> Association between sexism and AOC favorability over time</a></li>
-  <li><a href="#demographics" id="toc-demographics" class="nav-link" data-scroll-target="#demographics"><span class="header-section-number">6.1.2</span> Demographics</a></li>
+  <li><a href="#association-between-sexism-and-aoc-favorability-over-time" id="toc-association-between-sexism-and-aoc-favorability-over-time" class="nav-link" data-scroll-target="#association-between-sexism-and-aoc-favorability-over-time"><span class="header-section-number">7.1.1</span> Association between sexism and AOC favorability over time</a></li>
+  <li><a href="#demographics" id="toc-demographics" class="nav-link" data-scroll-target="#demographics"><span class="header-section-number">7.1.2</span> Demographics</a></li>
   </ul></li>
-  <li><a href="#ajps-2021-data" id="toc-ajps-2021-data" class="nav-link" data-scroll-target="#ajps-2021-data"><span class="header-section-number">6.2</span> AJPS (2021) data</a></li>
+  <li><a href="#ajps-2021-data" id="toc-ajps-2021-data" class="nav-link" data-scroll-target="#ajps-2021-data"><span class="header-section-number">7.2</span> AJPS (2021) data</a></li>
   </ul>
 </nav>
     </div>
@@ -204,7 +210,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></h1>
 </div>
 
 
@@ -224,16 +230,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="nationscape-data" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="nationscape-data"><span class="header-section-number">6.1</span> Nationscape data</h2>
+<section id="nationscape-data" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="nationscape-data"><span class="header-section-number">7.1</span> Nationscape data</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in Nationscape survey data:</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"data_nationscape2019/Nationscape_first10waves.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="association-between-sexism-and-aoc-favorability-over-time" class="level3" data-number="6.1.1">
-<h3 data-number="6.1.1" class="anchored" data-anchor-id="association-between-sexism-and-aoc-favorability-over-time"><span class="header-section-number">6.1.1</span> Association between sexism and AOC favorability over time</h3>
+<section id="association-between-sexism-and-aoc-favorability-over-time" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="association-between-sexism-and-aoc-favorability-over-time"><span class="header-section-number">7.1.1</span> Association between sexism and AOC favorability over time</h3>
 <p>We estimate 10 separate model, aka “rolling regressions”.</p>
 <p>We run one model for each value of <code>week</code>, and create a tibble thanks to the <code>tidy()</code>function:</p>
 <div class="cell">
@@ -270,8 +276,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>               White <span class="sc">+</span> Black <span class="sc">+</span> Hispanic, <span class="at">data =</span> .)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="demographics" class="level3" data-number="6.1.2">
-<h3 data-number="6.1.2" class="anchored" data-anchor-id="demographics"><span class="header-section-number">6.1.2</span> Demographics</h3>
+<section id="demographics" class="level3" data-number="7.1.2">
+<h3 data-number="7.1.2" class="anchored" data-anchor-id="demographics"><span class="header-section-number">7.1.2</span> Demographics</h3>
 <p>We can now plot any set of coefficients, of course.</p>
 <p>Let us try to see whether age correlates negatively with AOC’s favorability, as we might perhaps suspect:</p>
 <div class="cell">
@@ -316,8 +322,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="ajps-2021-data" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="ajps-2021-data"><span class="header-section-number">6.2</span> AJPS (2021) data</h2>
+<section id="ajps-2021-data" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="ajps-2021-data"><span class="header-section-number">7.2</span> AJPS (2021) data</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
@@ -586,7 +592,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./4_advanced-ggplot.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

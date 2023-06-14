@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./2_toplines-and-cross-tabs.html" rel="next">
+<link href="./typology.html" rel="next">
 <link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -146,32 +146,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./typology.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Typology of charts</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./2_toplines-and-cross-tabs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Toplines and crosstabs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Toplines and crosstabs</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_B_timeseries.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Economic data over time</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Economic data over time</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_standard-charts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Standard charts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Standard charts</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4_advanced-ggplot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./5_visualizing-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -190,12 +196,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#there-are-always-tradeoffs" id="toc-there-are-always-tradeoffs" class="nav-link active" data-scroll-target="#there-are-always-tradeoffs"><span class="header-section-number">2</span> There are always tradeoffs</a>
+  <li><a href="#there-are-always-tradeoffs" id="toc-there-are-always-tradeoffs" class="nav-link active" data-scroll-target="#there-are-always-tradeoffs"><span class="header-section-number">1.1</span> There are always tradeoffs</a></li>
+  <li><a href="#questions-to-ask-yourself" id="toc-questions-to-ask-yourself" class="nav-link" data-scroll-target="#questions-to-ask-yourself"><span class="header-section-number">1.2</span> Questions to ask yourself</a></li>
+  <li><a href="#back-to-readability-vs.-completeness" id="toc-back-to-readability-vs.-completeness" class="nav-link" data-scroll-target="#back-to-readability-vs.-completeness"><span class="header-section-number">1.3</span> Back to readability vs.&nbsp;“completeness”</a></li>
+  <li><a href="#example-making-scatterplots-better" id="toc-example-making-scatterplots-better" class="nav-link" data-scroll-target="#example-making-scatterplots-better"><span class="header-section-number">1.4</span> Example: Making scatterplots better</a>
   <ul class="collapse">
-  <li><a href="#example-making-scatterplots-better" id="toc-example-making-scatterplots-better" class="nav-link" data-scroll-target="#example-making-scatterplots-better"><span class="header-section-number">2.1</span> Example: Making scatterplots better</a>
-  <ul class="collapse">
-  <li><a href="#exercise-inflation-and-government-spending" id="toc-exercise-inflation-and-government-spending" class="nav-link" data-scroll-target="#exercise-inflation-and-government-spending"><span class="header-section-number">2.1.1</span> Exercise: Inflation and government spending</a></li>
-  </ul></li>
+  <li><a href="#exercise-inflation-and-government-spending" id="toc-exercise-inflation-and-government-spending" class="nav-link" data-scroll-target="#exercise-inflation-and-government-spending"><span class="header-section-number">1.4.1</span> Exercise: Inflation and government spending</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -220,8 +226,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="there-are-always-tradeoffs" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> There are always tradeoffs</h1>
+<section id="there-are-always-tradeoffs" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="there-are-always-tradeoffs"><span class="header-section-number">1.1</span> There are always tradeoffs</h2>
 <p>A frequent tradeoff can be thought of as <strong>truthfulness</strong> vs.&nbsp;simplicity.</p>
 <p>In other words, you will need to balance:</p>
 <ul>
@@ -230,6 +236,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Simplicity vs.&nbsp;other goals</li>
 </ul>
 <p>If you drop outliers, for example, your chart’s readability will almost surely improve. But it could be less truthful.</p>
+</section>
+<section id="questions-to-ask-yourself" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="questions-to-ask-yourself"><span class="header-section-number">1.2</span> Questions to ask yourself</h2>
+<ol type="1">
+<li>What chart type is appropriate for my situation?
+<ul>
+<li>Can I try a few options?</li>
+<li>And is this a case where a (simple!) table would be more effective to communicate what you found?</li>
+</ul></li>
+<li>Did I spend at least a few minutes making some thoughtful design choice (amount text, labels, annotations; color choice; font size) so that my chart is clear and reasonably self-contained?
+<ul>
+<li>How much data would you want to display? …to convey your findings clearly &amp; credibly?</li>
+</ul></li>
+<li>How much data is necessary?
+<ul>
+<li>…to convince yourself that your story is truthful?)</li>
+</ul></li>
+</ol>
+</section>
+<section id="back-to-readability-vs.-completeness" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="back-to-readability-vs.-completeness"><span class="header-section-number">1.3</span> Back to readability vs.&nbsp;“completeness”</h2>
 <p>If you label a subset of your observations, then arguably some information “is lost”, unless you post your data.</p>
 <p>You may agree that you should almost ever make graphs that look like this:</p>
 <div class="cell">
@@ -243,8 +270,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="1_principles_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<section id="example-making-scatterplots-better" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="example-making-scatterplots-better"><span class="header-section-number">2.1</span> Example: Making scatterplots better</h2>
+</section>
+<section id="example-making-scatterplots-better" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="example-making-scatterplots-better"><span class="header-section-number">1.4</span> Example: Making scatterplots better</h2>
 <p>Starting in 2021, inflation increased in many countries and became a source of serious concern for citizens and politicians. One set of substantive questions dealt with this: should governments be blamed for excessive spending (and borrowing)? Were fiscal decisions responsible for inflation? Here, we’ll deal with potential approach to design visual exhibits that might faciliate some international comparisons.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>Let’s get some <a href="https://github.com/zilinskyjan/DataViz/tree/main/data_macro">data</a>:</p>
 <div class="cell">
@@ -418,8 +446,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>This would seem to suggest that higher (government) spending is not necessarily associate with faster price growth.</p>
 <p>To be sure, a more careful analysis here would require looking it <strong>changes</strong> in government expenditures.</p>
-<section id="exercise-inflation-and-government-spending" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="exercise-inflation-and-government-spending"><span class="header-section-number">2.1.1</span> Exercise: Inflation and government spending</h3>
+<section id="exercise-inflation-and-government-spending" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="exercise-inflation-and-government-spending"><span class="header-section-number">1.4.1</span> Exercise: Inflation and government spending</h3>
 <p>Use the provided datasets to explore whether <strong>an increase</strong> in government spending predicts (current or future) inflation.</p>
 <p>Consider the following issues are provide brief justifications:</p>
 <ul>
@@ -428,7 +456,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 
 
-</section>
 </section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
@@ -679,8 +706,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./2_toplines-and-cross-tabs.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Toplines and crosstabs</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./typology.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Typology of charts</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

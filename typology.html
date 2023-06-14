@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Visualization with R and ggplot - References</title>
+<title>Data Visualization with R and ggplot - 2&nbsp; Typology of charts</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,26 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -49,7 +30,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./5_visualizing-models.html" rel="prev">
+<link href="./2_toplines-and-cross-tabs.html" rel="next">
+<link href="./1_principles.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -91,7 +73,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html">References</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./typology.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Typology of charts</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -130,7 +112,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./typology.html" class="sidebar-item-text sidebar-link">
+  <a href="./typology.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Typology of charts</span></span></a>
   </div>
 </li>
@@ -166,7 +148,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link active">
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
@@ -180,7 +162,24 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#useful-resources-include" id="toc-useful-resources-include" class="nav-link active" data-scroll-target="#useful-resources-include">Useful resources include:</a></li>
+  <li><a href="#bee-swarm-plots" id="toc-bee-swarm-plots" class="nav-link active" data-scroll-target="#bee-swarm-plots"><span class="header-section-number">2.1</span> <strong>Bee swarm plots</strong></a></li>
+  <li><a href="#grouped-bar-chart" id="toc-grouped-bar-chart" class="nav-link" data-scroll-target="#grouped-bar-chart"><span class="header-section-number">2.2</span> Grouped bar chart</a></li>
+  <li><a href="#density-plot" id="toc-density-plot" class="nav-link" data-scroll-target="#density-plot"><span class="header-section-number">2.3</span> Density plot</a></li>
+  <li><a href="#joyplot-or-ridgeplot" id="toc-joyplot-or-ridgeplot" class="nav-link" data-scroll-target="#joyplot-or-ridgeplot"><span class="header-section-number">2.4</span> Joyplot or ridgeplot</a></li>
+  <li><a href="#heatmap" id="toc-heatmap" class="nav-link" data-scroll-target="#heatmap"><span class="header-section-number">2.5</span> Heatmap</a></li>
+  <li><a href="#maps" id="toc-maps" class="nav-link" data-scroll-target="#maps"><span class="header-section-number">2.6</span> Maps</a></li>
+  <li><a href="#histograms" id="toc-histograms" class="nav-link" data-scroll-target="#histograms"><span class="header-section-number">2.7</span> Histograms</a></li>
+  <li><a href="#maps-with-2-dimensional-color-coding" id="toc-maps-with-2-dimensional-color-coding" class="nav-link" data-scroll-target="#maps-with-2-dimensional-color-coding"><span class="header-section-number">2.8</span> Maps with 2-dimensional color-coding:</a></li>
+  <li><a href="#cartogram" id="toc-cartogram" class="nav-link" data-scroll-target="#cartogram"><span class="header-section-number">2.9</span> Cartogram</a></li>
+  <li><a href="#cartogram-or-a-heatmap" id="toc-cartogram-or-a-heatmap" class="nav-link" data-scroll-target="#cartogram-or-a-heatmap"><span class="header-section-number">2.10</span> Cartogram or a heatmap?</a></li>
+  <li><a href="#boxplots" id="toc-boxplots" class="nav-link" data-scroll-target="#boxplots"><span class="header-section-number">2.11</span> Boxplots</a></li>
+  <li><a href="#types-of-bar-charts" id="toc-types-of-bar-charts" class="nav-link" data-scroll-target="#types-of-bar-charts"><span class="header-section-number">2.12</span> Types of bar charts</a></li>
+  <li><a href="#time-series-plots" id="toc-time-series-plots" class="nav-link" data-scroll-target="#time-series-plots"><span class="header-section-number">2.13</span> Time series plots</a>
+  <ul class="collapse">
+  <li><a href="#standard-line-graphs" id="toc-standard-line-graphs" class="nav-link" data-scroll-target="#standard-line-graphs"><span class="header-section-number">2.13.1</span> Standard line graphs</a></li>
+  <li><a href="#emphasis-on-relative-changes" id="toc-emphasis-on-relative-changes" class="nav-link" data-scroll-target="#emphasis-on-relative-changes"><span class="header-section-number">2.13.2</span> Emphasis on relative changes</a></li>
+  </ul></li>
+  <li><a href="#area-chart" id="toc-area-chart" class="nav-link" data-scroll-target="#area-chart"><span class="header-section-number">2.14</span> Area chart</a></li>
   </ul>
 </nav>
     </div>
@@ -189,7 +188,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">References</h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Typology of charts</span></h1>
 </div>
 
 
@@ -204,18 +203,80 @@ div.csl-indent {
 
 </header>
 
-<section id="useful-resources-include" class="level2">
-<h2 class="anchored" data-anchor-id="useful-resources-include">Useful resources include:</h2>
-<p><a href="https://www.nature.com/articles/nmeth1110-863">Gestalt Principles</a></p>
-<p><a href="https://www.nature.com/articles/nmeth1210-941">Gestalt Principles (Part 2)</a></p>
-<p><a href="https://socviz.co/" class="uri">https://socviz.co/</a></p>
-<p><a href="https://ggplot2-book.org/index.html" class="uri">https://ggplot2-book.org/index.html</a></p>
-<p><a href="https://cssbook.net/content/chapter06.html" class="uri">https://cssbook.net/content/chapter06.html</a></p>
-<p><a href="https://storymaps.arcgis.com/stories/1e7f582d478a4b99bd0c70fffeac4c8b" class="uri">https://storymaps.arcgis.com/stories/1e7f582d478a4b99bd0c70fffeac4c8b</a></p>
-<p><a href="https://cup.columbia.edu/book/better-data-visualizations/9780231193115" class="uri">https://cup.columbia.edu/book/better-data-visualizations/9780231193115</a></p>
-<p><a href="https://journals.sagepub.com/doi/pdf/10.1177/15291006211057899" class="uri">https://journals.sagepub.com/doi/pdf/10.1177/15291006211057899</a></p>
-
-
+<section id="bee-swarm-plots" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="bee-swarm-plots"><span class="header-section-number">2.1</span> <strong>Bee swarm plots</strong></h2>
+<p><img src="images/B6AE892C-B5CA-4D39-AB63-A2CBD027D599.png" class="img-fluid"></p>
+<p>Example 2:</p>
+<p><img src="images/raising_doubts.png" class="img-fluid"></p>
+<p>Source: Annie Karni, Malika Khurana and Stuart A. Thompson. <a href="https://www.nytimes.com/interactive/2022/11/05/us/politics/pelosi-attack-misinfo-republican-politicians.html">How Republicans Fed a Misinformation Loop About the Pelosi Attac</a>k.</p>
+</section>
+<section id="grouped-bar-chart" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="grouped-bar-chart"><span class="header-section-number">2.2</span> Grouped bar chart</h2>
+<p><img src="images/image.png" class="img-fluid"></p>
+<p>Chart: <span class="citation" data-cites="janzilinsky">(<a href="references.html#ref-janzilinsky" role="doc-biblioref"><strong>janzilinsky?</strong></a>)</span>; Data: Thermometer ratings from VOTER Survey.</p>
+</section>
+<section id="density-plot" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="density-plot"><span class="header-section-number">2.3</span> Density plot</h2>
+<p><img src="images/density.png" class="img-fluid"></p>
+<p>Source: <a href="https://journals.sagepub.com/doi/full/10.1177/2158244019832705">Eady et al.&nbsp;(2019)</a></p>
+</section>
+<section id="joyplot-or-ridgeplot" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="joyplot-or-ridgeplot"><span class="header-section-number">2.4</span> Joyplot or ridgeplot</h2>
+<p><img src="images/joyplot.png" class="img-fluid"></p>
+<p>Source: <a href="https://journals.sagepub.com/doi/full/10.1177/2158244019832705">Eady et al.&nbsp;(2019)</a></p>
+</section>
+<section id="heatmap" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="heatmap"><span class="header-section-number">2.5</span> Heatmap</h2>
+<p>Here the cell entries of the number of cases per 100,000 people.</p>
+<p><img src="images/A804D069-BBC2-49FF-B29A-1CB772D134C6.png" class="img-fluid"></p>
+<p>Source: http://graphics.wsj.com/infectious-diseases-and-vaccines/</p>
+</section>
+<section id="maps" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="maps"><span class="header-section-number">2.6</span> Maps</h2>
+<p><img src="images/D5507D83-251A-4074-8BCA-4E8DD75377E1.png" class="img-fluid"></p>
+</section>
+<section id="histograms" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="histograms"><span class="header-section-number">2.7</span> Histograms</h2>
+<p><img src="images/92B3E9D3-DE60-4549-B64C-F31CFE702303.png" class="img-fluid"></p>
+</section>
+<section id="maps-with-2-dimensional-color-coding" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="maps-with-2-dimensional-color-coding"><span class="header-section-number">2.8</span> Maps with 2-dimensional color-coding:</h2>
+<p><img src="images/Screen Shot 2022-07-09 at 6.12.00 PM.png" class="img-fluid"></p>
+</section>
+<section id="cartogram" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="cartogram"><span class="header-section-number">2.9</span> Cartogram</h2>
+<p><img src="images/FA2B2074-BADE-4ECC-B293-32DEBF307915.png" class="img-fluid"></p>
+</section>
+<section id="cartogram-or-a-heatmap" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="cartogram-or-a-heatmap"><span class="header-section-number">2.10</span> Cartogram or a heatmap?</h2>
+<p><img src="images/3B1E465C-5994-4D25-AA40-97C4867E0700.png" class="img-fluid"></p>
+</section>
+<section id="boxplots" class="level2" data-number="2.11">
+<h2 data-number="2.11" class="anchored" data-anchor-id="boxplots"><span class="header-section-number">2.11</span> Boxplots</h2>
+<p><img src="images/urban_pop.png" class="img-fluid"></p>
+<p>Source: <a href="https://github.com/imagineazhar/30DayChartChallenge2023/tree/main/10-hybrid">imagineazhar</a></p>
+</section>
+<section id="types-of-bar-charts" class="level2" data-number="2.12">
+<h2 data-number="2.12" class="anchored" data-anchor-id="types-of-bar-charts"><span class="header-section-number">2.12</span> Types of bar charts</h2>
+<p><img src="images/CEB14596-8A9A-4297-B8B0-BEE7389A23D1.png" class="img-fluid"></p>
+</section>
+<section id="time-series-plots" class="level2" data-number="2.13">
+<h2 data-number="2.13" class="anchored" data-anchor-id="time-series-plots"><span class="header-section-number">2.13</span> Time series plots</h2>
+<section id="standard-line-graphs" class="level3" data-number="2.13.1">
+<h3 data-number="2.13.1" class="anchored" data-anchor-id="standard-line-graphs"><span class="header-section-number">2.13.1</span> Standard line graphs</h3>
+<p><img src="images/FW6nSzhXEAEYQKO.jpg" class="img-fluid"></p>
+<p>(But ask yourself: would you really believe this “finding”? What was the data-generating process? Are movies and shows really getting better?)</p>
+</section>
+<section id="emphasis-on-relative-changes" class="level3" data-number="2.13.2">
+<h3 data-number="2.13.2" class="anchored" data-anchor-id="emphasis-on-relative-changes"><span class="header-section-number">2.13.2</span> Emphasis on relative changes</h3>
+<p><img src="images/0F3E2454-F39C-4295-B3A8-00659DC6CB0B.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="area-chart" class="level2" data-number="2.14">
+<h2 data-number="2.14" class="anchored" data-anchor-id="area-chart"><span class="header-section-number">2.14</span> Area chart</h2>
+<p><img src="images/4CC14F02-A9C8-4EB1-8DE1-B575FEB637FC.png" class="img-fluid"></p>
+<hr>
+<p>A useful resource is the set of charts shown on this website: <a href="https://vega.github.io/vega/examples/" class="uri">https://vega.github.io/vega/examples/</a></p>
 
 
 </section>
@@ -456,11 +517,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./5_visualizing-models.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span>
+      <a href="./1_principles.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Principles</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./2_toplines-and-cross-tabs.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Toplines and crosstabs</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
