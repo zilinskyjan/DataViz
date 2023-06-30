@@ -1,16 +1,31 @@
 # Overview of this class {.unnumbered}
 
-Creating effective visualizations of social and political data can help you discover and communicate new insights. This website contains much of the material I use in my course designed to help students become better communicators with R. Most of what students would need to do can be accomplished with `ggplot2`.
+Some say visualization is what you do when you "form a mental picture of something" or when you try to represent an object or a situation and "render it visible." That's fine, but this will be our definition:\
+![](images/def-01.png)
 
-If I had to compress the content of this course into just two lessons, I would say this:
+Creating effective visualizations of social and political data can help you discover and communicate new insights, and this website contains much of the material I use in my course designed to help students become better communicators with R. Most of what students would need to do can be accomplished with `ggplot2`.
 
-## Lesson 1: Think of output from statistical models as data. Summarize it visually. 
+If I had to compress the content of this course into just three lessons, I would say this:
 
-There is a lot we can do after extracting relevatn information from statistical models. What is the distribution of predictions when you change your machine learning algortihm? How stable are coefficients from linear models across specifications. What do we lose/gain when we display aggregates (e.g. average marginal effects) rather than individual data-points?
+## Lesson 1: Think of output from statistical models as data. Summarize it visually.
 
-## Lesson 2: The first chart you produce is your "draft #1". Iterate and create reasonably clear and self-contained visual exhibits.
+There is a lot we can do after extracting relevant information from statistical models. Start asking yourself questions similar to these:
 
-\-\-\-\--
+-   What is the distribution of predictions when you change your machine learning algorithm?
+-   How stable are coefficients from linear models across specifications?
+-   What do we lose/gain when we display aggregates (e.g. average marginal effects) rather than individual data-points?
+
+## Lesson 2: The first chart you produce is your "draft #1". 
+
+Iterate and create reasonably clear and self-contained visual exhibits.
+
+## Lesson 3: Just because you have a tool (R package / R skills) in your hands, doesn't mean you have to use it.
+
+Sometimes I show students a picture with a sign "No juggling of machetes". After reading that sign, does anyone feel tempted to do this? Maybe. But if we have the skills to do certain things, we should only be applying our skills when appropriate.
+
+![](images/machete.png)
+
+<hr>
 
 Students are encouraged to think creatively about visualizing different types of information and data. Significant coding experience with R is expected, but prior knowledge of issues related to design, style, and principles of data visualization is not required.
 
@@ -19,11 +34,13 @@ After taking this course, students will be expected to be able to present real d
 We will be graphing various types of evidence including:
 
 ```         
-- public opinion data
 - macro-economic data
+- public opinion data
 - summaries of statistical models
 - quantitative representations of text (e.g. content of social media post and the accompanying metadata)
 ```
+
+## Course outline
 
 ### Introductory topics
 
@@ -51,7 +68,7 @@ We will be graphing various types of evidence including:
 - Machine learning output (regression trees, most important variables, etc.)
 ```
 
-**Assignments:**
+## Assignments
 
 -   Create your own dataset (30%).
     -   Create your own dataset. It needs to have at least one of these 3 attributes

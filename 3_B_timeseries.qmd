@@ -29,7 +29,6 @@ D %>%
   count(over10)
 ```
 
-
 ```{r}
 D %>% 
   filter(year %in% c(2010:2022)) %>%
@@ -44,7 +43,6 @@ D %>%
        caption = "Data: WDI")
   
 ```
-
 
 ```{r}
 D %>% 
@@ -84,10 +82,10 @@ barplot_V2 <-  D %>%
 barplot_V2
 ```
 
-We improves the labels of both axies, and increased the font size. 
+We improves the labels of both axies, and increased the font size.
 
 The new version is reasonably good, but there are still unnecessary gridlines, right?
-  
+
 You could either use `theme_classic()` instead of `theme_bw()`.
 
 ```{r}
@@ -104,11 +102,24 @@ barplot_V2 +
 ```
 
 
+```{r}
+D %>% 
+  filter(!is.na(inflation)) %>%
+  mutate(over10 = ifelse(inflation > 10, 1, 0)) %>%
+  group_by(year) %>%
+  ggplot(aes(x=year,
+             y=over10)) +
+  geom_col() +
+  theme_bw() + 
+  theme(text = element_text(size=14)) +
+  labs(y="", x="Year",
+       subtitle = "Number of countries where inflation exceeded 10%",
+       caption = "Data: WDI.")
+```
 
+------------------------------------------------------------------------
 
----
-
-### Zomm in on OECD countries and increase the time horizon
+# Zomm in on OECD countries and increase the time horizon
 
 ```{r}
 D %>% filter(OECD==1) %>%
@@ -124,8 +135,10 @@ D %>% filter(OECD==1) %>%
   theme(text = element_text(size=15)) +
   scale_y_continuous(labels = scales::percent) +
   labs(y="", x="Year",
-       title = "Proportion of countries where inflation exceeded 10% (OECD countries only)")
+       title = "Proportion of countries where inflation exceeded 10%\n(OECD countries only)")
 ```
+
+
 
 ```{r}
 D %>% 
@@ -140,9 +153,10 @@ D %>%
   theme(text = element_text(size=15)) +
   scale_y_continuous(labels = scales::percent) +
   labs(y="", x="Year",
-       title = "GLobal proportion of countries where inflation exceeded 5%",
+       subtitle = "Global proportion of countries where inflation exceeded 5%",
        caption = "Data: WDI.")
 ```
+
 
 
 ```{r}
