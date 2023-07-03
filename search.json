@@ -298,14 +298,14 @@
     "href": "datasets.html#included-with-course-materials",
     "title": "Datasets",
     "section": "Included with course materials:",
-    "text": "Included with course materials:\n\nNationscape surveys (first 10 waves)\nSpending, debt, and fiscal deficits (IMF Fiscal Monitor, Apr. 2023)\nInflation data (WDI)\nCOVID severity (daily data).\nSurveys about conspiracy thinking and populism (Uscinski et al. 2021 dataverse files, codebooks and question wording)\nArticles about the economy from The Guardian (obtained via the free API).\nA dataset of political science article abstracts for practicing descriptive text analysis (credit: Benjamin Guinaudeau).\n\n\nUtilities\n\nOECD country codes"
+    "text": "Included with course materials:\n\nNationscape surveys (first 10 waves)\nSpending, debt, and fiscal deficits (IMF Fiscal Monitor, Apr. 2023)\nInflation data (WDI)\nHealth-adjusted life expectancy (HALE, 2019). Global Burden of Disease Study. Institute for Health Metrics and Evaluation (IHME).\nCOVID severity (daily data).\nSurveys about conspiracy thinking and populism (Uscinski et al. 2021 dataverse files, codebooks and question wording)\nArticles about the economy from The Guardian (obtained via the free API).\nA dataset of political science article abstracts for practicing descriptive text analysis (credit: Benjamin Guinaudeau).\n\n\nUtilities\n\nOECD country codes"
   },
   {
     "objectID": "datasets.html#selected-public-datasets-potential-options-for-students-projects",
     "href": "datasets.html#selected-public-datasets-potential-options-for-students-projects",
     "title": "Datasets",
     "section": "Selected public datasets (potential options for students’ projects)",
-    "text": "Selected public datasets (potential options for students’ projects)\nhttps://github.com/saschagobel/legislatoR\nParlEE plenary speeches V3 data set: Annotated full-text of 10 million sentence-level plenary speeches of six EU legislative chambers\nSocial & Moral Psychology of COVID-19\nEurobarometer: Harmonized dataset\nEuropean Values Study\nMediaCloud\nCumulative CES Common Content\nCCES2020 - NYU module (includes questions on social media use, political behaviors and personality traits)."
+    "text": "Selected public datasets (potential options for students’ projects)\nlegislatoR: Interface to the Comparative Legislators Database\nParlEE plenary speeches V3 data set: Annotated full-text of 10 million sentence-level plenary speeches of six EU legislative chambers\nSocial & Moral Psychology of COVID-19\nEurobarometer: A harmonized dataset\nEuropean Values Study\nMediaCloud\nuseNews: Document-feature matrices of news articles (2019-20)\nCC-News: 708,241 English language news articles published between Jan 2017 and December 2019.\nCumulative CES Common Content\nCCES2020 - NYU module (includes questions on social media use, political behaviors and personality traits)."
   },
   {
     "objectID": "references.html#useful-resources-include",
