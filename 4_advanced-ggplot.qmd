@@ -130,7 +130,6 @@ d1 %>% select(consp_Index2,
   scale_x_continuous(limits = c(0,1))
 ```
 
-\`\`\`{r}
 
 <hr>
 

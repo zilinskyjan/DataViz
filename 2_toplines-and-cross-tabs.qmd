@@ -3,6 +3,7 @@ output: html_document
 editor_options: 
   chunk_output_type: console
 ---
+
 In many, maybe most, situations, your dataset will have so many rows that it would not be realistic to plot every single observations.
 
 This means that you will want to:
@@ -31,10 +32,9 @@ library(pollster)
 a <- readRDS("data_nationscape2019/Nationscape_first10waves.rds")
 ```
 
-
 ## Ocasio-Cortez toplines
 
-First, what percentage of respondents extressed favorable views of AOC?
+First, what percentage of respondents expressed favorable views of AOC?
 
 You can look at the distribution of responses directly:
 
@@ -112,8 +112,8 @@ Let's calculate the AOC favorability rates again, but this time for different "t
 
 Let's consider the following types of voters:
 
-* Joe Biden supporters
-* Donald Trump supporters
+-   Joe Biden supporters
+-   Donald Trump supporters
 
 First we need to calculate what we eventually want to display visually. Here `pollster::crosstab` will be useful:
 
@@ -185,7 +185,7 @@ pollster::crosstab(df = a,
   geom_label(aes(label=round(pct,1)))
 ```
 
-## Taking a step: getting to know your dataset
+## Taking a step back: getting to know your dataset
 
 ### List of variables
 
@@ -255,20 +255,16 @@ a %>% group_by(week) %>% tally() %>%
   ylim(c(0,8000))
 ```
 
-
-
 ```{r}
 pollster::crosstab(df = a, x = trump_biden, 
                         y = aoc_Favorable,weight = weight,format = "long") 
 ```
-
 
 ```{r}
 pollster::crosstab(df = a, x = trump_biden, 
                         y = aoc_Favorable,weight = weight,format = "long") %>%
   filter(aoc_Favorable==1)
 ```
-
 
 ```{r}
 #| eval: false
@@ -278,7 +274,6 @@ pollster::crosstab(df = a, x = trump_biden,
 # ggplot(aes(x= ..., y = ...))
 ```
 
-
 ```{r}
 #| eval: false
 pollster::crosstab(df = a, x = trump_biden, 
@@ -287,14 +282,12 @@ pollster::crosstab(df = a, x = trump_biden,
   ggplot(aes(x= trump_biden, y = pct)) + geom_col()
 ```
 
-
 ```{r}
 pollster::crosstab(df = a, x = trump_biden, 
                         y = aoc_Favorable,weight = weight,format = "long") %>%
   filter(aoc_Favorable==1) %>%
   ggplot(aes(x= trump_biden, y = pct)) + geom_col()
 ```
-
 
 ```{r}
 pollster::crosstab(df = a, x = trump_biden, 
@@ -303,15 +296,12 @@ pollster::crosstab(df = a, x = trump_biden,
   ggplot(aes(y= trump_biden, x = pct)) + geom_col()
 ```
 
-
-
 ```{r}
 pollster::crosstab(df = a, x = trump_biden, 
                         y = aoc_Favorable,weight = weight,format = "long") %>%
   filter(aoc_Favorable==1) %>%
   ggplot(aes(y= trump_biden, x = pct)) + geom_col() + theme_classic()
 ```
-
 
 ```{r}
 pollster::crosstab(df = a, x = trump_biden, 
@@ -320,8 +310,6 @@ pollster::crosstab(df = a, x = trump_biden,
   ggplot(aes(y= fct_reorder(trump_biden,pct), 
              x = pct)) + geom_col() + theme_classic() + ggtitle("AOC favorability") 
 ```
-
-
 
 ```{r}
 pollster::crosstab(df = a, x = trump_biden, 
@@ -332,8 +320,6 @@ pollster::crosstab(df = a, x = trump_biden,
   labs(x="Percent", y = "", title = "AOC favorability")
 ```
 
-
-
 ```{r}
 pollster::crosstab(df = a, x = trump_biden, 
                         y = aoc_Favorable,weight = weight,format = "long") %>%
@@ -342,8 +328,6 @@ pollster::crosstab(df = a, x = trump_biden,
              x = pct)) + geom_col(width = .3,fill="darkorange") + theme_classic() +
   labs(x="Percent", y = "", title = "AOC favorability") 
 ```
-
-
 
 ```{r}
 pollster::crosstab(df = a, x = trump_biden, 
@@ -355,8 +339,6 @@ pollster::crosstab(df = a, x = trump_biden,
   geom_label(aes(label=pct))
 ```
 
-
-
 ```{r}
 pollster::crosstab(df = a, x = trump_biden, 
                         y = aoc_Favorable,weight = weight,format = "long") %>%
@@ -366,5 +348,3 @@ pollster::crosstab(df = a, x = trump_biden,
   labs(x="Percent", y = "", title = "AOC favorability") +
   geom_label(aes(label=round(pct,1)))
 ```
-
-

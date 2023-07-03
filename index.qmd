@@ -15,13 +15,13 @@ There is a lot we can do after extracting relevant information from statistical 
 -   How stable are coefficients from linear models across specifications?
 -   What do we lose/gain when we display aggregates (e.g. average marginal effects) rather than individual data-points?
 
-## Lesson 2: The first chart you produce is your "draft #1". 
+## Lesson 2: The first chart you produce is your "draft #1".
 
 Iterate and create reasonably clear and self-contained visual exhibits.
 
 ## Lesson 3: Just because you have a tool (R package / R skills) in your hands, doesn't mean you have to use it.
 
-Sometimes I show students a picture with a sign "No juggling of machetes". After reading that sign, does anyone feel tempted to do this? Maybe. But if we have the skills to do certain things, we should only be applying our skills when appropriate.
+Sometimes I show students a picture with a sign "No juggling of machetes". After reading that sign, does anyone feel tempted to do this? Maybe. But even when we have the skills to do certain things, we should only be applying our skills when appropriate.
 
 ![](images/machete.png)
 
