@@ -1,0 +1,825 @@
+---
+title: "ggplot lesson"
+subtitle: "Nationscape surveys"
+format: 
+  revealjs:
+    slide-number: c
+execute:
+  echo: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(tidyverse)
+library(haven)
+library(labelled)
+library(pollster)
+#library(stargazer)
+
+
+theme_set(theme_minimal())
+theme_update(text = element_text(size=13),
+             #text = element_text(family="Source Sans Pro")
+)
+             
+# READ IN RECODED DATA
+a <- readRDS("data_nationscape2019/Nationscape_first10waves.rds")
+```
+
+## 
+
+### List of variables
+
+```{r}
+dim(a)
+
+names(a)
+```
+
+## We subset the data to the first 10 waves
+
+```{r}
+# Weekly number of respondents
+a %>% group_by(week) %>% tally() %>% head()
+```
+
+. . .
+
+```{r}
+a %>% summarise(first = min(date), last = max(date))
+```
+
+## 
+
+```{r}
+a %>% group_by(week) %>% tally() %>%
+  ggplot(aes(x=week,y=n)) + geom_bar(stat="identity") +
+  labs(x="",y="Respondents",title="Weekly number of Nationscape respondents")
+```
+
+## 
+
+```{r}
+a %>% group_by(week) %>% tally() %>%
+  ggplot(aes(x=week,y=n)) + geom_bar(stat="identity") +
+  labs(x="",y="Respondents",title="Weekly number of Nationscape respondents") +
+  scale_x_date(date_breaks = "2 weeks", date_labels = "%W")
+```
+
+## 
+
+```{r}
+a %>% group_by(week) %>% tally() %>%
+  ggplot(aes(x=week,y=n)) + geom_bar(stat="identity") +
+  labs(x="",y="Respondents",title="Weekly number of Nationscape respondents") +
+  scale_x_date(date_breaks = "1 months", minor_breaks = "1 weeks",date_labels = "%b %y")
+```
+
+## 
+
+```{r}
+a %>% group_by(week) %>% tally() %>%
+  ggplot(aes(x=week,y=n)) + geom_line() + geom_point() +
+  labs(x="",y="Respondents",title="Weekly number of Nationscape respondents") +
+  scale_x_date(date_breaks = "1 months", minor_breaks = "1 days",date_labels = "%B %Y")
+```
+
+## 
+
+```{r}
+a %>% group_by(week) %>% tally() %>%
+  ggplot(aes(x=week,y=n)) + geom_line() + geom_point() +
+  labs(x="",y="Respondents",title="Weekly number of Nationscape respondents") +
+  scale_x_date(date_breaks = "1 months", minor_breaks = "1 days",date_labels = "%B %Y") +
+  ylim(c(0,8000))
+```
+
+## 
+
+### Favorability of AOC
+
+```{r}
+table(a$aoc_Favorable)
+```
+
+## 
+
+```{r}
+a %>% summarise(AOC_fav = mean(aoc_Favorable))
+```
+
+. . .
+
+```{r}
+a %>% summarise(AOC_fav = mean(aoc_Favorable,na.rm=T),
+                
+                AOC_fav_w = weighted.mean(aoc_Favorable,
+                                             w=weight,
+                                             na.rm=T))
+```
+
+## Toplines vs. cross-tabs
+
+Favorability of AOC
+
+```{r}
+pollster::topline(a,aoc_Favorable,weight = weight)
+```
+
+. . .
+
+```{r}
+pollster::crosstab(df = a, 
+                        x = gender, 
+                        y = aoc_Favorable,weight = weight) 
+```
+
+## 
+
+```{r}
+pollster::crosstab(df = a, x = gender, 
+                        y = aoc_Favorable,weight = weight,format = "long") 
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") 
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1)
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+#| eval: false
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) 
+# ggplot(aes(x= ..., y = ...))
+```
+
+## Favorability by vote choice (intent)
+
+What if we had not specified `format = "wide"`?
+
+```{r}
+#| eval: true
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,
+                   weight = weight)
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+#| eval: false
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(x= trump_biden, y = pct)) + geom_col()
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(x= trump_biden, y = pct)) + geom_col()
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(y= trump_biden, x = pct)) + geom_col()
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(y= trump_biden, x = pct)) + geom_col() + theme_classic()
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(y= fct_reorder(trump_biden,pct), 
+             x = pct)) + geom_col() + theme_classic() + ggtitle("AOC favorability") 
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(y= fct_reorder(trump_biden,pct), 
+             x = pct)) + geom_col() + theme_classic() +
+  labs(x="Percent", y = "", title = "AOC favorability")
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(y= fct_reorder(trump_biden,pct), 
+             x = pct)) + geom_col(width = .3,fill="darkorange") + theme_classic() +
+  labs(x="Percent", y = "", title = "AOC favorability") 
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(y= fct_reorder(trump_biden,pct), 
+             x = pct)) + geom_col(width = .3,fill="darkorange") + theme_classic() +
+  labs(x="Percent", y = "", title = "AOC favorability") +
+  geom_label(aes(label=pct))
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(y= fct_reorder(trump_biden,pct), 
+             x = pct)) + geom_col(width = .3,fill="darkorange") + theme_classic() +
+  labs(x="Percent", y = "", title = "AOC favorability") +
+  geom_label(aes(label=round(pct,1)))
+```
+
+## Favorability by vote choice (intent)
+
+```{r}
+pollster::crosstab(df = a, x = trump_biden, 
+                        y = aoc_Favorable,weight = weight,format = "long") %>%
+  filter(aoc_Favorable==1, trump_biden!="Don't Know") %>%
+  ggplot(aes(y= fct_reorder(trump_biden,pct), 
+             x = pct)) + geom_col(width = .3,fill="darkorange") + theme_classic() +
+  labs(x="Percent", y = "Supporters of...", title = "AOC favorability") +
+  geom_label(aes(label=round(pct,1)))
+```
+
+# From 2-way to 3-way crosstabs
+
+## 
+
+Break down vote choice by education (later also by month)
+
+```{r}
+moe_crosstab(df= a %>% filter(registered==1,trump_biden != 999),
+                  x = educ_category,
+                  y = trump_biden,weight = weight,format="long",n=F,unwt_n=TRUE)
+```
+
+##  {.smaller}
+
+```{r}
+#| fig-alight: center
+moe_crosstab(df= a %>% filter(registered==1,trump_biden != 999),
+                  x = educ_category,
+                  y = trump_biden,weight = weight,format="long",n=F,unwt_n=TRUE) %>%
+  ggplot(aes(x=educ_category,y=pct,fill=trump_biden)) + 
+  geom_col() + scale_fill_brewer(palette = "Set1",direction = -1) +
+  labs(x="",y="",fill="")
+```
+
+##  {.smaller}
+
+```{r}
+moe_crosstab_3way(df= a %>% filter(registered==1,trump_biden != 999),
+                  x = educ_category,
+                  y = trump_biden,z=monthyear,
+                  weight = weight,n=F,unwt_n=TRUE) %>% head()
+```
+
+. . .
+
+```{r}
+moe_crosstab_3way(df= a %>% filter(registered==1,trump_biden != 999),
+                  x = educ_category,
+                  y = trump_biden,z=monthyear,
+                  weight = weight,format="long",n=F,unwt_n=TRUE)
+```
+
+##  {.smaller}
+
+```{r}
+#| echo: false
+moe_crosstab_3way(df= a %>% filter(registered==1,trump_biden != 999),
+                  x = educ_category,
+                  y = trump_biden,z=monthyear,
+                  weight = weight,format="long",n=F,unwt_n=TRUE) %>%
+  ggplot(aes(x=monthyear,y=pct,color=trump_biden)) + 
+  geom_line(lwd=.5) + geom_point(size=1.5) +
+  geom_errorbar(aes(ymin = (pct - moe), ymax = (pct + moe),
+                    color=trump_biden), width=.1) +
+  labs(color="Preferred candidate",y="Two-party preference share",x="",
+       title="2020 vote intent among white non-Hispanic registered voters",
+       subtitle="Democracy Fund + UCLA Nationscape data") +
+  theme_minimal() + facet_grid(~educ_category) +
+  scale_color_brewer(palette = "Set1",direction = -1) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=.5)) +
+  scale_x_date(date_breaks = "1 month",date_labels = "%b 20%y")
+```
+
+##  {.smaller}
+
+```{r}
+moe_crosstab_3way(df= a %>% filter(registered==1,trump_biden != 999),
+                  x = educ_category,
+                  y = trump_biden,z=monthyear,
+                  weight = weight,format="long",n=F,unwt_n=TRUE) %>%
+  ggplot(aes(x=monthyear,y=pct,color=trump_biden)) + 
+  geom_line() + geom_point() +
+  geom_errorbar(aes(ymin = (pct - moe), ymax = (pct + moe),
+                    color=trump_biden)) +
+  theme_minimal() + facet_grid(~educ_category)
+```
+
+##  {.smaller}
+
+```{r}
+moe_crosstab_3way(df= a %>% filter(registered==1,trump_biden != 999),
+                  x = educ_category,
+                  y = trump_biden,z=monthyear,
+                  weight = weight,format="long",n=F,unwt_n=TRUE) %>%
+  ggplot(aes(x=monthyear,y=pct,color=trump_biden)) + 
+  geom_line(lwd=.5) + geom_point(size=1.5) +
+  geom_errorbar(aes(ymin = (pct - moe), ymax = (pct + moe), color=trump_biden), width=.1) +
+  labs(color="Preferred candidate",y="Two-party preference share",x="",title="2020 vote intent among white non-Hispanic registered voters", subtitle="Democracy Fund + UCLA Nationscape data") +
+  scale_color_brewer(palette = "Set1",direction = -1) + theme_minimal() + facet_grid(~educ_category) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=.5)) +
+  scale_x_date(date_breaks = "1 month",date_labels = "%b 20%y")
+```
+
+## New target chart
+
+```{r}
+#| echo: false
+#| fig-width: 6
+#| fig-align: center
+
+moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
+                  weight = weight,format="long",n=F,unwt_n=TRUE) %>%
+  filter(aoc_Favorable==1,trump_biden!="Don't Know") %>%
+  mutate(who = glue::glue('{trump_biden} voters')) %>%
+  ggplot(aes(x=who,y=pct,color=age_group)) + 
+  geom_point(size=2.5, position=position_dodge(width=.1)) +
+  labs(color="Respondent age group",y="Percent with favorable views",x="",
+       title="AOC favorability by vote choice and by age") +
+  theme_minimal() + scale_color_brewer(palette = "Set2") +
+  theme(legend.position = "top") + geom_hline(yintercept = 0,lty=2) +
+  theme(panel.grid.major.x = element_blank(),panel.grid.minor.x = element_blank(), # remove the vertical grid lines
+        panel.grid.major.y = element_blank()) +
+  theme(text= element_text(size=13)) +
+  guides(color = guide_legend(nrow = 2))
+```
+
+##  {.smaller}
+
+### Favorability of AOC by age and vote intent
+
+```{r}
+moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
+                  weight = weight,format="long",n=F,unwt_n=TRUE)
+```
+
+##  {.smaller}
+
+```{r}
+moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
+                  weight = weight,format="long",n=F,unwt_n=TRUE) %>%
+  filter(aoc_Favorable==1)
+```
+
+##  {.smaller}
+
+```{r}
+moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
+                  weight = weight,format="long",n=F,unwt_n=TRUE) %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(x=trump_biden,y=pct,color=age_group)) + 
+  geom_point()
+```
+
+##  {.smaller}
+
+```{r}
+moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
+                  weight = weight,format="long",n=F,unwt_n=TRUE) %>%
+  filter(aoc_Favorable==1) %>%
+  ggplot(aes(x=trump_biden,y=pct,color=age_group)) + 
+   geom_point(size=2.5, position=position_dodge(width=.1))
+```
+
+##  {.smaller}
+
+```{r}
+moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
+                  weight = weight,format="long",n=F,unwt_n=TRUE) %>%
+  filter(aoc_Favorable==1,trump_biden!="Don't Know") %>%
+  ggplot(aes(x=trump_biden,y=pct,color=age_group)) + 
+  geom_point(size=2.5, position=position_dodge(width=.1))
+```
+
+##  {.smaller}
+
+```{r}
+moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
+                  weight = weight,format="long",n=F,unwt_n=TRUE) %>%
+  filter(aoc_Favorable==1,trump_biden!="Don't Know") %>%
+  ggplot(aes(x=trump_biden,y=pct,color=age_group)) + 
+  geom_point(size=2.5, position=position_dodge(width=.1)) +
+  labs(color="Respondent age group",y="Percent with favorable views",x="",
+       title="AOC favorability by vote choice and by age") +
+  theme_minimal() + scale_color_brewer(palette = "Set2") 
+```
+
+##  {.smaller}
+
+```{r}
+moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
+                  weight = weight,format="long",n=F,unwt_n=TRUE) %>%
+  filter(aoc_Favorable==1,trump_biden!="Don't Know") %>%
+  mutate(who = glue::glue('{trump_biden} voters')) %>%
+  ggplot(aes(x=who,y=pct,color=age_group)) + geom_point(size=2.5, position=position_dodge(width=.1)) +
+  labs(color="Respondent age group",y="Percent with favorable views",x="",title="AOC favorability by vote choice and by age") +
+  theme_minimal() + scale_color_brewer(palette = "Set2") +
+  guides(color = guide_legend(nrow = 2))
+```
+
+##  {.smaller}
+
+```{r}
+moe_crosstab_3way(df= a,x = age_group,y = aoc_Favorable,z=trump_biden,
+                  weight = weight,format="long",n=F,unwt_n=TRUE) %>%
+  filter(aoc_Favorable==1,trump_biden!="Don't Know") %>%
+  mutate(who = glue::glue('{trump_biden} voters')) %>%
+  ggplot(aes(x=who,y=pct,color=age_group)) +  geom_point(size=2.5, position=position_dodge(width=.1)) +
+  labs(color="Respondent age group",y="Percent with favorable views",x="", title="AOC favorability by vote choice and by age") +
+  theme_minimal() + scale_color_brewer(palette = "Set2") +
+  theme(legend.position = "top") + geom_hline(yintercept = 0,lty=2) +
+  theme(panel.grid.major.x = element_blank(),panel.grid.minor.x = element_blank(), # remove the vertical grid lines
+        panel.grid.major.y = element_blank()) +
+  theme(text= element_text(size=13)) +
+  guides(color = guide_legend(nrow = 2))
+```
+
+# Visualizing model coefficients
+
+## 
+
+### Favorability of AOC: a set of models
+
+```{r}
+library(broom)
+aoc_Favorable <- a %>% filter(
+         !is.na(aoc_Favorable),
+         !is.na(gender_att3_by1SD)) %>%
+  group_by(pid3) %>%
+  do(tidy(lm(aoc_Favorable ~
+               gender_att3_by1SD +
+               age + college_grad +
+               White + Black + Hispanic, data = .)))
+```
+
+##  {.smaller}
+
+```{r}
+aoc_Favorable
+```
+
+##  {.smaller}
+
+```{r}
+aoc_Favorable %>% 
+  ungroup() %>%
+  count(term)
+```
+
+##  {.smaller}
+
+```{r}
+aoc_Favorable %>%
+  filter(pid3 <= 3,
+         term == "age") %>%
+  ggplot(aes(x=pid3,
+             y=estimate,
+             color=as_factor(pid3))) +
+  geom_point()
+```
+
+##  {.smaller}
+
+```{r}
+aoc_Favorable %>%
+  filter(pid3 <= 3,
+         term == "age") %>%
+  ggplot(aes(x=pid3,
+             y=estimate,
+             ymax = estimate + 1.96*std.error,
+             ymin = estimate - 1.96*std.error,
+             color=as_factor(pid3))) +
+  geom_pointrange()
+```
+
+## Use as_factor() {.smaller}
+
+```{r}
+aoc_Favorable %>% filter(pid3 <= 3,term == "age") %>%
+  ggplot(aes(x=as_factor(pid3),y=estimate,
+             ymax = estimate + 1.96*std.error,
+             ymin = estimate - 1.96*std.error,
+             color=as_factor(pid3))) +
+  geom_pointrange() + labs(x="",y="Coefficient estimate",color="")
+```
+
+##  {.smaller}
+
+```{r}
+aoc_Favorable %>% filter(pid3 <= 3,term == "age") %>%
+  ggplot(aes(x=as_factor(pid3),y=estimate,
+             ymax = estimate + 1.96*std.error,
+             ymin = estimate - 1.96*std.error,
+             color=as_factor(pid3))) +
+  geom_pointrange() + labs(x="",y="Coefficient estimate",color="") +
+  geom_hline(yintercept=0) 
+```
+
+##  {.smaller}
+
+```{r}
+aoc_Favorable %>% filter(pid3 <= 3,term == "age") %>%
+  ggplot(aes(x=as_factor(pid3),y=estimate,
+             ymax = estimate + 1.96*std.error,
+             ymin = estimate - 1.96*std.error,
+             color=as_factor(pid3))) +
+  geom_pointrange() + labs(x="",y="Coefficient estimate",color="") +
+  geom_hline(yintercept=0, linetype=2) 
+```
+
+##  {.smaller}
+
+```{r}
+aoc_Favorable %>% filter(pid3 <= 3,term == "age") %>%
+  ggplot(aes(x=as_factor(pid3),y=estimate,
+             ymax = estimate + 1.96*std.error,
+             ymin = estimate - 1.96*std.error,color=as_factor(pid3))) +
+  geom_pointrange(position = position_dodge(width = .45), size=.6) + labs(x="",y="Coefficient estimate",
+  color="Subset of respondents") +
+  ggtitle("Association between age and AOC favorability") +
+  geom_hline(yintercept=0, linetype=2) 
+```
+
+##  {.smaller}
+
+Run regressions by ethnicity
+
+```{r}
+aoc_Fav_by_eth <- a %>% filter(
+         !is.na(aoc_Favorable),
+         !is.na(race_ethnicity)) %>%
+  group_by(race_ethnicity) %>%
+  do(tidy(lm(aoc_Favorable ~
+               gender_att3_by1SD + factor(pid3) +
+               age + college_grad, data = .)))
+```
+
+##  {.smaller}
+
+Run regressions by ethnicity
+
+```{r}
+aoc_Fav_by_eth
+```
+
+##  {.smaller}
+
+Display a subset of results
+
+```{r}
+aoc_Fav_by_eth %>% filter(race_ethnicity==2)
+```
+
+##  {.smaller}
+
+```{r}
+aoc_Fav_by_eth %>% filter(term == "age",race_ethnicity<=10) %>%
+  ggplot(aes(x=as_factor(race_ethnicity),y=estimate,
+             ymax = estimate + 1.96*std.error,
+             ymin = estimate - 1.96*std.error)) +
+  geom_pointrange(size=1.5) + labs(x="",y="Coefficient estimate") +
+  ggtitle("Association between age and AOC favorability")
+```
+
+##  {.smaller}
+
+```{r}
+aoc_Fav_by_eth %>% filter(term == "age",race_ethnicity<=10) %>%
+  ggplot(aes(x=as_factor(race_ethnicity),y=estimate,
+             ymax = estimate + 1.96*std.error,
+             ymin = estimate - 1.96*std.error)) +
+  geom_pointrange() + labs(x="",y="Coefficient estimate") +
+  ggtitle("Association between age and AOC favorability") +
+  geom_hline(yintercept=0, linetype=2) + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=.5))
+```
+
+##  {.smaller}
+
+```{r}
+aoc_Fav_by_eth %>% filter(term == "college_grad",race_ethnicity<=10) %>%
+  ggplot(aes(x=as_factor(race_ethnicity),y=estimate,
+             ymax = estimate + 1.96*std.error,ymin = estimate - 1.96*std.error)) +
+  geom_pointrange() + labs(x="",y="Coefficient estimate") +
+  ggtitle("Association between education and AOC favorability") +
+  geom_hline(yintercept=0, linetype=2) + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=.5))
+```
+
+##  {.smaller}
+
+```{r}
+aoc_Fav_by_eth %>% filter(term == "factor(pid3)2",race_ethnicity<=10) %>%
+  ggplot(aes(x=as_factor(race_ethnicity),y=estimate,
+             ymax = estimate + 1.96*std.error,ymin = estimate - 1.96*std.error)) +
+  geom_pointrange() + labs(x="",y="Coefficient estimate") +
+  ggtitle("Association between Republican Party ID and AOC favorability") +
+  geom_hline(yintercept=0, linetype=2) + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=.5))
+```
+
+##  {.smaller}
+
+```{r}
+aoc_Fav_by_eth %>% filter(term == "gender_att3_by1SD",race_ethnicity<=10) %>%
+  ggplot(aes(x=as_factor(race_ethnicity),y=estimate,
+             ymax = estimate + 1.96*std.error,ymin = estimate - 1.96*std.error)) +
+  geom_pointrange() + labs(x="",y="Coefficient estimate") +
+  ggtitle("Association between sexist attitudes ID and AOC favorability") +
+  geom_hline(yintercept=0, linetype=2) + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=.5))
+```
+
+##  {.smaller}
+
+```{r}
+aoc_Fav_by_eth %>% filter(term == "gender_att3_by1SD",race_ethnicity<=10) %>%
+  ggplot(aes(x=as_factor(race_ethnicity),y=estimate,
+             ymax = estimate + 1.96*std.error,ymin = estimate - 1.96*std.error)) +
+  geom_pointrange() + labs(x="",y="Coefficient estimate") +
+  ggtitle("Association between sexist attitudes ID and AOC favorability") +
+  geom_hline(yintercept=0, linetype=2) + 
+  coord_flip()
+```
+
+# Heatmaps
+
+##  {.smaller}
+
+Immigration and vote choice
+
+```{r}
+#| echo: false
+#| fig-width: 7
+#| fig-height: 6
+#| fig-align: center
+
+pollster::crosstab_3way(df = a,
+                        x = educ_category,
+                        z = immig_quintile,
+                        y = trump16,
+                        weight = weight) %>%
+  ggplot(aes(x = as_factor(immig_quintile),
+             y = educ_category,
+             fill = `1`, label = round(`1`,1))) +
+  geom_tile(alpha=.77) +
+  ggfittext::geom_fit_text(place = "topright",size=13) +
+  jcolors::scale_fill_jcolors_contin(palette = "pal12") +
+  labs(fill = "% Trump\nvote",
+       x = "",
+       y = "",
+       title = "Trump vote in 2016 by preferences on immigration") +
+  theme_minimal() +
+  theme(text = element_text(size=15)) +
+  theme(axis.text.x = element_text(angle = 40, vjust = 0.5, hjust=.5))
+```
+
+##  {.smaller}
+
+The underlying data:
+
+```{r}
+pollster::crosstab_3way(df = a,
+                        x = educ_category,
+                        z = immig_quintile,
+                        y = trump16,
+                        weight = weight)
+```
+
+##  {.smaller}
+
+```{r}
+pollster::crosstab_3way(df = a,
+                        x = educ_category,
+                        z = immig_quintile,
+                        y = trump16,
+                        weight = weight) %>%
+  ggplot(aes(x = as_factor(immig_quintile),y = educ_category,
+             fill = `1`)) + geom_tile()
+```
+
+##  {.smaller}
+
+```{r}
+pollster::crosstab_3way(df = a,
+                        x = educ_category,
+                        z = immig_quintile,
+                        y = trump16,
+                        weight = weight) %>%
+  ggplot(aes(x = as_factor(immig_quintile),y = educ_category,
+             fill = `1`)) + geom_tile() +
+  jcolors::scale_fill_jcolors_contin(palette = "pal12") +
+  labs(fill = "% Trump\nvote",x = "",y = "",
+       title = "Trump vote in 2016 by preferences on immigration")
+```
+
+##  {.smaller}
+
+```{r}
+pollster::crosstab_3way(df = a,
+                        x = educ_category,
+                        z = immig_quintile,
+                        y = trump16,
+                        weight = weight) %>%
+  ggplot(aes(x = as_factor(immig_quintile),y = educ_category,
+             fill = `1`, label = round(`1`,1))) +
+  geom_tile(alpha=.77) +
+  ggfittext::geom_fit_text(place = "topright",size=13) +
+  jcolors::scale_fill_jcolors_contin(palette = "pal12") +
+  labs(fill = "% Trump\nvote",x = "",y = "", title = "Trump vote in 2016 by preferences on immigration")
+```
+
+##  {.smaller}
+
+```{r}
+#| fig-align: center
+pollster::crosstab_3way(df = a,
+                        x = educ_category,
+                        z = immig_quintile,
+                        y = trump16,
+                        weight = weight) %>%
+  ggplot(aes(x = as_factor(immig_quintile),
+             y = educ_category,
+             fill = `1`, label = round(`1`,1))) +
+  geom_tile(alpha=.77) +
+  ggfittext::geom_fit_text(place = "topright",size=13) +
+  jcolors::scale_fill_jcolors_contin(palette = "pal12") +
+  labs(fill = "% Trump\nvote",x = "",y = "",title = "Trump vote in 2016 by preferences on immigration") +
+  theme_minimal() + theme(text = element_text(size=15)) +
+  theme(axis.text.x = element_text(angle = 40, vjust = 0.5, hjust=.5))
+```
+
+## 
+
+```{r}
+# a %>%
+#   filter(extra_group_id_being_american <=4,
+#          extra_group_identity_partyID <=4) %>%
+#   count(extra_group_id_being_american,
+#         extra_group_identity_partyID) %>%
+#   mutate(prop = n / sum(n), cs = cumsum(prop)) %>%
+#   ggplot(aes(x = as_factor(extra_group_id_being_american),
+#              y = as_factor(extra_group_identity_partyID),
+#              fill = prop* 100 )) +
+#     geom_tile() +
+#     scale_fill_gradient(low = "white", high = "darkblue") +
+#     labs(fill = "% of respondents",
+#          y = "Partisan Identity importance",
+#          x = "American Identity importance",
+#          caption = "Data: Nationscape")
+```
