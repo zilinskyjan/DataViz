@@ -103,7 +103,7 @@ a %>% group_by(week) %>% tally() %>%
 table(a$aoc_Favorable)
 ```
 
-##
+## 
 
 ```{r}
 a %>% summarise(AOC_fav = mean(aoc_Favorable))

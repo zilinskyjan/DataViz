@@ -21,7 +21,11 @@ Iterate and create reasonably clear and self-contained visual exhibits.
 
 ## Lesson 3: Just because you have a tool (R package / R skills) in your hands, doesn't mean you have to use it.
 
-Sometimes I show students a picture with a sign "No juggling of machetes". After reading that sign, does anyone feel tempted to do this? Maybe. But even when we have the skills to do certain things, we should only be applying our skills when appropriate.
+Sometimes I show students a picture with a sign "No juggling of machetes". After reading that sign, does anyone feel tempted to do what they are asked not to do? Maybe.
+
+![](img/machete.png){fig-alt="Temptations"}
+
+But even when we have the skills to do certain things, we should only be applying our skills when appropriate.
 
 ![](images/machete.png)
 
@@ -68,14 +72,15 @@ We will be graphing various types of evidence including:
 - Machine learning output (regression trees, most important variables, etc.)
 ```
 
+If you are taking this class for credit with me, these are the main expectations:
+
 ## Assignments
 
--   Create your own dataset (30%).
+-   Create your own dataset
     -   Create your own dataset. It needs to have at least one of these 3 attributes
         1.  Multiple levels (at least 2).
         2.  Original topic, subject or angle.
         3.  Impressive scope
--   Final project (70%)
+-   Final project
     -   Form a group of 2-3 students
     -   Prepare a compelling data visualization
-    -   Some elements in R are expected, you could also use [D3](https://github.com/scotthmurray/d3-book) or another language if you wish.
