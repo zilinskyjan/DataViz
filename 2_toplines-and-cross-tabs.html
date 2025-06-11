@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Visualization with R and ggplot - 3&nbsp; Toplines and crosstabs</title>
+<title>Data Visualization with R and ggplot - 2&nbsp; Toplines and crosstabs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./3_B_timeseries.html" rel="next">
-<link href="./typology.html" rel="prev">
+<link href="./1_principles.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -108,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./2_toplines-and-cross-tabs.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Toplines and crosstabs</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./2_toplines-and-cross-tabs.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Toplines and crosstabs</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -147,32 +147,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./typology.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Typology of charts</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./2_toplines-and-cross-tabs.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Toplines and crosstabs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Toplines and crosstabs</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_B_timeseries.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Economic data over time</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Economic data over time</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_standard-charts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Standard charts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Standard charts</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4_advanced-ggplot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4b_tweet_ratings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -181,18 +181,58 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./typology.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Typology of charts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./datasets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Datasets</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Appendix</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tidyverse-refresher.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tidyverse Tips / Refresher</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./class-exercizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In-class exercizes</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -203,16 +243,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#ocasio-cortez-toplines" id="toc-ocasio-cortez-toplines" class="nav-link active" data-scroll-target="#ocasio-cortez-toplines"><span class="header-section-number">3.1</span> Ocasio-Cortez toplines</a></li>
-  <li><a href="#favorability-by-vote-choice-intent" id="toc-favorability-by-vote-choice-intent" class="nav-link" data-scroll-target="#favorability-by-vote-choice-intent"><span class="header-section-number">3.2</span> Favorability by vote choice (intent)</a></li>
-  <li><a href="#taking-a-step-back-getting-to-know-your-dataset" id="toc-taking-a-step-back-getting-to-know-your-dataset" class="nav-link" data-scroll-target="#taking-a-step-back-getting-to-know-your-dataset"><span class="header-section-number">3.3</span> Taking a step back: getting to know your dataset</a>
+  <li><a href="#ocasio-cortez-toplines" id="toc-ocasio-cortez-toplines" class="nav-link active" data-scroll-target="#ocasio-cortez-toplines"><span class="header-section-number">2.1</span> Ocasio-Cortez toplines</a></li>
+  <li><a href="#favorability-by-vote-choice-intent" id="toc-favorability-by-vote-choice-intent" class="nav-link" data-scroll-target="#favorability-by-vote-choice-intent"><span class="header-section-number">2.2</span> Favorability by vote choice (intent)</a></li>
+  <li><a href="#taking-a-step-back-getting-to-know-your-dataset" id="toc-taking-a-step-back-getting-to-know-your-dataset" class="nav-link" data-scroll-target="#taking-a-step-back-getting-to-know-your-dataset"><span class="header-section-number">2.3</span> Taking a step back: getting to know your dataset</a>
   <ul class="collapse">
-  <li><a href="#list-of-variables" id="toc-list-of-variables" class="nav-link" data-scroll-target="#list-of-variables"><span class="header-section-number">3.3.1</span> List of variables</a></li>
-  <li><a href="#how-many-respondents-were-recruited-each-week" id="toc-how-many-respondents-were-recruited-each-week" class="nav-link" data-scroll-target="#how-many-respondents-were-recruited-each-week"><span class="header-section-number">3.3.2</span> How many respondents were recruited each week?</a></li>
-  <li><a href="#what-is-the-date-range" id="toc-what-is-the-date-range" class="nav-link" data-scroll-target="#what-is-the-date-range"><span class="header-section-number">3.3.3</span> What is the date range?</a></li>
-  <li><a href="#plotting-some-decriptive-statistics" id="toc-plotting-some-decriptive-statistics" class="nav-link" data-scroll-target="#plotting-some-decriptive-statistics"><span class="header-section-number">3.3.4</span> Plotting some decriptive statistics</a></li>
-  <li><a href="#switching-to-a-line-graph" id="toc-switching-to-a-line-graph" class="nav-link" data-scroll-target="#switching-to-a-line-graph"><span class="header-section-number">3.3.5</span> Switching to a line graph</a></li>
-  <li><a href="#modifying-the-y-axis-range" id="toc-modifying-the-y-axis-range" class="nav-link" data-scroll-target="#modifying-the-y-axis-range"><span class="header-section-number">3.3.6</span> Modifying the y-axis range</a></li>
+  <li><a href="#list-of-variables" id="toc-list-of-variables" class="nav-link" data-scroll-target="#list-of-variables"><span class="header-section-number">2.3.1</span> List of variables</a></li>
+  <li><a href="#how-many-respondents-were-recruited-each-week" id="toc-how-many-respondents-were-recruited-each-week" class="nav-link" data-scroll-target="#how-many-respondents-were-recruited-each-week"><span class="header-section-number">2.3.2</span> How many respondents were recruited each week?</a></li>
+  <li><a href="#what-is-the-date-range" id="toc-what-is-the-date-range" class="nav-link" data-scroll-target="#what-is-the-date-range"><span class="header-section-number">2.3.3</span> What is the date range?</a></li>
+  <li><a href="#plotting-some-decriptive-statistics" id="toc-plotting-some-decriptive-statistics" class="nav-link" data-scroll-target="#plotting-some-decriptive-statistics"><span class="header-section-number">2.3.4</span> Plotting some decriptive statistics</a></li>
+  <li><a href="#switching-to-a-line-graph" id="toc-switching-to-a-line-graph" class="nav-link" data-scroll-target="#switching-to-a-line-graph"><span class="header-section-number">2.3.5</span> Switching to a line graph</a></li>
+  <li><a href="#modifying-the-y-axis-range" id="toc-modifying-the-y-axis-range" class="nav-link" data-scroll-target="#modifying-the-y-axis-range"><span class="header-section-number">2.3.6</span> Modifying the y-axis range</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -222,7 +262,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Toplines and crosstabs</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Toplines and crosstabs</span></h1>
 </div>
 
 
@@ -259,8 +299,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"data_nationscape2019/Nationscape_first10waves.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="ocasio-cortez-toplines" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="ocasio-cortez-toplines"><span class="header-section-number">3.1</span> Ocasio-Cortez toplines</h2>
+<section id="ocasio-cortez-toplines" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="ocasio-cortez-toplines"><span class="header-section-number">2.1</span> Ocasio-Cortez toplines</h2>
 <p>First, what percentage of respondents expressed favorable views of AOC?</p>
 <p>You can look at the distribution of responses directly:</p>
 <div class="cell">
@@ -379,8 +419,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We get the same answer here: 44.5%.</p>
 <p>Going forward, we’ll only want to be reporting <em>weighted</em> calculations.</p>
 </section>
-<section id="favorability-by-vote-choice-intent" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="favorability-by-vote-choice-intent"><span class="header-section-number">3.2</span> Favorability by vote choice (intent)</h2>
+<section id="favorability-by-vote-choice-intent" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="favorability-by-vote-choice-intent"><span class="header-section-number">2.2</span> Favorability by vote choice (intent)</h2>
 <p>Let’s calculate the AOC favorability rates again, but this time for different “types” of respondents. In other words, we want to show “cross-tabs”. (We won’t actually be showing tables - we’ll be displaying data from cross-tabs).</p>
 <p>Let’s consider the following types of voters:</p>
 <ul>
@@ -483,10 +523,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="taking-a-step-back-getting-to-know-your-dataset" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="taking-a-step-back-getting-to-know-your-dataset"><span class="header-section-number">3.3</span> Taking a step back: getting to know your dataset</h2>
-<section id="list-of-variables" class="level3" data-number="3.3.1">
-<h3 data-number="3.3.1" class="anchored" data-anchor-id="list-of-variables"><span class="header-section-number">3.3.1</span> List of variables</h3>
+<section id="taking-a-step-back-getting-to-know-your-dataset" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="taking-a-step-back-getting-to-know-your-dataset"><span class="header-section-number">2.3</span> Taking a step back: getting to know your dataset</h2>
+<section id="list-of-variables" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="list-of-variables"><span class="header-section-number">2.3.1</span> List of variables</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -517,8 +557,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="how-many-respondents-were-recruited-each-week" class="level3" data-number="3.3.2">
-<h3 data-number="3.3.2" class="anchored" data-anchor-id="how-many-respondents-were-recruited-each-week"><span class="header-section-number">3.3.2</span> How many respondents were recruited each week?</h3>
+<section id="how-many-respondents-were-recruited-each-week" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="how-many-respondents-were-recruited-each-week"><span class="header-section-number">2.3.2</span> How many respondents were recruited each week?</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Weekly number of respondents</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(week) <span class="sc">%&gt;%</span> <span class="fu">tally</span>() <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -535,8 +575,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="what-is-the-date-range" class="level3" data-number="3.3.3">
-<h3 data-number="3.3.3" class="anchored" data-anchor-id="what-is-the-date-range"><span class="header-section-number">3.3.3</span> What is the date range?</h3>
+<section id="what-is-the-date-range" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="what-is-the-date-range"><span class="header-section-number">2.3.3</span> What is the date range?</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">first =</span> <span class="fu">min</span>(date), <span class="at">last =</span> <span class="fu">max</span>(date))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -547,8 +587,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="plotting-some-decriptive-statistics" class="level3" data-number="3.3.4">
-<h3 data-number="3.3.4" class="anchored" data-anchor-id="plotting-some-decriptive-statistics"><span class="header-section-number">3.3.4</span> Plotting some decriptive statistics</h3>
+<section id="plotting-some-decriptive-statistics" class="level3" data-number="2.3.4">
+<h3 data-number="2.3.4" class="anchored" data-anchor-id="plotting-some-decriptive-statistics"><span class="header-section-number">2.3.4</span> Plotting some decriptive statistics</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(week) <span class="sc">%&gt;%</span> <span class="fu">tally</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>week,<span class="at">y=</span>n)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span></span>
@@ -578,8 +618,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="switching-to-a-line-graph" class="level3" data-number="3.3.5">
-<h3 data-number="3.3.5" class="anchored" data-anchor-id="switching-to-a-line-graph"><span class="header-section-number">3.3.5</span> Switching to a line graph</h3>
+<section id="switching-to-a-line-graph" class="level3" data-number="2.3.5">
+<h3 data-number="2.3.5" class="anchored" data-anchor-id="switching-to-a-line-graph"><span class="header-section-number">2.3.5</span> Switching to a line graph</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(week) <span class="sc">%&gt;%</span> <span class="fu">tally</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>week,<span class="at">y=</span>n)) <span class="sc">+</span> </span>
@@ -592,8 +632,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="modifying-the-y-axis-range" class="level3" data-number="3.3.6">
-<h3 data-number="3.3.6" class="anchored" data-anchor-id="modifying-the-y-axis-range"><span class="header-section-number">3.3.6</span> Modifying the y-axis range</h3>
+<section id="modifying-the-y-axis-range" class="level3" data-number="2.3.6">
+<h3 data-number="2.3.6" class="anchored" data-anchor-id="modifying-the-y-axis-range"><span class="header-section-number">2.3.6</span> Modifying the y-axis range</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(week) <span class="sc">%&gt;%</span> <span class="fu">tally</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>week,<span class="at">y=</span>n)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -968,13 +1008,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./typology.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Typology of charts</span></span>
+      <a href="./1_principles.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Principles</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./3_B_timeseries.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Economic data over time</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Economic data over time</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Data Visualization with R and ggplot - 6&nbsp; Mixed data (strings and numbers)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./5_visualizing-models.html" rel="next">
+<link href="./4_advanced-ggplot.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./4b_tweet_ratings.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Visualization with R and ggplot</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview of this class</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1_principles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Principles</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2_toplines-and-cross-tabs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Toplines and crosstabs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3_B_timeseries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Economic data over time</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3_standard-charts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Standard charts</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4_advanced-ggplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4b_tweet_ratings.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./5_visualizing-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./typology.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Typology of charts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datasets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datasets</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Appendix</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tidyverse-refresher.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tidyverse Tips / Refresher</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./class-exercizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In-class exercizes</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#structure-of-the-dataset" id="toc-structure-of-the-dataset" class="nav-link active" data-scroll-target="#structure-of-the-dataset"><span class="header-section-number">6.1</span> Structure of the dataset</a>
+  <ul class="collapse">
+  <li><a href="#loading-libraries-and-data" id="toc-loading-libraries-and-data" class="nav-link" data-scroll-target="#loading-libraries-and-data"><span class="header-section-number">6.1.1</span> Loading Libraries and Data</a></li>
+  <li><a href="#creating-a-tidy-data-frame" id="toc-creating-a-tidy-data-frame" class="nav-link" data-scroll-target="#creating-a-tidy-data-frame"><span class="header-section-number">6.1.2</span> Creating a Tidy Data Frame</a></li>
+  <li><a href="#summary-statistics-by-party" id="toc-summary-statistics-by-party" class="nav-link" data-scroll-target="#summary-statistics-by-party"><span class="header-section-number">6.1.3</span> Summary Statistics by Party</a></li>
+  <li><a href="#a-quick-look-at-the-data" id="toc-a-quick-look-at-the-data" class="nav-link" data-scroll-target="#a-quick-look-at-the-data"><span class="header-section-number">6.1.4</span> A quick look at the data</a></li>
+  <li><a href="#exploring-overall-sentiment-distribution" id="toc-exploring-overall-sentiment-distribution" class="nav-link" data-scroll-target="#exploring-overall-sentiment-distribution"><span class="header-section-number">6.1.5</span> Exploring Overall Sentiment Distribution</a></li>
+  <li><a href="#breaking-down-the-data-by-group" id="toc-breaking-down-the-data-by-group" class="nav-link" data-scroll-target="#breaking-down-the-data-by-group"><span class="header-section-number">6.1.6</span> Breaking down the data by group</a></li>
+  <li><a href="#preparing-a-simple-bar-plot" id="toc-preparing-a-simple-bar-plot" class="nav-link" data-scroll-target="#preparing-a-simple-bar-plot"><span class="header-section-number">6.1.7</span> Preparing a simple bar plot</a></li>
+  <li><a href="#breaking-down-the-data-by-group-1" id="toc-breaking-down-the-data-by-group-1" class="nav-link" data-scroll-target="#breaking-down-the-data-by-group-1"><span class="header-section-number">6.1.8</span> Breaking down the data by group</a></li>
+  <li><a href="#scatterplot-of-party-ratings-against-each-other" id="toc-scatterplot-of-party-ratings-against-each-other" class="nav-link" data-scroll-target="#scatterplot-of-party-ratings-against-each-other"><span class="header-section-number">6.1.9</span> Scatterplot of Party Ratings Against Each Other</a></li>
+  <li><a href="#ratings-by-party" id="toc-ratings-by-party" class="nav-link" data-scroll-target="#ratings-by-party"><span class="header-section-number">6.1.10</span> Ratings by party</a></li>
+  <li><a href="#comparing-distributions-of-ratings" id="toc-comparing-distributions-of-ratings" class="nav-link" data-scroll-target="#comparing-distributions-of-ratings"><span class="header-section-number">6.1.11</span> Comparing Distributions of Ratings</a></li>
+  </ul></li>
+  <li><a href="#other-ways-to-show-distributions-of-numerical-variables" id="toc-other-ways-to-show-distributions-of-numerical-variables" class="nav-link" data-scroll-target="#other-ways-to-show-distributions-of-numerical-variables"><span class="header-section-number">6.2</span> Other ways to show distributions of numerical variables</a></li>
+  <li><a href="#still-more-ways-to-show-distributions" id="toc-still-more-ways-to-show-distributions" class="nav-link" data-scroll-target="#still-more-ways-to-show-distributions"><span class="header-section-number">6.3</span> Still more ways to show distributions</a></li>
+  <li><a href="#content-classification" id="toc-content-classification" class="nav-link" data-scroll-target="#content-classification"><span class="header-section-number">6.4</span> Content classification</a>
+  <ul class="collapse">
+  <li><a href="#identifying-tweets-that-mention-obama" id="toc-identifying-tweets-that-mention-obama" class="nav-link" data-scroll-target="#identifying-tweets-that-mention-obama"><span class="header-section-number">6.4.1</span> Identifying Tweets that Mention Obama</a></li>
+  <li><a href="#comparing-ratings-for-obama-mentioning-tweets" id="toc-comparing-ratings-for-obama-mentioning-tweets" class="nav-link" data-scroll-target="#comparing-ratings-for-obama-mentioning-tweets"><span class="header-section-number">6.4.2</span> Comparing Ratings for Obama-Mentioning Tweets</a></li>
+  <li><a href="#comparing-ratings-for-obama-mentioning-tweets-1" id="toc-comparing-ratings-for-obama-mentioning-tweets-1" class="nav-link" data-scroll-target="#comparing-ratings-for-obama-mentioning-tweets-1"><span class="header-section-number">6.4.3</span> Comparing Ratings for Obama-Mentioning Tweets</a></li>
+  <li><a href="#highlighting-obama-mention-tweets-in-scatterplot" id="toc-highlighting-obama-mention-tweets-in-scatterplot" class="nav-link" data-scroll-target="#highlighting-obama-mention-tweets-in-scatterplot"><span class="header-section-number">6.4.4</span> Highlighting Obama-Mention Tweets in Scatterplot</a></li>
+  <li><a href="#highlighting-obama-mention-tweets-in-scatterplot-1" id="toc-highlighting-obama-mention-tweets-in-scatterplot-1" class="nav-link" data-scroll-target="#highlighting-obama-mention-tweets-in-scatterplot-1"><span class="header-section-number">6.4.5</span> Highlighting Obama-Mention Tweets in Scatterplot</a></li>
+  </ul></li>
+  <li><a href="#showing-the-full-text-of-tweets" id="toc-showing-the-full-text-of-tweets" class="nav-link" data-scroll-target="#showing-the-full-text-of-tweets"><span class="header-section-number">6.5</span> Showing the full text of tweets</a>
+  <ul class="collapse">
+  <li><a href="#pulling-out-specific-tweets" id="toc-pulling-out-specific-tweets" class="nav-link" data-scroll-target="#pulling-out-specific-tweets"><span class="header-section-number">6.5.1</span> Pulling Out Specific Tweets</a></li>
+  <li><a href="#finding-unusual-surprising-observations" id="toc-finding-unusual-surprising-observations" class="nav-link" data-scroll-target="#finding-unusual-surprising-observations"><span class="header-section-number">6.5.2</span> Finding unusual / surprising observations</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">6.6</span> Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>In this exercise, we will load a dataset of YouGov sentiment ratings of Trump tweets and explore how different people rate those tweets. (You can find the associated slides <a href="http://zilinskyjan.github.io/trump-tweets/">here</a>.)</p>
+<section id="structure-of-the-dataset" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="structure-of-the-dataset"><span class="header-section-number">6.1</span> Structure of the dataset</h2>
+<ul>
+<li>The underlying data consists of tweets</li>
+<li>So we could do text analysis</li>
+<li>We will mostly focus here on visualizing numerical ratings</li>
+<li>(But each word can of course be considered a variable!)</li>
+</ul>
+<p>What you will be able to practice here:</p>
+<ul>
+<li>Loading JSON data into R</li>
+<li>Calculating summary statistics (means, proportions)</li>
+<li>Transforming data (wide to long)</li>
+<li>Visualizing distributions and comparisons using ggplot2</li>
+<li>Highlighting specific observations in plots</li>
+</ul>
+<section id="loading-libraries-and-data" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="loading-libraries-and-data"><span class="header-section-number">6.1.1</span> Loading Libraries and Data</h3>
+<p>First, we load the necessary libraries. <code>jsonlite</code> lets us read JSON data directly from a URL, and <code>tidyverse</code> provides a suite of data manipulation and visualization tools.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the YouGov tweet sentiment data from GitHub</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>yg <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"https://github.com/kennyjoseph/trump_tweets_icwsm/raw/master/data/all_yougov_tweetdata_updated.json"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Check what we have imported:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(yg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "text"             "group"            "data"             "created_at"      
+[5] "survey_date"      "objectID"         "_highlightResult"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View first 5 tweet texts</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>yg<span class="sc">$</span>text[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Great honor to be headed to the Army-Navy game today. Will be there shortly, landing now! https://t.co/ByAfESq8aS"                                                                                                                                                                       
+[2] "....left and right, he then woke up from his dream screaming that HE LIED. Next time I go to Vietnam I will ask 'the Dick' to travel with me!"                                                                                                                                           
+[3] "Watched Da Nang Dick Blumenthal on television spewing facts almost as accurate as his bravery in Vietnam (which he never saw). As the bullets whizzed by Da Nang Dicks head, as he was saving soldiers...."                                                                              
+[4] "Very sad day &amp; night in Paris. Maybe it's time to end the ridiculous and extremely expensive Paris Agreement and return money back to the people in the form of lower taxes? The U.S. was way ahead of the curve on that and the only major country where emissions went down last year!"
+[5] "'This is collusion illusion, there is no smoking gun here. At this late date, after all that we have gone through, after millions have been spent, we have no Russian Collusion. There is nothing impeachable here.' @GeraldoRivera Time for the Witch Hunt to END!"                     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Peek at the nested data frame</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>yg<span class="sc">$</span>data <span class="sc">%&gt;%</span> <span class="fu">tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  All$score $base $data     Democrat$score Republican$score Independent$score
+      &lt;dbl&gt; &lt;int&gt; &lt;list&gt;             &lt;dbl&gt;            &lt;dbl&gt;             &lt;dbl&gt;
+1      20.6  1000 &lt;dbl [5]&gt;          -38.2            104.              37.3 
+2     -58.3  1000 &lt;dbl [5]&gt;         -140.              45.1            -48.0 
+3     -58.3  1000 &lt;dbl [5]&gt;         -140.              45.1            -48.0 
+4     -26.7  1000 &lt;dbl [5]&gt;         -123.              92.1             -3.53
+5     -34.8  1000 &lt;dbl [5]&gt;         -133.              99.1            -22.8 
+6      13.5  1000 &lt;dbl [5]&gt;          -54.3            110.              29.5 
+# ℹ 6 more variables: Democrat$base &lt;int&gt;, $data &lt;list&gt;, Republican$base &lt;int&gt;,
+#   $data &lt;list&gt;, Independent$base &lt;int&gt;, $data &lt;list&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="creating-a-tidy-data-frame" class="level3" data-number="6.1.2">
+<h3 data-number="6.1.2" class="anchored" data-anchor-id="creating-a-tidy-data-frame"><span class="header-section-number">6.1.2</span> Creating a Tidy Data Frame</h3>
+<p>We now construct a tidy tibble that includes:</p>
+<ul>
+<li><code>text</code>: the tweet content</li>
+<li><code>score</code>: overall sentiment score</li>
+<li><code>score_dems</code>: average rating by Democrats</li>
+<li><code>score_reps</code>: average rating by Republicans</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">text =</span> yg<span class="sc">$</span>text,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">score =</span> yg<span class="sc">$</span>data<span class="sc">$</span>All<span class="sc">$</span>score,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">score_dems =</span> yg<span class="sc">$</span>data<span class="sc">$</span>Democrat<span class="sc">$</span>score,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">score_reps =</span> yg<span class="sc">$</span>data<span class="sc">$</span>Republican<span class="sc">$</span>score</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first few rows</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4,404 × 4
+   text                                              score score_dems score_reps
+   &lt;chr&gt;                                             &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+ 1 Great honor to be headed to the Army-Navy game t…  20.6      -38.2      104. 
+ 2 ....left and right, he then woke up from his dre… -58.3     -140.        45.1
+ 3 Watched Da Nang Dick Blumenthal on television sp… -58.3     -140.        45.1
+ 4 Very sad day &amp; night in Paris. Maybe it's time t… -26.7     -123.        92.1
+ 5 'This is collusion illusion, there is no smoking… -34.8     -133.        99.1
+ 6 ....I am thankful to both of these incredible me…  13.5      -54.3      110. 
+ 7 I am pleased to announce my nomination of four-s…  13.5      -54.3      110. 
+ 8 AFTER TWO YEARS AND MILLIONS OF PAGES OF DOCUMEN… -39.6     -136.        78.2
+ 9 The idea of a European Military didn't work out … -18.2     -109.        87.2
+10 The Paris Agreement isn't working out so well fo… -42.2     -131.        69.6
+# ℹ 4,394 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="summary-statistics-by-party" class="level3" data-number="6.1.3">
+<h3 data-number="6.1.3" class="anchored" data-anchor-id="summary-statistics-by-party"><span class="header-section-number">6.1.3</span> Summary Statistics by Party</h3>
+<p>Check for missing values:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">is.na</span>(data<span class="sc">$</span>score_dems))  <span class="co"># Were there any missing Democrat ratings?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">is.na</span>(data<span class="sc">$</span>score_reps))  <span class="co"># Were there any missing Republican ratings?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>Calculate the average rating among Democrats and Republicans:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>mean_dems <span class="ot">&lt;-</span> data<span class="sc">$</span>score_dems <span class="sc">%&gt;%</span> <span class="fu">mean</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>mean_reps <span class="ot">&lt;-</span> data<span class="sc">$</span>score_reps <span class="sc">%&gt;%</span> <span class="fu">mean</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>mean_dems  <span class="co"># Average rating by Democrats</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -93.17322</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mean_reps  <span class="co"># Average rating by Republicans</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100.5169</code></pre>
+</div>
+</div>
+</section>
+<section id="a-quick-look-at-the-data" class="level3" data-number="6.1.4">
+<h3 data-number="6.1.4" class="anchored" data-anchor-id="a-quick-look-at-the-data"><span class="header-section-number">6.1.4</span> A quick look at the data</h3>
+<ul>
+<li>What were the most popular tweets?</li>
+<li>What is the range of the data?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange tweets by descending and ascending overall score</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note this will not influence the original data, or subsequent plots</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(score) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  text                                               score score_dems score_reps
+  &lt;chr&gt;                                              &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+1 I know Mark Cuban well. He backed me big-time but… -81.4      -134.     -18.0 
+2 I heard poorly rated @Morning_Joe speaks badly of… -77.5      -143.       6.39
+3 ...to Mar-a-Lago 3 nights in a row around New Yea… -77.5      -143.       6.39
+4 Crazy Joe Scarborough and dumb as a rock Mika are… -76.7      -150.      27.7 
+5 Lebron James was just interviewed by the dumbest … -72.3      -168.      45.8 
+6 Just watched Wacky Tom Steyer, who I have not see… -71.7      -148.      45.9 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">summarize</span>(<span class="at">lowest =</span> <span class="fu">min</span>(score),<span class="at">highest=</span><span class="fu">max</span>(score))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  lowest highest
+   &lt;dbl&gt;   &lt;dbl&gt;
+1  -81.4    82.9</code></pre>
+</div>
+</div>
+</section>
+<section id="exploring-overall-sentiment-distribution" class="level3" data-number="6.1.5">
+<h3 data-number="6.1.5" class="anchored" data-anchor-id="exploring-overall-sentiment-distribution"><span class="header-section-number">6.1.5</span> Exploring Overall Sentiment Distribution</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram of overall sentiment scores</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> score)) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">35</span>, <span class="at">fill =</span> <span class="st">"yellow3"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Overall Sentiment Scores"</span>, <span class="at">x =</span> <span class="st">"Sentiment Score"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Or consider running:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Density plot of overall scores</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> score)) <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Density of Overall Sentiment Scores"</span>, <span class="at">x =</span> <span class="st">"Sentiment Score"</span>, <span class="at">y =</span> <span class="st">"Density"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="breaking-down-the-data-by-group" class="level3" data-number="6.1.6">
+<h3 data-number="6.1.6" class="anchored" data-anchor-id="breaking-down-the-data-by-group"><span class="header-section-number">6.1.6</span> Breaking down the data by group</h3>
+<p>Compute and compare mean ratings by party</p>
+<p><strong>What should the structure of the input be?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Democrats =</span> <span class="fu">mean</span>(score_dems, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Republicans =</span> <span class="fu">mean</span>(score_reps, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  Democrats Republicans
+      &lt;dbl&gt;       &lt;dbl&gt;
+1     -93.2        101.</code></pre>
+</div>
+</div>
+<p>Compute and compare mean ratings by party</p>
+<p><strong>What should the structure of the input be?</strong></p>
+<p>Better to stack the data (go from wide to long)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Democrats =</span> <span class="fu">mean</span>(score_dems, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Republicans =</span> <span class="fu">mean</span>(score_reps, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">everything</span>(), </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">names_to =</span> <span class="st">"party"</span>, </span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">values_to =</span> <span class="st">"mean_score"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  party       mean_score
+  &lt;chr&gt;            &lt;dbl&gt;
+1 Democrats        -93.2
+2 Republicans      101. </code></pre>
+</div>
+</div>
+</section>
+<section id="preparing-a-simple-bar-plot" class="level3" data-number="6.1.7">
+<h3 data-number="6.1.7" class="anchored" data-anchor-id="preparing-a-simple-bar-plot"><span class="header-section-number">6.1.7</span> Preparing a simple bar plot</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Democrats =</span> <span class="fu">mean</span>(score_dems, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Republicans =</span> <span class="fu">mean</span>(score_reps, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">"party"</span>, <span class="at">values_to =</span> <span class="st">"mean_score"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> party, <span class="at">y =</span> mean_score)) <span class="sc">+</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">fill =</span> party), <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Democrats"</span> <span class="ot">=</span> <span class="st">"blue3"</span>, <span class="st">"Republicans"</span> <span class="ot">=</span> <span class="st">"red3"</span>)) <span class="sc">+</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Party"</span>,</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Mean Sentiment Score"</span>,</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Mean Sentiment Score by Party (All Tweets)"</span>,</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Party"</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="breaking-down-the-data-by-group-1" class="level3" data-number="6.1.8">
+<h3 data-number="6.1.8" class="anchored" data-anchor-id="breaking-down-the-data-by-group-1"><span class="header-section-number">6.1.8</span> Breaking down the data by group</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="scatterplot-of-party-ratings-against-each-other" class="level3" data-number="6.1.9">
+<h3 data-number="6.1.9" class="anchored" data-anchor-id="scatterplot-of-party-ratings-against-each-other"><span class="header-section-number">6.1.9</span> Scatterplot of Party Ratings Against Each Other</h3>
+<p>Plot Democrat ratings (<code>score_dems</code>) against Republican ratings (<code>score_reps</code>) to see whether respondents tend to agree (in spite of an anticipate “intercept shift”)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fig_layer <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> score_reps, <span class="at">y =</span> score_dems))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>fig_layer <span class="sc">+</span> </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="ratings-by-party" class="level3" data-number="6.1.10">
+<h3 data-number="6.1.10" class="anchored" data-anchor-id="ratings-by-party"><span class="header-section-number">6.1.10</span> Ratings by party</h3>
+<p>Another way to show the correlation</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>fig_layer <span class="sc">+</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Relationship Between Republican and Democrat Ratings"</span>,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Republican Rating"</span>,</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Democrat Rating"</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="comparing-distributions-of-ratings" class="level3" data-number="6.1.11">
+<h3 data-number="6.1.11" class="anchored" data-anchor-id="comparing-distributions-of-ratings"><span class="header-section-number">6.1.11</span> Comparing Distributions of Ratings</h3>
+<p>Reshape the full data for plotting density curves of each rating type:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>( long_data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(score, score_dems, score_reps),</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"party"</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"score"</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  ) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 13,212 × 3
+   text                                                             party  score
+   &lt;chr&gt;                                                            &lt;chr&gt;  &lt;dbl&gt;
+ 1 Great honor to be headed to the Army-Navy game today. Will be t… score   20.6
+ 2 Great honor to be headed to the Army-Navy game today. Will be t… scor…  -38.2
+ 3 Great honor to be headed to the Army-Navy game today. Will be t… scor…  104. 
+ 4 ....left and right, he then woke up from his dream screaming th… score  -58.3
+ 5 ....left and right, he then woke up from his dream screaming th… scor… -140. 
+ 6 ....left and right, he then woke up from his dream screaming th… scor…   45.1
+ 7 Watched Da Nang Dick Blumenthal on television spewing facts alm… score  -58.3
+ 8 Watched Da Nang Dick Blumenthal on television spewing facts alm… scor… -140. 
+ 9 Watched Da Nang Dick Blumenthal on television spewing facts alm… scor…   45.1
+10 Very sad day &amp; night in Paris. Maybe it's time to end the ridic… score  -26.7
+# ℹ 13,202 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>long_data <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> party, <span class="at">x =</span> score)) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">1</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Tweet ratings"</span>,<span class="at">y=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>long_data <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> party, <span class="at">x =</span> score)) <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> .<span class="dv">1</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Tweet ratings"</span>,<span class="at">y=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>long_data <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> party, <span class="at">x =</span> score)) <span class="sc">+</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> .<span class="dv">05</span>,<span class="at">height =</span> .<span class="dv">2</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Tweet ratings"</span>,<span class="at">y=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>long_data <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Party =</span> <span class="fu">case_when</span>(</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    party <span class="sc">==</span> <span class="st">"score_dems"</span> <span class="sc">~</span> <span class="st">"Democrats"</span>,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    party <span class="sc">==</span> <span class="st">"score_reps"</span> <span class="sc">~</span> <span class="st">"Republicans"</span>,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Overall"</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> Party, <span class="at">x =</span> score)) <span class="sc">+</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> .<span class="dv">05</span>,<span class="at">height =</span> .<span class="dv">2</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Tweet ratings"</span>,<span class="at">y=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>long_data <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Party =</span> <span class="fu">case_when</span>(</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    party <span class="sc">==</span> <span class="st">"score_dems"</span> <span class="sc">~</span> <span class="st">"Among Democrats"</span>,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    party <span class="sc">==</span> <span class="st">"score_reps"</span> <span class="sc">~</span> <span class="st">"Among Republicans"</span>,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Overall"</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> Party, <span class="at">x =</span> score, <span class="at">color =</span> Party)) <span class="sc">+</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> .<span class="dv">065</span>,<span class="at">height =</span> .<span class="dv">2</span>, <span class="at">show.legend =</span> F) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Tweet ratings"</span>,<span class="at">y=</span><span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Among Democrats"</span> <span class="ot">=</span> <span class="st">"steelblue"</span>, <span class="st">"Among Republicans"</span> <span class="ot">=</span> <span class="st">"red4"</span>, <span class="st">"score"</span><span class="ot">=</span> <span class="st">"Overall"</span>)) <span class="sc">+</span> <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="other-ways-to-show-distributions-of-numerical-variables" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="other-ways-to-show-distributions-of-numerical-variables"><span class="header-section-number">6.2</span> Other ways to show distributions of numerical variables</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>long_data <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Party =</span> <span class="fu">case_when</span>(</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    party <span class="sc">==</span> <span class="st">"score_dems"</span> <span class="sc">~</span> <span class="st">"Among Democrats"</span>,</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    party <span class="sc">==</span> <span class="st">"score_reps"</span> <span class="sc">~</span> <span class="st">"Among Republicans"</span>,</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Overall"</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> Party, <span class="at">x =</span> score, <span class="at">fill =</span> Party)) <span class="sc">+</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Among Democrats"</span> <span class="ot">=</span> <span class="st">"steelblue"</span>, <span class="st">"Among Republicans"</span> <span class="ot">=</span> <span class="st">"red4"</span>, <span class="st">"score"</span><span class="ot">=</span> <span class="st">"Overall"</span>)) <span class="sc">+</span> <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>long_data <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Party =</span> <span class="fu">case_when</span>(</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    party <span class="sc">==</span> <span class="st">"score_dems"</span> <span class="sc">~</span> <span class="st">"Among Democrats"</span>,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    party <span class="sc">==</span> <span class="st">"score_reps"</span> <span class="sc">~</span> <span class="st">"Among Republicans"</span>,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Overall"</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> Party, <span class="at">x =</span> score, <span class="at">fill =</span> Party)) <span class="sc">+</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Among Democrats"</span> <span class="ot">=</span> <span class="st">"steelblue"</span>, <span class="st">"Among Republicans"</span> <span class="ot">=</span> <span class="st">"red4"</span>, <span class="st">"score"</span><span class="ot">=</span> <span class="st">"Overall"</span>)) <span class="sc">+</span> <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>You can also add a jitter layer to the boxplot to show individual data points:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>long_data <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Party =</span> <span class="fu">case_when</span>(</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    party <span class="sc">==</span> <span class="st">"score_dems"</span> <span class="sc">~</span> <span class="st">"Among Democrats"</span>,</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    party <span class="sc">==</span> <span class="st">"score_reps"</span> <span class="sc">~</span> <span class="st">"Among Republicans"</span>,</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Overall"</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> Party, <span class="at">x =</span> score, <span class="at">fill =</span> Party)) <span class="sc">+</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> .<span class="dv">065</span>,<span class="at">height =</span> .<span class="dv">2</span>, <span class="at">show.legend =</span> F) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Tweet ratings"</span>,<span class="at">y=</span><span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Among Democrats"</span> <span class="ot">=</span> <span class="st">"steelblue"</span>, <span class="st">"Among Republicans"</span> <span class="ot">=</span> <span class="st">"red4"</span>, <span class="st">"score"</span><span class="ot">=</span> <span class="st">"Overall"</span>)) <span class="sc">+</span> <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Adjust the boxplot transparency:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>long_data <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Party =</span> <span class="fu">case_when</span>(</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    party <span class="sc">==</span> <span class="st">"score_dems"</span> <span class="sc">~</span> <span class="st">"Among Democrats"</span>,</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    party <span class="sc">==</span> <span class="st">"score_reps"</span> <span class="sc">~</span> <span class="st">"Among Republicans"</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Overall"</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> Party, <span class="at">x =</span> score, <span class="at">fill =</span> Party)) <span class="sc">+</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> .<span class="dv">065</span>,<span class="at">height =</span> .<span class="dv">2</span>, <span class="at">show.legend =</span> F) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Tweet ratings"</span>,<span class="at">y=</span><span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>,<span class="at">alpha=</span>.<span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Among Democrats"</span> <span class="ot">=</span> <span class="st">"steelblue"</span>, <span class="st">"Among Republicans"</span> <span class="ot">=</span> <span class="st">"red4"</span>, <span class="st">"score"</span><span class="ot">=</span> <span class="st">"Overall"</span>)) <span class="sc">+</span> <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Make the points more subtle</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>long_data <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Party =</span> <span class="fu">case_when</span>(</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    party <span class="sc">==</span> <span class="st">"score_dems"</span> <span class="sc">~</span> <span class="st">"Among Democrats"</span>,</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    party <span class="sc">==</span> <span class="st">"score_reps"</span> <span class="sc">~</span> <span class="st">"Among Republicans"</span>,</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Overall"</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> Party, <span class="at">x =</span> score, <span class="at">fill =</span> Party)) <span class="sc">+</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> .<span class="dv">045</span>,<span class="at">height =</span> .<span class="dv">1</span>, <span class="at">size=</span>.<span class="dv">25</span>,<span class="at">show.legend =</span> F) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Tweet ratings"</span>,<span class="at">y=</span><span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>,<span class="at">alpha=</span>.<span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Among Democrats"</span> <span class="ot">=</span> <span class="st">"steelblue"</span>, <span class="st">"Among Republicans"</span> <span class="ot">=</span> <span class="st">"red4"</span>, <span class="st">"score"</span><span class="ot">=</span> <span class="st">"Overall"</span>)) <span class="sc">+</span> <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Make the boxes narrower and the border thinner:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>long_data <span class="sc">%&gt;%</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Party =</span> <span class="fu">case_when</span>(</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    party <span class="sc">==</span> <span class="st">"score_dems"</span> <span class="sc">~</span> <span class="st">"Among Democrats"</span>,</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    party <span class="sc">==</span> <span class="st">"score_reps"</span> <span class="sc">~</span> <span class="st">"Among Republicans"</span>,</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Overall"</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> Party, <span class="at">x =</span> score, <span class="at">fill =</span> Party)) <span class="sc">+</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> .<span class="dv">045</span>,<span class="at">height =</span> .<span class="dv">1</span>, <span class="at">size=</span>.<span class="dv">25</span>,<span class="at">show.legend =</span> F) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Tweet ratings"</span>,<span class="at">y=</span><span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha=</span>.<span class="dv">75</span>,<span class="at">size=</span>.<span class="dv">2</span>,<span class="at">width=</span>.<span class="dv">3</span>,<span class="at">show.legend =</span> <span class="cn">FALSE</span>,) <span class="sc">+</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Among Democrats"</span> <span class="ot">=</span> <span class="st">"steelblue"</span>, <span class="st">"Among Republicans"</span> <span class="ot">=</span> <span class="st">"red4"</span>, <span class="st">"score"</span><span class="ot">=</span> <span class="st">"Overall"</span>)) <span class="sc">+</span> <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Adjust the dot colors as well:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>long_data <span class="sc">%&gt;%</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Party =</span> <span class="fu">case_when</span>(</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    party <span class="sc">==</span> <span class="st">"score_dems"</span> <span class="sc">~</span> <span class="st">"Among Democrats"</span>,</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    party <span class="sc">==</span> <span class="st">"score_reps"</span> <span class="sc">~</span> <span class="st">"Among Republicans"</span>,</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Overall"</span>) ) <span class="sc">%&gt;%</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> Party, <span class="at">x =</span> score, <span class="at">fill =</span> Party, <span class="at">color =</span> Party)) <span class="sc">+</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> .<span class="dv">045</span>,<span class="at">height =</span> .<span class="dv">1</span>, <span class="at">size=</span>.<span class="dv">25</span>,<span class="at">show.legend =</span> F) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Tweet ratings"</span>,<span class="at">y=</span><span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha=</span>.<span class="dv">75</span>,<span class="at">size=</span>.<span class="dv">2</span>,<span class="at">width=</span>.<span class="dv">3</span>,<span class="at">show.legend =</span> <span class="cn">FALSE</span>,) <span class="sc">+</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Among Democrats"</span> <span class="ot">=</span> <span class="st">"steelblue"</span>, <span class="st">"Among Republicans"</span> <span class="ot">=</span> <span class="st">"red4"</span>, <span class="st">"score"</span><span class="ot">=</span> <span class="st">"Overall"</span>)) <span class="sc">+</span> <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Among Democrats"</span> <span class="ot">=</span> <span class="st">"steelblue"</span>, <span class="st">"Among Republicans"</span> <span class="ot">=</span> <span class="st">"red4"</span>, <span class="st">"score"</span><span class="ot">=</span> <span class="st">"Overall"</span>)) <span class="sc">+</span> <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Make final adjustments:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>long_data <span class="sc">%&gt;%</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Party =</span> <span class="fu">case_when</span>(</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    party <span class="sc">==</span> <span class="st">"score_dems"</span> <span class="sc">~</span> <span class="st">"Among Democrats"</span>,party <span class="sc">==</span> <span class="st">"score_reps"</span> <span class="sc">~</span> <span class="st">"Among Republicans"</span>,<span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Overall"</span>), <span class="at">Party =</span> <span class="fu">factor</span>(Party,<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Among Republicans"</span>,<span class="st">"Overall"</span>,<span class="st">"Among Democrats"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> Party, <span class="at">x =</span> score, <span class="at">fill =</span> Party, <span class="at">color =</span> Party)) <span class="sc">+</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> .<span class="dv">045</span>,<span class="at">height =</span> .<span class="dv">1</span>, <span class="at">size=</span>.<span class="dv">25</span>,<span class="at">show.legend =</span> F) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Tweet ratings"</span>,<span class="at">y=</span><span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outliers=</span>F,<span class="at">alpha=</span>.<span class="dv">75</span>,<span class="at">size=</span>.<span class="dv">2</span>,<span class="at">width=</span>.<span class="dv">3</span>,<span class="at">show.legend =</span> <span class="cn">FALSE</span>,) <span class="sc">+</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Among Democrats"</span> <span class="ot">=</span> <span class="st">"steelblue"</span>, <span class="st">"Among Republicans"</span> <span class="ot">=</span> <span class="st">"red4"</span>, <span class="st">"score"</span><span class="ot">=</span> <span class="st">"Overall"</span>)) <span class="sc">+</span> <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Among Democrats"</span> <span class="ot">=</span> <span class="st">"steelblue"</span>, <span class="st">"Among Republicans"</span> <span class="ot">=</span> <span class="st">"red4"</span>, <span class="st">"score"</span><span class="ot">=</span> <span class="st">"Overall"</span>)) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Ratings of Trump tweets among YouGov respondents"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="still-more-ways-to-show-distributions" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="still-more-ways-to-show-distributions"><span class="header-section-number">6.3</span> Still more ways to show distributions</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>long_data <span class="sc">%&gt;%</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> score, <span class="at">color =</span> party)) <span class="sc">+</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Density of Scores by Rating Type"</span>, <span class="at">x =</span> <span class="st">"Score"</span>, <span class="at">y =</span> <span class="st">"Density"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>long_data <span class="sc">%&gt;%</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> score, <span class="at">fill =</span> party)) <span class="sc">+</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">show.legend =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"score_dems"</span> <span class="ot">=</span> <span class="st">"steelblue"</span>, <span class="st">"score_reps"</span> <span class="ot">=</span> <span class="st">"red4"</span>, <span class="st">"score"</span> <span class="ot">=</span> <span class="st">"grey"</span>)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Overlayed Density of Scores"</span>, <span class="at">x =</span> <span class="st">"Score"</span>, <span class="at">y =</span> <span class="st">"Density"</span>, <span class="at">fill =</span> <span class="st">"Rating Type"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>long_data <span class="sc">%&gt;%</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> score, <span class="at">fill =</span> party)) <span class="sc">+</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Histogram of Scores by by Party ID"</span>, <span class="at">x =</span> <span class="st">"Score"</span>, <span class="at">y =</span> <span class="st">"Count"</span>, <span class="at">fill =</span> <span class="st">"Rating Type"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="content-classification" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="content-classification"><span class="header-section-number">6.4</span> Content classification</h2>
+<section id="identifying-tweets-that-mention-obama" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="identifying-tweets-that-mention-obama"><span class="header-section-number">6.4.1</span> Identifying Tweets that Mention Obama</h3>
+<p>We create a binary indicator <code>obama</code> which is 1 if the tweet text contains the word “Obama”, otherwise 0. Then we can compute how often tweets mention Obama.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create indicator for "Obama"</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>obama <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">str_detect</span>(data<span class="sc">$</span>text, <span class="st">"Obama"</span>), <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency of Obama mentions</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>obama)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   0    1 
+4216  188 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Percentage of tweets that mention Obama</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>prop_obama <span class="ot">&lt;-</span> data<span class="sc">$</span>obama <span class="sc">%&gt;%</span> <span class="fu">mean</span>()</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>prop_obama</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.04268847</code></pre>
+</div>
+</div>
+</section>
+<section id="comparing-ratings-for-obama-mentioning-tweets" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="comparing-ratings-for-obama-mentioning-tweets"><span class="header-section-number">6.4.2</span> Comparing Ratings for Obama-Mentioning Tweets</h3>
+<p>Compute mean sentiment ratings by Democrats and Republicans for tweets that mention Obama:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(obama <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_dems =</span> <span class="fu">mean</span>(score_dems, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_reps =</span> <span class="fu">mean</span>(score_reps, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  mean_dems mean_reps
+      &lt;dbl&gt;     &lt;dbl&gt;
+1     -127.      90.8</code></pre>
+</div>
+</div>
+</section>
+<section id="comparing-ratings-for-obama-mentioning-tweets-1" class="level3" data-number="6.4.3">
+<h3 data-number="6.4.3" class="anchored" data-anchor-id="comparing-ratings-for-obama-mentioning-tweets-1"><span class="header-section-number">6.4.3</span> Comparing Ratings for Obama-Mentioning Tweets</h3>
+<p>Next, compare average ratings between tweets that do and do not mention Obama:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(obama) <span class="sc">%&gt;%</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_dems =</span> <span class="fu">mean</span>(score_dems, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_reps =</span> <span class="fu">mean</span>(score_reps, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  obama mean_dems mean_reps
+  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1     0     -91.6     101. 
+2     1    -127.       90.8</code></pre>
+</div>
+</div>
+<p>Make a nicer table with descriptive labels and rounded values:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(obama) <span class="sc">%&gt;%</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_dems =</span> <span class="fu">mean</span>(score_dems, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_reps =</span> <span class="fu">mean</span>(score_reps, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">obama =</span> <span class="fu">ifelse</span>(obama <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Obama Mentioned"</span>, <span class="st">"Obama Not Mentioned"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Tweet type"</span> <span class="ot">=</span> obama,</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Avg. rating among Democrats"</span> <span class="ot">=</span> mean_dems,</span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Avg. rating among Republicans"</span> <span class="ot">=</span> mean_reps</span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the table</span></span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>(tab <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 35%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Tweet type</th>
+<th style="text-align: right;">Avg. rating among Democrats</th>
+<th style="text-align: right;">Avg. rating among Republicans</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Obama Not Mentioned</td>
+<td style="text-align: right;">-91.6</td>
+<td style="text-align: right;">100.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Obama Mentioned</td>
+<td style="text-align: right;">-127.4</td>
+<td style="text-align: right;">90.8</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="highlighting-obama-mention-tweets-in-scatterplot" class="level3" data-number="6.4.4">
+<h3 data-number="6.4.4" class="anchored" data-anchor-id="highlighting-obama-mention-tweets-in-scatterplot"><span class="header-section-number">6.4.4</span> Highlighting Obama-Mention Tweets in Scatterplot</h3>
+<p>Identify tweets that mention Obama in the scatter of party ratings:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> score_reps, <span class="at">y =</span> score_dems)) <span class="sc">+</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(obama)), <span class="at">size =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"0"</span> <span class="ot">=</span> <span class="st">"grey60"</span>, <span class="st">"1"</span> <span class="ot">=</span> <span class="st">"orange"</span>)) <span class="sc">+</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Party Ratings with Obama-Mention Tweets Highlighted"</span>,<span class="at">x =</span> <span class="st">"Republican Rating"</span>,<span class="at">y =</span> <span class="st">"Democrat Rating"</span>,<span class="at">color =</span> <span class="st">"Obama Mentioned"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="highlighting-obama-mention-tweets-in-scatterplot-1" class="level3" data-number="6.4.5">
+<h3 data-number="6.4.5" class="anchored" data-anchor-id="highlighting-obama-mention-tweets-in-scatterplot-1"><span class="header-section-number">6.4.5</span> Highlighting Obama-Mention Tweets in Scatterplot</h3>
+<p>If desired, use <code>gghighlight</code> to emphasize only the Obama-mentioning tweets:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gghighlight)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> score_reps, <span class="at">y =</span> score_dems)) <span class="sc">+</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> obama), <span class="at">size =</span> <span class="fl">0.4</span>,<span class="at">show.legend=</span>F) <span class="sc">+</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gghighlight</span>(obama <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"Highlighted tweets mention Barack Obama"</span>, <span class="at">color =</span> <span class="st">"Obama Mention"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="showing-the-full-text-of-tweets" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="showing-the-full-text-of-tweets"><span class="header-section-number">6.5</span> Showing the full text of tweets</h2>
+<section id="pulling-out-specific-tweets" class="level3" data-number="6.5.1">
+<h3 data-number="6.5.1" class="anchored" data-anchor-id="pulling-out-specific-tweets"><span class="header-section-number">6.5.1</span> Pulling Out Specific Tweets</h3>
+<ul>
+<li>We can hand-pick some observations and display the full text of the tweets which were rated</li>
+<li>For example, here select tweets from rows 19 through 23 and display their texts along with their ratings:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>data[<span class="dv">19</span><span class="sc">:</span><span class="dv">22</span>, ] <span class="sc">%&gt;%</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> text)) <span class="sc">+</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> score_dems), <span class="at">color =</span> <span class="st">"blue3"</span>) <span class="sc">+</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> score_reps), <span class="at">color =</span> <span class="st">"red3"</span>) <span class="sc">+</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_wrap</span>(<span class="dv">50</span>)) <span class="sc">+</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Rating"</span>, <span class="at">title =</span> <span class="st">"Ratings of Selected Tweets"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>data[<span class="dv">60</span><span class="sc">:</span><span class="dv">63</span>, ] <span class="sc">%&gt;%</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> text)) <span class="sc">+</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> score_dems), <span class="at">fill =</span> <span class="st">"blue3"</span>,<span class="at">width=</span>.<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> score_reps), <span class="at">fill =</span> <span class="st">"red3"</span>,<span class="at">width=</span>.<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_wrap</span>(<span class="dv">50</span>)) <span class="sc">+</span></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Rating"</span>, <span class="at">title =</span> <span class="st">"Ratings of Selected Tweets"</span>,<span class="at">y=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="finding-unusual-surprising-observations" class="level3" data-number="6.5.2">
+<h3 data-number="6.5.2" class="anchored" data-anchor-id="finding-unusual-surprising-observations"><span class="header-section-number">6.5.2</span> Finding unusual / surprising observations</h3>
+<p>Let’s see if there are tweets mentioning Obama with POSITIVE Democrat ratings</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract tweets mentioning Obama with positive Democrat ratings</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(obama <span class="sc">==</span> <span class="dv">1</span>, score_dems <span class="sc">&gt;=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">nrow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<p>So, there was one such tweet! What did it say?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract tweets mentioning Obama with positive Democrat ratings</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(obama <span class="sc">==</span> <span class="dv">1</span>, score_dems <span class="sc">&gt;=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "I agree with President Obama 100%! https://t.co/PI3aW1Zh5Q"</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusion" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">6.6</span> Conclusion</h2>
+<p>Students should now be able to:</p>
+<ul>
+<li>Load JSON data into R and inspect its structure</li>
+<li>Calculate and interpret summary statistics by group</li>
+<li>Create and format tables in markdown</li>
+<li>Reshape data between wide and long formats</li>
+<li>Visualize distributions and relationships with ggplot2</li>
+<li>Highlight specific observations in visualizations</li>
+</ul>
+<p>Feel free to modify the code and experiment with different subsets or additional variable transformations.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./4_advanced-ggplot.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./5_visualizing-models.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
