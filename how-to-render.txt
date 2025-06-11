@@ -1,7 +1,0 @@
-TO PRODUCE THE FULL BOOK
-quarto render
-
-AND a REMINDER -> push to gh-pages (which hopefully is your default branch)
-
-TO MAKE SLIDES FOR POSTING ON GH:
-quarto render slides.qmd --to revealjs --self-contained
