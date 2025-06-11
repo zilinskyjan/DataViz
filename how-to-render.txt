@@ -1,1 +1,5 @@
+TO PRODUCE THE FULL BOOK
+quarto render
+
+TO MAKE SLIDES FOR POSTING ON GH:
 quarto render slides.qmd --to revealjs --self-contained
