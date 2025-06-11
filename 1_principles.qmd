@@ -13,7 +13,7 @@ A frequent tradeoff can be thought of as **truthfulness** vs. simplicity.
 In other words, you will need to balance:
 
 -   Readability vs. "completeness"
--   Concise vs. "attention-gabbing"
+-   Conciseness vs. an "attention-gabbing" potential
 -   Simplicity vs. other goals
 
 If you drop outliers, for example, your chart's readability will almost surely improve. But it could be less truthful.
@@ -33,7 +33,9 @@ If you drop outliers, for example, your chart's readability will almost surely i
 If you label a subset of your observations, then arguably some information "is lost", unless you post your data.
 
 ```{r}
-#| echo: false
+#| echo: true
+#| code-fold: true
+#| code-summary: "Load the data"
 library(tidyverse)
 # Get fiscal data
 imf <- read_csv("data_macro/imf-fiscalmonitor-apr2023.csv")
@@ -80,6 +82,54 @@ econ2022 %>%
   geom_vline(xintercept = 0,linetype=2,color="grey40")
 ```
 
+The code for both charts is shown below. Notice something?
+
+```{r}
+#| echo: true
+#| eval: false
+#| code-fold: true
+#| code-summary: "Show code"
+
+# Chart 1 (basic version; the draft 0)
+
+econ2022 %>%
+  filter(country != "Norway") %>%
+  ggplot(aes(y=inflation,x=`Overall Balance`,label=country)) + 
+  geom_point() +
+  geom_text() 
+
+# Chart 2 (the cleaner version)
+
+econ2022 %>%
+  filter(country != "Norway") %>%
+  ggplot(aes(y=inflation,
+         x=`Overall Balance`)) + 
+  geom_point() +
+  ggrepel::geom_text_repel(data=econ2022 %>% 
+                             filter(country %in% c("Italy",
+                                                   "Sweden",
+                                                   "United States")),
+           aes(label=country),nudge_x=.25,nudge_y=1) +
+  labs(title = "Economic situation in 2022",
+        x="Budget balance (% of GDP)", y= "Inflation (%)") +
+  theme_classic() +
+  geom_hline(yintercept = 0,linetype=2,color="grey40") +
+  geom_vline(xintercept = 0,linetype=2,color="grey40")
+```
+
+It turns out that whoever the wrote the code decided to just drop a row (and not display Norway). I that OK?
+
+```{r}
+#| echo: true
+#| eval: true
+#| code-fold: true
+#| code-summary: "Is the balance data skewed?"
+
+econ2022 %>% select(`Overall Balance`,country) %>%
+  arrange(desc(`Overall Balance`))
+```
+
+
 ## Example: Making scatterplots better
 
 Starting in 2021, inflation increased in many countries and became a source of serious concern for citizens and politicians. One set of substantive debates dealt with this set of questions: should governments be blamed for excessive spending (and borrowing)? Were fiscal decisions responsible for inflation? Here, we'll deal with one potential approach to designing visual exhibits which might faciliate some international comparisons.[^1_principles-1]
@@ -89,12 +139,19 @@ Starting in 2021, inflation increased in many countries and became a source of s
 Let's get some [data](https://github.com/zilinskyjan/DataViz/tree/main/data_macro) (available via the Github repo)
 
 ```{r}
+#| echo: true
+#| eval: false
+
 library(tidyverse)
+imf <- read_csv("https://raw.githubusercontent.com/zilinskyjan/DataViz/main/data_macro/imf-fiscalmonitor-apr2023.csv")
+```
+
+
+```{r}
+#| echo: false
+#| eval: true
 # Get fiscal data
 imf <- read_csv("data_macro/imf-fiscalmonitor-apr2023.csv")
-
-# If you are just copying code from the website, use this:
-# imf <- read_csv("https://raw.githubusercontent.com/zilinskyjan/DataViz/main/data_macro/imf-fiscalmonitor-apr2023.csv")
 ```
 
 The following variables are available, all expressed as percentages of GDP:
@@ -290,11 +347,10 @@ inf %>% filter(iso3c %in% econ2022$iso3c) %>%
 
 Note that we:
 
-- had to change `color` to `fill` within `aes()`  
-- we also had to make that change within `labs()`
-- changed `scale_fill_brewer` to `scale_fill_brewer`
-- replaced `geom_point()` with `geom_col(position = position_dodge())`
-
+-   had to change `color` to `fill` within `aes()`\
+-   we also had to make that change within `labs()`
+-   changed `scale_color_brewer` to `scale_fill_brewer`
+-   replaced `geom_point()` with `geom_col(position = position_dodge())`
 
 ## Exercise: Inflation and government spending
 
