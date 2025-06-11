@@ -1,0 +1,591 @@
+# Mixed data (strings and numbers)
+
+In this exercise, we will load a dataset of YouGov sentiment ratings of Trump tweets and explore how different people rate those tweets. (You can find the associated slides [here](http://zilinskyjan.github.io/trump-tweets/).)
+
+## Structure of the dataset
+
+-   The underlying data consists of tweets
+-   So we could do text analysis
+-   We will mostly focus here on visualizing numerical ratings
+-   (But each word can of course be considered a variable!)
+
+```{r}
+#| eval: true
+#| echo: false
+
+library(jsonlite)
+library(tidyverse)
+yg <- fromJSON("data/yougov_trump_tweets_evals.json")
+```
+
+What you will be able to practice here:
+
+-   Loading JSON data into R
+-   Calculating summary statistics (means, proportions)
+-   Transforming data (wide to long)
+-   Visualizing distributions and comparisons using ggplot2
+-   Highlighting specific observations in plots
+
+### Loading Libraries and Data
+
+First, we load the necessary libraries. `jsonlite` lets us read JSON data directly from a URL, and `tidyverse` provides a suite of data manipulation and visualization tools.
+
+```{r}
+#| eval: false
+library(jsonlite)
+library(tidyverse)
+
+# Load the YouGov tweet sentiment data from GitHub
+yg <- fromJSON("https://github.com/kennyjoseph/trump_tweets_icwsm/raw/master/data/all_yougov_tweetdata_updated.json")
+```
+
+Check what we have imported:
+
+```{r}
+names(yg)
+# View first 5 tweet texts
+yg$text[1:5]
+# Peek at the nested data frame
+yg$data %>% tibble() %>% head()
+```
+
+### Creating a Tidy Data Frame
+
+We now construct a tidy tibble that includes:
+
+-   `text`: the tweet content
+-   `score`: overall sentiment score
+-   `score_dems`: average rating by Democrats
+-   `score_reps`: average rating by Republicans
+
+```{r}
+data <- tibble(
+  text = yg$text,
+  score = yg$data$All$score,
+  score_dems = yg$data$Democrat$score,
+  score_reps = yg$data$Republican$score
+)
+
+# Display the first few rows
+data
+```
+
+### Summary Statistics by Party
+
+Check for missing values:
+
+```{r}
+any(is.na(data$score_dems))  # Were there any missing Democrat ratings?
+any(is.na(data$score_reps))  # Were there any missing Republican ratings?
+```
+
+Calculate the average rating among Democrats and Republicans:
+
+```{r}
+mean_dems <- data$score_dems %>% mean(na.rm = TRUE)
+mean_reps <- data$score_reps %>% mean(na.rm = TRUE)
+
+mean_dems  # Average rating by Democrats
+mean_reps  # Average rating by Republicans
+```
+
+### A quick look at the data
+
+-   What were the most popular tweets?
+-   What is the range of the data?
+
+```{r}
+# Arrange tweets by descending and ascending overall score
+# Note this will not influence the original data, or subsequent plots
+data %>% arrange(score) %>% head()
+```
+
+```{r}
+data %>% 
+ summarize(lowest = min(score),highest=max(score))
+```
+
+### Exploring Overall Sentiment Distribution
+
+```{r}
+# Histogram of overall sentiment scores
+data %>%
+  ggplot(aes(x = score)) +
+  geom_histogram(bins = 35, fill = "yellow3", color = "black") +
+  theme_bw() +
+  labs(title = "Distribution of Overall Sentiment Scores", x = "Sentiment Score", y = "Count")
+```
+
+Or consider running:
+
+```{r}
+# Density plot of overall scores
+data %>%
+  ggplot(aes(x = score)) +
+  geom_density() +
+  theme_bw() +
+  labs(title = "Density of Overall Sentiment Scores", x = "Sentiment Score", y = "Density")
+```
+
+### Breaking down the data by group
+
+Compute and compare mean ratings by party
+
+**What should the structure of the input be?**
+
+```{r}
+#| eval: true
+data %>%
+  summarize(
+    Democrats = mean(score_dems, na.rm = TRUE),
+    Republicans = mean(score_reps, na.rm = TRUE)
+  ) 
+```
+
+Compute and compare mean ratings by party
+
+**What should the structure of the input be?**
+
+Better to stack the data (go from wide to long)
+
+```{r}
+#| eval: true
+data %>%
+  summarize(
+    Democrats = mean(score_dems, na.rm = TRUE),
+    Republicans = mean(score_reps, na.rm = TRUE)
+  ) %>% pivot_longer(cols = everything(), 
+                 names_to = "party", 
+                 values_to = "mean_score")
+```
+
+### Preparing a simple bar plot
+
+```{r}
+#| eval: false
+data %>%
+  summarize(
+    Democrats = mean(score_dems, na.rm = TRUE),
+    Republicans = mean(score_reps, na.rm = TRUE)
+  ) %>%
+  pivot_longer(cols = everything(), names_to = "party", values_to = "mean_score") %>%
+  ggplot(aes(x = party, y = mean_score)) +
+  geom_col(aes(fill = party), width = 0.3) +
+  geom_hline(yintercept = 0, color = "black") +
+  scale_fill_manual(values = c("Democrats" = "blue3", "Republicans" = "red3")) +
+  theme_bw(base_size = 12) +
+  labs(
+    x = "Party",
+    y = "Mean Sentiment Score",
+    title = "Mean Sentiment Score by Party (All Tweets)",
+    fill = "Party"
+  )
+```
+
+### Breaking down the data by group
+
+```{r}
+#| eval: true
+#| echo: false
+data %>%
+  summarize(
+    Democrats = mean(score_dems, na.rm = TRUE),
+    Republicans = mean(score_reps, na.rm = TRUE)
+  ) %>%
+  pivot_longer(cols = everything(), names_to = "party", values_to = "mean_score") %>%
+  ggplot(aes(x = party, y = mean_score)) +
+  geom_col(aes(fill = party), width = 0.3) +
+  geom_hline(yintercept = 0, color = "black") +
+  scale_fill_manual(values = c("Democrats" = "blue3", "Republicans" = "red3")) +
+  theme_bw(base_size = 12) +
+  labs(
+    x = "Party",
+    y = "Mean Sentiment Score",
+    title = "Mean Sentiment Score by Party (All Tweets)",
+    fill = "Party"
+  )
+```
+
+### Scatterplot of Party Ratings Against Each Other
+
+Plot Democrat ratings (`score_dems`) against Republican ratings (`score_reps`) to see whether respondents tend to agree (in spite of an anticipate "intercept shift")
+
+```{r}
+fig_layer <- data %>%
+  ggplot(aes(x = score_reps, y = score_dems))
+
+fig_layer + 
+ geom_point()
+```
+
+### Ratings by party
+
+Another way to show the correlation
+
+```{r}
+fig_layer +
+  geom_smooth(method = "lm") +
+  theme_bw() +
+  labs(
+    title = "Relationship Between Republican and Democrat Ratings",
+    x = "Republican Rating",
+    y = "Democrat Rating"
+  )
+```
+
+### Comparing Distributions of Ratings
+
+Reshape the full data for plotting density curves of each rating type:
+
+```{r}
+( long_data <- data %>%
+  pivot_longer(
+    cols = c(score, score_dems, score_reps),
+    names_to = "party",
+    values_to = "score"
+  ) )
+```
+
+```{r}
+long_data %>%
+  ggplot(aes(y = party, x = score)) +
+  geom_point(alpha = .1) + labs(x="Tweet ratings",y="")
+```
+
+```{r}
+long_data %>%
+  ggplot(aes(y = party, x = score)) +
+  geom_jitter(alpha = .1) + labs(x="Tweet ratings",y="")
+```
+
+```{r}
+long_data %>%
+  ggplot(aes(y = party, x = score)) +
+  geom_jitter(alpha = .05,height = .2) + labs(x="Tweet ratings",y="")
+```
+
+```{r}
+long_data %>%
+ mutate(Party = case_when(
+    party == "score_dems" ~ "Democrats",
+    party == "score_reps" ~ "Republicans",
+    TRUE ~ "Overall") ) %>%
+  ggplot(aes(y = Party, x = score)) +
+  geom_jitter(alpha = .05,height = .2) + labs(x="Tweet ratings",y="")
+```
+
+```{r}
+long_data %>%
+ mutate(Party = case_when(
+    party == "score_dems" ~ "Among Democrats",
+    party == "score_reps" ~ "Among Republicans",
+    TRUE ~ "Overall") ) %>%
+  ggplot(aes(y = Party, x = score, color = Party)) +
+  geom_jitter(alpha = .065,height = .2, show.legend = F) + labs(x="Tweet ratings",y="") +
+ scale_color_manual(values = c("Among Democrats" = "steelblue", "Among Republicans" = "red4", "score"= "Overall")) + theme_minimal() 
+```
+
+## Other ways to show distributions of numerical variables
+
+```{r}
+long_data %>%
+ mutate(Party = case_when(
+    party == "score_dems" ~ "Among Democrats",
+    party == "score_reps" ~ "Among Republicans",
+    TRUE ~ "Overall") ) %>%
+  ggplot(aes(y = Party, x = score, fill = Party)) +
+  geom_boxplot() +
+ scale_fill_manual(values = c("Among Democrats" = "steelblue", "Among Republicans" = "red4", "score"= "Overall")) + theme_minimal() 
+```
+
+```{r}
+long_data %>%
+ mutate(Party = case_when(
+    party == "score_dems" ~ "Among Democrats",
+    party == "score_reps" ~ "Among Republicans",
+    TRUE ~ "Overall") ) %>%
+  ggplot(aes(y = Party, x = score, fill = Party)) +
+  geom_boxplot(show.legend = FALSE) +
+ scale_fill_manual(values = c("Among Democrats" = "steelblue", "Among Republicans" = "red4", "score"= "Overall")) + theme_minimal() 
+```
+
+You can also add a jitter layer to the boxplot to show individual data points:
+
+```{r}
+long_data %>%
+ mutate(Party = case_when(
+    party == "score_dems" ~ "Among Democrats",
+    party == "score_reps" ~ "Among Republicans",
+    TRUE ~ "Overall") ) %>%
+  ggplot(aes(y = Party, x = score, fill = Party)) +
+ geom_jitter(alpha = .065,height = .2, show.legend = F) + labs(x="Tweet ratings",y="") +
+  geom_boxplot(show.legend = FALSE) +
+ scale_fill_manual(values = c("Among Democrats" = "steelblue", "Among Republicans" = "red4", "score"= "Overall")) + theme_minimal() 
+```
+
+Adjust the boxplot transparency:
+
+```{r}
+long_data %>%
+ mutate(Party = case_when(
+    party == "score_dems" ~ "Among Democrats",
+    party == "score_reps" ~ "Among Republicans",
+    TRUE ~ "Overall") ) %>%
+  ggplot(aes(y = Party, x = score, fill = Party)) +
+ geom_jitter(alpha = .065,height = .2, show.legend = F) + labs(x="Tweet ratings",y="") +
+  geom_boxplot(show.legend = FALSE,alpha=.6) +
+ scale_fill_manual(values = c("Among Democrats" = "steelblue", "Among Republicans" = "red4", "score"= "Overall")) + theme_minimal() 
+```
+
+Make the points more subtle
+
+```{r}
+long_data %>%
+ mutate(Party = case_when(
+    party == "score_dems" ~ "Among Democrats",
+    party == "score_reps" ~ "Among Republicans",
+    TRUE ~ "Overall") ) %>%
+  ggplot(aes(y = Party, x = score, fill = Party)) +
+ geom_jitter(alpha = .045,height = .1, size=.25,show.legend = F) + labs(x="Tweet ratings",y="") +
+  geom_boxplot(show.legend = FALSE,alpha=.6) +
+ scale_fill_manual(values = c("Among Democrats" = "steelblue", "Among Republicans" = "red4", "score"= "Overall")) + theme_minimal() 
+```
+
+Make the boxes narrower and the border thinner:
+
+```{r}
+long_data %>%
+ mutate(Party = case_when(
+    party == "score_dems" ~ "Among Democrats",
+    party == "score_reps" ~ "Among Republicans",
+    TRUE ~ "Overall") ) %>%
+  ggplot(aes(y = Party, x = score, fill = Party)) +
+ geom_jitter(alpha = .045,height = .1, size=.25,show.legend = F) + labs(x="Tweet ratings",y="") +
+  geom_boxplot(alpha=.75,size=.2,width=.3,show.legend = FALSE,) +
+ scale_fill_manual(values = c("Among Democrats" = "steelblue", "Among Republicans" = "red4", "score"= "Overall")) + theme_minimal() 
+```
+
+Adjust the dot colors as well:
+
+```{r}
+long_data %>%
+ mutate(Party = case_when(
+    party == "score_dems" ~ "Among Democrats",
+    party == "score_reps" ~ "Among Republicans",
+    TRUE ~ "Overall") ) %>%
+  ggplot(aes(y = Party, x = score, fill = Party, color = Party)) +
+ geom_jitter(alpha = .045,height = .1, size=.25,show.legend = F) + labs(x="Tweet ratings",y="") +
+  geom_boxplot(alpha=.75,size=.2,width=.3,show.legend = FALSE,) +
+ scale_color_manual(values = c("Among Democrats" = "steelblue", "Among Republicans" = "red4", "score"= "Overall")) + scale_fill_manual(values = c("Among Democrats" = "steelblue", "Among Republicans" = "red4", "score"= "Overall")) + theme_minimal() 
+```
+
+Make final adjustments:
+
+```{r}
+long_data %>%
+ mutate(Party = case_when(
+    party == "score_dems" ~ "Among Democrats",party == "score_reps" ~ "Among Republicans",TRUE ~ "Overall"), Party = factor(Party,levels = c("Among Republicans","Overall","Among Democrats"))) %>%
+  ggplot(aes(y = Party, x = score, fill = Party, color = Party)) +
+ geom_jitter(alpha = .045,height = .1, size=.25,show.legend = F) + labs(x="Tweet ratings",y="") +
+  geom_boxplot(outliers=F,alpha=.75,size=.2,width=.3,show.legend = FALSE,) +
+ scale_color_manual(values = c("Among Democrats" = "steelblue", "Among Republicans" = "red4", "score"= "Overall")) + scale_fill_manual(values = c("Among Democrats" = "steelblue", "Among Republicans" = "red4", "score"= "Overall")) + theme_minimal() + ggtitle("Ratings of Trump tweets among YouGov respondents")
+```
+
+## Still more ways to show distributions
+
+```{r}
+long_data %>%
+  ggplot(aes(x = score, color = party)) +
+  geom_density() +
+  theme_bw() + labs(title = "Density of Scores by Rating Type", x = "Score", y = "Density")
+```
+
+```{r}
+long_data %>%
+  ggplot(aes(x = score, fill = party)) +
+  geom_density(alpha = 0.6, show.legend = TRUE) +
+  scale_fill_manual(
+    values = c("score_dems" = "steelblue", "score_reps" = "red4", "score" = "grey")
+  ) +
+  theme_bw(base_size = 12) +
+  labs(title = "Overlayed Density of Scores", x = "Score", y = "Density", fill = "Rating Type")
+```
+
+```{r}
+long_data %>%
+  ggplot(aes(x = score, fill = party)) +
+  geom_histogram(alpha = 0.5, color = "black", bins = 30) +
+  scale_fill_brewer(palette = "Set1", direction = -1) +
+  theme_bw() +
+  labs(title = "Histogram of Scores by by Party ID", x = "Score", y = "Count", fill = "Rating Type")
+```
+
+## Content classification
+
+### Identifying Tweets that Mention Obama
+
+We create a binary indicator `obama` which is 1 if the tweet text contains the word "Obama", otherwise 0. Then we can compute how often tweets mention Obama.
+
+```{r}
+# Create indicator for "Obama"
+data$obama <- ifelse(str_detect(data$text, "Obama"), 1, 0)
+
+# Frequency of Obama mentions
+table(data$obama)
+
+# Percentage of tweets that mention Obama
+prop_obama <- data$obama %>% mean()
+prop_obama
+```
+
+### Comparing Ratings for Obama-Mentioning Tweets
+
+Compute mean sentiment ratings by Democrats and Republicans for tweets that mention Obama:
+
+```{r}
+data %>%
+  filter(obama == 1) %>%
+  summarize(
+    mean_dems = mean(score_dems, na.rm = TRUE),
+    mean_reps = mean(score_reps, na.rm = TRUE)
+  )
+```
+
+### Comparing Ratings for Obama-Mentioning Tweets
+
+Next, compare average ratings between tweets that do and do not mention Obama:
+
+```{r}
+data %>%
+  group_by(obama) %>%
+  summarize(
+    mean_dems = mean(score_dems, na.rm = TRUE),
+    mean_reps = mean(score_reps, na.rm = TRUE)
+  )
+```
+
+Make a nicer table with descriptive labels and rounded values:
+
+```{r}
+tab <- data %>%
+  group_by(obama) %>%
+  summarize(
+    mean_dems = mean(score_dems, na.rm = TRUE),
+    mean_reps = mean(score_reps, na.rm = TRUE)
+  ) %>%
+  mutate(obama = ifelse(obama == 1, "Obama Mentioned", "Obama Not Mentioned")) %>%
+  rename(
+    "Tweet type" = obama,
+    "Avg. rating among Democrats" = mean_dems,
+    "Avg. rating among Republicans" = mean_reps
+  )
+
+# Display the table
+(tab %>% knitr::kable(digits = 1))
+```
+
+### Highlighting Obama-Mention Tweets in Scatterplot
+
+Identify tweets that mention Obama in the scatter of party ratings:
+
+```{r}
+data %>%
+  ggplot(aes(x = score_reps, y = score_dems)) +
+  geom_point(aes(color = factor(obama)), size = 0.4) +
+  scale_color_manual(values = c("0" = "grey60", "1" = "orange")) +
+  theme_bw(base_size = 12) + labs(title = "Party Ratings with Obama-Mention Tweets Highlighted",x = "Republican Rating",y = "Democrat Rating",color = "Obama Mentioned")
+```
+
+### Highlighting Obama-Mention Tweets in Scatterplot
+
+If desired, use `gghighlight` to emphasize only the Obama-mentioning tweets:
+
+```{r}
+#| fig.pos = "center"
+library(gghighlight)
+data %>%
+  ggplot(aes(x = score_reps, y = score_dems)) +
+  geom_point(aes(color = obama), size = 0.4,show.legend=F) +
+  gghighlight(obama == 1) + theme_bw(base_size = 12) + labs(subtitle = "Highlighted tweets mention Barack Obama", color = "Obama Mention")
+```
+
+## Showing the full text of tweets
+
+### Pulling Out Specific Tweets
+
+-   We can hand-pick some observations and display the full text of the tweets which were rated
+-   For example, here select tweets from rows 19 through 23 and display their texts along with their ratings:
+
+```{r}
+#| eval: false
+data[19:22, ] %>%
+  ggplot(aes(y = text)) +
+  geom_point(aes(x = score_dems), color = "blue3") +
+  geom_point(aes(x = score_reps), color = "red3") +
+  scale_y_discrete(labels = scales::label_wrap(50)) +
+  labs(x = "Rating", title = "Ratings of Selected Tweets")
+```
+
+```{r}
+#| eval: true
+#| echo: false
+data[19:22, ] %>%
+  ggplot(aes(y = text)) +
+  geom_point(aes(x = score_dems), color = "blue3") +
+  geom_point(aes(x = score_reps), color = "red3") +
+  scale_y_discrete(labels = scales::label_wrap(50)) +
+  labs(x = "Rating", title = "Ratings of Selected Tweets")
+```
+
+```{r}
+#| eval: false
+#| echo: true
+data[60:63, ] %>%
+  ggplot(aes(y = text)) +
+  geom_col(aes(x = score_dems), fill = "blue3",width=.5) +
+  geom_col(aes(x = score_reps), fill = "red3",width=.5) +
+  scale_y_discrete(labels = scales::label_wrap(50)) +
+  labs(x = "Rating", title = "Ratings of Selected Tweets",y="")
+```
+
+```{r}
+#| eval: true
+#| echo: false
+data[60:63, ] %>%
+  ggplot(aes(y = text)) +
+  geom_col(aes(x = score_dems), fill = "blue3",width=.5) +
+  geom_col(aes(x = score_reps), fill = "red3",width=.5) +
+  scale_y_discrete(labels = scales::label_wrap(50)) +
+  labs(x = "Rating", title = "Ratings of Selected Tweets",y="")
+```
+
+### Finding unusual / surprising observations
+
+Let's see if there are tweets mentioning Obama with POSITIVE Democrat ratings
+
+```{r}
+# Extract tweets mentioning Obama with positive Democrat ratings
+data %>%
+  filter(obama == 1, score_dems >= 0) %>% nrow()
+```
+
+So, there was one such tweet! What did it say?
+
+```{r}
+# Extract tweets mentioning Obama with positive Democrat ratings
+data %>%
+  filter(obama == 1, score_dems >= 0) %>% pull(text)
+```
+
+## Conclusion
+
+Students should now be able to:
+
+-   Load JSON data into R and inspect its structure
+-   Calculate and interpret summary statistics by group
+-   Create and format tables in markdown
+-   Reshape data between wide and long formats
+-   Visualize distributions and relationships with ggplot2
+-   Highlight specific observations in visualizations
+
+Feel free to modify the code and experiment with different subsets or additional variable transformations.

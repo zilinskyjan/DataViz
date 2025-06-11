@@ -1,0 +1,332 @@
+# In-class exercizes  {.unnumbered}
+
+## Tidyverse basics
+
+```{r}
+#| eval: false
+library(tidyverse)
+
+# Read about the density index
+# - Methodology: https://github.com/theatlantic/citylab-data/blob/master/citylab-congress/methodology.md
+# - https://www.bloomberg.com/news/articles/2018-11-20/citylab-s-congressional-density-index
+# - https://www.bloomberg.com/news/articles/2018-10-05/the-suburbs-are-the-midterm-election-battleground
+
+# Load the data
+CD <- readr::read_csv("https://raw.githubusercontent.com/zilinskyjan/citylab-data/master/citylab-congress/citylab_cdi_extended.csv")
+
+# 1. What does each row mean?
+# 2. How many variables (columns) are contained in the dataset?
+# 3. What variables (columns) are present?
+# 4. Which variables contain missing data?
+
+head(CD)
+
+# Change variable name "CD" to "District"
+CD <- rename(CD, `District` = `CD`)
+
+# Move the variables you are interested in the left:
+CD %>% select(District, Clinton16, everything())
+
+CD %>% relocate(District, Clinton16)
+
+# To see the names of all variables:  
+names(CD)
+
+# For manual inspection, run:
+# View(CD)
+
+# Reordering rows:
+CD %>% arrange(Clinton16) %>% relocate(Clinton16)
+
+CD %>% arrange(-Clinton16) %>% relocate(Clinton16)
+
+# How are the district classified and how many districts of each type do we have in the data?
+table(CD$Cluster)
+
+count(CD, Cluster)
+
+summarize(CD, number_of_districts = n())
+
+summarize(CD, number_of_rows = n())
+
+# Re-do the above with pipes
+
+CD %>% count(Cluster)
+
+# Calculate the total number of rows
+CD %>% summarise(number_of_districts = n(),
+                 average_clinton_performance = mean(Clinton16))
+
+CD %>% tally()
+
+# Any missing values?
+sum(complete.cases(CD))
+
+dim(CD)
+
+# Where are the missing values?
+colSums(is.na(CD))
+
+
+# Let's list the KEY VERBS
+# 1. filter: Keep only some rows (depending on their particular values).
+# 2. select: Keep the specified columns (list their names, without quotation marks).
+# 3. mutate: Create new variables.
+# 4. summarise: Collapse multiple rows into a single summary value.
+# 5. arrange: Order rows based on their values.
+
+# Calculate the average Clinton vote share
+CD %>% summarise(avg_HRC_vote_share = mean(Clinton16))
+
+# Where was HRC's vote at its minimum? Would this work?
+CD %>% summarise(min_HRC_vote_share = min(Clinton16))
+
+# Prepare summaries by district type
+CD %>% 
+  group_by(Cluster) %>% 
+  summarise(avg_HRC_vote_share = mean(Clinton16))
+
+# Sort your data:
+CD %>% group_by(Cluster) %>%
+  summarise(avg_HRC_vote_share = mean(Clinton16)) %>%
+  arrange(avg_HRC_vote_share)
+
+
+# Sort your data from highest to lowest average Clinton vote share
+# and show the total number of districts per row:
+CD %>% group_by(Cluster) %>%
+  summarise(avg_HRC_vote_share = mean(Clinton16),
+            n=n()) %>%
+  arrange(-avg_HRC_vote_share)
+
+##########################
+# GENERATING NEW VARIABLES (as a function of what we already have)
+##########################
+# Create a binary variable conveying the district is "safe Democratic"
+CD %>% mutate(Clinton16_over70 = Clinton16 >= .7) %>% 
+  relocate(Clinton16_over70,Clinton16) %>%
+  slice_sample(n=10)
+
+# Or make a string variable [not necessarily recommended]
+CD %>% mutate(Clinton16_over70_string = ifelse(Clinton16 >= .7,"Safe","Not safe")) %>%
+  relocate(District,Clinton16,Clinton16_over70_string) %>%
+  slice_sample(n=10) 
+
+# Save a new dataset
+CD_new <- CD %>% mutate(Clinton16_over70 = Clinton16 >= .7)
+
+# Check 3 randomly selected district from each group:
+CD_new %>% group_by(Clinton16_over70) %>% 
+  sample_n(3) %>% 
+  select(District,Clinton16_over70,Clinton16)
+
+# How many such (arbitrarily defined) safe districts are there?
+CD_new %>% count(Clinton16_over70)
+
+# What is the typical density in these types of districts?
+CD_new %>% filter(Clinton16_over70==1) %>%
+  count(Cluster) %>%
+  arrange(-n)
+
+
+
+######################################
+# Working with strings
+#####################################
+library(stringr)
+
+CD %>% filter(str_detect(District,"NC"))
+
+CD %>% filter(grepl("NC",District))
+
+# Usually a better choice: generate a new variable
+substr(CD$District,1,2) 
+
+CD$state <- substr(CD$District,1,2) 
+
+# But what happened in the ninth district, NC-09?
+CD %>% filter(state=="NC") %>% relocate(`2018 winner party`)
+
+CD %>% count(`Pre-2018 party`)
+
+# How many Democrats and Republicans were re-elected?
+CD %>% count(`Pre-2018 party`,`2018 winner party`)
+
+# Calculate proportions
+CD %>% count(`Pre-2018 party`,`2018 winner party`) %>%
+  mutate(prop = n / sum(n))
+
+# What about the missing results for one district? Where is it?
+CD %>% filter(is.na(`2018 winner party`))
+
+CD %>% filter(is.na(`2018 winner party`)) %>% select(`2018 winner party`)
+
+####################
+# THIS IS IMPORTANT
+####################
+
+dim(CD)
+
+complete.cases(CD)
+
+sum(complete.cases(CD))
+
+sum(!complete.cases(CD))
+
+# Where are the missing values?
+colSums(is.na(CD))
+
+CD %>%
+  filter(is.na(`2018 winner party`))
+
+
+# There were ballot-harvesting problems in NC-09, and a new election had to be called
+# ... what happened next, a Republican won
+
+# So, we can update the dataset:
+CD_nonmissing <- CD %>% mutate(`2018 winner party` = ifelse(District == "NC-09",
+                                      "R",
+                                      `2018 winner party`))
+
+# This has been cleaned
+CD_nonmissing
+
+# You can save the fixed dataset:
+write_csv(CD_nonmissing,"newfile.csv")
+```
+
+## Running regressions and visualizing coefficients and confidence intervals
+
+### Public opipinion data
+
+```{r}
+#| eval: false
+library(tidyverse)
+library(labelled)
+install.packages("pollster")
+library(pollster)
+
+githubURL <- "https://raw.githubusercontent.com/zilinskyjan/DataViz/temp/data_nationscape2019/Nationscape_first10waves.rds"
+download.file(githubURL,"Nationscape_first10waves.rds", method="curl")
+
+a <- readRDS("Nationscape_first10waves.rds")
+
+a %>% group_by(week) %>% tally()
+topline(a,aoc_Favorable,weight = weight)
+
+reg1 <- lm(aoc_Favorable ~
+    gender_att3_by1SD +
+    age + college_grad +
+    White + Black + Hispanic, data = a)
+
+summary(reg1) 
+```
+
+`broom` is an excellent package:
+
+```{r}
+#| eval: false
+#| 
+broom::tidy(reg1) %>%
+ ggplot(aes(x = term, y = estimate)) +
+    geom_point() +
+    geom_errorbar(aes(ymin = estimate - 1.96*std.error, ymax = estimate + 1.96*std.error), width = 0.2) +
+    coord_flip() +
+    theme_minimal() +
+    labs(title = "Regression Coefficients",
+         x = "Coefficient",
+         y = "Estimate") +
+ geom_hline(yintercept = 0, linetype = "dashed", color = "red")
+```
+
+The code above gives us a lot of flexibility.
+
+That said, it's possible to also simply run:
+
+```{r}
+#| eval: false
+modelsummary::modelplot(reg1)
+```
+
+### Voting data (county-lavel)
+
+```{r}
+#| eval: false
+library(tidyverse)
+library(haven)
+
+D <- read_dta("https://github.com/zilinskyjan/R-stata-tutorials/blob/master/data/PIIE_replication_wp17-7/Election%20Data.dta?raw=true")
+
+D$dem_2p_vote_share <- D$demvote / (D$demvote + D$repvote)
+
+# What is the correlation between LFP and Dem. vote share?
+
+lm(dem_2p_vote_share ~ lfp, data = D)
+
+# Equivalent to:
+
+D %>%
+  lm(dem_2p_vote_share ~ lfp, data = .)
+
+# Using the 2016 data only
+
+lm(dem_2p_vote_share ~ lfp, data= D %>% filter(year==2016))
+
+# Equivalent to:
+
+lm(dem_2p_vote_share ~ lfp, data = D, subset = (year==2016))
+
+```
+
+## Using stat_density_2d or geom_hex()
+
+```{r}
+#| eval: false
+library(tidyverse)
+
+exp <- read.csv("https://raw.githubusercontent.com/zilinskyjan/datasets/master/public%20opinion/experts/BertsouCaramani-TechnocracySurvey.csv")
+
+exp$AP4BIN <- ifelse(exp$AP4 >=5,1,0)
+
+exp <- exp %>% mutate(
+  cty_lab = case_when(
+    country==1 ~ "Germany",
+    country==2 ~ "France",
+    country==3 ~ "Great Britain",
+    country==4 ~ "Greece",
+    country==5 ~ "Italy",
+    country==6 ~ "Netherlands",
+    country==7 ~ "Poland",
+    country==8 ~ "Romania",
+    country==9 ~ "Sweden"
+  )
+)
+
+exp %>%
+  group_by(country) %>%
+  summarise(M_AP = mean(antipolitics),
+            M_POP = mean(popscale)) %>%
+  ggplot(aes(x=M_AP,y=M_POP)) +
+  geom_point()
+
+exp %>%
+  group_by(country) %>%
+  mutate(M_AP = mean(antipolitics),
+            M_POP = mean(popscale)) %>%
+ggplot(aes(x=antipolitics, y=popscale) ) +
+  labs(x="Anti-politics (based on 4 items)",y="Populist attitudes (6 items)",
+       caption = "Data: Bertsou, Eri and Daniele Caramani (2017). Citizens’ Technocratic Attitudes.") +
+  stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
+  #scale_fill_continuous(type = "viridis") + 
+  scale_fill_continuous(low="white",high="cyan3") + 
+  facet_wrap(~ as_factor(cty_lab)) +
+  #geom_hline(yintercept = M_POP) +
+  theme_classic()
+  
+
+exp %>%
+  ggplot(aes(x=antipolitics, y=popscale) ) +
+  geom_hex(bins = 10) +
+  scale_fill_continuous(type = "viridis") +
+  theme_bw() 
+```

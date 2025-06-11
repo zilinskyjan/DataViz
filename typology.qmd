@@ -1,4 +1,4 @@
-# Typology of charts
+# Typology of charts  {.unnumbered}
 
 ## **Bee swarm plots**
 

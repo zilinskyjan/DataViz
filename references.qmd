@@ -6,6 +6,8 @@
 
 [Gestalt Principles (Part 2)](https://www.nature.com/articles/nmeth1210-941)
 
+[Data Science for Economists](https://raw.githack.com/uo-ec607/lectures/master/05-tidyverse/05-tidyverse.html)
+
 <https://socviz.co/>
 
 <https://ggplot2-book.org/index.html>

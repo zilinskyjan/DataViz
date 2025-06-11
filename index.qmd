@@ -15,7 +15,7 @@ There is a lot we can do after extracting relevant information from statistical 
 -   How stable are coefficients from linear models across specifications?
 -   What do we lose/gain when we display aggregates (e.g. average marginal effects) rather than individual data-points?
 
-## Lesson 2: The first chart you produce is your "draft #1".
+## Lesson 2: The first chart you produce is your "draft zero".
 
 Iterate and create reasonably clear and self-contained visual exhibits.
 
@@ -52,7 +52,8 @@ We will be graphing various types of evidence including:
 -   Principles of visual perception and effect communication
 -   Getting familiar with ggplot
 
-### A ggplot deep dive
+### Using ggplot for data visualization
+
 
 ```         
 - Toplines, cross-tabs

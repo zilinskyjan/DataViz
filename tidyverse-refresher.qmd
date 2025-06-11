@@ -1,0 +1,194 @@
+# Tidyverse Tips / Refresher  {.unnumbered}
+
+## Reading CSV files: `read_csv()` vs. `read.csv()`
+
+```{r read-data}
+#| eval: false
+# Base R
+data_base <- read.csv("my_data.csv")
+
+# Tidyverse (readr)
+library(tidyverse)
+data_tidy <- read_csv("my_data.csv")
+```
+
+**Why prefer `read_csv()`?**
+
+- Automatically parses column types (numeric, date, etc.) and shows a progress bar.
+- Returns a **tibble**, which prints more cleanly (truncated rows/columns).
+- Faster for large files.
+
+**Tip:** To write back out, use `write_csv(data, "out.csv")`.
+
+
+## Inspecting Your Data Immediately
+
+```{r inspect-data}
+#| eval: false
+head(data_tidy)     # first 6 rows
+tail(data_tidy)     # last 6 rows
+str(data_tidy)      # structure: types & sample values
+glimpse(data_tidy)  # tidyverse-friendly structure
+dim(data_tidy)      # rows, columns
+names(data_tidy)    # column names
+```
+
+**Why inspect early?**
+
+1. Check that columns imported with correct (or at least expected) names and types
+2. Spot missing values or parsing problems
+3. Get a sense of dataset size and structure
+
+
+## Dealing with Spaces or Special Characters in Names
+
+Sometimes column names contain spaces or punctuation. You can't refer to them directly without backticks.
+
+```{r backticks}
+#| eval: false
+# Suppose “Number of deaths” was imported:
+data$`Number of deaths`
+
+# Better: rename immediately
+data <- data %>%
+  rename(NumberOfDeaths = `Number of deaths`)
+```
+
+**Tip:** Use **janitor**’s `clean_names()` to automatically convert all names to snake_case:
+
+```{r clean-names}
+#| eval: false
+library(janitor)
+data <- data %>% clean_names()
+# “Number of Deaths” → number_of_deaths
+```
+
+
+##  Renaming Columns
+
+```{r rename-columns}
+#| eval: false
+data <- data %>%
+  rename(
+    deaths_total = `Number of deaths`,
+    country_code = CountryCode
+  )
+```
+
+Rename multiple columns in one call using `new_name = old_name` syntax.
+
+
+## Merging (Joining) Two Datasets
+
+### Why We Merge
+
+- **Merge** (join) means adding columns by matching rows.
+- Requires a **common identifier** (key) that uniquely matches rows across datasets.
+
+### Join Functions
+
+```{r join-data}
+#| eval: false
+# Simple one-key join
+merged <- main_data %>%
+  left_join(data_to_add, by = "country_year_id")
+
+# Two-key join
+merged <- main_data %>%
+  left_join(data_to_add, by = c("country", "year"))
+
+# Other types:
+# inner_join(): only keep rows present in both
+# right_join(): keep all from data_to_add
+```
+
+**Tip:** Before joining, ensure keys have the same type and values:
+
+```{r check-keys}
+#| eval: false
+unique(main_data$country)
+unique(data_to_add$country)
+```
+
+**Tip:** If one dataset uses “DEU” and the other “Germany,” recode or create a lookup table before joining.
+
+
+##  Appending (Binding) Rows
+
+This is how we would stack observations:
+
+```{r bind-rows}
+#| eval: false
+# Recommended
+total <- bind_rows(data_for_germany, 
+                   data_for_france)
+
+# Base R equivalent:
+total2 <- rbind(data_for_germany, data_for_france)
+```
+
+**Note:** `bind_rows()` will fill in missing columns with `NA` if one data frame has extra columns.
+
+##  Common Operations
+
+1. **Chaining with the pipe `%>%`**
+
+```{r}
+#| eval: false
+result <- data %>%
+     filter(year >= 2000) %>%
+     select(country, year, deaths_total) %>%
+     arrange(desc(deaths_total))
+```
+
+2. **Use `mutate()` to create or transform columns**
+
+```{r}
+#| eval: false
+data <- data %>%
+     mutate(
+       deaths_per_100k = deaths_total / population * 100000,
+       log_deaths = log(deaths_total)
+     )
+```
+
+3. **Quick summaries with `group_by()` + `summarise()`**
+
+```{r}
+#| eval: false
+summary <- data %>%
+     group_by(country) %>%
+     summarise(
+       total_deaths = sum(deaths_total, na.rm = TRUE),
+       avg_deaths = mean(deaths_total, na.rm = TRUE)
+     )
+```
+
+4. **Check for duplicates** (especially before joining or binding)
+
+```{r}
+#| eval: false
+data %>%
+     add_count(country, year) %>%
+     filter(n > 1)
+```
+
+5. **Convert to factors or dates cleanly**
+
+```{r}
+#| eval: false
+data <- data %>%
+     mutate(
+       country = as_factor(country),
+       date = lubridate::ymd(date_string)
+     )
+```
+
+6. **Use `glimpse()`** for a prettier, horizontally oriented overview.
+
+
+## Useful reference
+
+See Grant McDermott's [excellent slides](https://raw.githack.com/uo-ec607/lectures/master/05-tidyverse/05-tidyverse.html)
+
+

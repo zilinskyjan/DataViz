@@ -8,14 +8,21 @@ book:
   chapters:
     - index.qmd
     - 1_principles.qmd
-    - typology.qmd
     - 2_toplines-and-cross-tabs.qmd
     - 3_B_timeseries.qmd
     - 3_standard-charts.qmd
     - 4_advanced-ggplot.qmd
+    - 4b_tweet_ratings.qmd
     - 5_visualizing-models.qmd
-    - datasets.qmd
-    - references.qmd
+    - part: "Resources"
+      chapters:
+        - typology.qmd
+        - datasets.qmd
+        - references.qmd
+    - part: "Appendix"
+      chapters:
+        - tidyverse-refresher.qmd
+        - class-exercizes.qmd
 
 bibliography: references.bib
 
