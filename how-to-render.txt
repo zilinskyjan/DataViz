@@ -1,0 +1,1 @@
+quarto render slides.qmd --to revealjs --self-contained
