@@ -3,8 +3,8 @@ library(tidyquant)
 
 # Get stocks prices
 stocks <- tq_get(c("NVDA", "AVGO","^GSPC"),
-                 from = "2022-01-01",
-                 to = "2024-02-07")
+                 from = "2022-015-01",
+                 to = "2024-06-05")
 
 stocks
 
