@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Visualization with R and ggplot - 6&nbsp; Mixed data (strings and numbers)</title>
+<title>Data Visualization with R and ggplot - 5&nbsp; Mixed data (strings and numbers)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./5_visualizing-models.html" rel="next">
-<link href="./4_advanced-ggplot.html" rel="prev">
+<link href="./4_advanced-ggplot.html" rel="next">
+<link href="./3_standard-charts.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -108,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./4b_tweet_ratings.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./4b_tweet_ratings.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -165,14 +165,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4_advanced-ggplot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
+  <a href="./4b_tweet_ratings.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4b_tweet_ratings.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></span></a>
+  <a href="./4_advanced-ggplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -243,36 +243,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#structure-of-the-dataset" id="toc-structure-of-the-dataset" class="nav-link active" data-scroll-target="#structure-of-the-dataset"><span class="header-section-number">6.1</span> Structure of the dataset</a>
+  <li><a href="#structure-of-the-dataset" id="toc-structure-of-the-dataset" class="nav-link active" data-scroll-target="#structure-of-the-dataset"><span class="header-section-number">5.1</span> Structure of the dataset</a>
   <ul class="collapse">
-  <li><a href="#loading-libraries-and-data" id="toc-loading-libraries-and-data" class="nav-link" data-scroll-target="#loading-libraries-and-data"><span class="header-section-number">6.1.1</span> Loading Libraries and Data</a></li>
-  <li><a href="#creating-a-tidy-data-frame" id="toc-creating-a-tidy-data-frame" class="nav-link" data-scroll-target="#creating-a-tidy-data-frame"><span class="header-section-number">6.1.2</span> Creating a Tidy Data Frame</a></li>
-  <li><a href="#summary-statistics-by-party" id="toc-summary-statistics-by-party" class="nav-link" data-scroll-target="#summary-statistics-by-party"><span class="header-section-number">6.1.3</span> Summary Statistics by Party</a></li>
-  <li><a href="#a-quick-look-at-the-data" id="toc-a-quick-look-at-the-data" class="nav-link" data-scroll-target="#a-quick-look-at-the-data"><span class="header-section-number">6.1.4</span> A quick look at the data</a></li>
-  <li><a href="#exploring-overall-sentiment-distribution" id="toc-exploring-overall-sentiment-distribution" class="nav-link" data-scroll-target="#exploring-overall-sentiment-distribution"><span class="header-section-number">6.1.5</span> Exploring Overall Sentiment Distribution</a></li>
-  <li><a href="#breaking-down-the-data-by-group" id="toc-breaking-down-the-data-by-group" class="nav-link" data-scroll-target="#breaking-down-the-data-by-group"><span class="header-section-number">6.1.6</span> Breaking down the data by group</a></li>
-  <li><a href="#preparing-a-simple-bar-plot" id="toc-preparing-a-simple-bar-plot" class="nav-link" data-scroll-target="#preparing-a-simple-bar-plot"><span class="header-section-number">6.1.7</span> Preparing a simple bar plot</a></li>
-  <li><a href="#breaking-down-the-data-by-group-1" id="toc-breaking-down-the-data-by-group-1" class="nav-link" data-scroll-target="#breaking-down-the-data-by-group-1"><span class="header-section-number">6.1.8</span> Breaking down the data by group</a></li>
-  <li><a href="#scatterplot-of-party-ratings-against-each-other" id="toc-scatterplot-of-party-ratings-against-each-other" class="nav-link" data-scroll-target="#scatterplot-of-party-ratings-against-each-other"><span class="header-section-number">6.1.9</span> Scatterplot of Party Ratings Against Each Other</a></li>
-  <li><a href="#ratings-by-party" id="toc-ratings-by-party" class="nav-link" data-scroll-target="#ratings-by-party"><span class="header-section-number">6.1.10</span> Ratings by party</a></li>
-  <li><a href="#comparing-distributions-of-ratings" id="toc-comparing-distributions-of-ratings" class="nav-link" data-scroll-target="#comparing-distributions-of-ratings"><span class="header-section-number">6.1.11</span> Comparing Distributions of Ratings</a></li>
+  <li><a href="#loading-libraries-and-data" id="toc-loading-libraries-and-data" class="nav-link" data-scroll-target="#loading-libraries-and-data"><span class="header-section-number">5.1.1</span> Loading Libraries and Data</a></li>
+  <li><a href="#creating-a-tidy-data-frame" id="toc-creating-a-tidy-data-frame" class="nav-link" data-scroll-target="#creating-a-tidy-data-frame"><span class="header-section-number">5.1.2</span> Creating a Tidy Data Frame</a></li>
+  <li><a href="#summary-statistics-by-party" id="toc-summary-statistics-by-party" class="nav-link" data-scroll-target="#summary-statistics-by-party"><span class="header-section-number">5.1.3</span> Summary Statistics by Party</a></li>
+  <li><a href="#a-quick-look-at-the-data" id="toc-a-quick-look-at-the-data" class="nav-link" data-scroll-target="#a-quick-look-at-the-data"><span class="header-section-number">5.1.4</span> A quick look at the data</a></li>
+  <li><a href="#exploring-overall-sentiment-distribution" id="toc-exploring-overall-sentiment-distribution" class="nav-link" data-scroll-target="#exploring-overall-sentiment-distribution"><span class="header-section-number">5.1.5</span> Exploring Overall Sentiment Distribution</a></li>
+  <li><a href="#breaking-down-the-data-by-group" id="toc-breaking-down-the-data-by-group" class="nav-link" data-scroll-target="#breaking-down-the-data-by-group"><span class="header-section-number">5.1.6</span> Breaking down the data by group</a></li>
+  <li><a href="#preparing-a-simple-bar-plot" id="toc-preparing-a-simple-bar-plot" class="nav-link" data-scroll-target="#preparing-a-simple-bar-plot"><span class="header-section-number">5.1.7</span> Preparing a simple bar plot</a></li>
+  <li><a href="#breaking-down-the-data-by-group-1" id="toc-breaking-down-the-data-by-group-1" class="nav-link" data-scroll-target="#breaking-down-the-data-by-group-1"><span class="header-section-number">5.1.8</span> Breaking down the data by group</a></li>
+  <li><a href="#scatterplot-of-party-ratings-against-each-other" id="toc-scatterplot-of-party-ratings-against-each-other" class="nav-link" data-scroll-target="#scatterplot-of-party-ratings-against-each-other"><span class="header-section-number">5.1.9</span> Scatterplot of Party Ratings Against Each Other</a></li>
+  <li><a href="#ratings-by-party" id="toc-ratings-by-party" class="nav-link" data-scroll-target="#ratings-by-party"><span class="header-section-number">5.1.10</span> Ratings by party</a></li>
+  <li><a href="#comparing-distributions-of-ratings" id="toc-comparing-distributions-of-ratings" class="nav-link" data-scroll-target="#comparing-distributions-of-ratings"><span class="header-section-number">5.1.11</span> Comparing Distributions of Ratings</a></li>
   </ul></li>
-  <li><a href="#other-ways-to-show-distributions-of-numerical-variables" id="toc-other-ways-to-show-distributions-of-numerical-variables" class="nav-link" data-scroll-target="#other-ways-to-show-distributions-of-numerical-variables"><span class="header-section-number">6.2</span> Other ways to show distributions of numerical variables</a></li>
-  <li><a href="#still-more-ways-to-show-distributions" id="toc-still-more-ways-to-show-distributions" class="nav-link" data-scroll-target="#still-more-ways-to-show-distributions"><span class="header-section-number">6.3</span> Still more ways to show distributions</a></li>
-  <li><a href="#content-classification" id="toc-content-classification" class="nav-link" data-scroll-target="#content-classification"><span class="header-section-number">6.4</span> Content classification</a>
+  <li><a href="#other-ways-to-show-distributions-of-numerical-variables" id="toc-other-ways-to-show-distributions-of-numerical-variables" class="nav-link" data-scroll-target="#other-ways-to-show-distributions-of-numerical-variables"><span class="header-section-number">5.2</span> Other ways to show distributions of numerical variables</a></li>
+  <li><a href="#still-more-ways-to-show-distributions" id="toc-still-more-ways-to-show-distributions" class="nav-link" data-scroll-target="#still-more-ways-to-show-distributions"><span class="header-section-number">5.3</span> Still more ways to show distributions</a></li>
+  <li><a href="#content-classification" id="toc-content-classification" class="nav-link" data-scroll-target="#content-classification"><span class="header-section-number">5.4</span> Content classification</a>
   <ul class="collapse">
-  <li><a href="#identifying-tweets-that-mention-obama" id="toc-identifying-tweets-that-mention-obama" class="nav-link" data-scroll-target="#identifying-tweets-that-mention-obama"><span class="header-section-number">6.4.1</span> Identifying Tweets that Mention Obama</a></li>
-  <li><a href="#comparing-ratings-for-obama-mentioning-tweets" id="toc-comparing-ratings-for-obama-mentioning-tweets" class="nav-link" data-scroll-target="#comparing-ratings-for-obama-mentioning-tweets"><span class="header-section-number">6.4.2</span> Comparing Ratings for Obama-Mentioning Tweets</a></li>
-  <li><a href="#comparing-ratings-for-obama-mentioning-tweets-1" id="toc-comparing-ratings-for-obama-mentioning-tweets-1" class="nav-link" data-scroll-target="#comparing-ratings-for-obama-mentioning-tweets-1"><span class="header-section-number">6.4.3</span> Comparing Ratings for Obama-Mentioning Tweets</a></li>
-  <li><a href="#highlighting-obama-mention-tweets-in-scatterplot" id="toc-highlighting-obama-mention-tweets-in-scatterplot" class="nav-link" data-scroll-target="#highlighting-obama-mention-tweets-in-scatterplot"><span class="header-section-number">6.4.4</span> Highlighting Obama-Mention Tweets in Scatterplot</a></li>
-  <li><a href="#highlighting-obama-mention-tweets-in-scatterplot-1" id="toc-highlighting-obama-mention-tweets-in-scatterplot-1" class="nav-link" data-scroll-target="#highlighting-obama-mention-tweets-in-scatterplot-1"><span class="header-section-number">6.4.5</span> Highlighting Obama-Mention Tweets in Scatterplot</a></li>
+  <li><a href="#identifying-tweets-that-mention-obama" id="toc-identifying-tweets-that-mention-obama" class="nav-link" data-scroll-target="#identifying-tweets-that-mention-obama"><span class="header-section-number">5.4.1</span> Identifying Tweets that Mention Obama</a></li>
+  <li><a href="#comparing-ratings-for-obama-mentioning-tweets" id="toc-comparing-ratings-for-obama-mentioning-tweets" class="nav-link" data-scroll-target="#comparing-ratings-for-obama-mentioning-tweets"><span class="header-section-number">5.4.2</span> Comparing Ratings for Obama-Mentioning Tweets</a></li>
+  <li><a href="#comparing-ratings-for-obama-mentioning-tweets-1" id="toc-comparing-ratings-for-obama-mentioning-tweets-1" class="nav-link" data-scroll-target="#comparing-ratings-for-obama-mentioning-tweets-1"><span class="header-section-number">5.4.3</span> Comparing Ratings for Obama-Mentioning Tweets</a></li>
+  <li><a href="#highlighting-obama-mention-tweets-in-scatterplot" id="toc-highlighting-obama-mention-tweets-in-scatterplot" class="nav-link" data-scroll-target="#highlighting-obama-mention-tweets-in-scatterplot"><span class="header-section-number">5.4.4</span> Highlighting Obama-Mention Tweets in Scatterplot</a></li>
+  <li><a href="#highlighting-obama-mention-tweets-in-scatterplot-1" id="toc-highlighting-obama-mention-tweets-in-scatterplot-1" class="nav-link" data-scroll-target="#highlighting-obama-mention-tweets-in-scatterplot-1"><span class="header-section-number">5.4.5</span> Highlighting Obama-Mention Tweets in Scatterplot</a></li>
   </ul></li>
-  <li><a href="#showing-the-full-text-of-tweets" id="toc-showing-the-full-text-of-tweets" class="nav-link" data-scroll-target="#showing-the-full-text-of-tweets"><span class="header-section-number">6.5</span> Showing the full text of tweets</a>
+  <li><a href="#showing-the-full-text-of-tweets" id="toc-showing-the-full-text-of-tweets" class="nav-link" data-scroll-target="#showing-the-full-text-of-tweets"><span class="header-section-number">5.5</span> Showing the full text of tweets</a>
   <ul class="collapse">
-  <li><a href="#pulling-out-specific-tweets" id="toc-pulling-out-specific-tweets" class="nav-link" data-scroll-target="#pulling-out-specific-tweets"><span class="header-section-number">6.5.1</span> Pulling Out Specific Tweets</a></li>
-  <li><a href="#finding-unusual-surprising-observations" id="toc-finding-unusual-surprising-observations" class="nav-link" data-scroll-target="#finding-unusual-surprising-observations"><span class="header-section-number">6.5.2</span> Finding unusual / surprising observations</a></li>
+  <li><a href="#pulling-out-specific-tweets" id="toc-pulling-out-specific-tweets" class="nav-link" data-scroll-target="#pulling-out-specific-tweets"><span class="header-section-number">5.5.1</span> Pulling Out Specific Tweets</a></li>
+  <li><a href="#finding-unusual-surprising-observations" id="toc-finding-unusual-surprising-observations" class="nav-link" data-scroll-target="#finding-unusual-surprising-observations"><span class="header-section-number">5.5.2</span> Finding unusual / surprising observations</a></li>
   </ul></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">6.6</span> Conclusion</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">5.6</span> Conclusion</a></li>
   </ul>
 </nav>
     </div>
@@ -281,7 +281,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></h1>
 </div>
 
 
@@ -297,8 +297,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>In this exercise, we will load a dataset of YouGov sentiment ratings of Trump tweets and explore how different people rate those tweets. (You can find the associated slides <a href="http://zilinskyjan.github.io/trump-tweets/">here</a>.)</p>
-<section id="structure-of-the-dataset" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="structure-of-the-dataset"><span class="header-section-number">6.1</span> Structure of the dataset</h2>
+<section id="structure-of-the-dataset" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="structure-of-the-dataset"><span class="header-section-number">5.1</span> Structure of the dataset</h2>
 <ul>
 <li>The underlying data consists of tweets</li>
 <li>So we could do text analysis</li>
@@ -313,8 +313,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Visualizing distributions and comparisons using ggplot2</li>
 <li>Highlighting specific observations in plots</li>
 </ul>
-<section id="loading-libraries-and-data" class="level3" data-number="6.1.1">
-<h3 data-number="6.1.1" class="anchored" data-anchor-id="loading-libraries-and-data"><span class="header-section-number">6.1.1</span> Loading Libraries and Data</h3>
+<section id="loading-libraries-and-data" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="loading-libraries-and-data"><span class="header-section-number">5.1.1</span> Loading Libraries and Data</h3>
 <p>First, we load the necessary libraries. <code>jsonlite</code> lets us read JSON data directly from a URL, and <code>tidyverse</code> provides a suite of data manipulation and visualization tools.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
@@ -356,8 +356,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="creating-a-tidy-data-frame" class="level3" data-number="6.1.2">
-<h3 data-number="6.1.2" class="anchored" data-anchor-id="creating-a-tidy-data-frame"><span class="header-section-number">6.1.2</span> Creating a Tidy Data Frame</h3>
+<section id="creating-a-tidy-data-frame" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="creating-a-tidy-data-frame"><span class="header-section-number">5.1.2</span> Creating a Tidy Data Frame</h3>
 <p>We now construct a tidy tibble that includes:</p>
 <ul>
 <li><code>text</code>: the tweet content</li>
@@ -393,8 +393,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="summary-statistics-by-party" class="level3" data-number="6.1.3">
-<h3 data-number="6.1.3" class="anchored" data-anchor-id="summary-statistics-by-party"><span class="header-section-number">6.1.3</span> Summary Statistics by Party</h3>
+<section id="summary-statistics-by-party" class="level3" data-number="5.1.3">
+<h3 data-number="5.1.3" class="anchored" data-anchor-id="summary-statistics-by-party"><span class="header-section-number">5.1.3</span> Summary Statistics by Party</h3>
 <p>Check for missing values:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">is.na</span>(data<span class="sc">$</span>score_dems))  <span class="co"># Were there any missing Democrat ratings?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -421,8 +421,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="a-quick-look-at-the-data" class="level3" data-number="6.1.4">
-<h3 data-number="6.1.4" class="anchored" data-anchor-id="a-quick-look-at-the-data"><span class="header-section-number">6.1.4</span> A quick look at the data</h3>
+<section id="a-quick-look-at-the-data" class="level3" data-number="5.1.4">
+<h3 data-number="5.1.4" class="anchored" data-anchor-id="a-quick-look-at-the-data"><span class="header-section-number">5.1.4</span> A quick look at the data</h3>
 <ul>
 <li>What were the most popular tweets?</li>
 <li>What is the range of the data?</li>
@@ -454,8 +454,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="exploring-overall-sentiment-distribution" class="level3" data-number="6.1.5">
-<h3 data-number="6.1.5" class="anchored" data-anchor-id="exploring-overall-sentiment-distribution"><span class="header-section-number">6.1.5</span> Exploring Overall Sentiment Distribution</h3>
+<section id="exploring-overall-sentiment-distribution" class="level3" data-number="5.1.5">
+<h3 data-number="5.1.5" class="anchored" data-anchor-id="exploring-overall-sentiment-distribution"><span class="header-section-number">5.1.5</span> Exploring Overall Sentiment Distribution</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram of overall sentiment scores</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
@@ -480,8 +480,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="breaking-down-the-data-by-group" class="level3" data-number="6.1.6">
-<h3 data-number="6.1.6" class="anchored" data-anchor-id="breaking-down-the-data-by-group"><span class="header-section-number">6.1.6</span> Breaking down the data by group</h3>
+<section id="breaking-down-the-data-by-group" class="level3" data-number="5.1.6">
+<h3 data-number="5.1.6" class="anchored" data-anchor-id="breaking-down-the-data-by-group"><span class="header-section-number">5.1.6</span> Breaking down the data by group</h3>
 <p>Compute and compare mean ratings by party</p>
 <p><strong>What should the structure of the input be?</strong></p>
 <div class="cell">
@@ -517,8 +517,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="preparing-a-simple-bar-plot" class="level3" data-number="6.1.7">
-<h3 data-number="6.1.7" class="anchored" data-anchor-id="preparing-a-simple-bar-plot"><span class="header-section-number">6.1.7</span> Preparing a simple bar plot</h3>
+<section id="preparing-a-simple-bar-plot" class="level3" data-number="5.1.7">
+<h3 data-number="5.1.7" class="anchored" data-anchor-id="preparing-a-simple-bar-plot"><span class="header-section-number">5.1.7</span> Preparing a simple bar plot</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
@@ -539,16 +539,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="breaking-down-the-data-by-group-1" class="level3" data-number="6.1.8">
-<h3 data-number="6.1.8" class="anchored" data-anchor-id="breaking-down-the-data-by-group-1"><span class="header-section-number">6.1.8</span> Breaking down the data by group</h3>
+<section id="breaking-down-the-data-by-group-1" class="level3" data-number="5.1.8">
+<h3 data-number="5.1.8" class="anchored" data-anchor-id="breaking-down-the-data-by-group-1"><span class="header-section-number">5.1.8</span> Breaking down the data by group</h3>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="4b_tweet_ratings_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="scatterplot-of-party-ratings-against-each-other" class="level3" data-number="6.1.9">
-<h3 data-number="6.1.9" class="anchored" data-anchor-id="scatterplot-of-party-ratings-against-each-other"><span class="header-section-number">6.1.9</span> Scatterplot of Party Ratings Against Each Other</h3>
+<section id="scatterplot-of-party-ratings-against-each-other" class="level3" data-number="5.1.9">
+<h3 data-number="5.1.9" class="anchored" data-anchor-id="scatterplot-of-party-ratings-against-each-other"><span class="header-section-number">5.1.9</span> Scatterplot of Party Ratings Against Each Other</h3>
 <p>Plot Democrat ratings (<code>score_dems</code>) against Republican ratings (<code>score_reps</code>) to see whether respondents tend to agree (in spite of an anticipate “intercept shift”)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fig_layer <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
@@ -561,8 +561,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="ratings-by-party" class="level3" data-number="6.1.10">
-<h3 data-number="6.1.10" class="anchored" data-anchor-id="ratings-by-party"><span class="header-section-number">6.1.10</span> Ratings by party</h3>
+<section id="ratings-by-party" class="level3" data-number="5.1.10">
+<h3 data-number="5.1.10" class="anchored" data-anchor-id="ratings-by-party"><span class="header-section-number">5.1.10</span> Ratings by party</h3>
 <p>Another way to show the correlation</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>fig_layer <span class="sc">+</span></span>
@@ -578,8 +578,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="comparing-distributions-of-ratings" class="level3" data-number="6.1.11">
-<h3 data-number="6.1.11" class="anchored" data-anchor-id="comparing-distributions-of-ratings"><span class="header-section-number">6.1.11</span> Comparing Distributions of Ratings</h3>
+<section id="comparing-distributions-of-ratings" class="level3" data-number="5.1.11">
+<h3 data-number="5.1.11" class="anchored" data-anchor-id="comparing-distributions-of-ratings"><span class="header-section-number">5.1.11</span> Comparing Distributions of Ratings</h3>
 <p>Reshape the full data for plotting density curves of each rating type:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>( long_data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
@@ -656,8 +656,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="other-ways-to-show-distributions-of-numerical-variables" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="other-ways-to-show-distributions-of-numerical-variables"><span class="header-section-number">6.2</span> Other ways to show distributions of numerical variables</h2>
+<section id="other-ways-to-show-distributions-of-numerical-variables" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="other-ways-to-show-distributions-of-numerical-variables"><span class="header-section-number">5.2</span> Other ways to show distributions of numerical variables</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>long_data <span class="sc">%&gt;%</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Party =</span> <span class="fu">case_when</span>(</span>
@@ -773,8 +773,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="still-more-ways-to-show-distributions" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="still-more-ways-to-show-distributions"><span class="header-section-number">6.3</span> Still more ways to show distributions</h2>
+<section id="still-more-ways-to-show-distributions" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="still-more-ways-to-show-distributions"><span class="header-section-number">5.3</span> Still more ways to show distributions</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>long_data <span class="sc">%&gt;%</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> score, <span class="at">color =</span> party)) <span class="sc">+</span></span>
@@ -809,10 +809,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="content-classification" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="content-classification"><span class="header-section-number">6.4</span> Content classification</h2>
-<section id="identifying-tweets-that-mention-obama" class="level3" data-number="6.4.1">
-<h3 data-number="6.4.1" class="anchored" data-anchor-id="identifying-tweets-that-mention-obama"><span class="header-section-number">6.4.1</span> Identifying Tweets that Mention Obama</h3>
+<section id="content-classification" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="content-classification"><span class="header-section-number">5.4</span> Content classification</h2>
+<section id="identifying-tweets-that-mention-obama" class="level3" data-number="5.4.1">
+<h3 data-number="5.4.1" class="anchored" data-anchor-id="identifying-tweets-that-mention-obama"><span class="header-section-number">5.4.1</span> Identifying Tweets that Mention Obama</h3>
 <p>We create a binary indicator <code>obama</code> which is 1 if the tweet text contains the word “Obama”, otherwise 0. Then we can compute how often tweets mention Obama.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create indicator for "Obama"</span></span>
@@ -833,8 +833,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="comparing-ratings-for-obama-mentioning-tweets" class="level3" data-number="6.4.2">
-<h3 data-number="6.4.2" class="anchored" data-anchor-id="comparing-ratings-for-obama-mentioning-tweets"><span class="header-section-number">6.4.2</span> Comparing Ratings for Obama-Mentioning Tweets</h3>
+<section id="comparing-ratings-for-obama-mentioning-tweets" class="level3" data-number="5.4.2">
+<h3 data-number="5.4.2" class="anchored" data-anchor-id="comparing-ratings-for-obama-mentioning-tweets"><span class="header-section-number">5.4.2</span> Comparing Ratings for Obama-Mentioning Tweets</h3>
 <p>Compute mean sentiment ratings by Democrats and Republicans for tweets that mention Obama:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
@@ -851,8 +851,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="comparing-ratings-for-obama-mentioning-tweets-1" class="level3" data-number="6.4.3">
-<h3 data-number="6.4.3" class="anchored" data-anchor-id="comparing-ratings-for-obama-mentioning-tweets-1"><span class="header-section-number">6.4.3</span> Comparing Ratings for Obama-Mentioning Tweets</h3>
+<section id="comparing-ratings-for-obama-mentioning-tweets-1" class="level3" data-number="5.4.3">
+<h3 data-number="5.4.3" class="anchored" data-anchor-id="comparing-ratings-for-obama-mentioning-tweets-1"><span class="header-section-number">5.4.3</span> Comparing Ratings for Obama-Mentioning Tweets</h3>
 <p>Next, compare average ratings between tweets that do and do not mention Obama:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
@@ -916,8 +916,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="highlighting-obama-mention-tweets-in-scatterplot" class="level3" data-number="6.4.4">
-<h3 data-number="6.4.4" class="anchored" data-anchor-id="highlighting-obama-mention-tweets-in-scatterplot"><span class="header-section-number">6.4.4</span> Highlighting Obama-Mention Tweets in Scatterplot</h3>
+<section id="highlighting-obama-mention-tweets-in-scatterplot" class="level3" data-number="5.4.4">
+<h3 data-number="5.4.4" class="anchored" data-anchor-id="highlighting-obama-mention-tweets-in-scatterplot"><span class="header-section-number">5.4.4</span> Highlighting Obama-Mention Tweets in Scatterplot</h3>
 <p>Identify tweets that mention Obama in the scatter of party ratings:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
@@ -930,8 +930,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="highlighting-obama-mention-tweets-in-scatterplot-1" class="level3" data-number="6.4.5">
-<h3 data-number="6.4.5" class="anchored" data-anchor-id="highlighting-obama-mention-tweets-in-scatterplot-1"><span class="header-section-number">6.4.5</span> Highlighting Obama-Mention Tweets in Scatterplot</h3>
+<section id="highlighting-obama-mention-tweets-in-scatterplot-1" class="level3" data-number="5.4.5">
+<h3 data-number="5.4.5" class="anchored" data-anchor-id="highlighting-obama-mention-tweets-in-scatterplot-1"><span class="header-section-number">5.4.5</span> Highlighting Obama-Mention Tweets in Scatterplot</h3>
 <p>If desired, use <code>gghighlight</code> to emphasize only the Obama-mentioning tweets:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gghighlight)</span>
@@ -949,10 +949,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="showing-the-full-text-of-tweets" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="showing-the-full-text-of-tweets"><span class="header-section-number">6.5</span> Showing the full text of tweets</h2>
-<section id="pulling-out-specific-tweets" class="level3" data-number="6.5.1">
-<h3 data-number="6.5.1" class="anchored" data-anchor-id="pulling-out-specific-tweets"><span class="header-section-number">6.5.1</span> Pulling Out Specific Tweets</h3>
+<section id="showing-the-full-text-of-tweets" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="showing-the-full-text-of-tweets"><span class="header-section-number">5.5</span> Showing the full text of tweets</h2>
+<section id="pulling-out-specific-tweets" class="level3" data-number="5.5.1">
+<h3 data-number="5.5.1" class="anchored" data-anchor-id="pulling-out-specific-tweets"><span class="header-section-number">5.5.1</span> Pulling Out Specific Tweets</h3>
 <ul>
 <li>We can hand-pick some observations and display the full text of the tweets which were rated</li>
 <li>For example, here select tweets from rows 19 through 23 and display their texts along with their ratings:</li>
@@ -984,8 +984,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="finding-unusual-surprising-observations" class="level3" data-number="6.5.2">
-<h3 data-number="6.5.2" class="anchored" data-anchor-id="finding-unusual-surprising-observations"><span class="header-section-number">6.5.2</span> Finding unusual / surprising observations</h3>
+<section id="finding-unusual-surprising-observations" class="level3" data-number="5.5.2">
+<h3 data-number="5.5.2" class="anchored" data-anchor-id="finding-unusual-surprising-observations"><span class="header-section-number">5.5.2</span> Finding unusual / surprising observations</h3>
 <p>Let’s see if there are tweets mentioning Obama with POSITIVE Democrat ratings</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract tweets mentioning Obama with positive Democrat ratings</span></span>
@@ -1006,8 +1006,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="conclusion" class="level2" data-number="6.6">
-<h2 data-number="6.6" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">6.6</span> Conclusion</h2>
+<section id="conclusion" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">5.6</span> Conclusion</h2>
 <p>Students should now be able to:</p>
 <ul>
 <li>Load JSON data into R and inspect its structure</li>
@@ -1258,13 +1258,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./4_advanced-ggplot.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span>
+      <a href="./3_standard-charts.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Standard charts</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./5_visualizing-models.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./4_advanced-ggplot.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
