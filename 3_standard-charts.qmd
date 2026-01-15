@@ -1,21 +1,28 @@
 # Standard charts
 
+This lesson covers fundamental visualization techniques using political survey data. We'll explore how to effectively communicate findings about public opinion through bar charts, scatterplots, and distribution plots. The examples demonstrate how survey data about political attitudes can reveal interesting patterns about how people view political power, candidates, and institutions.
+
 ## Who should hold more power? 
 
-When we map rows (individual observations) to numbers, a bar chart can be a good choice.
+When we map rows (individual observations) to numbers, a bar chart can be a good choice for comparing quantities across different categories or groups.
 
-Consider this dataset, a simple table from this [research paper](https://journals.sagepub.com/doi/10.1177/13540688211050064).
+Consider this dataset from Hibbing et al. (2023), which contains survey responses about which groups should have more or less influence in politics. The original research examines how Americans view the appropriate role of different actors in the political system.
+
+This code loads a CSV file containing survey data from a GitHub repository. The dataset contains responses from Americans about which groups should hold political influence. We'll use the tidyverse package for data manipulation and visualization throughout this lesson.
 
 ```{r}
 library(tidyverse)
 
 hib <- read_csv("https://raw.githubusercontent.com/zilinskyjan/datasets/master/politics/hibbing2023_who_should_govern.csv")
 ```
+
 The survey data has already been aggregated, so you can think of these cell entries as toplines. The rows are actors (groups) and the columns are the percentage of respondents who think that the influence of each group should increase or decrease:
 
 ```{r}
 head(hib)
 ```
+
+When you run this code, you should see a table with several columns. The `group` column contains different political actors (like "Journalists," "Military leaders," "Ordinary people"), the `influence_incr` column shows the percentage who want that group to have more influence, `influence_decr` shows those who want less influence, and the `type` column categorizes these groups.
 
 Although we could simply run this code to create a bar chart, we ought to treat this as a draft zero:
 
@@ -33,13 +40,17 @@ Looks like I already added a type column:
 hib %>% count(type)
 ```
 
-I will now relabel one of the categories
+This shows us that the data already includes a categorical variable that groups the political actors. We have four categories.
+
+I will now relabel one of the categories to make it more descriptive:
 
 ```{r}
 hib$type[hib$type=="Standard"] <- "Establishment" 
 
 unique(hib$type)
 ```
+
+The "Standard" label is being changed to "Establishment".
 
 I will also store some color codes, using the `rcartocolor` package:
 
@@ -106,7 +117,7 @@ In this case, we have data from 3 surveys, which are stored in `d1`, `d2`, and `
 head(d2)
 ```
 
-We'll start by looking at the distribution of a binary (and moralizing) view of politics; how do people respond to the prompt *"Politics is a battle between good and evil"*?
+We'll start by looking at the distribution of a binary (and moralizing) view of politics; how do people respond to the prompt *"Politics is a battle between good and evil"*? This question captures what political scientists call "Manichean" thinking - the tendency to view politics as a moral struggle between absolute good and absolute evil rather than as a contest between competing policy preferences.
 
 ```{r}
 d2 %>% 
@@ -114,9 +125,13 @@ d2 %>%
   mutate(percent = n/sum(n)*100)
 ```
 
+This table shows the overall percentage of respondents at each level of agreement with the Manichean statement. The output will display categories from "Strongly disagree" to "Strongly agree," revealing how prevalent this moralistic view of politics is among Americans.
+
 Now let's create a cross-tab, breaking down the responses by party ID:
 
 A binary (and moralizing) view of politics
+
+This cross-tabulation shows whether belief that "politics is a battle between good and evil" varies across Democrats, Republicans, and Independents. Understanding this relationship helps us see whether moralistic thinking about politics is evenly distributed across the political spectrum or concentrated in certain partisan groups.
 
 ```{r}
 d2 %>% group_by(pid) %>%
@@ -165,6 +180,8 @@ d2 %>%
 
 ## Faceting by party ID
 
+Faceting allows us to show multiple small versions of the same chart, one for each subgroup. 
+
 Let's try to:
 
 -   add `facet_wrap(~pid)`
@@ -211,6 +228,8 @@ d2 %>% group_by(pid) %>%
 ```
 
 ## Showing more variables together
+
+We can display multiple related survey questions simultaneously to show broader patterns in anti-establishment thinking. Rather than making four separate charts for four conspiracy items, we'll stack them vertically to create a "small multiples" visualization that makes comparisons easier.
 
 Let's create several data objects: each of them will contain responses to the components of the conspiracy thinking scale:
 
@@ -271,6 +290,8 @@ shareShow %>%
   labs(y = "",x = "Percent", fill = "",title = "Uscinski et al. (AJPS, 2021) survey data\non anti-establishment sentiment")
 ```
 
+This stacked bar chart shows four anti-establishment attitude questions arranged vertically. Each bar is divided by response category (strongly disagree, disagree, neutral, agree, strongly agree). The color coding makes it easy to spot patterns.
+
 Look at the components of `jcolors`.
 
 ```{r}
@@ -278,6 +299,8 @@ jcolors::display_all_jcolors()
 ```
 
 ## Putting anti-establishment thinking on the 2nd axis
+
+The AJPS paper argues that American politics isn't just left vs. right - there's also a second dimension of anti-establishment versus pro-establishment attitudes. These scatterplots will help us visualize how these two dimensions relate to each other, using the dataset `d1` which contains individual-level responses.
 
 ```{r}
 #| fig-height: 7
@@ -289,6 +312,8 @@ d1 %>% ggplot(aes(x = leftright2, y = suspicion2)) +
   labs(x = "Left vs. Right dimension\n(party ID, symbolic ideology, and party thermometer ratings)",
        y = "Anti-establishment thinking") + theme_gray()
 ```
+
+This scatterplot shows each survey respondent as a point. The x-axis represents how liberal (left) or conservative (right) they are, while the y-axis shows their level of anti-establishment thinking. If you see a cloud of points without a clear diagonal pattern, this suggests these two dimensions are largely independent - meaning you can be a left-wing anti-establishment type OR a right-wing anti-establishment type.
 
 ```{r}
 #| fig-height: 7
@@ -328,7 +353,7 @@ d1 %>% ggplot(aes(x = leftright2, y = suspicion2)) +
 
 ## Conspiratorial orientation and PID
 
-In principle, a box plot might make sense in this context...
+In principle, a box plot might make sense in this context... We're now examining whether conspiracy thinking differs systematically across party lines. Box plots show the distribution of conspiracy thinking scores for each party identification group, allowing us to compare medians, quartiles, and outliers.
 
 ```{r}
 d2 %>% 
@@ -346,6 +371,8 @@ d2 %>%
   geom_jitter(color="purple",alpha=.4,width = .1) +
   theme_minimal() 
 ```
+
+The boxplot shows the median, quartiles, and outliers for each party group, while the jittered points display every individual respondent's conspiracy thinking score. This combination reveals both the summary statistics and the full distribution - you can see whether scores are tightly clustered around the median or widely spread out within each party.
 
 Make small edits:
 
@@ -386,11 +413,15 @@ d2 %>%
 
 ## Narcissism as a correlate for conspiracy thinking?
 
+The research also explores whether personality traits, specifically narcissism, relate to anti-establishment orientations. People who score high on narcissism tend to need admiration and may view themselves as superior to others - traits that might make them more likely to believe shadowy elites are controlling society.
+
 ```{r}
 d1 %>% filter(!is.na(attent1)) %>%
   ggplot(aes(y = as_factor(attent1), x= suspicion2)) +
   geom_density_ridges()
 ```
+
+These "ridgeline" plots show the distribution of anti-establishment thinking scores for each level of agreement with "I tend to want others to admire me" (a narcissism indicator). Each ridge represents one response category, allowing us to see whether higher narcissism is associated with stronger anti-establishment views.
 
 ```{r}
 d1 %>% filter(!is.na(attent1)) %>%
@@ -439,6 +470,8 @@ d1 %>%
 
 ## Mainstream news
 
+The survey also measured distrust in mainstream media, asking whether "much of the mainstream news is deliberately slanted to mislead us." This analysis examines whether anti-establishment orientations and narcissism both correlate with media distrust - two potential pathways to believing that established news sources are unreliable. The `ggside` package adds histograms on the sides to show the distribution of predictors.
+
 ```{r}
 #| fig-height: 7
 #| fig-width: 12
@@ -483,6 +516,8 @@ d1 %>%
 )
 ```
 
+This regression analysis examines whether the relationship between anti-establishment orientation and media distrust changes based on how much someone likes or dislikes Hillary Clinton. The `ggeffects` package helps visualize interaction effects - you might see that the slope of anti-establishment → media distrust is steeper for Clinton supporters or opponents.
+
 ```{r}
 collmod <- lm(msm ~ clintonft*suspicion2, data=d1)
 ggeffects::ggeffect(collmod, terms=c("suspicion2","clintonft")) %>% plot() +
@@ -490,7 +525,10 @@ ggeffects::ggeffect(collmod, terms=c("suspicion2","clintonft")) %>% plot() +
        x="Anti-establishment orientation",title="")
 ```
 
-"I often disagree with conventional views about the world"
+
+## "I often disagree with conventional views about the world"
+
+Now we examine whether anti-establishment orientations and narcissism both predict a general tendency to reject conventional wisdom. This statement captures contrarian thinking, which might be driven by both skepticism toward institutions (anti-establishment) and a belief in one's own superior insight (narcissism).
 
 ```{r}
 ggpubr::ggarrange(
@@ -509,20 +547,56 @@ d1 %>%
 
 ## Denial of climate change
 
+The survey also included a question about climate change denial. 
+
+
+
 ```{r, echo=TRUE}
 table(d2$climatechange)
 ```
+
+This shows the recoded binary variable, where responses 1-3 (disagree/neutral) become "0" and 4-5 (agree) become "1". This dichotomization is commonly used when researchers want to separate climate change denial from acceptance.
 
 ```{r, echo=TRUE}
 table(d2$climatechangeBIN)
 ```
 
+
 ```{r, echo=TRUE}
 d2 %>% count(climatechangeBIN)
 ```
+
+This is an alternative way to display the binary variable counts using dplyr's `count()` function, which some find easier to read than base R's `table()`.
 
 Are the missing observations the same for the original and the recoded variable? (If not, we would want to check whether earlier code did something unintended.)
 
 ```{r, echo=TRUE}
 d2 %>% count(climatechangeBIN,climatechange)
 ```
+
+This cross-tabulation checks that missing values (NAs) are handled consistently between the original and recoded variables. (If we see different patterns of missing data, it would indicate that the recoding process introduced problems.)
+
+Now let's visualize how climate change beliefs vary across the political spectrum:
+
+```{r}
+#| fig-height: 7
+#| fig-width: 10
+
+d2 %>%
+  filter(!is.na(climatechange) & !is.na(pid)) %>%
+  group_by(pid) %>%
+  count(climatechange) %>%
+  mutate(percent = n/sum(n)*100) %>%
+  ggplot(aes(y=as_factor(pid), x=percent, fill=as_factor(climatechange))) +
+  geom_col() +
+  scale_fill_viridis_d(option = "plasma", direction = -1) +
+  labs(x="Percent of respondents", 
+       y="", 
+       fill="Climate change is a hoax",
+       title="Climate change beliefs across the political spectrum",
+       caption="Data: Uscinski et al. (AJPS, 2021)") +
+  theme_minimal() +
+  theme(text = element_text(size=13))
+```
+
+Strong Democrats show high agreement that climate change is real, while strong Republicans show much higher levels of skepticism. This visualization demonstrates how scientific issues can become polarized along partisan lines, with moderates (4) falling somewhere in between.

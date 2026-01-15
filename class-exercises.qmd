@@ -1,4 +1,4 @@
-# In-class exercises {.unnumbered}
+# More in-class exercises {.unnumbered}
 
 ## Tidyverse basics
 
@@ -281,7 +281,7 @@ lm(dem_2p_vote_share ~ lfp, data = D, subset = (year==2016))
 ## Using stat_density_2d or geom_hex()
 
 ```{r}
-#| eval: false
+#| eval: true
 library(tidyverse)
 
 exp <- read.csv("https://raw.githubusercontent.com/zilinskyjan/datasets/master/public%20opinion/experts/BertsouCaramani-TechnocracySurvey.csv")

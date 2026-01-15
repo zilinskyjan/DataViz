@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; Standard charts – Data Visualization with R and ggplot</title>
+<title>5&nbsp; Standard charts – Data Visualization with R and ggplot</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./4b_tweet_ratings.html" rel="next">
-<link href="./3_B_timeseries.html" rel="prev">
+<link href="./3_C_financial-markets.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3_standard-charts.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Standard charts</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3_standard-charts.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Standard charts</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -169,26 +169,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./3_C_financial-markets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Financial markets</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./3_standard-charts.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Standard charts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Standard charts</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4b_tweet_ratings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4_advanced-ggplot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./5_visualizing-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -238,7 +244,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./class-exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">In-class exercises</span></a>
+ <span class="menu-text">More in-class exercises</span></a>
   </div>
 </li>
       </ul>
@@ -253,16 +259,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#who-should-hold-more-power" id="toc-who-should-hold-more-power" class="nav-link active" data-scroll-target="#who-should-hold-more-power"><span class="header-section-number">4.1</span> Who should hold more power?</a></li>
-  <li><a href="#two-dimensions-of-american-politics" id="toc-two-dimensions-of-american-politics" class="nav-link" data-scroll-target="#two-dimensions-of-american-politics"><span class="header-section-number">4.2</span> Two Dimensions of American Politics</a></li>
-  <li><a href="#faceting-by-party-id" id="toc-faceting-by-party-id" class="nav-link" data-scroll-target="#faceting-by-party-id"><span class="header-section-number">4.3</span> Faceting by party ID</a></li>
-  <li><a href="#showing-more-variables-together" id="toc-showing-more-variables-together" class="nav-link" data-scroll-target="#showing-more-variables-together"><span class="header-section-number">4.4</span> Showing more variables together</a></li>
-  <li><a href="#putting-anti-establishment-thinking-on-the-2nd-axis" id="toc-putting-anti-establishment-thinking-on-the-2nd-axis" class="nav-link" data-scroll-target="#putting-anti-establishment-thinking-on-the-2nd-axis"><span class="header-section-number">4.5</span> Putting anti-establishment thinking on the 2nd axis</a></li>
-  <li><a href="#conspiratorial-orientation-and-pid" id="toc-conspiratorial-orientation-and-pid" class="nav-link" data-scroll-target="#conspiratorial-orientation-and-pid"><span class="header-section-number">4.6</span> Conspiratorial orientation and PID</a></li>
-  <li><a href="#all-3-components-of-the-anti-est.-orientation" id="toc-all-3-components-of-the-anti-est.-orientation" class="nav-link" data-scroll-target="#all-3-components-of-the-anti-est.-orientation"><span class="header-section-number">4.7</span> All 3 components of the anti-est. orientation</a></li>
-  <li><a href="#narcissism-as-a-correlate-for-conspiracy-thinking" id="toc-narcissism-as-a-correlate-for-conspiracy-thinking" class="nav-link" data-scroll-target="#narcissism-as-a-correlate-for-conspiracy-thinking"><span class="header-section-number">4.8</span> Narcissism as a correlate for conspiracy thinking?</a></li>
-  <li><a href="#mainstream-news" id="toc-mainstream-news" class="nav-link" data-scroll-target="#mainstream-news"><span class="header-section-number">4.9</span> Mainstream news</a></li>
-  <li><a href="#denial-of-climate-change" id="toc-denial-of-climate-change" class="nav-link" data-scroll-target="#denial-of-climate-change"><span class="header-section-number">4.10</span> Denial of climate change</a></li>
+  <li><a href="#who-should-hold-more-power" id="toc-who-should-hold-more-power" class="nav-link active" data-scroll-target="#who-should-hold-more-power"><span class="header-section-number">5.1</span> Who should hold more power?</a></li>
+  <li><a href="#two-dimensions-of-american-politics" id="toc-two-dimensions-of-american-politics" class="nav-link" data-scroll-target="#two-dimensions-of-american-politics"><span class="header-section-number">5.2</span> Two Dimensions of American Politics</a></li>
+  <li><a href="#faceting-by-party-id" id="toc-faceting-by-party-id" class="nav-link" data-scroll-target="#faceting-by-party-id"><span class="header-section-number">5.3</span> Faceting by party ID</a></li>
+  <li><a href="#showing-more-variables-together" id="toc-showing-more-variables-together" class="nav-link" data-scroll-target="#showing-more-variables-together"><span class="header-section-number">5.4</span> Showing more variables together</a></li>
+  <li><a href="#putting-anti-establishment-thinking-on-the-2nd-axis" id="toc-putting-anti-establishment-thinking-on-the-2nd-axis" class="nav-link" data-scroll-target="#putting-anti-establishment-thinking-on-the-2nd-axis"><span class="header-section-number">5.5</span> Putting anti-establishment thinking on the 2nd axis</a></li>
+  <li><a href="#conspiratorial-orientation-and-pid" id="toc-conspiratorial-orientation-and-pid" class="nav-link" data-scroll-target="#conspiratorial-orientation-and-pid"><span class="header-section-number">5.6</span> Conspiratorial orientation and PID</a></li>
+  <li><a href="#all-3-components-of-the-anti-est.-orientation" id="toc-all-3-components-of-the-anti-est.-orientation" class="nav-link" data-scroll-target="#all-3-components-of-the-anti-est.-orientation"><span class="header-section-number">5.7</span> All 3 components of the anti-est. orientation</a></li>
+  <li><a href="#narcissism-as-a-correlate-for-conspiracy-thinking" id="toc-narcissism-as-a-correlate-for-conspiracy-thinking" class="nav-link" data-scroll-target="#narcissism-as-a-correlate-for-conspiracy-thinking"><span class="header-section-number">5.8</span> Narcissism as a correlate for conspiracy thinking?</a></li>
+  <li><a href="#mainstream-news" id="toc-mainstream-news" class="nav-link" data-scroll-target="#mainstream-news"><span class="header-section-number">5.9</span> Mainstream news</a></li>
+  <li><a href="#i-often-disagree-with-conventional-views-about-the-world" id="toc-i-often-disagree-with-conventional-views-about-the-world" class="nav-link" data-scroll-target="#i-often-disagree-with-conventional-views-about-the-world"><span class="header-section-number">5.10</span> “I often disagree with conventional views about the world”</a></li>
+  <li><a href="#denial-of-climate-change" id="toc-denial-of-climate-change" class="nav-link" data-scroll-target="#denial-of-climate-change"><span class="header-section-number">5.11</span> Denial of climate change</a></li>
   </ul>
 </nav>
     </div>
@@ -271,7 +278,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Standard charts</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Standard charts</span></h1>
 </div>
 
 
@@ -288,10 +295,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="who-should-hold-more-power" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="who-should-hold-more-power"><span class="header-section-number">4.1</span> Who should hold more power?</h2>
-<p>When we map rows (individual observations) to numbers, a bar chart can be a good choice.</p>
-<p>Consider this dataset, a simple table from this <a href="https://journals.sagepub.com/doi/10.1177/13540688211050064">research paper</a>.</p>
+<p>This lesson covers fundamental visualization techniques using political survey data. We’ll explore how to effectively communicate findings about public opinion through bar charts, scatterplots, and distribution plots. The examples demonstrate how survey data about political attitudes can reveal interesting patterns about how people view political power, candidates, and institutions.</p>
+<section id="who-should-hold-more-power" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="who-should-hold-more-power"><span class="header-section-number">5.1</span> Who should hold more power?</h2>
+<p>When we map rows (individual observations) to numbers, a bar chart can be a good choice for comparing quantities across different categories or groups.</p>
+<p>Consider this dataset from Hibbing et al.&nbsp;(2023), which contains survey responses about which groups should have more or less influence in politics. The original research examines how Americans view the appropriate role of different actors in the political system.</p>
+<p>This code loads a CSV file containing survey data from a GitHub repository. The dataset contains responses from Americans about which groups should hold political influence. We’ll use the tidyverse package for data manipulation and visualization throughout this lesson.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -301,17 +310,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hib)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 5
+<pre><code># A tibble: 6 x 5
   group                            influence_incr influence_decr political type 
   &lt;chr&gt;                                     &lt;dbl&gt;          &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;
-1 People who experienced real pro…           59.9            3.5         0 Peop…
-2 Politicians who can’t beneﬁt th…           49.4           11.6         0 Peop…
-3 Scientists                                 48.3           10.4         0 Expe…
-4 Medical doctors                            38              7.6         0 Expe…
-5 State and local governments                31.9           13.3         1 Stan…
-6 Unelected experts                          31             18.3         0 Expe…</code></pre>
+1 "People who experienced real pr~           59.9            3.5         0 Peop~
+2 "Politicians who can\u2019t ben~           49.4           11.6         0 Peop~
+3 "Scientists"                               48.3           10.4         0 Expe~
+4 "Medical doctors"                          38              7.6         0 Expe~
+5 "State and local governments"              31.9           13.3         1 Stan~
+6 "Unelected experts"                        31             18.3         0 Expe~</code></pre>
 </div>
 </div>
+<p>When you run this code, you should see a table with several columns. The <code>group</code> column contains different political actors (like “Journalists,” “Military leaders,” “Ordinary people”), the <code>influence_incr</code> column shows the percentage who want that group to have more influence, <code>influence_decr</code> shows those who want less influence, and the <code>type</code> column categorizes these groups.</p>
 <p>Although we could simply run this code to create a bar chart, we ought to treat this as a draft zero:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>hib <span class="sc">%&gt;%</span></span>
@@ -331,7 +341,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>hib <span class="sc">%&gt;%</span> <span class="fu">count</span>(type)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 2
+<pre><code># A tibble: 4 x 2
   type                    n
   &lt;chr&gt;               &lt;int&gt;
 1 Experts                 4
@@ -340,7 +350,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 4 Standard                5</code></pre>
 </div>
 </div>
-<p>I will now relabel one of the categories</p>
+<p>This shows us that the data already includes a categorical variable that groups the political actors. We have four categories.</p>
+<p>I will now relabel one of the categories to make it more descriptive:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>hib<span class="sc">$</span>type[hib<span class="sc">$</span>type<span class="sc">==</span><span class="st">"Standard"</span>] <span class="ot">&lt;-</span> <span class="st">"Establishment"</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -350,6 +361,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [4] "Specialized experts"</code></pre>
 </div>
 </div>
+<p>The “Standard” label is being changed to “Establishment”.</p>
 <p>I will also store some color codes, using the <code>rcartocolor</code> package:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>H_pal <span class="ot">&lt;-</span> rcartocolor<span class="sc">::</span><span class="fu">carto_pal</span>(<span class="at">n =</span> <span class="dv">4</span>, <span class="at">name =</span> <span class="st">"ag_Sunset"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -387,8 +399,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In contrast to the default styling, the second version adopts <code>theme_gray()</code> and globally increases text size to 13 points. These changes create a cleaner stylistic foundation and improve legibility, particularly for presentations or printed formats.</p>
 <p>Lastly, we fine-tuned the alignment of both the title and caption by setting <code>plot.title.position = "plot"</code> and <code>plot.caption.position = "plot"</code>, then aligning the title all the way to the left with <code>hjust = 0</code>. Similarly, right-aligning the x-axis title via <code>axis.title.x = element_text(hjust = 1)</code> anchors it neatly under the panel’s right edge. These precise adjustments guarantee that textual elements hug the plot margins consistently, resulting in a balanced and intentional layout.</p>
 </section>
-<section id="two-dimensions-of-american-politics" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="two-dimensions-of-american-politics"><span class="header-section-number">4.2</span> Two Dimensions of American Politics</h2>
+<section id="two-dimensions-of-american-politics" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="two-dimensions-of-american-politics"><span class="header-section-number">5.2</span> Two Dimensions of American Politics</h2>
 <p>We’ll now make bar charts, scatterplots, stacked overlapping distributions (joyplots), and some other charts, using data on which the paper <em>American Politics in Two Dimensions</em> is based:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -401,38 +413,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>             </span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># READ IN RECODED DATA</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"data_AJPS2021/0_ajps_recode.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"data/ajps2021/0_ajps_recode.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>As always, take a quick look at the structure of the datasets.</p>
 <p>In this case, we have data from 3 surveys, which are stored in <code>d1</code>, <code>d2</code>, and <code>d3</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 77
+<pre><code># A tibble: 6 x 77
   caseid  female   edu black hispanic   age income pid      ideo interest attend
   &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl+l&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
-1 R_2zZv…      0     5     0        0    30      4 1 [Str…     6        5      4
-2 R_1oF5…      0     6     0        0    44      5 5 [Str…     3        4      2
-3 R_3PoE…      1     6     0        0    28      2 3 [Ind…     2        2      3
-4 R_dh73…      1     2     0        0    51      1 1 [Str…     1        5      4
-5 R_2TTP…      1     3     1        0    29      1 1 [Str…     1        5      5
-6 R_3ls3…      1     4     1        0    36      2 1 [Str…     4        4      4
-# ℹ 66 more variables: youtube &lt;dbl&gt;, con1 &lt;dbl+lbl&gt;, con2 &lt;dbl&gt;, con3 &lt;dbl&gt;,
+1 R_2zZv~      0     5     0        0    30      4 1 [Str~     6        5      4
+2 R_1oF5~      0     6     0        0    44      5 5 [Str~     3        4      2
+3 R_3PoE~      1     6     0        0    28      2 3 [Ind~     2        2      3
+4 R_dh73~      1     2     0        0    51      1 1 [Str~     1        5      4
+5 R_2TTP~      1     3     1        0    29      1 1 [Str~     1        5      5
+6 R_3ls3~      1     4     1        0    36      2 1 [Str~     4        4      4
+# i 66 more variables: youtube &lt;dbl&gt;, con1 &lt;dbl+lbl&gt;, con2 &lt;dbl&gt;, con3 &lt;dbl&gt;,
 #   con4 &lt;dbl+lbl&gt;, goodevil &lt;dbl+lbl&gt;, pop1 &lt;dbl+lbl&gt;, pop2 &lt;dbl+lbl&gt;,
 #   official &lt;dbl+lbl&gt;, cexaggerate &lt;dbl&gt;, climatechange &lt;dbl&gt;,
 #   collusion &lt;dbl+lbl&gt;, trumpasset &lt;dbl&gt;, clintonnuke &lt;dbl&gt;, repsteal &lt;dbl&gt;,
 #   birther &lt;dbl&gt;, trumpft &lt;dbl&gt;, bidenft &lt;dbl&gt;, qanonft &lt;dbl&gt;,
 #   reppartyft &lt;dbl&gt;, dempartyft &lt;dbl&gt;, sandersft &lt;dbl&gt;, rep &lt;dbl&gt;, pid2 &lt;dbl&gt;,
-#   ideo2 &lt;dbl&gt;, edu2 &lt;dbl&gt;, income2 &lt;dbl&gt;, youtube2 &lt;dbl&gt;, …</code></pre>
+#   ideo2 &lt;dbl&gt;, edu2 &lt;dbl&gt;, income2 &lt;dbl&gt;, youtube2 &lt;dbl&gt;, ...</code></pre>
 </div>
 </div>
-<p>We’ll start by looking at the distribution of a binary (and moralizing) view of politics; how do people respond to the prompt <em>“Politics is a battle between good and evil”</em>?</p>
+<p>We’ll start by looking at the distribution of a binary (and moralizing) view of politics; how do people respond to the prompt <em>“Politics is a battle between good and evil”</em>? This question captures what political scientists call “Manichean” thinking - the tendency to view politics as a moral struggle between absolute good and absolute evil rather than as a contest between competing policy preferences.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 3
+<pre><code># A tibble: 5 x 3
   goodevil                            n percent
   &lt;dbl+lbl&gt;                       &lt;int&gt;   &lt;dbl&gt;
 1 0 [Strongly disagree]             155    7.66
@@ -442,14 +454,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 5 4 [Strongly agree]                379   18.7 </code></pre>
 </div>
 </div>
+<p>This table shows the overall percentage of respondents at each level of agreement with the Manichean statement. The output will display categories from “Strongly disagree” to “Strongly agree,” revealing how prevalent this moralistic view of politics is among Americans.</p>
 <p>Now let’s create a cross-tab, breaking down the responses by party ID:</p>
 <p>A binary (and moralizing) view of politics</p>
+<p>This cross-tabulation shows whether belief that “politics is a battle between good and evil” varies across Democrats, Republicans, and Independents. Understanding this relationship helps us see whether moralistic thinking about politics is evenly distributed across the political spectrum or concentrated in certain partisan groups.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(pid) <span class="sc">%&gt;%</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 25 × 4
+<pre><code># A tibble: 25 x 4
 # Groups:   pid [5]
    pid                 goodevil                            n percent
    &lt;dbl+lbl&gt;           &lt;dbl+lbl&gt;                       &lt;int&gt;   &lt;dbl&gt;
@@ -463,7 +477,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 2 [Democrat]        2 [Neither agree, nor disagree]    87   29.6 
  9 2 [Democrat]        3 [Agree]                          92   31.3 
 10 2 [Democrat]        4 [Strongly agree]                 37   12.6 
-# ℹ 15 more rows</code></pre>
+# i 15 more rows</code></pre>
 </div>
 </div>
 <p>Let’s plot the frequency of this Manichean perspective:</p>
@@ -521,8 +535,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="faceting-by-party-id" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="faceting-by-party-id"><span class="header-section-number">4.3</span> Faceting by party ID</h2>
+<section id="faceting-by-party-id" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="faceting-by-party-id"><span class="header-section-number">5.3</span> Faceting by party ID</h2>
+<p>Faceting allows us to show multiple small versions of the same chart, one for each subgroup.</p>
 <p>Let’s try to:</p>
 <ul>
 <li>add <code>facet_wrap(~pid)</code></li>
@@ -583,8 +598,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="showing-more-variables-together" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="showing-more-variables-together"><span class="header-section-number">4.4</span> Showing more variables together</h2>
+<section id="showing-more-variables-together" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="showing-more-variables-together"><span class="header-section-number">5.4</span> Showing more variables together</h2>
+<p>We can display multiple related survey questions simultaneously to show broader patterns in anti-establishment thinking. Rather than making four separate charts for four conspiracy items, we’ll stack them vertically to create a “small multiples” visualization that makes comparisons easier.</p>
 <p>Let’s create several data objects: each of them will contain responses to the components of the conspiracy thinking scale:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pop2share <span class="ot">&lt;-</span> d2 <span class="sc">%&gt;%</span> </span>
@@ -624,15 +640,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(shareShow)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 8
+<pre><code># A tibble: 6 x 8
   pop2                           n percent categories q     official con1  con4 
   &lt;dbl+lbl&gt;                  &lt;int&gt;   &lt;dbl&gt; &lt;fct&gt;      &lt;chr&gt; &lt;dbl+lb&gt; &lt;dbl&gt; &lt;dbl&gt;
-1  1 [Strongly disagree]        72    3.56 Strongly … "Peo… NA       NA    NA   
-2  2 [Disagree]                226   11.2  Disagree   "Peo… NA       NA    NA   
-3  3 [Neither agree, nor di…   709   35.0  Neither a… "Peo… NA       NA    NA   
-4  4 [Agree]                   633   31.3  Agree      "Peo… NA       NA    NA   
-5  5 [Strongly agree]          383   18.9  Strongly … "Peo… NA       NA    NA   
-6 NA                           107    5.29 Strongly … "Off…  1 [Str… NA    NA   </code></pre>
+1  1 [Strongly disagree]        72    3.56 Strongly ~ "Peo~ NA       NA    NA   
+2  2 [Disagree]                226   11.2  Disagree   "Peo~ NA       NA    NA   
+3  3 [Neither agree, nor di~   709   35.0  Neither a~ "Peo~ NA       NA    NA   
+4  4 [Agree]                   633   31.3  Agree      "Peo~ NA       NA    NA   
+5  5 [Strongly agree]          383   18.9  Strongly ~ "Peo~ NA       NA    NA   
+6 NA                           107    5.29 Strongly ~ "Off~  1 [Str~ NA    NA   </code></pre>
 </div>
 </div>
 <p>Make a plot:</p>
@@ -651,6 +667,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>This stacked bar chart shows four anti-establishment attitude questions arranged vertically. Each bar is divided by response category (strongly disagree, disagree, neutral, agree, strongly agree). The color coding makes it easy to spot patterns.</p>
 <p>Look at the components of <code>jcolors</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>jcolors<span class="sc">::</span><span class="fu">display_all_jcolors</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -663,8 +680,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="putting-anti-establishment-thinking-on-the-2nd-axis" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="putting-anti-establishment-thinking-on-the-2nd-axis"><span class="header-section-number">4.5</span> Putting anti-establishment thinking on the 2nd axis</h2>
+<section id="putting-anti-establishment-thinking-on-the-2nd-axis" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="putting-anti-establishment-thinking-on-the-2nd-axis"><span class="header-section-number">5.5</span> Putting anti-establishment thinking on the 2nd axis</h2>
+<p>The AJPS paper argues that American politics isn’t just left vs.&nbsp;right - there’s also a second dimension of anti-establishment versus pro-establishment attitudes. These scatterplots will help us visualize how these two dimensions relate to each other, using the dataset <code>d1</code> which contains individual-level responses.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> leftright2, <span class="at">y =</span> suspicion2)) <span class="sc">+</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -678,6 +696,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>This scatterplot shows each survey respondent as a point. The x-axis represents how liberal (left) or conservative (right) they are, while the y-axis shows their level of anti-establishment thinking. If you see a cloud of points without a clear diagonal pattern, this suggests these two dimensions are largely independent - meaning you can be a left-wing anti-establishment type OR a right-wing anti-establishment type.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> leftright2, <span class="at">y =</span> suspicion2)) <span class="sc">+</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -721,9 +740,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="conspiratorial-orientation-and-pid" class="level2" data-number="4.6">
-<h2 data-number="4.6" class="anchored" data-anchor-id="conspiratorial-orientation-and-pid"><span class="header-section-number">4.6</span> Conspiratorial orientation and PID</h2>
-<p>In principle, a box plot might make sense in this context…</p>
+<section id="conspiratorial-orientation-and-pid" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="conspiratorial-orientation-and-pid"><span class="header-section-number">5.6</span> Conspiratorial orientation and PID</h2>
+<p>In principle, a box plot might make sense in this context… We’re now examining whether conspiracy thinking differs systematically across party lines. Box plots show the distribution of conspiracy thinking scores for each party identification group, allowing us to compare medians, quartiles, and outliers.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as_factor</span>(pid), <span class="at">y=</span>consp_Index)) <span class="sc">+</span></span>
@@ -752,6 +771,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>The boxplot shows the median, quartiles, and outliers for each party group, while the jittered points display every individual respondent’s conspiracy thinking score. This combination reveals both the summary statistics and the full distribution - you can see whether scores are tightly clustered around the median or widely spread out within each party.</p>
 <p>Make small edits:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
@@ -786,8 +806,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="all-3-components-of-the-anti-est.-orientation" class="level2" data-number="4.7">
-<h2 data-number="4.7" class="anchored" data-anchor-id="all-3-components-of-the-anti-est.-orientation"><span class="header-section-number">4.7</span> All 3 components of the anti-est. orientation</h2>
+<section id="all-3-components-of-the-anti-est.-orientation" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="all-3-components-of-the-anti-est.-orientation"><span class="header-section-number">5.7</span> All 3 components of the anti-est. orientation</h2>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as_factor</span>(pid), <span class="at">y=</span>suspicion2)) <span class="sc">+</span></span>
@@ -804,8 +824,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="narcissism-as-a-correlate-for-conspiracy-thinking" class="level2" data-number="4.8">
-<h2 data-number="4.8" class="anchored" data-anchor-id="narcissism-as-a-correlate-for-conspiracy-thinking"><span class="header-section-number">4.8</span> Narcissism as a correlate for conspiracy thinking?</h2>
+<section id="narcissism-as-a-correlate-for-conspiracy-thinking" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="narcissism-as-a-correlate-for-conspiracy-thinking"><span class="header-section-number">5.8</span> Narcissism as a correlate for conspiracy thinking?</h2>
+<p>The research also explores whether personality traits, specifically narcissism, relate to anti-establishment orientations. People who score high on narcissism tend to need admiration and may view themselves as superior to others - traits that might make them more likely to believe shadowy elites are controlling society.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(attent1)) <span class="sc">%&gt;%</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">as_factor</span>(attent1), <span class="at">x=</span> suspicion2)) <span class="sc">+</span></span>
@@ -818,6 +839,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>These “ridgeline” plots show the distribution of anti-establishment thinking scores for each level of agreement with “I tend to want others to admire me” (a narcissism indicator). Each ridge represents one response category, allowing us to see whether higher narcissism is associated with stronger anti-establishment views.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(attent1)) <span class="sc">%&gt;%</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">as_factor</span>(attent1), <span class="at">x=</span> suspicion2)) <span class="sc">+</span></span>
@@ -894,8 +916,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="mainstream-news" class="level2" data-number="4.9">
-<h2 data-number="4.9" class="anchored" data-anchor-id="mainstream-news"><span class="header-section-number">4.9</span> Mainstream news</h2>
+<section id="mainstream-news" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="mainstream-news"><span class="header-section-number">5.9</span> Mainstream news</h2>
+<p>The survey also measured distrust in mainstream media, asking whether “much of the mainstream news is deliberately slanted to mislead us.” This analysis examines whether anti-establishment orientations and narcissism both correlate with media distrust - two potential pathways to believing that established news sources are unreliable. The <code>ggside</code> package adds histograms on the sides to show the distribution of predictors.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  d1 <span class="sc">%&gt;%</span></span>
@@ -922,6 +945,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>This regression analysis examines whether the relationship between anti-establishment orientation and media distrust changes based on how much someone likes or dislikes Hillary Clinton. The <code>ggeffects</code> package helps visualize interaction effects - you might see that the slope of anti-establishment → media distrust is steeper for Clinton supporters or opponents.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>collmod <span class="ot">&lt;-</span> <span class="fu">lm</span>(msm <span class="sc">~</span> clintonft<span class="sc">*</span>suspicion2, <span class="at">data=</span>d1)</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>ggeffects<span class="sc">::</span><span class="fu">ggeffect</span>(collmod, <span class="at">terms=</span><span class="fu">c</span>(<span class="st">"suspicion2"</span>,<span class="st">"clintonft"</span>)) <span class="sc">%&gt;%</span> <span class="fu">plot</span>() <span class="sc">+</span></span>
@@ -935,7 +959,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>“I often disagree with conventional views about the world”</p>
+</section>
+<section id="i-often-disagree-with-conventional-views-about-the-world" class="level2" data-number="5.10">
+<h2 data-number="5.10" class="anchored" data-anchor-id="i-often-disagree-with-conventional-views-about-the-world"><span class="header-section-number">5.10</span> “I often disagree with conventional views about the world”</h2>
+<p>Now we examine whether anti-establishment orientations and narcissism both predict a general tendency to reject conventional wisdom. This statement captures contrarian thinking, which might be driven by both skepticism toward institutions (anti-establishment) and a belief in one’s own superior insight (narcissism).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span></span>
@@ -958,8 +985,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="denial-of-climate-change" class="level2" data-number="4.10">
-<h2 data-number="4.10" class="anchored" data-anchor-id="denial-of-climate-change"><span class="header-section-number">4.10</span> Denial of climate change</h2>
+<section id="denial-of-climate-change" class="level2" data-number="5.11">
+<h2 data-number="5.11" class="anchored" data-anchor-id="denial-of-climate-change"><span class="header-section-number">5.11</span> Denial of climate change</h2>
+<p>The survey also included a question about climate change denial.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(d2<span class="sc">$</span>climatechange)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -968,6 +996,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 733 454 395 233 206 </code></pre>
 </div>
 </div>
+<p>This shows the recoded binary variable, where responses 1-3 (disagree/neutral) become “0” and 4-5 (agree) become “1”. This dichotomization is commonly used when researchers want to separate climate change denial from acceptance.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(d2<span class="sc">$</span>climatechangeBIN)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -979,7 +1008,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">count</span>(climatechangeBIN)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 2
+<pre><code># A tibble: 3 x 2
   climatechangeBIN     n
              &lt;dbl&gt; &lt;int&gt;
 1                0  1582
@@ -987,11 +1016,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 3               NA     2</code></pre>
 </div>
 </div>
+<p>This is an alternative way to display the binary variable counts using dplyr’s <code>count()</code> function, which some find easier to read than base R’s <code>table()</code>.</p>
 <p>Are the missing observations the same for the original and the recoded variable? (If not, we would want to check whether earlier code did something unintended.)</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">count</span>(climatechangeBIN,climatechange)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 3
+<pre><code># A tibble: 6 x 3
   climatechangeBIN climatechange     n
              &lt;dbl&gt;         &lt;dbl&gt; &lt;int&gt;
 1                0             1   733
@@ -1002,6 +1032,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 6               NA            NA     2</code></pre>
 </div>
 </div>
+<p>This cross-tabulation checks that missing values (NAs) are handled consistently between the original and recoded variables. (If we see different patterns of missing data, it would indicate that the recoding process introduced problems.)</p>
+<p>Now let’s visualize how climate change beliefs vary across the political spectrum:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(climatechange) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(pid)) <span class="sc">%&gt;%</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pid) <span class="sc">%&gt;%</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(climatechange) <span class="sc">%&gt;%</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">as_factor</span>(pid), <span class="at">x=</span>percent, <span class="at">fill=</span><span class="fu">as_factor</span>(climatechange))) <span class="sc">+</span></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Percent of respondents"</span>, </span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">""</span>, </span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill=</span><span class="st">"Climate change is a hoax"</span>,</span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">title=</span><span class="st">"Climate change beliefs across the political spectrum"</span>,</span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption=</span><span class="st">"Data: Uscinski et al. (AJPS, 2021)"</span>) <span class="sc">+</span></span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">13</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="3_standard-charts_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Strong Democrats show high agreement that climate change is real, while strong Republicans show much higher levels of skepticism. This visualization demonstrates how scientific issues can become polarized along partisan lines, with moderates (4) falling somewhere in between.</p>
 
 
 </section>
@@ -1409,13 +1466,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./3_B_timeseries.html" class="pagination-link" aria-label="Economic data over time">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Economic data over time</span></span>
+      <a href="./3_C_financial-markets.html" class="pagination-link" aria-label="Financial markets">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Financial markets</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./4b_tweet_ratings.html" class="pagination-link" aria-label="Mixed data (strings and numbers)">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

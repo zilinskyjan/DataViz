@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6&nbsp; Advanced ggplot – Data Visualization with R and ggplot</title>
+<title>7&nbsp; Advanced ggplot – Data Visualization with R and ggplot</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./4_advanced-ggplot.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./4_advanced-ggplot.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -169,26 +169,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./3_C_financial-markets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Financial markets</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./3_standard-charts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Standard charts</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Standard charts</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4b_tweet_ratings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4_advanced-ggplot.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./5_visualizing-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -238,7 +244,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./class-exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">In-class exercises</span></a>
+ <span class="menu-text">More in-class exercises</span></a>
   </div>
 </li>
       </ul>
@@ -248,15 +254,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#setup-and-data" id="toc-setup-and-data" class="nav-link active" data-scroll-target="#setup-and-data"><span class="header-section-number">7.1</span> Setup and Data</a></li>
+  <li><a href="#selecting-variables-for-analysis" id="toc-selecting-variables-for-analysis" class="nav-link" data-scroll-target="#selecting-variables-for-analysis"><span class="header-section-number">7.2</span> Selecting Variables for Analysis</a></li>
+  <li><a href="#the-ridgeline-plot" id="toc-the-ridgeline-plot" class="nav-link" data-scroll-target="#the-ridgeline-plot"><span class="header-section-number">7.3</span> The Ridgeline Plot</a></li>
+  <li><a href="#key-technique-reshaping-data-with-pivot_longer" id="toc-key-technique-reshaping-data-with-pivot_longer" class="nav-link" data-scroll-target="#key-technique-reshaping-data-with-pivot_longer"><span class="header-section-number">7.4</span> Key Technique: Reshaping Data with <code>pivot_longer()</code></a></li>
+  <li><a href="#building-the-complete-visualization" id="toc-building-the-complete-visualization" class="nav-link" data-scroll-target="#building-the-complete-visualization"><span class="header-section-number">7.5</span> Building the Complete Visualization</a>
+  <ul class="collapse">
+  <li><a href="#what-each-step-accomplishes" id="toc-what-each-step-accomplishes" class="nav-link" data-scroll-target="#what-each-step-accomplishes"><span class="header-section-number">7.5.1</span> What each step accomplishes</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></h1>
 </div>
 
 
@@ -273,11 +292,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>This chapter demonstrates how to build a polished, information-dense visualization using ggplot2’s layered grammar of graphics. We’ll create a <strong>ridgeline plot</strong> that reveals the relationship between psychological traits and conspiracy thinking.</p>
+<section id="setup-and-data" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="setup-and-data"><span class="header-section-number">7.1</span> Setup and Data</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"data_AJPS2021/0_ajps_recode.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"data/ajps2021/0_ajps_recode.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Grab a subset of variables (i.e.&nbsp;psychological measurements), and show the distribution of conspiracy thinking when respondents report a particular trait:</p>
+<p>The data comes from a study on conspiracy beliefs, containing survey responses where participants’ psychological traits (incl.&nbsp;the “dark triad”—narcissism, Machiavellianism, and sociopathy—plus argumentativeness) can be estimated on the basis of questions that participants answered about themselves.</p>
+</section>
+<section id="selecting-variables-for-analysis" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="selecting-variables-for-analysis"><span class="header-section-number">7.2</span> Selecting Variables for Analysis</h2>
+<p>We begin by selecting survey items that measure psychological traits. Each item asks respondents to rate their agreement with a statement on a scale:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"argue1"</span>, <span class="st">"argue2"</span>, <span class="st">"argue3"</span>, <span class="st">"manip1"</span>, <span class="st">"manip2"</span>, <span class="st">"manip3"</span>, <span class="st">"manip4"</span>, </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>       <span class="st">"attent1"</span>, <span class="st">"attent2"</span>, <span class="st">"attent3"</span>, <span class="st">"attent4"</span>,</span>
@@ -286,6 +312,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#d1$nondark &lt;- ifelse(d1$insens3 &lt;=2 &amp; d1$manip4 &lt;=2 &amp; d1$insens1&lt;=2, 1,0)</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>d1<span class="sc">$</span>nondark <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(d1<span class="sc">$</span>manipulate2 <span class="sc">&lt;=</span>.<span class="dv">2</span> <span class="sc">&amp;</span> d1<span class="sc">$</span>sociopathy2 <span class="sc">&lt;=</span> .<span class="dv">2</span> <span class="sc">&amp;</span> d1<span class="sc">$</span>attend2 <span class="sc">&lt;=</span>.<span class="dv">2</span>, <span class="dv">1</span>,<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>We also create a “nondark” indicator that flags respondents who score low on multiple dark triad dimensions, giving us a baseline comparison group.</p>
+</section>
+<section id="the-ridgeline-plot" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="the-ridgeline-plot"><span class="header-section-number">7.3</span> The Ridgeline Plot</h2>
+<p>Ridgeline plots (also called “joy plots”) stack multiple density distributions vertically, making it easy to compare distributions across groups. Here, each ridge represents respondents who agreed with a particular psychological statement, and the x-axis shows their distribution of conspiracy thinking scores.</p>
+<p>This visualization works well because it:</p>
+<ul>
+<li><strong>Shows distributions, not just averages</strong>: We can see the full shape of conspiracy thinking for each group</li>
+<li><strong>Enables comparison</strong>: Stacking the ridges vertically makes patterns immediately visible</li>
+<li><strong>Uses color strategically</strong>: Grouping items by their parent concept (Narcissism, Machiavellianism, etc.) adds a second layer of information without clutter</li>
+<li><strong>Orders meaningfully</strong>: Sorting by average conspiracy thinking puts the most revealing patterns at the extremes</li>
+</ul>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -295,14 +333,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>The most important step is the following:</p>
+</section>
+<section id="key-technique-reshaping-data-with-pivot_longer" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="key-technique-reshaping-data-with-pivot_longer"><span class="header-section-number">7.4</span> Key Technique: Reshaping Data with <code>pivot_longer()</code></h2>
+<p>The most important step in making this visualization work is <strong>reshaping the data from wide to long format</strong>. In the original dataset, each psychological item is its own column. But ggplot2 works best when we have one observation per row, with a column indicating which variable we’re looking at.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(consp_Index2,</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              nondark,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">all_of</span>(x)) <span class="sc">%&gt;%</span> </span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>consp_Index2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 32,000 × 3
+<pre><code># A tibble: 32,000 x 3
    consp_Index2 name    value             
           &lt;dbl&gt; &lt;chr&gt;   &lt;dbl+lbl&gt;         
  1        0.938 nondark 0                 
@@ -315,10 +356,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8        0.938 manip4  5 [Strongly agree]
  9        0.938 attent1 4 [Agree]         
 10        0.938 attent2 3 [Neither]       
-# ℹ 31,990 more rows</code></pre>
+# i 31,990 more rows</code></pre>
 </div>
 </div>
-<p>And the full plot can be generated with the following code:</p>
+<p><code>pivot_longer()</code> transforms our data so that:</p>
+<ul>
+<li>Each respondent now has multiple rows (one per survey item they answered)</li>
+<li>The <code>name</code> column contains the variable name (e.g., “argue1”, “manip2”)</li>
+<li>The <code>value</code> column contains their response to that item</li>
+</ul>
+<p>This “tidy” structure is what allows us to facet or group by the survey item—ggplot can now treat each item as a separate category on the y-axis.</p>
+</section>
+<section id="building-the-complete-visualization" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="building-the-complete-visualization"><span class="header-section-number">7.5</span> Building the Complete Visualization</h2>
+<p>The full pipeline combines several ggplot techniques to create a polished chart:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(consp_Index2,</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>              nondark,</span>
@@ -366,10 +417,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>  see<span class="sc">::</span><span class="fu">scale_fill_social</span>() <span class="sc">+</span></span>
 <span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<hr>
-<p>[See the lecture notes on the course website for additional code]</p>
+<section id="what-each-step-accomplishes" class="level3" data-number="7.5.1">
+<h3 data-number="7.5.1" class="anchored" data-anchor-id="what-each-step-accomplishes"><span class="header-section-number">7.5.1</span> What each step accomplishes</h3>
+<ol type="1">
+<li><p><strong>Data selection and reshaping</strong>: <code>select()</code> + <code>pivot_longer()</code> gives us one row per person-item combination</p></li>
+<li><p><strong>Creating readable labels</strong>: The <code>case_when()</code> inside <code>mutate()</code> replaces cryptic variable names (like “manip1”) with the actual survey text (“I tend to manipulate others to get my way”). This makes the chart self-documenting.</p></li>
+<li><p><strong>Adding concept groupings</strong>: A second <code>case_when()</code> assigns each item to its parent psychological concept. This becomes our fill aesthetic for color-coding.</p></li>
+<li><p><strong>Filtering to relevant subgroups</strong>: We only show respondents who <em>agreed</em> with each statement (<code>agree == 1</code>), letting us ask: “Among people who say they manipulate others, what does their conspiracy thinking look like?”</p></li>
+<li><p><strong>Smart ordering</strong>: <code>fct_reorder(name2, avg_cons)</code> sorts the y-axis by average conspiracy thinking, so patterns emerge naturally—the traits most associated with conspiracy thinking appear at one end.</p></li>
+<li><p><strong>Polished aesthetics</strong>: <code>theme_bw()</code> provides a clean background, <code>see::scale_fill_social()</code> offers a friendly palette, and <code>labs()</code> adds informative titles.</p></li>
+</ol>
+<p>The result is a chart that tells a story: psychological traits associated with the “dark triad” tend to cluster at higher levels of conspiracy thinking, while those low on all dark traits cluster are less conspiratorial.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -775,12 +837,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./4b_tweet_ratings.html" class="pagination-link" aria-label="Mixed data (strings and numbers)">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./5_visualizing-models.html" class="pagination-link" aria-label="Visualizing statistical models">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

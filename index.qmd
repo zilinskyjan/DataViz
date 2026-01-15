@@ -1,4 +1,15 @@
+---
+format:
+  html:
+    css: index-custom.css
+---
+
 # Overview of this class {.unnumbered}
+
+::: {.callout-note}
+## Note
+These are lecture notes and tutorials which combine many of the materials that I have used for teaching at the Technical University of Munich between 2022 and 2026.
+:::
 
 Some say visualization is what you do when you "form a mental picture of something" or when you try to represent an object or a situation and "render it visible." That's fine, but this will be our definition:\
 ![](images/def-01.png)
@@ -28,9 +39,9 @@ Sometimes I show students a picture with a sign "No juggling of machetes". After
 
 But even when we have the skills to do certain things, we should only be applying our skills when appropriate.
 
-<!-- ![](images/machete-0.png) -->
+<!-- ![](images/machete-1.png) -->
 
-![](images/machete-1.png)
+![](images/machete-0.png)
 
 <hr>
 

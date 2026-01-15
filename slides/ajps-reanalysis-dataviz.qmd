@@ -5,6 +5,7 @@ format:
   revealjs:
     slide-number: c
 execute:
+  echo: true
 editor_options: 
   chunk_output_type: console
 ---
@@ -13,7 +14,7 @@ editor_options:
 library(tidyverse)
 library(haven)
 library(labelled)
-library(stargazer)
+
 
 
 theme_set(theme_minimal())
@@ -22,7 +23,11 @@ theme_update(text = element_text(size=13),
 )
              
 # READ IN RECODED DATA
+# Change to project root directory for sourcing script
+old_wd <- getwd()
+setwd("..")
 source("data/ajps2021/0_ajps_recode.R")
+setwd(old_wd)
 ```
 
 ## 

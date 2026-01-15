@@ -33,9 +33,10 @@ This course teaches students how to create effective visualizations of social an
 ├── references.qmd        # Useful resources
 ├── tidyverse-refresher.qmd   # Tidyverse tips
 ├── class-exercises.qmd   # In-class exercises
+├── slides/               # RevealJS slide presentations (separate from book)
 ├── data/                 # Sample datasets
-├── data_macro/           # Macroeconomic data (IMF, WDI)
-├── data_AJPS2021/        # Survey data from Uscinski et al. (2021)
+├── scripts/              # R scripts for data processing
+├── docs/                 # Documentation files
 └── _book/                # Built HTML output
 ```
 

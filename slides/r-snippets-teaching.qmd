@@ -54,7 +54,7 @@ Based on: [github.com/zilinskyjan/R-snippets](https://github.com/zilinskyjan/R-s
 
 </ul>
 :::
-:::::
+:::
 
 ------------------------------------------------------------------------
 
@@ -68,14 +68,14 @@ Based on: [github.com/zilinskyjan/R-snippets](https://github.com/zilinskyjan/R-s
 
 **Solution:**
 
-``` r
+```r
 guides(fill = guide_legend(reverse = TRUE))
 guides(color = guide_legend(reverse = TRUE))
 ```
 
 **When to use:** Your categorical data appears in one order but the legend shows colors in reverse order.
 
-------------------------------------------------------------------------
+---
 
 ## Wrapping Long Labels
 
@@ -85,7 +85,7 @@ guides(color = guide_legend(reverse = TRUE))
 
 **Solution:**
 
-``` r
+```r
 facet_wrap(~ var, labeller = label_wrap_gen(width = 30))
 
 # Make text smaller

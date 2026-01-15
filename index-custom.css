@@ -29,10 +29,19 @@
 .sidebar-navigation,
 .sidebar-toc,
 #TOC {
-  font-size: 1rem !important;
+  /* Slightly smaller than body text */
+  font-size: 0.95rem !important;
 }
 
 #quarto-sidebar *,
 #quarto-margin-sidebar * {
   font-size: inherit !important;
+}
+
+/* Force ToC to be expanded on index page.
+   (Quarto sometimes renders nested ToC levels as collapsed on the book index.) */
+#quarto-margin-sidebar #TOC ul.collapse {
+  display: block !important;
+  height: auto !important;
+  visibility: visible !important;
 }

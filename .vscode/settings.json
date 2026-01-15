@@ -20,5 +20,11 @@
   
   // Disable Quarto extension visual editor (if installed)
   "quarto.editor": "source",
-  "quarto.preview": false
+  "quarto.preview": false,
+  "quarto.visualEditor": false,
+  
+  // Force source mode for all QMD files
+  "[qmd]": {
+    "editor.defaultFormatter": null
+  }
 }

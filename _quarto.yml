@@ -10,6 +10,7 @@ book:
     - 1_principles.qmd
     - 2_toplines-and-cross-tabs.qmd
     - 3_B_timeseries.qmd
+    - 3_C_financial-markets.qmd
     - 3_standard-charts.qmd
     - 4b_tweet_ratings.qmd
     - 4_advanced-ggplot.qmd
