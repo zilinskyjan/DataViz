@@ -11,7 +11,6 @@ keynote/
 # Quarto build outputs
 _book/
 *_files/
-*.html
 *.pdf
 
 # OS files

@@ -1,0 +1,427 @@
+---
+title: "Practical R Code Snippets"
+subtitle: "Common Data Visualization & Analysis Solutions"
+format: 
+  revealjs:
+    slide-number: c
+    theme: default
+    css: intro-ai-teaching.css
+---
+
+## Practical R Code Snippets
+
+A collection of solutions for common data visualization and analysis situations
+
+Based on: [github.com/zilinskyjan/R-snippets](https://github.com/zilinskyjan/R-snippets)
+
+------------------------------------------------------------------------
+
+## Overview
+
+::::: columns
+::: {.column width="50%"}
+**Data Visualization**
+
+<ul>
+
+<li>Legend management</li>
+
+<li>Label wrapping</li>
+
+<li>Title positioning</li>
+
+<li>Gridlines & padding</li>
+
+<li>Transparent colors</li>
+
+<li>Date formatting</li>
+
+</ul>
+:::
+
+::: {.column width="50%"}
+**Data Manipulation**
+
+<ul>
+
+<li>Subsetting in ggplot</li>
+
+<li>Prediction values</li>
+
+<li>Summary statistics</li>
+
+<li>Filtering by sample size</li>
+
+</ul>
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Part 1: Data Visualization with ggplot2
+
+------------------------------------------------------------------------
+
+## Fix Legend Order Mismatches
+
+**Problem:** Legend colors don't match your data order
+
+**Solution:**
+
+``` r
+guides(fill = guide_legend(reverse = TRUE))
+guides(color = guide_legend(reverse = TRUE))
+```
+
+**When to use:** Your categorical data appears in one order but the legend shows colors in reverse order.
+
+------------------------------------------------------------------------
+
+## Wrapping Long Labels
+
+### Sub-plots from `facet_wrap()`
+
+**Problem:** Long facet labels overlap or look messy
+
+**Solution:**
+
+``` r
+facet_wrap(~ var, labeller = label_wrap_gen(width = 30))
+
+# Make text smaller
+theme(strip.text = element_text(size = 9))
+```
+
+------------------------------------------------------------------------
+
+## Wrapping Long Labels
+
+### Legend Labels
+
+**Problem:** Legend labels are too long
+
+**Solution:**
+
+``` r
+scale_fill_manual(
+  name = "Legend Title",
+  values = c("A" = "#1b9e77", "B" = "#d95f02", "C" = "#7570b3"),
+  labels = function(x) str_wrap(x, width = 20)
+)
+```
+
+------------------------------------------------------------------------
+
+## Wrapping Long Labels
+
+### Axis Labels
+
+**Problem:** Category names overlap on axes
+
+**Solution:**
+
+``` r
+scale_x_discrete(labels = scales::label_wrap(20))
+```
+
+**Alternative (emergency):**
+
+``` r
+theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+```
+
+**Bonus:** Format numbers nicely:
+
+``` r
+scale_y_continuous(labels = scales::comma)
+```
+
+------------------------------------------------------------------------
+
+## Better Title Positioning
+
+**Problem:** Default title positioning leaves awkward spacing
+
+**Solution:**
+
+``` r
+theme(plot.title.position = "plot")
+```
+
+**When to use:** You need more space or want the title aligned with the plot area edge.
+
+------------------------------------------------------------------------
+
+## Getting Rid of Awkward Padding
+
+**Problem:** Unwanted padding around your plot
+
+**Solution:**
+
+``` r
+scale_x_continuous(expand = c(0, 0), limits = c(0, 42))
+```
+
+::: fragment
+The key part is `expand = c(0, 0)` to remove padding
+:::
+
+------------------------------------------------------------------------
+
+## Getting Rid of (Some) Gridlines
+
+**Problem:** Too many gridlines clutter the plot
+
+**Solution:**
+
+``` r
+theme_minimal() +
+theme(
+  panel.grid.major.y = element_blank(),
+  panel.grid.minor = element_blank(),
+  plot.title = element_text(size = 14, face = "bold"),
+  axis.text = element_text(size = 11)
+)
+```
+
+------------------------------------------------------------------------
+
+## Control Legend Visibility
+
+**Problem:** Unwanted legend entries from specific geoms
+
+**Solution:**
+
+``` r
+geom_text(show.legend = FALSE)
+geom_point(show.legend = FALSE)
+# etc.
+```
+
+**When to use:** Need to remove specific legend entries while keeping others.
+
+------------------------------------------------------------------------
+
+## Transparent Colors
+
+**Problem:** Overlapping points or areas obscure underlying data
+
+**Solution:**
+
+``` r
+scales::alpha("blue", 0.5)  # 50% transparent blue
+```
+
+**When to use:** Overlapping points, areas, or when you need to see underlying data patterns.
+
+------------------------------------------------------------------------
+
+## Custom Date Axis Formatting
+
+**Problem:** Default date formatting doesn't meet your needs
+
+**Solution:**
+
+``` r
+scale_x_date(
+  name = NULL,  
+  breaks = scales::breaks_width("2 years"),
+  labels = scales::label_date("'%y") 
+)
+```
+
+**When to use:** You need specific date breaks and label formats.
+
+------------------------------------------------------------------------
+
+## Part 2: Data Manipulation
+
+------------------------------------------------------------------------
+
+## Subset Data Within ggplot
+
+**Problem:** Need different data filtering for specific plot layers
+
+**Solution:**
+
+``` r
+ggplot(data, aes(x = var1, y = var2)) +
+  stat_smooth(
+    method = "loess",
+    se = FALSE,
+    data = . %>% filter(!is.na(var2))  # Remove NAs for this layer only
+  )
+```
+
+**When to use:** You need different data filtering for specific plot layers without modifying your main dataset.
+
+------------------------------------------------------------------------
+
+## Generate Prediction Values for Effects Plots
+
+**Problem:** Need smooth predictions across a range of values
+
+**Solution:**
+
+``` r
+mod <- lm(y ~ var1 + var2, data = D)
+ggeffects::ggpredict(mod, terms = "var1 [1:10 by=0.1]")
+```
+
+**When to use:** Creating smooth effect plots or predictions across a range of values.
+
+------------------------------------------------------------------------
+
+## Summary Statistics with Confidence Intervals
+
+### Option 1: Large Sample Size
+
+**When to use:** Large sample sizes (normal approximation)
+
+``` r
+D %>% 
+  group_by(var) %>%
+  summarise(
+    M = mean(resp, na.rm = TRUE),
+    sd = sd(resp, na.rm = TRUE),
+    n = sum(!is.na(resp)),
+    se = sd / sqrt(n)
+  ) %>%
+  ggplot(aes(x = M, y = yvar)) +
+  geom_col() +
+  geom_errorbar(
+    aes(xmin = M - 1.96*se, xmax = M + 1.96*se)
+  )
+```
+
+------------------------------------------------------------------------
+
+## Summary Statistics with Confidence Intervals
+
+### Option 1: Small Sample Size
+
+**When to use:** Small sample sizes (t-distribution)
+
+``` r
+geom_errorbar(
+  aes(
+    xmin = M + qt(0.025, df = n-1) * se, 
+    xmax = M + qt(0.975, df = n-1) * se
+  )
+)
+```
+
+::: fragment
+Note: `qt(0.025, df = 9)` is negative, so `M + qt(0.025, df = 9)` gives the lower bound.
+:::
+
+------------------------------------------------------------------------
+
+## Summary Statistics with Confidence Intervals
+
+### Option 2: Using t.test()
+
+**When to use:** Quick confidence intervals (less robust if data is constant or missing)
+
+``` r
+D %>% 
+  group_by(var) %>%
+  summarise(
+    M = mean(outcome, na.rm = TRUE),
+    M_hi = t.test(outcome)$conf.int[2],
+    M_lo = t.test(outcome)$conf.int[1]
+  )
+```
+
+------------------------------------------------------------------------
+
+## Summary Statistics with Confidence Intervals
+
+### Option 3: Empirical 95% Range
+
+**When to use:** Want the empirical 95% range (not a confidence interval)
+
+``` r
+data %>%
+  group_by(group_var) %>%
+  summarize(
+    mean_val = mean(x, na.rm = TRUE),
+    lower = quantile(x, prob = 0.025, na.rm = TRUE),
+    upper = quantile(x, prob = 0.975, na.rm = TRUE),
+    n_obs = sum(!is.na(x))
+  )
+```
+
+------------------------------------------------------------------------
+
+## Filter by Minimum Observations
+
+**Problem:** Need to calculate statistics only for groups with sufficient sample sizes
+
+**Solution:**
+
+``` r
+analysis_data <- raw_data %>%
+  group_by(group1, group2) %>%
+  summarize(
+    n_complete = sum(!is.na(var1) & !is.na(var2)),
+    correlation = ifelse(
+      n_complete > 5, 
+      cor(var1, var2, use = "complete.obs"), 
+      NA
+    )
+  )
+```
+
+**When to use:** Avoid unreliable estimates from small groups.
+
+------------------------------------------------------------------------
+
+## Part 3: External Data Access
+
+------------------------------------------------------------------------
+
+## Harvard Dataverse Integration
+
+**Problem:** Need to access publicly available research datasets
+
+**Solution:**
+
+``` r
+# Set up connection to Harvard Dataverse
+Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
+
+# Download dataset directly into R
+dataset <- dataverse::get_dataframe_by_name(
+  "filename.tab",
+  "doi:10.7910/DVN/XXXXXX"  # Replace with actual DOI
+)
+```
+
+**Resources:** [CRAN dataverse package vignette](https://cran.r-project.org/web/packages/dataverse/vignettes/A-introduction.html)
+
+------------------------------------------------------------------------
+
+## Summary
+
+::::: columns
+::: {.column width="50%"}
+**Visualization Tips** - Control legends, labels, titles - Manage spacing and gridlines - Use transparency effectively - Format dates properly
+:::
+
+::: {.column width="50%"}
+**Analysis Tips** - Filter data within plots - Generate predictions - Calculate CIs correctly - Filter by sample size
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Resources
+
+-   **This collection:** [github.com/zilinskyjan/R-snippets](https://github.com/zilinskyjan/R-snippets)
+-   **Allison Koh's collection:** [github.com/allisonkoh/helpful-code-stuff](https://github.com/allisonkoh/helpful-code-stuff)
+-   **Silvia Kim's workshop notes:** <https://sysilviakim.com/learningR/>
+
+------------------------------------------------------------------------
+
+## Questions?

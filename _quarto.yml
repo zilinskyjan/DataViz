@@ -23,6 +23,7 @@ book:
     - part: "Appendix"
       chapters:
         - tidyverse-refresher.qmd
+        - r-snippets-appendix.qmd
         - class-exercises.qmd
 
 bibliography: references.bib
