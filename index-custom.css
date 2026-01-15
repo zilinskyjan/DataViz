@@ -1,0 +1,47 @@
+/* Custom styles - larger fonts for main content only */
+
+/* Main content area - slightly larger text */
+#quarto-content main {
+  font-size: 1.15em !important;
+}
+
+#quarto-content main h1 {
+  font-size: 2.2em !important;
+}
+
+#quarto-content main h2 {
+  font-size: 1.8em !important;
+}
+
+#quarto-content main h3 {
+  font-size: 1.4em !important;
+}
+
+#quarto-content main p,
+#quarto-content main li {
+  font-size: 1.1em !important;
+  line-height: 1.6 !important;
+}
+
+/* Keep sidebars at normal size */
+#quarto-sidebar,
+#quarto-margin-sidebar,
+.sidebar-navigation,
+.sidebar-toc,
+#TOC {
+  /* Slightly smaller than body text */
+  font-size: 0.95rem !important;
+}
+
+#quarto-sidebar *,
+#quarto-margin-sidebar * {
+  font-size: inherit !important;
+}
+
+/* Force ToC to be expanded on index page.
+   (Quarto sometimes renders nested ToC levels as collapsed on the book index.) */
+#quarto-margin-sidebar #TOC ul.collapse {
+  display: block !important;
+  height: auto !important;
+  visibility: visible !important;
+}
