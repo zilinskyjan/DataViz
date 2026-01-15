@@ -3,7 +3,6 @@ library(quanteda)
 library(wordcloud)
 #library(wordcloud2)
 
-
 a <- readRDS("data/epsa2023.rds")
 
 cor <- corpus(a$abstract,docvars = data.frame(section = a$section))
@@ -67,9 +66,6 @@ dmat %>%
   dfm_remove("political") %>%
   dfm_trim(min_termfreq = 10) %>%  quanteda.textplots::textplot_wordcloud()
 
-
-
-  
 
 commW <- dmat %>%
   dfm_subset(section=="Political Communication") %>%

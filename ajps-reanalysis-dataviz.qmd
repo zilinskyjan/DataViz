@@ -401,7 +401,7 @@ ggpubr::ggarrange(
   d1 %>%
   ggplot(aes(x=suspicion2,y=msm)) +
   geom_smooth() +
-  labs(x = "Anti-establihment orientation", y="Much of the mainstream news is deliberately slanted to mislead us") +
+  labs(x = "Anti-establishment orientation", y="Much of the mainstream news is deliberately slanted to mislead us") +
   ggside::geom_xsidehistogram() +
   ggside::ggside(x.pos = "bottom") ,
   
@@ -427,7 +427,7 @@ ggpubr::ggarrange(
   d1 %>%
   ggplot(aes(x=suspicion2,y=msm)) +
   geom_smooth() +
-  labs(x = "Anti-establihment orientation", y="Much of the mainstream news is deliberately slanted to mislead us") +
+  labs(x = "Anti-establishment orientation", y="Much of the mainstream news is deliberately slanted to mislead us") +
   ggside::geom_xsidehistogram() +
   ggside::ggside(x.pos = "bottom") ,
   
@@ -460,7 +460,7 @@ ggpubr::ggarrange(
 d1 %>%
   ggplot(aes(x=suspicion2,y=conwis)) +
   geom_smooth() +
-  labs(x = "Anti-establihment orientation", y="I often disagree with conventional views about the world") +
+  labs(x = "Anti-establishment orientation", y="I often disagree with conventional views about the world") +
   ylim(c(1,5)),
 d1 %>%
   ggplot(aes(x=narcissism,y=conwis)) +

@@ -1,4 +1,4 @@
-# In-class exercizes  {.unnumbered}
+# In-class exercises {.unnumbered}
 
 ## Tidyverse basics
 
@@ -248,7 +248,7 @@ That said, it's possible to also simply run:
 modelsummary::modelplot(reg1)
 ```
 
-### Voting data (county-lavel)
+### Voting data (county-level)
 
 ```{r}
 #| eval: false

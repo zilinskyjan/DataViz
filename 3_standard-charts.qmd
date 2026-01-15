@@ -1,6 +1,88 @@
 # Standard charts
 
-We'll make bar charts, scatterplots, stacked overlapping distributions (joyplots), and some other charts, using data on which the paper *American Politics in Two Dimensions* is based:
+## Who should hold more power? 
+
+When we map rows (individual observations) to numbers, a bar chart can be a good choice.
+
+Consider this dataset, a simple table from this [research paper](https://journals.sagepub.com/doi/10.1177/13540688211050064).
+
+```{r}
+library(tidyverse)
+
+hib <- read_csv("https://raw.githubusercontent.com/zilinskyjan/datasets/master/politics/hibbing2023_who_should_govern.csv")
+```
+The survey data has already been aggregated, so you can think of these cell entries as toplines. The rows are actors (groups) and the columns are the percentage of respondents who think that the influence of each group should increase or decrease:
+
+```{r}
+head(hib)
+```
+
+Although we could simply run this code to create a bar chart, we ought to treat this as a draft zero:
+
+```{r}
+hib %>%
+ ggplot(aes(y=group,
+            x=influence_incr)) +
+ geom_col() +
+ ggtitle("Whose influence should increase?")
+```
+
+Looks like I already added a type column:
+
+```{r}
+hib %>% count(type)
+```
+
+I will now relabel one of the categories
+
+```{r}
+hib$type[hib$type=="Standard"] <- "Establishment" 
+
+unique(hib$type)
+```
+
+I will also store some color codes, using the `rcartocolor` package:
+
+```{r}
+H_pal <- rcartocolor::carto_pal(n = 4, name = "ag_Sunset")
+```
+
+And now I can make an enhanced version of the bar chart:
+
+```{r}
+hib %>%
+  ggplot(aes(y=fct_reorder(group,influence_incr),
+             x=influence_incr,
+             fill=type)) +
+  geom_col() +
+  scale_fill_manual(values=H_pal[c(4,1,2,3)]) +
+  labs(x="Percent",y="",
+       title="Whose political power should be increased?",
+       caption = "Data: Hibbing et al. (2023)",
+       fill="") + 
+  theme_gray() +
+  theme(text = element_text(size=13)) +
+  theme(plot.caption.position = "plot",
+        plot.title.position = "plot",
+        plot.title = element_text(hjust = 0),
+        axis.title.x = element_text(hjust = 1))
+```
+
+In Version 2, I first transformed the ordering of the bars by using f`ct_reorder(group, influence_incr)`. Rather than displaying the groups in their original factor order, we now sort them by the value of influence_incr, which makes the largest to smallest progression visually intuitive. This reordering helps readers immediately grasp which groups have relatively low or high suggested increases in influence.
+
+Next, we introduced a new aesthetic mapping by filling the bars according to a `type` variable. Instead of the uniform color of the first version (draft zero), each bar now visually encodes its category, allowing the reader to distinguish subgroups at a glance. This addition only enhances the chart's informational depth and also leverages color to communicate an extra dimension of our data.
+
+To maintain control over the appearance of those colored bars, we have applied `scale_fill_manual(values = H_pal[c(4,1,2,3)])`. We customized the look of the plot by explicitly selecting colors from our H_pal palette in the order 4, 1, 2, 3. This manual scale replaces ggplot2's default palette, giving the plot a custom look.
+
+We also enriched the chart's descriptive elements by refining titles, axis labels, and captions. 
+
+In contrast to the default styling, the second version adopts `theme_gray()` and globally increases text size to 13 points. These changes create a cleaner stylistic foundation and improve legibility, particularly for presentations or printed formats. 
+
+Lastly, we fine-tuned the alignment of both the title and caption by setting `plot.title.position = "plot"` and `plot.caption.position = "plot"`, then aligning the title all the way to the left with `hjust = 0`. Similarly, right-aligning the x-axis title via `axis.title.x = element_text(hjust = 1)` anchors it neatly under the panel's right edge. These precise adjustments guarantee that textual elements hug the plot margins consistently, resulting in a balanced and intentional layout.
+
+## Two Dimensions of American Politics
+
+We'll now make bar charts, scatterplots, stacked overlapping distributions (joyplots), and some other charts, using data on which the paper *American Politics in Two Dimensions* is based:
 
 ```{r}
 library(tidyverse)
@@ -53,7 +135,7 @@ d2 %>%
   ggtitle("Opinion: Politics is a battle between good and evil")
 ```
 
-Would it be useful to plot bars in different colors? Potetnially, but not like this...
+Would it be useful to plot bars in different colors? Potentially, but not like this...
 
 ```{r}
 d2 %>% 
@@ -290,7 +372,7 @@ Q3: Big events like wars, the recent recession, and the outcomes of elections ar
 Q4: Much of our lives are being controlled by plots hatched in secret places.")
 ```
 
-## All 3 components of the anti-est. orienation
+## All 3 components of the anti-est. orientation
 
 ```{r}
 #| fig-align: center
@@ -366,7 +448,7 @@ ggpubr::ggarrange(
   d1 %>%
   ggplot(aes(x=suspicion2,y=msm)) +
   geom_smooth() +
-  labs(x = "Anti-establihment orientation", y="Much of the mainstream news is deliberately slanted to mislead us") +
+  labs(x = "Anti-establishment orientation", y="Much of the mainstream news is deliberately slanted to mislead us") +
   ggside::geom_xsidehistogram() +
   ggside::ggside(x.pos = "bottom") ,
   
@@ -388,7 +470,7 @@ ggpubr::ggarrange(
   d1 %>%
   ggplot(aes(x=suspicion2,y=msm)) +
   geom_smooth() +
-  labs(x = "Anti-establihment orientation", y="Much of the mainstream news is deliberately slanted to mislead us") +
+  labs(x = "Anti-establishment orientation", y="Much of the mainstream news is deliberately slanted to mislead us") +
   ggside::geom_xsidehistogram() +
   ggside::ggside(x.pos = "bottom") ,
   
@@ -415,7 +497,7 @@ ggpubr::ggarrange(
 d1 %>%
   ggplot(aes(x=suspicion2,y=conwis)) +
   geom_smooth() +
-  labs(x = "Anti-establihment orientation", y="I often disagree with conventional views about the world") +
+  labs(x = "Anti-establishment orientation", y="I often disagree with conventional views about the world") +
   ylim(c(1,5)),
 d1 %>%
   ggplot(aes(x=narcissism,y=conwis)) +

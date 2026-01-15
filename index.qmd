@@ -23,17 +23,18 @@ Iterate and create reasonably clear and self-contained visual exhibits.
 
 Sometimes I show students a picture with a sign "No juggling of machetes". After reading that sign, does anyone feel tempted to do what they are asked not to do? Maybe.
 
-![](img/machete.png){fig-alt="Temptations"}
+<!-- ![](img/machete.png){fig-alt="Temptations"} -->
 
 But even when we have the skills to do certain things, we should only be applying our skills when appropriate.
 
-![](images/machete.png)
+![](images/machete-0.png)
+![](images/machete-1.png)
 
 <hr>
 
 Students are encouraged to think creatively about visualizing different types of information and data. Significant coding experience with R is expected, but prior knowledge of issues related to design, style, and principles of data visualization is not required.
 
-After taking this course, students will be expected to be able to present real data clearly and to identify strengths and weakness of existing data displays and dashboards.
+After taking this course, students will be expected to be able to present real data clearly and to identify strengths and weaknesses of existing data displays and dashboards.
 
 We will be graphing various types of evidence including:
 

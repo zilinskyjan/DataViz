@@ -20,6 +20,8 @@ oecd <- read_csv("data_macro/oced_codes.csv")
 D <- left_join(D,oecd)
 ```
 
+## Analysis of inflation patterns
+
 In how many countries has inflation exceeded 10% in 2022:
 
 ```{r}
@@ -59,7 +61,7 @@ D %>%
        caption = "Data: WDI")
 ```
 
-Ther are some obivous problems with the x-axis here, so let's solve that, plus a few minor issues:
+There are some obvious problems with the x-axis here, so let's solve that, plus a few minor issues:
 
 ```{r}
 barplot_V2 <-  D %>% 
@@ -82,7 +84,7 @@ barplot_V2 <-  D %>%
 barplot_V2
 ```
 
-We improves the labels of both axies, and increased the font size.
+We improved the labels of both axes, and increased the font size.
 
 The new version is reasonably good, but there are still unnecessary gridlines, right?
 
@@ -101,7 +103,6 @@ barplot_V2 +
         panel.grid.major.x = element_blank())
 ```
 
-
 ```{r}
 D %>% 
   filter(!is.na(inflation)) %>%
@@ -119,7 +120,7 @@ D %>%
 
 ------------------------------------------------------------------------
 
-# Zomm in on OECD countries and increase the time horizon
+### Zoom in on OECD countries and increase the time horizon
 
 ```{r}
 D %>% filter(OECD==1) %>%
@@ -138,8 +139,6 @@ D %>% filter(OECD==1) %>%
        title = "Proportion of countries where inflation exceeded 10%\n(OECD countries only)")
 ```
 
-
-
 ```{r}
 D %>% 
   mutate(over5 = ifelse(inflation > 5, 1, 0)) %>%
@@ -157,8 +156,6 @@ D %>%
        caption = "Data: WDI.")
 ```
 
-
-
 ```{r}
 D %>% filter(OECD==1) %>%
   filter(!is.na(inflation)) %>%
@@ -172,4 +169,178 @@ D %>% filter(OECD==1) %>%
   theme(text = element_text(size=15)) +
   labs(y="", x="Year",
        title = "Median inflation in OECD countries")
+```
+
+## Analysis of stock returns
+
+Get data on stocks prices:
+
+```{r}
+#| eval: false
+#| echo: true
+library(tidyquant)
+stocks <- tq_get(c("NVDA", "AVGO","^GSPC"),
+                 from = "2022-01-15",
+                 to = "2024-06-05")
+```
+
+```{r}
+#| eval: true
+#| echo: false
+library(tidyverse)
+library(tidyquant)
+stocks <- read_csv("data/stocks2022-25.csv")
+```
+
+```{r}
+stocks %>%
+ ggplot(aes(x = date, y = adjusted, color = symbol)) +
+ geom_line() +
+ theme_minimal() +
+ labs(title = "NVIDIA vs Broadcom Stock Prices",
+      y = "Adjusted Price",
+      color = "Stock")
+
+```
+
+This is not informative (we can only see what's going on for one of the series).
+
+How about this?
+
+```{r}
+stocks %>%
+ ggplot(aes(x = date, y = adjusted, color = symbol)) +
+ geom_line() +
+ facet_grid( ~ symbol)
+```
+
+Or perhaps this?
+
+```{r}
+stocks %>%
+ ggplot(aes(x = date, y = adjusted, color = symbol)) +
+ geom_line() +
+ facet_wrap( ~ symbol,scales="free_y")
+```
+
+
+Slightly better, but do we really care about price? Price movements - returns and losses - are probably more important to investors.
+
+So, calculate returns
+
+```{r}
+returns <- stocks %>%
+ group_by(symbol) %>%
+ tq_transmute(select = adjusted,
+              mutate_fun = periodReturn,
+              period = "daily",
+              col_rename = "ret") %>%
+ ungroup() %>%
+ pivot_wider(names_from = symbol,
+             values_from = ret) %>%
+ na.omit()
+```
+
+Calculate rolling correlations:
+
+```{r}
+returns$roll_cor <- zoo::rollapply(data = returns[, c("NVDA", "AVGO")],
+                              width = 30,
+                              FUN = function(x) cor(x[,1], x[,2]),
+                              by.column = FALSE,
+                              align = "right",
+                              fill = NA)
+
+returns$roll_corNVSP <- zoo::rollapply(data = returns[, c("NVDA", "^GSPC")],
+                                   width = 60,
+                                   FUN = function(x) cor(x[,1], x[,2]),
+                                   by.column = FALSE,
+                                   align = "right",
+                                   fill = NA)
+```
+
+30-Day Rolling Correlation of Daily Returns: NVIDIA vs Broadcom:
+
+```{r}
+returns %>%
+ filter(date >= "2022-04-01") %>%
+ggplot(aes(x = date, y = roll_cor)) +
+ geom_line(color = "blue") +
+ geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+ theme_minimal() +
+ labs(subtitle = "30-Day Rolling Correlation of Daily Returns: NVIDIA vs Broadcom",
+      title = "Do semiconductor industry giants move together?",
+      y = "Correlation Coefficient",
+      x = "Date") +
+ scale_y_continuous(limits = c(-.5, 1))
+```
+
+```{r}
+returns %>%
+ filter(date >= "2022-04-01") %>%
+ ggplot(aes(x = date, y = roll_corNVSP)) +
+ geom_line(color = "blue") +
+ geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+ theme_minimal() +
+ labs(subtitle = "60-Day Rolling Correlation of Daily Returns: NVIDIA vs SP500",
+      title = "Do semiconductor industry giants move together?",
+      y = "Correlation Coefficient",
+      x = "Date") +
+ scale_y_continuous(limits = c(-.5, 1))
+```
+
+Scatterplots of returns
+
+```{r}
+ggplot(returns, aes(x = NVDA, y = AVGO)) +
+ geom_point() +
+ geom_smooth(method = "lm") +
+ labs(title = "Scatterplot of Daily Returns",
+      x = "NVIDIA",
+      y = "Broadcom") +
+ geom_abline(intercept = 0, slope = 1, 
+             color = "red3",linetype=2,linewidth=1) 
+```
+
+```{r}
+ggplot(returns, aes(x = NVDA, y = AVGO)) +
+ geom_point() +
+ labs(title = "Scatterplot of Daily Returns",
+      x = "NVIDIA",
+      y = "Broadcom")
+```
+
+```{r}
+ggplot(returns, aes(x = `^GSPC`, y = AVGO)) +
+ geom_point() +
+ labs(title = "Scatterplot of Daily Returns",
+      x = "S&P500",
+      y = "Broadcom")
+```
+
+```{r}
+ggplot(returns, aes(x = `^GSPC`, y = NVDA)) +
+ geom_point() +
+ labs(title = "Scatterplot of Daily Returns",
+      x = "S&P500",
+      y = "NVIDIA")
+```
+
+Let's also look at correlation during different market conditions
+
+```{r}
+returns %>%
+ mutate(year = year(date)) %>%
+ group_by(year) %>%
+ summarize(correlation = cor(NVDA, AVGO)) %>%
+ print()
+```
+
+```{r}
+returns %>% mutate(ym = floor_date(date,"month")) %>%
+ group_by(ym) %>%
+ summarize(correlation = cor(NVDA, `^GSPC`)) %>%
+ ggplot(aes(x = ym, y = correlation)) +
+ geom_col()
+ 
 ```

@@ -208,7 +208,7 @@ data %>%
 
 ### Scatterplot of Party Ratings Against Each Other
 
-Plot Democrat ratings (`score_dems`) against Republican ratings (`score_reps`) to see whether respondents tend to agree (in spite of an anticipate "intercept shift")
+Plot Democrat ratings (`score_dems`) against Republican ratings (`score_reps`) to see whether respondents tend to agree (in spite of an anticipated "intercept shift")
 
 ```{r}
 fig_layer <- data %>%

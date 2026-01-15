@@ -5,7 +5,7 @@ editor_options:
 ---
 # Visualizing statistical models
 
-A more accurate title, of course, woudl be "visualizing *outputs* from statistical models".
+A more accurate title, of course, would be "visualizing *outputs* from statistical models".
 
 We'll be using this package to help us out:
 

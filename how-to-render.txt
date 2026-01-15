@@ -1,1 +1,104 @@
+# How to Render and Publish the DataViz Book
+
+This document explains how to make updates to the course website at:
+https://zilinskyjan.github.io/DataViz/
+
+## Branch Structure
+
+- `main` — Primary branch for editing source files (.qmd files)
+- `gh-pages` — Contains the built HTML files that GitHub Pages serves
+- `master` — Legacy branch (avoid using)
+- `temp` — Temporary/experimental branch
+
+## Workflow for Making Updates
+
+### Step 1: Edit on the `main` branch
+
+Make sure you are on the main branch before editing:
+
+```bash
+git checkout main
+git pull origin main
+```
+
+Edit your .qmd files as needed.
+
+### Step 2: Render the book locally
+
+```bash
+quarto render
+```
+
+This generates the HTML output in the `_book/` directory.
+
+### Step 3: Preview locally (optional)
+
+```bash
+quarto preview
+```
+
+This opens a local server so you can review changes before publishing.
+
+### Step 4: Commit your source changes to `main`
+
+```bash
+git add .
+git commit -m "Your descriptive commit message"
+git push origin main
+```
+
+### Step 5: Publish to GitHub Pages
+
+Option A — Using Quarto's built-in publish command (recommended):
+
+```bash
+quarto publish gh-pages
+```
+
+This command:
+1. Renders the book
+2. Switches to the gh-pages branch
+3. Copies the rendered files
+4. Commits and pushes to gh-pages
+5. Switches back to your working branch
+
+Option B — Manual deployment:
+
+```bash
+# After rendering on main, switch to gh-pages
+git checkout gh-pages
+
+# Copy the contents of _book/ to the root (or merge)
+# Then commit and push
+git add .
+git commit -m "Built site for gh-pages"
+git push origin gh-pages
+
+# Switch back to main
+git checkout main
+```
+
+## Quick Reference
+
+| Task | Command |
+|------|---------|
+| Check current branch | `git branch` |
+| Switch to main | `git checkout main` |
+| Render locally | `quarto render` |
+| Preview locally | `quarto preview` |
+| Publish to site | `quarto publish gh-pages` |
+
+## Troubleshooting
+
+- If `quarto publish` fails, ensure you have committed all changes first
+- If the site doesn't update, check GitHub Pages settings in the repository
+  (Settings > Pages > Source should be set to "gh-pages" branch)
+- Clear browser cache if you don't see changes immediately
+
+## For RevealJS Slides (separate from the book)
+
+To render a standalone RevealJS presentation:
+
+```bash
 quarto render slides.qmd --to revealjs --self-contained
+```

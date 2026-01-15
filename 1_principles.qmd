@@ -13,7 +13,7 @@ A frequent tradeoff can be thought of as **truthfulness** vs. simplicity.
 In other words, you will need to balance:
 
 -   Readability vs. "completeness"
--   Conciseness vs. an "attention-gabbing" potential
+-   Conciseness vs. an "attention-grabbing" potential
 -   Simplicity vs. other goals
 
 If you drop outliers, for example, your chart's readability will almost surely improve. But it could be less truthful.
@@ -48,7 +48,7 @@ inf2022 <- inf %>% filter(year==2022)
 econ2022 <- left_join(imf_wide2022,inf2022,by="country")
 ```
 
-You may agree that you should almost ever make graphs that look like this:
+You may agree that you should almost never make graphs that look like this:
 
 ```{r}
 #| echo: false
@@ -117,7 +117,7 @@ econ2022 %>%
   geom_vline(xintercept = 0,linetype=2,color="grey40")
 ```
 
-It turns out that whoever the wrote the code decided to just drop a row (and not display Norway). I that OK?
+It turns out that whoever wrote the code decided to just drop a row (and not display Norway). Is that OK?
 
 ```{r}
 #| echo: true
@@ -132,7 +132,7 @@ econ2022 %>% select(`Overall Balance`,country) %>%
 
 ## Example: Making scatterplots better
 
-Starting in 2021, inflation increased in many countries and became a source of serious concern for citizens and politicians. One set of substantive debates dealt with this set of questions: should governments be blamed for excessive spending (and borrowing)? Were fiscal decisions responsible for inflation? Here, we'll deal with one potential approach to designing visual exhibits which might faciliate some international comparisons.[^1_principles-1]
+Starting in 2021, inflation increased in many countries and became a source of serious concern for citizens and politicians. One set of substantive debates dealt with this set of questions: should governments be blamed for excessive spending (and borrowing)? Were fiscal decisions responsible for inflation? Here, we'll deal with one potential approach to designing visual exhibits which might facilitate some international comparisons.[^1_principles-1]
 
 [^1_principles-1]: But also remember that evidence of this kind can inform factual debates but it wouldn't settle the debate.
 
@@ -232,7 +232,7 @@ econ2022 %>%
         x="Overall budget balance (% of GDP)", y= "Inflation (%)")
 ```
 
-Or you can highlight a subset of subset of observations relevant for your analysis.
+Or you can highlight a subset of observations relevant for your analysis.
 
 Let's create a vector of country names:
 
@@ -288,13 +288,13 @@ econ2022 %>%
         x="Public spending (% of GDP)", y= "Inflation (%)") 
 ```
 
-This would seem to suggest that higher (government) spending is not necessarily associate with faster price growth.
+This would seem to suggest that higher (government) spending is not necessarily associated with faster price growth.
 
 To be sure, a more careful analysis here would require looking it **changes** in government expenditures.
 
 ## Inflation magnitudes
 
-Here a few ways to show how sharply inflation increased between 2021 in 2022 in most OECD countries:
+Here are a few ways to show how sharply inflation increased between 2021 and 2022 in most OECD countries:
 
 ### A basic dot plot
 
