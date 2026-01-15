@@ -243,6 +243,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./r-snippets-appendix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced R Tips and Tricks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./class-exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">More in-class exercises</span></a>
   </div>
@@ -343,7 +349,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">all_of</span>(x)) <span class="sc">%&gt;%</span> </span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>consp_Index2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 32,000 x 3
+<pre><code># A tibble: 32,000 × 3
    consp_Index2 name    value             
           &lt;dbl&gt; &lt;chr&gt;   &lt;dbl+lbl&gt;         
  1        0.938 nondark 0                 
@@ -356,7 +362,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8        0.938 manip4  5 [Strongly agree]
  9        0.938 attent1 4 [Agree]         
 10        0.938 attent2 3 [Neither]       
-# i 31,990 more rows</code></pre>
+# ℹ 31,990 more rows</code></pre>
 </div>
 </div>
 <p><code>pivot_longer()</code> transforms our data so that:</p>

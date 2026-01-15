@@ -243,6 +243,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./r-snippets-appendix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced R Tips and Tricks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./class-exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">More in-class exercises</span></a>
   </div>
@@ -360,7 +366,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Peek at the nested data frame</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>yg<span class="sc">$</span>data <span class="sc">%&gt;%</span> <span class="fu">tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 x 4
+<pre><code># A tibble: 6 × 4
   All$score $base $data     Democrat$score Republican$score Independent$score
       &lt;dbl&gt; &lt;int&gt; &lt;list&gt;             &lt;dbl&gt;            &lt;dbl&gt;             &lt;dbl&gt;
 1      20.6  1000 &lt;dbl [5]&gt;          -38.2            104.              37.3 
@@ -369,7 +375,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 4     -26.7  1000 &lt;dbl [5]&gt;         -123.              92.1             -3.53
 5     -34.8  1000 &lt;dbl [5]&gt;         -133.              99.1            -22.8 
 6      13.5  1000 &lt;dbl [5]&gt;          -54.3            110.              29.5 
-# i 6 more variables: Democrat$base &lt;int&gt;, $data &lt;list&gt;, Republican$base &lt;int&gt;,
+# ℹ 6 more variables: Democrat$base &lt;int&gt;, $data &lt;list&gt;, Republican$base &lt;int&gt;,
 #   $data &lt;list&gt;, Independent$base &lt;int&gt;, $data &lt;list&gt;</code></pre>
 </div>
 </div>
@@ -394,20 +400,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first few rows</span></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4,404 x 4
+<pre><code># A tibble: 4,404 × 4
    text                                              score score_dems score_reps
    &lt;chr&gt;                                             &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
- 1 Great honor to be headed to the Army-Navy game t~  20.6      -38.2      104. 
- 2 ....left and right, he then woke up from his dre~ -58.3     -140.        45.1
- 3 Watched Da Nang Dick Blumenthal on television sp~ -58.3     -140.        45.1
- 4 Very sad day &amp; night in Paris. Maybe it's time t~ -26.7     -123.        92.1
- 5 'This is collusion illusion, there is no smoking~ -34.8     -133.        99.1
- 6 ....I am thankful to both of these incredible me~  13.5      -54.3      110. 
- 7 I am pleased to announce my nomination of four-s~  13.5      -54.3      110. 
- 8 AFTER TWO YEARS AND MILLIONS OF PAGES OF DOCUMEN~ -39.6     -136.        78.2
- 9 The idea of a European Military didn't work out ~ -18.2     -109.        87.2
-10 The Paris Agreement isn't working out so well fo~ -42.2     -131.        69.6
-# i 4,394 more rows</code></pre>
+ 1 Great honor to be headed to the Army-Navy game t…  20.6      -38.2      104. 
+ 2 ....left and right, he then woke up from his dre… -58.3     -140.        45.1
+ 3 Watched Da Nang Dick Blumenthal on television sp… -58.3     -140.        45.1
+ 4 Very sad day &amp; night in Paris. Maybe it's time t… -26.7     -123.        92.1
+ 5 'This is collusion illusion, there is no smoking… -34.8     -133.        99.1
+ 6 ....I am thankful to both of these incredible me…  13.5      -54.3      110. 
+ 7 I am pleased to announce my nomination of four-s…  13.5      -54.3      110. 
+ 8 AFTER TWO YEARS AND MILLIONS OF PAGES OF DOCUMEN… -39.6     -136.        78.2
+ 9 The idea of a European Military didn't work out … -18.2     -109.        87.2
+10 The Paris Agreement isn't working out so well fo… -42.2     -131.        69.6
+# ℹ 4,394 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -450,22 +456,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note this will not influence the original data, or subsequent plots</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(score) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 x 4
+<pre><code># A tibble: 6 × 4
   text                                               score score_dems score_reps
   &lt;chr&gt;                                              &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
-1 I know Mark Cuban well. He backed me big-time but~ -81.4      -134.     -18.0 
-2 I heard poorly rated @Morning_Joe speaks badly of~ -77.5      -143.       6.39
-3 ...to Mar-a-Lago 3 nights in a row around New Yea~ -77.5      -143.       6.39
-4 Crazy Joe Scarborough and dumb as a rock Mika are~ -76.7      -150.      27.7 
-5 Lebron James was just interviewed by the dumbest ~ -72.3      -168.      45.8 
-6 Just watched Wacky Tom Steyer, who I have not see~ -71.7      -148.      45.9 </code></pre>
+1 I know Mark Cuban well. He backed me big-time but… -81.4      -134.     -18.0 
+2 I heard poorly rated @Morning_Joe speaks badly of… -77.5      -143.       6.39
+3 ...to Mar-a-Lago 3 nights in a row around New Yea… -77.5      -143.       6.39
+4 Crazy Joe Scarborough and dumb as a rock Mika are… -76.7      -150.      27.7 
+5 Lebron James was just interviewed by the dumbest … -72.3      -168.      45.8 
+6 Just watched Wacky Tom Steyer, who I have not see… -71.7      -148.      45.9 </code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">summarize</span>(<span class="at">lowest =</span> <span class="fu">min</span>(score),<span class="at">highest=</span><span class="fu">max</span>(score))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 x 2
+<pre><code># A tibble: 1 × 2
   lowest highest
    &lt;dbl&gt;   &lt;dbl&gt;
 1  -81.4    82.9</code></pre>
@@ -517,7 +523,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Republicans =</span> <span class="fu">mean</span>(score_reps, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 x 2
+<pre><code># A tibble: 1 × 2
   Democrats Republicans
       &lt;dbl&gt;       &lt;dbl&gt;
 1     -93.2        101.</code></pre>
@@ -535,7 +541,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">names_to =</span> <span class="st">"party"</span>, </span>
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">values_to =</span> <span class="st">"mean_score"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 x 2
+<pre><code># A tibble: 2 × 2
   party       mean_score
   &lt;chr&gt;            &lt;dbl&gt;
 1 Democrats        -93.2
@@ -627,20 +633,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"score"</span></span>
 <span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  ) )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 13,212 x 3
+<pre><code># A tibble: 13,212 × 3
    text                                                             party  score
    &lt;chr&gt;                                                            &lt;chr&gt;  &lt;dbl&gt;
- 1 Great honor to be headed to the Army-Navy game today. Will be t~ score   20.6
- 2 Great honor to be headed to the Army-Navy game today. Will be t~ scor~  -38.2
- 3 Great honor to be headed to the Army-Navy game today. Will be t~ scor~  104. 
- 4 ....left and right, he then woke up from his dream screaming th~ score  -58.3
- 5 ....left and right, he then woke up from his dream screaming th~ scor~ -140. 
- 6 ....left and right, he then woke up from his dream screaming th~ scor~   45.1
- 7 Watched Da Nang Dick Blumenthal on television spewing facts alm~ score  -58.3
- 8 Watched Da Nang Dick Blumenthal on television spewing facts alm~ scor~ -140. 
- 9 Watched Da Nang Dick Blumenthal on television spewing facts alm~ scor~   45.1
-10 Very sad day &amp; night in Paris. Maybe it's time to end the ridic~ score  -26.7
-# i 13,202 more rows</code></pre>
+ 1 Great honor to be headed to the Army-Navy game today. Will be t… score   20.6
+ 2 Great honor to be headed to the Army-Navy game today. Will be t… scor…  -38.2
+ 3 Great honor to be headed to the Army-Navy game today. Will be t… scor…  104. 
+ 4 ....left and right, he then woke up from his dream screaming th… score  -58.3
+ 5 ....left and right, he then woke up from his dream screaming th… scor… -140. 
+ 6 ....left and right, he then woke up from his dream screaming th… scor…   45.1
+ 7 Watched Da Nang Dick Blumenthal on television spewing facts alm… score  -58.3
+ 8 Watched Da Nang Dick Blumenthal on television spewing facts alm… scor… -140. 
+ 9 Watched Da Nang Dick Blumenthal on television spewing facts alm… scor…   45.1
+10 Very sad day &amp; night in Paris. Maybe it's time to end the ridic… score  -26.7
+# ℹ 13,202 more rows</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -946,7 +952,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_reps =</span> <span class="fu">mean</span>(score_reps, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 x 2
+<pre><code># A tibble: 1 × 2
   mean_dems mean_reps
       &lt;dbl&gt;     &lt;dbl&gt;
 1     -127.      90.8</code></pre>
@@ -964,7 +970,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_reps =</span> <span class="fu">mean</span>(score_reps, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 x 3
+<pre><code># A tibble: 2 × 3
   obama mean_dems mean_reps
   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
 1     0     -91.6     101. 

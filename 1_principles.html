@@ -243,6 +243,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./r-snippets-appendix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced R Tips and Tricks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./class-exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">More in-class exercises</span></a>
   </div>
@@ -404,7 +410,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="st">`</span><span class="at">Overall Balance</span><span class="st">`</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 36 x 2
+<pre><code># A tibble: 36 × 2
    `Overall Balance` country    
                &lt;dbl&gt; &lt;chr&gt;      
  1            22.4   Norway     
@@ -417,7 +423,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8             0.134 Israel     
  9            -0.242 Luxembourg 
 10            -0.700 Canada     
-# i 26 more rows</code></pre>
+# ℹ 26 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -441,13 +447,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(imf,<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 x 12
+<pre><code># A tibble: 3 × 12
   variable       country `2014` `2015` `2016` `2017` `2018` `2019` `2020` `2021`
   &lt;chr&gt;          &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-1 General Gover~ Austra~   36.9   37.4   37.4   36.9   37.0   39.1   44.6   42.2
-2 General Gover~ Austria   52.3   51.0   50.1   49.3   48.8   48.6   56.7   56.0
-3 General Gover~ Belgium   55.6   53.7   53.1   52.0   52.3   51.9   58.9   55.5
-# i 2 more variables: `2022` &lt;dbl&gt;, `2023` &lt;dbl&gt;</code></pre>
+1 General Gover… Austra…   36.9   37.4   37.4   36.9   37.0   39.1   44.6   42.2
+2 General Gover… Austria   52.3   51.0   50.1   49.3   48.8   48.6   56.7   56.0
+3 General Gover… Belgium   55.6   53.7   53.1   52.0   52.3   51.9   58.9   55.5
+# ℹ 2 more variables: `2022` &lt;dbl&gt;, `2023` &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <p>If we wanted each row to correspond to one country-year observation, we would run this snippet:</p>
@@ -455,7 +461,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>imf <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="st">`</span><span class="at">2014</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2023</span><span class="st">`</span>,</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">names_to =</span> <span class="st">'year'</span>)  <span class="co"># this part is not necessary but it's useful</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,080 x 4
+<pre><code># A tibble: 1,080 × 4
    variable                       country   year  value
    &lt;chr&gt;                          &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;
  1 General Government Expenditure Australia 2014   36.9
@@ -468,7 +474,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 General Government Expenditure Australia 2021   42.2
  9 General Government Expenditure Australia 2022   38.4
 10 General Government Expenditure Australia 2023   39.0
-# i 1,070 more rows</code></pre>
+# ℹ 1,070 more rows</code></pre>
 </div>
 </div>
 <p>But we’ll focus here on year 2022, so let’s simply create 3 informative columns:</p>
@@ -480,8 +486,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>imf_wide2022</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 36 x 4
-   country   General Government Expendit~1 `Overall Balance` `Gross public debt`
+<pre><code># A tibble: 36 × 4
+   country   General Government Expendit…¹ `Overall Balance` `Gross public debt`
    &lt;chr&gt;                             &lt;dbl&gt;             &lt;dbl&gt;               &lt;dbl&gt;
  1 Australia                          38.4            -3.30                 55.7
  2 Austria                            52.4            -3.31                 77.8
@@ -493,8 +499,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 Denmark                            49.2             2.48                 29.7
  9 Estonia                            40.2            -1.15                 17.2
 10 Finland                            54.0            -1.86                 74.8
-# i 26 more rows
-# i abbreviated name: 1: `General Government Expenditure`</code></pre>
+# ℹ 26 more rows
+# ℹ abbreviated name: ¹​`General Government Expenditure`</code></pre>
 </div>
 </div>
 <p>Finally, we want to add inflation data to our fiscal data:</p>
