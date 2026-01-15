@@ -11,6 +11,8 @@ keynote/
 # Quarto build outputs
 _book/
 *_files/
+# Exception: allow _files directories in slides/ for RevealJS presentations
+!slides/*_files/
 *.pdf
 
 # OS files
