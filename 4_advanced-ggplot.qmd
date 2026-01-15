@@ -1,11 +1,19 @@
 # Advanced ggplot
 
+This chapter demonstrates how to build a polished, information-dense visualization using ggplot2's layered grammar of graphics. We'll create a **ridgeline plot** that reveals the relationship between psychological traits and conspiracy thinking.
+
+## Setup and Data
+
 ```{r}
 library(tidyverse)
 source("data/ajps2021/0_ajps_recode.R")
 ```
 
-Grab a subset of variables (i.e. psychological measurements), and show the distribution of conspiracy thinking when respondents report a particular trait:
+The data comes from a study on conspiracy beliefs, containing survey responses where participants' psychological traits (incl. the "dark triad"---narcissism, Machiavellianism, and sociopathy---plus argumentativeness) can be estimated on the basis of questions that participants answered about themselves. 
+
+## Selecting Variables for Analysis
+
+We begin by selecting survey items that measure psychological traits. Each item asks respondents to rate their agreement with a statement on a scale:
 
 ```{r}
 x <- c("argue1", "argue2", "argue3", "manip1", "manip2", "manip3", "manip4", 
@@ -16,6 +24,19 @@ x <- c("argue1", "argue2", "argue3", "manip1", "manip2", "manip3", "manip4",
 d1$nondark <- ifelse(d1$manipulate2 <=.2 & d1$sociopathy2 <= .2 & d1$attend2 <=.2, 1,0)
 
 ```
+
+We also create a "nondark" indicator that flags respondents who score low on multiple dark triad dimensions, giving us a baseline comparison group.
+
+## The Ridgeline Plot
+
+Ridgeline plots (also called "joy plots") stack multiple density distributions vertically, making it easy to compare distributions across groups. Here, each ridge represents respondents who agreed with a particular psychological statement, and the x-axis shows their distribution of conspiracy thinking scores.
+
+This visualization works well because it:
+
+- **Shows distributions, not just averages**: We can see the full shape of conspiracy thinking for each group
+- **Enables comparison**: Stacking the ridges vertically makes patterns immediately visible
+- **Uses color strategically**: Grouping items by their parent concept (Narcissism, Machiavellianism, etc.) adds a second layer of information without clutter
+- **Orders meaningfully**: Sorting by average conspiracy thinking puts the most revealing patterns at the extremes
 
 ```{r}
 #| echo: false
@@ -69,7 +90,9 @@ d1 %>% select(consp_Index2,
   scale_x_continuous(limits = c(0,1))
 ```
 
-The most important step is the following:
+## Key Technique: Reshaping Data with `pivot_longer()`
+
+The most important step in making this visualization work is **reshaping the data from wide to long format**. In the original dataset, each psychological item is its own column. But ggplot2 works best when we have one observation per row, with a column indicating which variable we're looking at.
 
 ```{r}
 d1 %>% select(consp_Index2,
@@ -78,7 +101,17 @@ d1 %>% select(consp_Index2,
   pivot_longer(cols = -consp_Index2)
 ```
 
-And the full plot can be generated with the following code:
+`pivot_longer()` transforms our data so that:
+
+- Each respondent now has multiple rows (one per survey item they answered)
+- The `name` column contains the variable name (e.g., "argue1", "manip2")
+- The `value` column contains their response to that item
+
+This "tidy" structure is what allows us to facet or group by the survey item---ggplot can now treat each item as a separate category on the y-axis.
+
+## Building the Complete Visualization
+
+The full pipeline combines several ggplot techniques to create a polished chart:
 
 ```{r}
 #| echo: true
@@ -130,7 +163,19 @@ d1 %>% select(consp_Index2,
   scale_x_continuous(limits = c(0,1))
 ```
 
+### What each step accomplishes
 
-<hr>
+1. **Data selection and reshaping**: `select()` + `pivot_longer()` gives us one row per person-item combination
 
-\[See the lecture notes on the course website for additional code\]
+2. **Creating readable labels**: The `case_when()` inside `mutate()` replaces cryptic variable names (like "manip1") with the actual survey text ("I tend to manipulate others to get my way"). This makes the chart self-documenting.
+
+3. **Adding concept groupings**: A second `case_when()` assigns each item to its parent psychological concept. This becomes our fill aesthetic for color-coding.
+
+4. **Filtering to relevant subgroups**: We only show respondents who *agreed* with each statement (`agree == 1`), letting us ask: "Among people who say they manipulate others, what does their conspiracy thinking look like?"
+
+5. **Smart ordering**: `fct_reorder(name2, avg_cons)` sorts the y-axis by average conspiracy thinking, so patterns emerge naturally---the traits most associated with conspiracy thinking appear at one end.
+
+6. **Polished aesthetics**: `theme_bw()` provides a clean background, `see::scale_fill_social()` offers a friendly palette, and `labs()` adds informative titles.
+
+The result is a chart that tells a story: psychological traits associated with the "dark triad" tend to cluster at higher levels of conspiracy thinking, while those low on all dark traits cluster are less conspiratorial. 
+
