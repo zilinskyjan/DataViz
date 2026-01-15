@@ -1,13 +1,26 @@
-.Rproj.user
+# Ignore keynote folder
+keynote/
+
+# Common R/RStudio files
 .Rhistory
+.Rapp.history
 .RData
 .Ruserdata
+*.Rproj.user
+
+# Quarto build outputs
+_book/
+*_files/
+*.html
+*.pdf
+
+# OS files
 .DS_Store
-<<<<<<< HEAD
+Thumbs.db
+
+# Environment files
+.Renviron
+.env
 
 /.quarto/
-=======
-/.quarto/
-/_site/
-/_book/
->>>>>>> 7fb20a5 (f1)
+**/*.quarto_ipynb

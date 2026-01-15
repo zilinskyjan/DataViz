@@ -24,7 +24,7 @@ theme_update(text = element_text(size=13),
 )
              
 # READ IN RECODED DATA
-a <- readRDS("data_nationscape2019/Nationscape_first10waves.rds")
+a <- readRDS("data/nationscape/Nationscape_first10waves.rds")
 ```
 
 ## 

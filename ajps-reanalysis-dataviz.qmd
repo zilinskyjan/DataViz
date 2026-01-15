@@ -22,7 +22,7 @@ theme_update(text = element_text(size=13),
 )
              
 # READ IN RECODED DATA
-source("data_AJPS2021/0_ajps_recode.R")
+source("data/ajps2021/0_ajps_recode.R")
 ```
 
 ## 

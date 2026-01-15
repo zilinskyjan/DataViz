@@ -14,14 +14,14 @@ getPCP <- function(x) {
 }
 
 # 2019 study [had data on social media use but no Covid theory]
-d1 <- read_dta("data_AJPS2021/Study1.dta")
+d1 <- read_dta("data/ajps2021/Study1.dta")
 
 # The 2020 study is representative; representative of 2010 US Census records 
 # on age, race, sex, income, and education. The survey was conducted October 8-21, 2020.
-d2 <- read_dta("data_AJPS2021/Study2.dta")
+d2 <- read_dta("data/ajps2021/Study2.dta")
 
 # And a dataset with many populism items:
-d3 <- read_dta("data_AJPS2021/Replication.dta")
+d3 <- read_dta("data/ajps2021/Replication.dta")
 d3$consp_Index <- (d3$con1 + d3$con2 + d3$con3 + d3$con4)/4
 d3$pop_Index <- (d3$pop1 + d3$pop2 + d3$pop3 + d3$pop4 + d3$pop5 + d3$pop6 + d3$pop7 + d3$pop8 + d3$pop9)/9
 d3 <- d3 %>% mutate(pid3 = case_when(

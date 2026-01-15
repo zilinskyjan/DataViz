@@ -11,8 +11,8 @@ editor_options:
 
 ```{r}
 library(tidyverse)
-D <- read_csv("data_macro/inflation_WDI.csv")
-oecd <- read_csv("data_macro/oced_codes.csv")
+D <- read_csv("data/macro/inflation_WDI.csv")
+oecd <- read_csv("data/macro/oced_codes.csv")
 
 #biggerText <- jzPack::biggerText
 

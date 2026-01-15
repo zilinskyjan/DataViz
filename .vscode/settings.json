@@ -1,0 +1,24 @@
+{
+  // Associate QMD files with markdown language
+  "files.associations": {
+    "*.qmd": "markdown"
+  },
+  
+  // Disable markdown preview on open
+  "markdown.preview.openMarkdownLinks": "off",
+  
+  // Always open markdown files in editor, not preview
+  "workbench.editorAssociations": {
+    "*.qmd": "default"
+  },
+  
+  // Disable automatic preview for markdown
+  "markdown.preview.breaks": false,
+  
+  // Open markdown files in text editor by default
+  "markdown.preview.openPreviewKeybindings": [],
+  
+  // Disable Quarto extension visual editor (if installed)
+  "quarto.editor": "source",
+  "quarto.preview": false
+}

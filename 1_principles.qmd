@@ -38,12 +38,12 @@ If you label a subset of your observations, then arguably some information "is l
 #| code-summary: "Load the data"
 library(tidyverse)
 # Get fiscal data
-imf <- read_csv("data_macro/imf-fiscalmonitor-apr2023.csv")
+imf <- read_csv("data/macro/imf-fiscalmonitor-apr2023.csv")
 # Reformat data to wide and keep only the latest year
 imf_wide2022 <- imf %>% select(variable,country,`2022`) %>%
   pivot_wider(names_from = variable, values_from = `2022`)
 # Merge in inflation data:
-inf <- read_csv("data_macro/inflation_WDI.csv")
+inf <- read_csv("data/macro/inflation_WDI.csv")
 inf2022 <- inf %>% filter(year==2022)
 econ2022 <- left_join(imf_wide2022,inf2022,by="country")
 ```
@@ -136,14 +136,14 @@ Starting in 2021, inflation increased in many countries and became a source of s
 
 [^1_principles-1]: But also remember that evidence of this kind can inform factual debates but it wouldn't settle the debate.
 
-Let's get some [data](https://github.com/zilinskyjan/DataViz/tree/main/data_macro) (available via the Github repo)
+Let's get some [data](https://github.com/zilinskyjan/DataViz/tree/main/data/macro) (available via the Github repo)
 
 ```{r}
 #| echo: true
 #| eval: false
 
 library(tidyverse)
-imf <- read_csv("https://raw.githubusercontent.com/zilinskyjan/DataViz/main/data_macro/imf-fiscalmonitor-apr2023.csv")
+imf <- read_csv("https://raw.githubusercontent.com/zilinskyjan/DataViz/main/data/macro/imf-fiscalmonitor-apr2023.csv")
 ```
 
 
@@ -151,7 +151,7 @@ imf <- read_csv("https://raw.githubusercontent.com/zilinskyjan/DataViz/main/data
 #| echo: false
 #| eval: true
 # Get fiscal data
-imf <- read_csv("data_macro/imf-fiscalmonitor-apr2023.csv")
+imf <- read_csv("data/macro/imf-fiscalmonitor-apr2023.csv")
 ```
 
 The following variables are available, all expressed as percentages of GDP:
@@ -189,7 +189,7 @@ Finally, we want to add inflation data to our fiscal data:
 
 ```{r}
 # Merge in inflation data:
-inf <- read_csv("data_macro/inflation_WDI.csv")
+inf <- read_csv("data/macro/inflation_WDI.csv")
 inf2022 <- inf %>% filter(year==2022)
 
 econ2022 <- left_join(imf_wide2022,inf2022,by="country")

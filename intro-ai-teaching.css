@@ -1,0 +1,123 @@
+/* Custom styling for inline notes */
+.note {
+  font-size: 0.75em;
+  color: #888888;
+  font-weight: normal;
+  margin-left: 0.3em;
+}
+
+/* Ensure list items with notes display correctly */
+.reveal ul li {
+  line-height: 1.6;
+}
+
+/* Style for the main bullet text (when using bold) */
+.reveal ul li strong {
+  font-weight: 600;
+}
+
+/* Slide title styling */
+.reveal h2 {
+  font-weight: 500;
+}
+
+/* ============================================
+   VERTICAL LAYOUT & SPACING
+   ============================================ */
+
+/* Base: All slides use flexbox for vertical layout */
+.reveal .slides section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+/* ============================================
+   SLIDES WITHOUT FRAGMENTS: Use top margin spacing
+   ============================================ */
+
+/* For slides with 1-3 bullet points (no fragments), add consistent spacing */
+.reveal .slides section:not(:has(.fragment)):has(ul li:nth-child(1):nth-last-child(1)) ul,
+.reveal .slides section:not(:has(.fragment)):has(ul li:nth-child(1):nth-last-child(2)) ul,
+.reveal .slides section:not(:has(.fragment)):has(ul li:nth-child(1):nth-last-child(3)) ul {
+  margin-top: 3em;
+}
+
+/* For text-only slides without fragments */
+.reveal .slides section:not(:has(.fragment)):has(h2 + p) h2 + p {
+  margin-top: 3em;
+}
+
+/* ============================================
+   SLIDES WITH FRAGMENTS: Use vertical centering
+   (Safer - won't push fragments off the bottom)
+   ============================================ */
+
+/* Slides with fragments: vertically center content */
+.reveal .slides section:has(.fragment) {
+  justify-content: center;
+}
+
+/* ============================================
+   EXPLICIT CLASSES FOR MANUAL CONTROL
+   ============================================ */
+
+/* .spaced class: add spacing (use only on slides without fragments) */
+.reveal .slides section.spaced:not(:has(.fragment)) h2 + * {
+  margin-top: 3em;
+}
+
+/* .spaced class with fragments: use centering instead */
+.reveal .slides section.spaced:has(.fragment) {
+  justify-content: center;
+}
+
+/* .center class: always vertically center */
+.reveal .slides section.center {
+  justify-content: center;
+}
+
+/* Center slides with single callout */
+.reveal .slides section:has(h2 + .callout-note:last-child) {
+  justify-content: center;
+}
+
+/* ============================================
+   HIGHLIGHT-LAST: Focus on current item
+   Previous items are grey, current is highlighted
+   ============================================ */
+
+.highlight-last li {
+  color: #888888;
+}
+
+.highlight-last li.current-fragment {
+  color: #5500ff;
+}
+
+/* ============================================
+   TWO-COLUMN LAYOUT: Text + Image/Chart
+   Left side for text, right side for visual
+   ============================================ */
+
+.columns {
+  display: flex !important;
+  align-items: center !important;
+  gap: 2rem !important;
+  height: 100% !important;
+}
+
+.column-left {
+  flex: 1.5 !important;
+}
+
+.column-right {
+  flex: 1 !important;
+}
+
+/* Larger text variant for right column */
+.column-right.large-text {
+  font-size: 2.5rem !important;
+  line-height: 1.4 !important;
+}

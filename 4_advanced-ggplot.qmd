@@ -2,7 +2,7 @@
 
 ```{r}
 library(tidyverse)
-source("data_AJPS2021/0_ajps_recode.R")
+source("data/ajps2021/0_ajps_recode.R")
 ```
 
 Grab a subset of variables (i.e. psychological measurements), and show the distribution of conspiracy thinking when respondents report a particular trait:

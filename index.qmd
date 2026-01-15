@@ -7,7 +7,11 @@ Creating effective visualizations of social and political data can help you disc
 
 If I had to compress the content of this course into just three lessons, I would say this:
 
-## Lesson 1: Think of output from statistical models as data. Summarize it visually.
+## Lesson 1: The first chart you produce is your "draft zero".
+
+Iterate and create reasonably clear and self-contained visual exhibits.
+
+## Lesson 2: Think of output from statistical models as data. Summarize it visually.
 
 There is a lot we can do after extracting relevant information from statistical models. Start asking yourself questions similar to these:
 
@@ -15,19 +19,17 @@ There is a lot we can do after extracting relevant information from statistical 
 -   How stable are coefficients from linear models across specifications?
 -   What do we lose/gain when we display aggregates (e.g. average marginal effects) rather than individual data-points?
 
-## Lesson 2: The first chart you produce is your "draft zero".
-
-Iterate and create reasonably clear and self-contained visual exhibits.
 
 ## Lesson 3: Just because you have a tool (R package / R skills) in your hands, doesn't mean you have to use it.
 
 Sometimes I show students a picture with a sign "No juggling of machetes". After reading that sign, does anyone feel tempted to do what they are asked not to do? Maybe.
 
-<!-- ![](img/machete.png){fig-alt="Temptations"} -->
+<!-- ![](images/machete.png){fig-alt="Temptations"} -->
 
 But even when we have the skills to do certain things, we should only be applying our skills when appropriate.
 
-![](images/machete-0.png)
+<!-- ![](images/machete-0.png) -->
+
 ![](images/machete-1.png)
 
 <hr>
@@ -38,12 +40,14 @@ After taking this course, students will be expected to be able to present real d
 
 We will be graphing various types of evidence including:
 
-```         
-- macro-economic data
-- public opinion data
-- summaries of statistical models
-- quantitative representations of text (e.g. content of social media post and the accompanying metadata)
-```
+- Macroeconomic indicators (inflation, spending, debt, deficits)
+- Public opinion surveys (toplines, cross-tabs, weighted estimates)
+- Summaries of statistical models (coefficients, predictions, uncertainty)
+- Quantitative representations of text (news headlines, social media metadata)
+- Health and demographic indicators (e.g., life expectancy)
+- Financial time series (stock prices and returns)
+
+If you want to browse datasets up front, see `datasets.qmd` for links and short descriptions.
 
 ## Course outline
 
