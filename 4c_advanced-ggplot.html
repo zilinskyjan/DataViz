@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Typology of charts – Data Visualization with R and ggplot</title>
+<title>8&nbsp; Advanced ggplot – Data Visualization with R and ggplot</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +65,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./datasets.html" rel="next">
-<link href="./5_visualizing-models.html" rel="prev">
+<link href="./5_visualizing-models.html" rel="next">
+<link href="./4b_heatmaps-ridgelines.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -83,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./typology.html">Resources</a></li><li class="breadcrumb-item"><a href="./typology.html">Typology of charts</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./4c_advanced-ggplot.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -158,7 +193,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4c_advanced-ggplot.html" class="sidebar-item-text sidebar-link">
+  <a href="./4c_advanced-ggplot.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
   </div>
 </li>
@@ -179,7 +214,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./typology.html" class="sidebar-item-text sidebar-link active">
+  <a href="./typology.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Typology of charts</span></a>
   </div>
 </li>
@@ -236,33 +271,23 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#bee-swarm-plots" id="toc-bee-swarm-plots" class="nav-link active" data-scroll-target="#bee-swarm-plots"><strong>Bee swarm plots</strong></a></li>
-  <li><a href="#grouped-bar-chart" id="toc-grouped-bar-chart" class="nav-link" data-scroll-target="#grouped-bar-chart">Grouped bar chart</a></li>
-  <li><a href="#density-plot" id="toc-density-plot" class="nav-link" data-scroll-target="#density-plot">Density plot</a></li>
-  <li><a href="#joyplot-or-ridgeplot" id="toc-joyplot-or-ridgeplot" class="nav-link" data-scroll-target="#joyplot-or-ridgeplot">Joyplot or ridgeplot</a></li>
-  <li><a href="#heatmap" id="toc-heatmap" class="nav-link" data-scroll-target="#heatmap">Heatmap</a></li>
-  <li><a href="#maps" id="toc-maps" class="nav-link" data-scroll-target="#maps">Maps</a></li>
-  <li><a href="#histograms" id="toc-histograms" class="nav-link" data-scroll-target="#histograms">Histograms</a></li>
-  <li><a href="#maps-with-2-dimensional-color-coding" id="toc-maps-with-2-dimensional-color-coding" class="nav-link" data-scroll-target="#maps-with-2-dimensional-color-coding">Maps with 2-dimensional color-coding:</a></li>
-  <li><a href="#cartogram" id="toc-cartogram" class="nav-link" data-scroll-target="#cartogram">Cartogram</a></li>
-  <li><a href="#cartogram-or-a-heatmap" id="toc-cartogram-or-a-heatmap" class="nav-link" data-scroll-target="#cartogram-or-a-heatmap">Cartogram or a heatmap?</a></li>
-  <li><a href="#boxplots" id="toc-boxplots" class="nav-link" data-scroll-target="#boxplots">Boxplots</a></li>
-  <li><a href="#types-of-bar-charts" id="toc-types-of-bar-charts" class="nav-link" data-scroll-target="#types-of-bar-charts">Types of bar charts</a></li>
-  <li><a href="#time-series-plots" id="toc-time-series-plots" class="nav-link" data-scroll-target="#time-series-plots">Time series plots</a>
+  <li><a href="#setup-and-data" id="toc-setup-and-data" class="nav-link active" data-scroll-target="#setup-and-data"><span class="header-section-number">8.1</span> Setup and Data</a></li>
+  <li><a href="#selecting-variables-for-analysis" id="toc-selecting-variables-for-analysis" class="nav-link" data-scroll-target="#selecting-variables-for-analysis"><span class="header-section-number">8.2</span> Selecting Variables for Analysis</a></li>
+  <li><a href="#the-ridgeline-plot" id="toc-the-ridgeline-plot" class="nav-link" data-scroll-target="#the-ridgeline-plot"><span class="header-section-number">8.3</span> The Ridgeline Plot</a></li>
+  <li><a href="#key-technique-reshaping-data-with-pivot_longer" id="toc-key-technique-reshaping-data-with-pivot_longer" class="nav-link" data-scroll-target="#key-technique-reshaping-data-with-pivot_longer"><span class="header-section-number">8.4</span> Key Technique: Reshaping Data with <code>pivot_longer()</code></a></li>
+  <li><a href="#building-the-complete-visualization" id="toc-building-the-complete-visualization" class="nav-link" data-scroll-target="#building-the-complete-visualization"><span class="header-section-number">8.5</span> Building the Complete Visualization</a>
   <ul class="collapse">
-  <li><a href="#standard-line-graphs" id="toc-standard-line-graphs" class="nav-link" data-scroll-target="#standard-line-graphs">Standard line graphs</a></li>
-  <li><a href="#emphasis-on-relative-changes" id="toc-emphasis-on-relative-changes" class="nav-link" data-scroll-target="#emphasis-on-relative-changes">Emphasis on relative changes</a></li>
+  <li><a href="#what-each-step-accomplishes" id="toc-what-each-step-accomplishes" class="nav-link" data-scroll-target="#what-each-step-accomplishes"><span class="header-section-number">8.5.1</span> What each step accomplishes</a></li>
   </ul></li>
-  <li><a href="#area-chart" id="toc-area-chart" class="nav-link" data-scroll-target="#area-chart">Area chart</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./typology.html">Resources</a></li><li class="breadcrumb-item"><a href="./typology.html">Typology of charts</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Typology of charts</h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></h1>
 </div>
 
 
@@ -279,82 +304,145 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="bee-swarm-plots" class="level2">
-<h2 class="anchored" data-anchor-id="bee-swarm-plots"><strong>Bee swarm plots</strong></h2>
-<p><img src="images/B6AE892C-B5CA-4D39-AB63-A2CBD027D599.png" class="img-fluid"></p>
-<p>Example 2:</p>
-<p><img src="images/raising_doubts.png" class="img-fluid"></p>
-<p>Source: Annie Karni, Malika Khurana and Stuart A. Thompson. <a href="https://www.nytimes.com/interactive/2022/11/05/us/politics/pelosi-attack-misinfo-republican-politicians.html">How Republicans Fed a Misinformation Loop About the Pelosi Attac</a>k.</p>
+<p>This chapter demonstrates how to build a polished, information-dense visualization using ggplot2’s layered grammar of graphics. We’ll create a <strong>ridgeline plot</strong> that reveals the relationship between psychological traits and conspiracy thinking.</p>
+<section id="setup-and-data" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="setup-and-data"><span class="header-section-number">8.1</span> Setup and Data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"data/ajps2021/0_ajps_recode.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The data comes from a study on conspiracy beliefs, containing survey responses where participants’ psychological traits (incl.&nbsp;the “dark triad”—narcissism, Machiavellianism, and sociopathy—plus argumentativeness) can be estimated on the basis of questions that participants answered about themselves.</p>
 </section>
-<section id="grouped-bar-chart" class="level2">
-<h2 class="anchored" data-anchor-id="grouped-bar-chart">Grouped bar chart</h2>
-<p><img src="images/image.png" class="img-fluid"></p>
-<p>Chart: <code>@janzilinsky</code>; Data: Thermometer ratings from VOTER Survey.</p>
+<section id="selecting-variables-for-analysis" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="selecting-variables-for-analysis"><span class="header-section-number">8.2</span> Selecting Variables for Analysis</h2>
+<p>We begin by selecting survey items that measure psychological traits. Each item asks respondents to rate their agreement with a statement on a scale:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"argue1"</span>, <span class="st">"argue2"</span>, <span class="st">"argue3"</span>, <span class="st">"manip1"</span>, <span class="st">"manip2"</span>, <span class="st">"manip3"</span>, <span class="st">"manip4"</span>, </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>       <span class="st">"attent1"</span>, <span class="st">"attent2"</span>, <span class="st">"attent3"</span>, <span class="st">"attent4"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>       <span class="st">"insens1"</span>,<span class="st">"insens2"</span>,<span class="st">"insens3"</span>,<span class="st">"insens4"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#d1$nondark &lt;- ifelse(d1$insens3 &lt;=2 &amp; d1$manip4 &lt;=2 &amp; d1$insens1&lt;=2, 1,0)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>d1<span class="sc">$</span>nondark <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(d1<span class="sc">$</span>manipulate2 <span class="sc">&lt;=</span>.<span class="dv">2</span> <span class="sc">&amp;</span> d1<span class="sc">$</span>sociopathy2 <span class="sc">&lt;=</span> .<span class="dv">2</span> <span class="sc">&amp;</span> d1<span class="sc">$</span>attend2 <span class="sc">&lt;=</span>.<span class="dv">2</span>, <span class="dv">1</span>,<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We also create a “nondark” indicator that flags respondents who score low on multiple dark triad dimensions, giving us a baseline comparison group.</p>
 </section>
-<section id="density-plot" class="level2">
-<h2 class="anchored" data-anchor-id="density-plot">Density plot</h2>
-<p><img src="images/density.png" class="img-fluid"></p>
-<p>Source: <a href="https://journals.sagepub.com/doi/full/10.1177/2158244019832705">Eady et al.&nbsp;(2019)</a></p>
+<section id="the-ridgeline-plot" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="the-ridgeline-plot"><span class="header-section-number">8.3</span> The Ridgeline Plot</h2>
+<p>Ridgeline plots (also called “joy plots”) stack multiple density distributions vertically, making it easy to compare distributions across groups. Here, each ridge represents respondents who agreed with a particular psychological statement, and the x-axis shows their distribution of conspiracy thinking scores.</p>
+<p>This visualization works well because it:</p>
+<ul>
+<li><strong>Shows distributions, not just averages</strong>: We can see the full shape of conspiracy thinking for each group</li>
+<li><strong>Enables comparison</strong>: Stacking the ridges vertically makes patterns immediately visible</li>
+<li><strong>Uses color strategically</strong>: Grouping items by their parent concept (Narcissism, Machiavellianism, etc.) adds a second layer of information without clutter</li>
+<li><strong>Orders meaningfully</strong>: Sorting by average conspiracy thinking puts the most revealing patterns at the extremes</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="4c_advanced-ggplot_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="joyplot-or-ridgeplot" class="level2">
-<h2 class="anchored" data-anchor-id="joyplot-or-ridgeplot">Joyplot or ridgeplot</h2>
-<p><img src="images/joyplot.png" class="img-fluid"></p>
-<p>Source: <a href="https://journals.sagepub.com/doi/full/10.1177/2158244019832705">Eady et al.&nbsp;(2019)</a></p>
+<section id="key-technique-reshaping-data-with-pivot_longer" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="key-technique-reshaping-data-with-pivot_longer"><span class="header-section-number">8.4</span> Key Technique: Reshaping Data with <code>pivot_longer()</code></h2>
+<p>The most important step in making this visualization work is <strong>reshaping the data from wide to long format</strong>. In the original dataset, each psychological item is its own column. But ggplot2 works best when we have one observation per row, with a column indicating which variable we’re looking at.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(consp_Index2,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              nondark,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">all_of</span>(x)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>consp_Index2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 32,000 x 3
+   consp_Index2 name    value             
+          &lt;dbl&gt; &lt;chr&gt;   &lt;dbl+lbl&gt;         
+ 1        0.938 nondark 0                 
+ 2        0.938 argue1  3 [Neither]       
+ 3        0.938 argue2  4 [Agree]         
+ 4        0.938 argue3  4 [Agree]         
+ 5        0.938 manip1  5 [Strongly agree]
+ 6        0.938 manip2  5 [Strongly agree]
+ 7        0.938 manip3  5 [Strongly agree]
+ 8        0.938 manip4  5 [Strongly agree]
+ 9        0.938 attent1 4 [Agree]         
+10        0.938 attent2 3 [Neither]       
+# i 31,990 more rows</code></pre>
+</div>
+</div>
+<p><code>pivot_longer()</code> transforms our data so that:</p>
+<ul>
+<li>Each respondent now has multiple rows (one per survey item they answered)</li>
+<li>The <code>name</code> column contains the variable name (e.g., “argue1”, “manip2”)</li>
+<li>The <code>value</code> column contains their response to that item</li>
+</ul>
+<p>This “tidy” structure is what allows us to facet or group by the survey item—ggplot can now treat each item as a separate category on the y-axis.</p>
 </section>
-<section id="heatmap" class="level2">
-<h2 class="anchored" data-anchor-id="heatmap">Heatmap</h2>
-<p>Here the cell entries of the number of cases per 100,000 people.</p>
-<p><img src="images/A804D069-BBC2-49FF-B29A-1CB772D134C6.png" class="img-fluid"></p>
-<p>Source: http://graphics.wsj.com/infectious-diseases-and-vaccines/</p>
-</section>
-<section id="maps" class="level2">
-<h2 class="anchored" data-anchor-id="maps">Maps</h2>
-<p><img src="images/D5507D83-251A-4074-8BCA-4E8DD75377E1.png" class="img-fluid"></p>
-</section>
-<section id="histograms" class="level2">
-<h2 class="anchored" data-anchor-id="histograms">Histograms</h2>
-<p><img src="images/92B3E9D3-DE60-4549-B64C-F31CFE702303.png" class="img-fluid"></p>
-</section>
-<section id="maps-with-2-dimensional-color-coding" class="level2">
-<h2 class="anchored" data-anchor-id="maps-with-2-dimensional-color-coding">Maps with 2-dimensional color-coding:</h2>
-<p><img src="images/Screen Shot 2022-07-09 at 6.12.00 PM.png" class="img-fluid"></p>
-</section>
-<section id="cartogram" class="level2">
-<h2 class="anchored" data-anchor-id="cartogram">Cartogram</h2>
-<p><img src="images/FA2B2074-BADE-4ECC-B293-32DEBF307915.png" class="img-fluid"></p>
-</section>
-<section id="cartogram-or-a-heatmap" class="level2">
-<h2 class="anchored" data-anchor-id="cartogram-or-a-heatmap">Cartogram or a heatmap?</h2>
-<p><img src="images/3B1E465C-5994-4D25-AA40-97C4867E0700.png" class="img-fluid"></p>
-</section>
-<section id="boxplots" class="level2">
-<h2 class="anchored" data-anchor-id="boxplots">Boxplots</h2>
-<p><img src="images/urban_pop.png" class="img-fluid"></p>
-<p>Source: <a href="https://github.com/imagineazhar/30DayChartChallenge2023/tree/main/10-hybrid">imagineazhar</a></p>
-</section>
-<section id="types-of-bar-charts" class="level2">
-<h2 class="anchored" data-anchor-id="types-of-bar-charts">Types of bar charts</h2>
-<p><img src="images/CEB14596-8A9A-4297-B8B0-BEE7389A23D1.png" class="img-fluid"></p>
-</section>
-<section id="time-series-plots" class="level2">
-<h2 class="anchored" data-anchor-id="time-series-plots">Time series plots</h2>
-<section id="standard-line-graphs" class="level3">
-<h3 class="anchored" data-anchor-id="standard-line-graphs">Standard line graphs</h3>
-<p><img src="images/FW6nSzhXEAEYQKO.jpg" class="img-fluid"></p>
-<p>(But ask yourself: would you really believe this “finding”? What was the data-generating process? Are movies and shows really getting better?)</p>
-</section>
-<section id="emphasis-on-relative-changes" class="level3">
-<h3 class="anchored" data-anchor-id="emphasis-on-relative-changes">Emphasis on relative changes</h3>
-<p><img src="images/0F3E2454-F39C-4295-B3A8-00659DC6CB0B.png" class="img-fluid"></p>
-</section>
-</section>
-<section id="area-chart" class="level2">
-<h2 class="anchored" data-anchor-id="area-chart">Area chart</h2>
-<p><img src="images/4CC14F02-A9C8-4EB1-8DE1-B575FEB637FC.png" class="img-fluid"></p>
-<hr>
-<p>A useful resource is the set of charts shown on this website: <a href="https://vega.github.io/vega/examples/" class="uri">https://vega.github.io/vega/examples/</a></p>
+<section id="building-the-complete-visualization" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="building-the-complete-visualization"><span class="header-section-number">8.5</span> Building the Complete Visualization</h2>
+<p>The full pipeline combines several ggplot techniques to create a polished chart:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(consp_Index2,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>              nondark,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">all_of</span>(x)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>consp_Index2) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name2 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"argue1"</span> <span class="sc">~</span>  <span class="st">"I like to argue online with other people"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"argue2"</span> <span class="sc">~</span>  <span class="st">"I enjoy a good argument over a controversial issue"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"argue3"</span> <span class="sc">~</span>  <span class="st">"I am willing to express my opinion online</span><span class="sc">\n</span><span class="st">even if others strongly disagree with me"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"manip1"</span> <span class="sc">~</span>  <span class="st">"I tend to manipulate others to get my way"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"manip2"</span> <span class="sc">~</span>  <span class="st">"I have used deceit or lied to get my way"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"manip3"</span> <span class="sc">~</span>  <span class="st">"I have used flattery to get my way"</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"manip4"</span> <span class="sc">~</span>  <span class="st">"I tend to exploit others towards my own end"</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"attent1"</span> <span class="sc">~</span>  <span class="st">"I tend to want others to admire me"</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"attent2"</span> <span class="sc">~</span>  <span class="st">"I tend to want others to pay attention to me"</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"attent3"</span> <span class="sc">~</span>  <span class="st">"I tend to seek prestige or status"</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"attent4"</span> <span class="sc">~</span>  <span class="st">"I tend to expect special favors from others"</span>,</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"insens1"</span> <span class="sc">~</span> <span class="st">"I tend to lack remorse"</span>,</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"insens2"</span> <span class="sc">~</span> <span class="st">"I tend to be unconcerned with the morality</span><span class="sc">\n</span><span class="st">of my actions"</span>,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"insens3"</span> <span class="sc">~</span> <span class="st">"I tend to be callous or insensitive"</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"insens4"</span> <span class="sc">~</span> <span class="st">"I tend to be cynical"</span>,</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"nondark"</span> <span class="sc">~</span> <span class="st">"Low on narcissism, mach., and sociopathy"</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">concept =</span> <span class="fu">case_when</span>(</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"argue1"</span>,<span class="st">"argue2"</span>,<span class="st">"argue3"</span>) <span class="sc">~</span> <span class="st">"Argumentativeness"</span>,</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"manip1"</span>, <span class="st">"manip2"</span>, <span class="st">"manip3"</span>, <span class="st">"manip4"</span>) <span class="sc">~</span> <span class="st">"Machiavellianism"</span>,</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"attent1"</span>, <span class="st">"attent2"</span>, <span class="st">"attent3"</span>, <span class="st">"attent4"</span>) <span class="sc">~</span> <span class="st">"Narcissism"</span>,</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"insens1"</span>,<span class="st">"insens2"</span>,<span class="st">"insens3"</span>,<span class="st">"insens4"</span>) <span class="sc">~</span> <span class="st">"Sociopathy"</span>,</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"nondark"</span>) <span class="sc">~</span> <span class="st">"Non-dark"</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(consp_Index2)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">agree =</span> <span class="fu">ifelse</span>(value<span class="sc">&gt;=</span><span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">avg_agree =</span> <span class="fu">mean</span>(agree)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name,agree) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">avg_cons =</span> <span class="fu">mean</span>(consp_Index2)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(agree<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> (name<span class="sc">==</span><span class="st">"nondark"</span> <span class="sc">&amp;</span> value<span class="sc">==</span><span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>consp_Index2,<span class="at">y=</span><span class="fu">fct_reorder</span>(name2,avg_cons),</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill=</span>concept)) <span class="sc">+</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges</span>() <span class="sc">+</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()  <span class="sc">+</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>) <span class="sc">+</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Conspiracy thinking"</span>,<span class="at">y=</span><span class="st">""</span>,<span class="at">color=</span><span class="st">""</span>,<span class="at">fill=</span><span class="st">"Concept"</span>,</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Distribution of conspiracy thinking</span><span class="sc">\n</span><span class="st">broken down by responses to psychological questions</span><span class="sc">\n</span><span class="st">and color-coded by trait (dark triad + argumentativeness)"</span>) <span class="sc">+</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>  <span class="co">#scale_fill_manual(values=Prism5) +</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>  see<span class="sc">::</span><span class="fu">scale_fill_social</span>() <span class="sc">+</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="what-each-step-accomplishes" class="level3" data-number="8.5.1">
+<h3 data-number="8.5.1" class="anchored" data-anchor-id="what-each-step-accomplishes"><span class="header-section-number">8.5.1</span> What each step accomplishes</h3>
+<ol type="1">
+<li><p><strong>Data selection and reshaping</strong>: <code>select()</code> + <code>pivot_longer()</code> gives us one row per person-item combination</p></li>
+<li><p><strong>Creating readable labels</strong>: The <code>case_when()</code> inside <code>mutate()</code> replaces cryptic variable names (like “manip1”) with the actual survey text (“I tend to manipulate others to get my way”). This makes the chart self-documenting.</p></li>
+<li><p><strong>Adding concept groupings</strong>: A second <code>case_when()</code> assigns each item to its parent psychological concept. This becomes our fill aesthetic for color-coding.</p></li>
+<li><p><strong>Filtering to relevant subgroups</strong>: We only show respondents who <em>agreed</em> with each statement (<code>agree == 1</code>), letting us ask: “Among people who say they manipulate others, what does their conspiracy thinking look like?”</p></li>
+<li><p><strong>Smart ordering</strong>: <code>fct_reorder(name2, avg_cons)</code> sorts the y-axis by average conspiracy thinking, so patterns emerge naturally—the traits most associated with conspiracy thinking appear at one end.</p></li>
+<li><p><strong>Polished aesthetics</strong>: <code>theme_bw()</code> provides a clean background, <code>see::scale_fill_social()</code> offers a friendly palette, and <code>labs()</code> adds informative titles.</p></li>
+</ol>
+<p>The result is a chart that tells a story: psychological traits associated with the “dark triad” tend to cluster at higher levels of conspiracy thinking, while those low on all dark traits cluster are less conspiratorial.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -760,13 +848,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./5_visualizing-models.html" class="pagination-link" aria-label="Visualizing statistical models">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span>
+      <a href="./4b_heatmaps-ridgelines.html" class="pagination-link" aria-label="Heatmaps">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Heatmaps</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./datasets.html" class="pagination-link" aria-label="Datasets">
-        <span class="nav-page-text">Datasets</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./5_visualizing-models.html" class="pagination-link" aria-label="Visualizing statistical models">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

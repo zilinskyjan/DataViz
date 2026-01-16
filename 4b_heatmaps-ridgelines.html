@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>7&nbsp; Advanced ggplot – Data Visualization with R and ggplot</title>
+<title>7&nbsp; Heatmaps – Data Visualization with R and ggplot</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./5_visualizing-models.html" rel="next">
-<link href="./4b_tweet_ratings.html" rel="prev">
+<link href="./4c_advanced-ggplot.html" rel="next">
+<link href="./4a_tweet_ratings.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./4_advanced-ggplot.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./4b_heatmaps-ridgelines.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Heatmaps</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -181,20 +181,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4b_tweet_ratings.html" class="sidebar-item-text sidebar-link">
+  <a href="./4a_tweet_ratings.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4_advanced-ggplot.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
+  <a href="./4b_heatmaps-ridgelines.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Heatmaps</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4c_advanced-ggplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./5_visualizing-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -266,13 +272,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#setup-and-data" id="toc-setup-and-data" class="nav-link active" data-scroll-target="#setup-and-data"><span class="header-section-number">7.1</span> Setup and Data</a></li>
-  <li><a href="#selecting-variables-for-analysis" id="toc-selecting-variables-for-analysis" class="nav-link" data-scroll-target="#selecting-variables-for-analysis"><span class="header-section-number">7.2</span> Selecting Variables for Analysis</a></li>
-  <li><a href="#the-ridgeline-plot" id="toc-the-ridgeline-plot" class="nav-link" data-scroll-target="#the-ridgeline-plot"><span class="header-section-number">7.3</span> The Ridgeline Plot</a></li>
-  <li><a href="#key-technique-reshaping-data-with-pivot_longer" id="toc-key-technique-reshaping-data-with-pivot_longer" class="nav-link" data-scroll-target="#key-technique-reshaping-data-with-pivot_longer"><span class="header-section-number">7.4</span> Key Technique: Reshaping Data with <code>pivot_longer()</code></a></li>
-  <li><a href="#building-the-complete-visualization" id="toc-building-the-complete-visualization" class="nav-link" data-scroll-target="#building-the-complete-visualization"><span class="header-section-number">7.5</span> Building the Complete Visualization</a>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation"><span class="header-section-number">7.2</span> Data Preparation</a></li>
+  <li><a href="#heatmaps-with-geom_tile" id="toc-heatmaps-with-geom_tile" class="nav-link" data-scroll-target="#heatmaps-with-geom_tile"><span class="header-section-number">7.3</span> Heatmaps with <code>geom_tile()</code></a>
   <ul class="collapse">
-  <li><a href="#what-each-step-accomplishes" id="toc-what-each-step-accomplishes" class="nav-link" data-scroll-target="#what-each-step-accomplishes"><span class="header-section-number">7.5.1</span> What each step accomplishes</a></li>
+  <li><a href="#basic-heatmap-selected-candidates" id="toc-basic-heatmap-selected-candidates" class="nav-link" data-scroll-target="#basic-heatmap-selected-candidates"><span class="header-section-number">7.3.1</span> Basic Heatmap: Selected Candidates</a></li>
+  <li><a href="#expanding-to-all-candidates" id="toc-expanding-to-all-candidates" class="nav-link" data-scroll-target="#expanding-to-all-candidates"><span class="header-section-number">7.3.2</span> Expanding to All Candidates</a></li>
+  <li><a href="#categorical-color-scales" id="toc-categorical-color-scales" class="nav-link" data-scroll-target="#categorical-color-scales"><span class="header-section-number">7.3.3</span> Categorical Color Scales</a></li>
   </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">7.4</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -281,7 +288,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Heatmaps</span></h1>
 </div>
 
 
@@ -298,145 +305,171 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This chapter demonstrates how to build a polished, information-dense visualization using ggplot2’s layered grammar of graphics. We’ll create a <strong>ridgeline plot</strong> that reveals the relationship between psychological traits and conspiracy thinking.</p>
+<p>This chapter demonstrates how to create <strong>heatmaps</strong> to display patterns across groups and time. We use Instagram posting data from Democratic presidential candidates during 2019-2020 to illustrate the technique.</p>
 <section id="setup-and-data" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="setup-and-data"><span class="header-section-number">7.1</span> Setup and Data</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"data/ajps2021/0_ajps_recode.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The data comes from a study on conspiracy beliefs, containing survey responses where participants’ psychological traits (incl.&nbsp;the “dark triad”—narcissism, Machiavellianism, and sociopathy—plus argumentativeness) can be estimated on the basis of questions that participants answered about themselves.</p>
-</section>
-<section id="selecting-variables-for-analysis" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="selecting-variables-for-analysis"><span class="header-section-number">7.2</span> Selecting Variables for Analysis</h2>
-<p>We begin by selecting survey items that measure psychological traits. Each item asks respondents to rate their agreement with a statement on a scale:</p>
+<p>We load Instagram posting data for US presidential candidates. This dataset contains individual posts with timestamps, engagement metrics, and account information.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"argue1"</span>, <span class="st">"argue2"</span>, <span class="st">"argue3"</span>, <span class="st">"manip1"</span>, <span class="st">"manip2"</span>, <span class="st">"manip3"</span>, <span class="st">"manip4"</span>, </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>       <span class="st">"attent1"</span>, <span class="st">"attent2"</span>, <span class="st">"attent3"</span>, <span class="st">"attent4"</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>       <span class="st">"insens1"</span>,<span class="st">"insens2"</span>,<span class="st">"insens3"</span>,<span class="st">"insens4"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#d1$nondark &lt;- ifelse(d1$insens3 &lt;=2 &amp; d1$manip4 &lt;=2 &amp; d1$insens1&lt;=2, 1,0)</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>d1<span class="sc">$</span>nondark <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(d1<span class="sc">$</span>manipulate2 <span class="sc">&lt;=</span>.<span class="dv">2</span> <span class="sc">&amp;</span> d1<span class="sc">$</span>sociopathy2 <span class="sc">&lt;=</span> .<span class="dv">2</span> <span class="sc">&amp;</span> d1<span class="sc">$</span>attend2 <span class="sc">&lt;=</span>.<span class="dv">2</span>, <span class="dv">1</span>,<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>insta_pres <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/instagram_pres_candidates_2019_to_July162020.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>We also create a “nondark” indicator that flags respondents who score low on multiple dark triad dimensions, giving us a baseline comparison group.</p>
-</section>
-<section id="the-ridgeline-plot" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="the-ridgeline-plot"><span class="header-section-number">7.3</span> The Ridgeline Plot</h2>
-<p>Ridgeline plots (also called “joy plots”) stack multiple density distributions vertically, making it easy to compare distributions across groups. Here, each ridge represents respondents who agreed with a particular psychological statement, and the x-axis shows their distribution of conspiracy thinking scores.</p>
-<p>This visualization works well because it:</p>
-<ul>
-<li><strong>Shows distributions, not just averages</strong>: We can see the full shape of conspiracy thinking for each group</li>
-<li><strong>Enables comparison</strong>: Stacking the ridges vertically makes patterns immediately visible</li>
-<li><strong>Uses color strategically</strong>: Grouping items by their parent concept (Narcissism, Machiavellianism, etc.) adds a second layer of information without clutter</li>
-<li><strong>Orders meaningfully</strong>: Sorting by average conspiracy thinking puts the most revealing patterns at the extremes</li>
-</ul>
+<p>Let’s examine the structure of the data:</p>
 <div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(insta_pres)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 7,034
+Columns: 17
+$ Account                &lt;chr&gt; "Juli&lt;U+00E1&gt;n Castro", "Bill de Blasio", "Beto O'Rour~
+$ `User Name`            &lt;chr&gt; "juliancastrotx", "billdeblasio", "betoorourke"~
+$ `Followers at Posting` &lt;chr&gt; "43273", "5097", "828160", "2451338", "476561",~
+$ Created                &lt;chr&gt; "2019-06-27 00:33:23 EDT", "2019-09-19 17:20:43~
+$ Type                   &lt;chr&gt; "Video", "Photo", "Photo", "Album", "IGTV", "Vi~
+$ Likes                  &lt;dbl&gt; 136773, 925, 350099, 350694, 22729, 222839, 170~
+$ Comments               &lt;dbl&gt; 4313, 8667, 18820, 7506, 1727, 14914, 661, 2643~
+$ Views                  &lt;dbl&gt; 490703, 0, 0, 0, 134223, 754254, 18292, 0, 9553~
+$ URL                    &lt;chr&gt; "https://www.instagram.com/p/BzMy6_hHrLp/", "ht~
+$ Link                   &lt;chr&gt; "https://www.instagram.com/p/BzMy6_hHrLp/", "ht~
+$ Photo                  &lt;chr&gt; "https://scontent.cdninstagram.com/v/t51.2885-1~
+$ Title                  &lt;chr&gt; NA, NA, NA, NA, "&lt;U+201C&gt;There is no one else like you~
+$ Description            &lt;chr&gt; "Me llamo Juli&lt;U+00E1&gt;n Castro y me estoy postulando p~
+$ `Image Text`           &lt;chr&gt; NA, NA, NA, NA, NA, NA, "We are moving from the~
+$ `Sponsor Id`           &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
+$ `Sponsor Name`         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,~
+$ `Overperforming Score` &lt;dbl&gt; 71.91, 61.10, 27.59, 19.86, 17.44, 17.33, 16.41~</code></pre>
+</div>
+</div>
+</section>
+<section id="data-preparation" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="data-preparation"><span class="header-section-number">7.2</span> Data Preparation</h2>
+<p>The key to creating effective heatmaps is aggregating data to the right level. For our time-based analysis, we need to extract month-year information from the posting dates.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>insta_pres <span class="ot">&lt;-</span> insta_pres <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">as.Date</span>(Created),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">monthyear =</span> <span class="fu">floor_date</span>(date, <span class="st">"month"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We create a <code>monthyear</code> variable by flooring each date to the first of its month. This gives us a consistent grouping variable for aggregation.</p>
+</section>
+<section id="heatmaps-with-geom_tile" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="heatmaps-with-geom_tile"><span class="header-section-number">7.3</span> Heatmaps with <code>geom_tile()</code></h2>
+<p>Heatmaps display values in a matrix format where color intensity represents the magnitude of a variable. They’re excellent for showing patterns across two categorical dimensions—in our case, candidates and time periods.</p>
+<section id="basic-heatmap-selected-candidates" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="basic-heatmap-selected-candidates"><span class="header-section-number">7.3.1</span> Basic Heatmap: Selected Candidates</h3>
+<p>We start by filtering to five major candidates and counting posts per month:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>insta_pres <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">User Name</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"elizabethwarren"</span>, <span class="st">"joebiden"</span>, <span class="st">"berniesanders"</span>, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"pete.buttigieg"</span>, <span class="st">"amyklobuchar"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">User Name</span><span class="st">`</span>, monthyear) <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(monthyear, <span class="st">`</span><span class="at">User Name</span><span class="st">`</span>, <span class="at">fill =</span> n)) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span> </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"white"</span>, <span class="at">high =</span> <span class="st">"purple"</span>) <span class="sc">+</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Instagram account"</span>, <span class="at">fill =</span> <span class="st">"Number</span><span class="sc">\n</span><span class="st">of posts"</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Instagram use of selected Democratic candidates"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="4_advanced-ggplot_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="4b_heatmaps-ridgelines_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Key elements of this visualization:</p>
+<ul>
+<li><strong>geom_tile()</strong> creates rectangular tiles, one per candidate-month combination</li>
+<li><strong>color = “white”</strong> adds thin borders between tiles for visual separation</li>
+<li><strong>scale_fill_gradient()</strong> maps the count to a continuous color scale from white (low) to purple (high)</li>
+</ul>
+</section>
+<section id="expanding-to-all-candidates" class="level3" data-number="7.3.2">
+<h3 data-number="7.3.2" class="anchored" data-anchor-id="expanding-to-all-candidates"><span class="header-section-number">7.3.2</span> Expanding to All Candidates</h3>
+<p>To show all candidates, we need to create a meaningful ordering. Here we order candidates by their total posting volume:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create ordered list of accounts by total posts</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>account_order <span class="ot">&lt;-</span> insta_pres <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(<span class="st">`</span><span class="at">User Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(<span class="st">`</span><span class="at">User Name</span><span class="st">`</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now we can visualize all candidates:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>insta_pres <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">User Name</span><span class="st">`</span>, monthyear) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">account =</span> <span class="fu">factor</span>(<span class="st">`</span><span class="at">User Name</span><span class="st">`</span>, <span class="at">levels =</span> <span class="fu">rev</span>(account_order))) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(monthyear, account, <span class="at">fill =</span> n)) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span> </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"white"</span>, <span class="at">high =</span> <span class="st">"navy"</span>) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Instagram account"</span>, <span class="at">fill =</span> <span class="st">"Number</span><span class="sc">\n</span><span class="st">of posts"</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Instagram use of Democrats who ran for president in 2019-2020"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="4b_heatmaps-ridgelines_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="key-technique-reshaping-data-with-pivot_longer" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="key-technique-reshaping-data-with-pivot_longer"><span class="header-section-number">7.4</span> Key Technique: Reshaping Data with <code>pivot_longer()</code></h2>
-<p>The most important step in making this visualization work is <strong>reshaping the data from wide to long format</strong>. In the original dataset, each psychological item is its own column. But ggplot2 works best when we have one observation per row, with a column indicating which variable we’re looking at.</p>
+<section id="categorical-color-scales" class="level3" data-number="7.3.3">
+<h3 data-number="7.3.3" class="anchored" data-anchor-id="categorical-color-scales"><span class="header-section-number">7.3.3</span> Categorical Color Scales</h3>
+<p>Sometimes a continuous color scale can be difficult to interpret, especially when the distribution is skewed. Converting counts to categories can make patterns more readable.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(consp_Index2,</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              nondark,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">all_of</span>(x)) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>consp_Index2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 32,000 × 3
-   consp_Index2 name    value             
-          &lt;dbl&gt; &lt;chr&gt;   &lt;dbl+lbl&gt;         
- 1        0.938 nondark 0                 
- 2        0.938 argue1  3 [Neither]       
- 3        0.938 argue2  4 [Agree]         
- 4        0.938 argue3  4 [Agree]         
- 5        0.938 manip1  5 [Strongly agree]
- 6        0.938 manip2  5 [Strongly agree]
- 7        0.938 manip3  5 [Strongly agree]
- 8        0.938 manip4  5 [Strongly agree]
- 9        0.938 attent1 4 [Agree]         
-10        0.938 attent2 3 [Neither]       
-# ℹ 31,990 more rows</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We use <code>cut()</code> to bin the count into meaningful categories:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>insta_pres <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(monthyear <span class="sc">&gt;=</span> <span class="st">"2019-01-01"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">User Name</span><span class="st">`</span>, monthyear) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">countfactor =</span> <span class="fu">cut</span>(n, </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">60</span>, <span class="dv">80</span>, <span class="cn">Inf</span>),</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">"1-5"</span>, <span class="st">"6-10"</span>, <span class="st">"11-20"</span>, <span class="st">"21-40"</span>, <span class="st">"41-60"</span>, <span class="st">"61-80"</span>, <span class="st">"&gt;80"</span>))</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">account =</span> <span class="fu">factor</span>(<span class="st">`</span><span class="at">User Name</span><span class="st">`</span>, <span class="at">levels =</span> <span class="fu">rev</span>(account_order))) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(monthyear, account, <span class="at">fill =</span> countfactor)) <span class="sc">+</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span> </span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">"Purples"</span>), <span class="at">na.value =</span> <span class="st">"grey90"</span>) <span class="sc">+</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Instagram account"</span>, <span class="at">fill =</span> <span class="st">"Number</span><span class="sc">\n</span><span class="st">of posts"</span>,</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Instagram use of Democrats who ran for president in 2019-2020"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="4b_heatmaps-ridgelines_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
 </div>
 </div>
-<p><code>pivot_longer()</code> transforms our data so that:</p>
+</div>
+<p>Key differences in this approach:</p>
 <ul>
-<li>Each respondent now has multiple rows (one per survey item they answered)</li>
-<li>The <code>name</code> column contains the variable name (e.g., “argue1”, “manip2”)</li>
-<li>The <code>value</code> column contains their response to that item</li>
+<li><strong>cut()</strong> creates bins with custom breakpoints—we chose bins that match how people naturally think about posting frequency</li>
+<li><strong>scale_fill_manual()</strong> with <code>brewer.pal()</code> provides a sequential color palette designed for ordered categories</li>
+<li><strong>na.value = “grey90”</strong> handles any missing month-candidate combinations</li>
 </ul>
-<p>This “tidy” structure is what allows us to facet or group by the survey item—ggplot can now treat each item as a separate category on the y-axis.</p>
 </section>
-<section id="building-the-complete-visualization" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="building-the-complete-visualization"><span class="header-section-number">7.5</span> Building the Complete Visualization</h2>
-<p>The full pipeline combines several ggplot techniques to create a polished chart:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(consp_Index2,</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>              nondark,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">all_of</span>(x)) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>consp_Index2) <span class="sc">%&gt;%</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name2 =</span> <span class="fu">case_when</span>(</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"argue1"</span> <span class="sc">~</span>  <span class="st">"I like to argue online with other people"</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"argue2"</span> <span class="sc">~</span>  <span class="st">"I enjoy a good argument over a controversial issue"</span>,</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"argue3"</span> <span class="sc">~</span>  <span class="st">"I am willing to express my opinion online</span><span class="sc">\n</span><span class="st">even if others strongly disagree with me"</span>,</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"manip1"</span> <span class="sc">~</span>  <span class="st">"I tend to manipulate others to get my way"</span>,</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"manip2"</span> <span class="sc">~</span>  <span class="st">"I have used deceit or lied to get my way"</span>,</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"manip3"</span> <span class="sc">~</span>  <span class="st">"I have used flattery to get my way"</span>,</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"manip4"</span> <span class="sc">~</span>  <span class="st">"I tend to exploit others towards my own end"</span>,</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"attent1"</span> <span class="sc">~</span>  <span class="st">"I tend to want others to admire me"</span>,</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"attent2"</span> <span class="sc">~</span>  <span class="st">"I tend to want others to pay attention to me"</span>,</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"attent3"</span> <span class="sc">~</span>  <span class="st">"I tend to seek prestige or status"</span>,</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"attent4"</span> <span class="sc">~</span>  <span class="st">"I tend to expect special favors from others"</span>,</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"insens1"</span> <span class="sc">~</span> <span class="st">"I tend to lack remorse"</span>,</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"insens2"</span> <span class="sc">~</span> <span class="st">"I tend to be unconcerned with the morality</span><span class="sc">\n</span><span class="st">of my actions"</span>,</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"insens3"</span> <span class="sc">~</span> <span class="st">"I tend to be callous or insensitive"</span>,</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"insens4"</span> <span class="sc">~</span> <span class="st">"I tend to be cynical"</span>,</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">==</span> <span class="st">"nondark"</span> <span class="sc">~</span> <span class="st">"Low on narcissism, mach., and sociopathy"</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">concept =</span> <span class="fu">case_when</span>(</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"argue1"</span>,<span class="st">"argue2"</span>,<span class="st">"argue3"</span>) <span class="sc">~</span> <span class="st">"Argumentativeness"</span>,</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"manip1"</span>, <span class="st">"manip2"</span>, <span class="st">"manip3"</span>, <span class="st">"manip4"</span>) <span class="sc">~</span> <span class="st">"Machiavellianism"</span>,</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"attent1"</span>, <span class="st">"attent2"</span>, <span class="st">"attent3"</span>, <span class="st">"attent4"</span>) <span class="sc">~</span> <span class="st">"Narcissism"</span>,</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"insens1"</span>,<span class="st">"insens2"</span>,<span class="st">"insens3"</span>,<span class="st">"insens4"</span>) <span class="sc">~</span> <span class="st">"Sociopathy"</span>,</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"nondark"</span>) <span class="sc">~</span> <span class="st">"Non-dark"</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(consp_Index2)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">agree =</span> <span class="fu">ifelse</span>(value<span class="sc">&gt;=</span><span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">avg_agree =</span> <span class="fu">mean</span>(agree)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name,agree) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">avg_cons =</span> <span class="fu">mean</span>(consp_Index2)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(agree<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> (name<span class="sc">==</span><span class="st">"nondark"</span> <span class="sc">&amp;</span> value<span class="sc">==</span><span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>consp_Index2,<span class="at">y=</span><span class="fu">fct_reorder</span>(name2,avg_cons),</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill=</span>concept)) <span class="sc">+</span></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  ggridges<span class="sc">::</span><span class="fu">geom_density_ridges</span>() <span class="sc">+</span></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()  <span class="sc">+</span></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>) <span class="sc">+</span></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Conspiracy thinking"</span>,<span class="at">y=</span><span class="st">""</span>,<span class="at">color=</span><span class="st">""</span>,<span class="at">fill=</span><span class="st">"Concept"</span>,</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Distribution of conspiracy thinking</span><span class="sc">\n</span><span class="st">broken down by responses to psychological questions</span><span class="sc">\n</span><span class="st">and color-coded by trait (dark triad + argumentativeness)"</span>) <span class="sc">+</span></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>  <span class="co">#scale_fill_manual(values=Prism5) +</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>  see<span class="sc">::</span><span class="fu">scale_fill_social</span>() <span class="sc">+</span></span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<section id="what-each-step-accomplishes" class="level3" data-number="7.5.1">
-<h3 data-number="7.5.1" class="anchored" data-anchor-id="what-each-step-accomplishes"><span class="header-section-number">7.5.1</span> What each step accomplishes</h3>
-<ol type="1">
-<li><p><strong>Data selection and reshaping</strong>: <code>select()</code> + <code>pivot_longer()</code> gives us one row per person-item combination</p></li>
-<li><p><strong>Creating readable labels</strong>: The <code>case_when()</code> inside <code>mutate()</code> replaces cryptic variable names (like “manip1”) with the actual survey text (“I tend to manipulate others to get my way”). This makes the chart self-documenting.</p></li>
-<li><p><strong>Adding concept groupings</strong>: A second <code>case_when()</code> assigns each item to its parent psychological concept. This becomes our fill aesthetic for color-coding.</p></li>
-<li><p><strong>Filtering to relevant subgroups</strong>: We only show respondents who <em>agreed</em> with each statement (<code>agree == 1</code>), letting us ask: “Among people who say they manipulate others, what does their conspiracy thinking look like?”</p></li>
-<li><p><strong>Smart ordering</strong>: <code>fct_reorder(name2, avg_cons)</code> sorts the y-axis by average conspiracy thinking, so patterns emerge naturally—the traits most associated with conspiracy thinking appear at one end.</p></li>
-<li><p><strong>Polished aesthetics</strong>: <code>theme_bw()</code> provides a clean background, <code>see::scale_fill_social()</code> offers a friendly palette, and <code>labs()</code> adds informative titles.</p></li>
-</ol>
-<p>The result is a chart that tells a story: psychological traits associated with the “dark triad” tend to cluster at higher levels of conspiracy thinking, while those low on all dark traits cluster are less conspiratorial.</p>
+</section>
+<section id="summary" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="summary"><span class="header-section-number">7.4</span> Summary</h2>
+<p>This chapter covered heatmaps using <code>geom_tile()</code>:</p>
+<ul>
+<li>Best for showing values across two categorical dimensions (e.g., candidates and time periods)</li>
+<li>Use continuous color scales (<code>scale_fill_gradient()</code>) for fine-grained differences</li>
+<li>Use categorical color scales (via <code>cut()</code>) for easier interpretation of ranges</li>
+<li>Order categories meaningfully rather than alphabetically to reveal patterns</li>
+<li>Add white borders between tiles for visual separation</li>
+</ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -842,13 +875,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./4b_tweet_ratings.html" class="pagination-link" aria-label="Mixed data (strings and numbers)">
+      <a href="./4a_tweet_ratings.html" class="pagination-link" aria-label="Mixed data (strings and numbers)">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./5_visualizing-models.html" class="pagination-link" aria-label="Visualizing statistical models">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./4c_advanced-ggplot.html" class="pagination-link" aria-label="Advanced ggplot">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

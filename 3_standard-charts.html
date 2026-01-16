@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./4b_tweet_ratings.html" rel="next">
+<link href="./4a_tweet_ratings.html" rel="next">
 <link href="./3_C_financial-markets.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -181,20 +181,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4b_tweet_ratings.html" class="sidebar-item-text sidebar-link">
+  <a href="./4a_tweet_ratings.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4_advanced-ggplot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
+  <a href="./4b_heatmaps-ridgelines.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Heatmaps</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4c_advanced-ggplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./5_visualizing-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -316,15 +322,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hib)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 5
+<pre><code># A tibble: 6 x 5
   group                            influence_incr influence_decr political type 
   &lt;chr&gt;                                     &lt;dbl&gt;          &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;
-1 People who experienced real pro…           59.9            3.5         0 Peop…
-2 Politicians who can’t beneﬁt th…           49.4           11.6         0 Peop…
-3 Scientists                                 48.3           10.4         0 Expe…
-4 Medical doctors                            38              7.6         0 Expe…
-5 State and local governments                31.9           13.3         1 Stan…
-6 Unelected experts                          31             18.3         0 Expe…</code></pre>
+1 "People who experienced real pr~           59.9            3.5         0 Peop~
+2 "Politicians who can\u2019t ben~           49.4           11.6         0 Peop~
+3 "Scientists"                               48.3           10.4         0 Expe~
+4 "Medical doctors"                          38              7.6         0 Expe~
+5 "State and local governments"              31.9           13.3         1 Stan~
+6 "Unelected experts"                        31             18.3         0 Expe~</code></pre>
 </div>
 </div>
 <p>When you run this code, you should see a table with several columns. The <code>group</code> column contains different political actors (like “Journalists,” “Military leaders,” “Ordinary people”), the <code>influence_incr</code> column shows the percentage who want that group to have more influence, <code>influence_decr</code> shows those who want less influence, and the <code>type</code> column categorizes these groups.</p>
@@ -347,7 +353,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>hib <span class="sc">%&gt;%</span> <span class="fu">count</span>(type)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 2
+<pre><code># A tibble: 4 x 2
   type                    n
   &lt;chr&gt;               &lt;int&gt;
 1 Experts                 4
@@ -426,22 +432,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 77
+<pre><code># A tibble: 6 x 77
   caseid  female   edu black hispanic   age income pid      ideo interest attend
   &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl+l&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
-1 R_2zZv…      0     5     0        0    30      4 1 [Str…     6        5      4
-2 R_1oF5…      0     6     0        0    44      5 5 [Str…     3        4      2
-3 R_3PoE…      1     6     0        0    28      2 3 [Ind…     2        2      3
-4 R_dh73…      1     2     0        0    51      1 1 [Str…     1        5      4
-5 R_2TTP…      1     3     1        0    29      1 1 [Str…     1        5      5
-6 R_3ls3…      1     4     1        0    36      2 1 [Str…     4        4      4
-# ℹ 66 more variables: youtube &lt;dbl&gt;, con1 &lt;dbl+lbl&gt;, con2 &lt;dbl&gt;, con3 &lt;dbl&gt;,
+1 R_2zZv~      0     5     0        0    30      4 1 [Str~     6        5      4
+2 R_1oF5~      0     6     0        0    44      5 5 [Str~     3        4      2
+3 R_3PoE~      1     6     0        0    28      2 3 [Ind~     2        2      3
+4 R_dh73~      1     2     0        0    51      1 1 [Str~     1        5      4
+5 R_2TTP~      1     3     1        0    29      1 1 [Str~     1        5      5
+6 R_3ls3~      1     4     1        0    36      2 1 [Str~     4        4      4
+# i 66 more variables: youtube &lt;dbl&gt;, con1 &lt;dbl+lbl&gt;, con2 &lt;dbl&gt;, con3 &lt;dbl&gt;,
 #   con4 &lt;dbl+lbl&gt;, goodevil &lt;dbl+lbl&gt;, pop1 &lt;dbl+lbl&gt;, pop2 &lt;dbl+lbl&gt;,
 #   official &lt;dbl+lbl&gt;, cexaggerate &lt;dbl&gt;, climatechange &lt;dbl&gt;,
 #   collusion &lt;dbl+lbl&gt;, trumpasset &lt;dbl&gt;, clintonnuke &lt;dbl&gt;, repsteal &lt;dbl&gt;,
 #   birther &lt;dbl&gt;, trumpft &lt;dbl&gt;, bidenft &lt;dbl&gt;, qanonft &lt;dbl&gt;,
 #   reppartyft &lt;dbl&gt;, dempartyft &lt;dbl&gt;, sandersft &lt;dbl&gt;, rep &lt;dbl&gt;, pid2 &lt;dbl&gt;,
-#   ideo2 &lt;dbl&gt;, edu2 &lt;dbl&gt;, income2 &lt;dbl&gt;, youtube2 &lt;dbl&gt;, …</code></pre>
+#   ideo2 &lt;dbl&gt;, edu2 &lt;dbl&gt;, income2 &lt;dbl&gt;, youtube2 &lt;dbl&gt;, ...</code></pre>
 </div>
 </div>
 <p>We’ll start by looking at the distribution of a binary (and moralizing) view of politics; how do people respond to the prompt <em>“Politics is a battle between good and evil”</em>? This question captures what political scientists call “Manichean” thinking - the tendency to view politics as a moral struggle between absolute good and absolute evil rather than as a contest between competing policy preferences.</p>
@@ -450,7 +456,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 3
+<pre><code># A tibble: 5 x 3
   goodevil                            n percent
   &lt;dbl+lbl&gt;                       &lt;int&gt;   &lt;dbl&gt;
 1 0 [Strongly disagree]             155    7.66
@@ -469,7 +475,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 25 × 4
+<pre><code># A tibble: 25 x 4
 # Groups:   pid [5]
    pid                 goodevil                            n percent
    &lt;dbl+lbl&gt;           &lt;dbl+lbl&gt;                       &lt;int&gt;   &lt;dbl&gt;
@@ -483,7 +489,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 2 [Democrat]        2 [Neither agree, nor disagree]    87   29.6 
  9 2 [Democrat]        3 [Agree]                          92   31.3 
 10 2 [Democrat]        4 [Strongly agree]                 37   12.6 
-# ℹ 15 more rows</code></pre>
+# i 15 more rows</code></pre>
 </div>
 </div>
 <p>Let’s plot the frequency of this Manichean perspective:</p>
@@ -646,15 +652,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(shareShow)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 8
+<pre><code># A tibble: 6 x 8
   pop2                           n percent categories q     official con1  con4 
   &lt;dbl+lbl&gt;                  &lt;int&gt;   &lt;dbl&gt; &lt;fct&gt;      &lt;chr&gt; &lt;dbl+lb&gt; &lt;dbl&gt; &lt;dbl&gt;
-1  1 [Strongly disagree]        72    3.56 Strongly … "Peo… NA       NA    NA   
-2  2 [Disagree]                226   11.2  Disagree   "Peo… NA       NA    NA   
-3  3 [Neither agree, nor di…   709   35.0  Neither a… "Peo… NA       NA    NA   
-4  4 [Agree]                   633   31.3  Agree      "Peo… NA       NA    NA   
-5  5 [Strongly agree]          383   18.9  Strongly … "Peo… NA       NA    NA   
-6 NA                           107    5.29 Strongly … "Off…  1 [Str… NA    NA   </code></pre>
+1  1 [Strongly disagree]        72    3.56 Strongly ~ "Peo~ NA       NA    NA   
+2  2 [Disagree]                226   11.2  Disagree   "Peo~ NA       NA    NA   
+3  3 [Neither agree, nor di~   709   35.0  Neither a~ "Peo~ NA       NA    NA   
+4  4 [Agree]                   633   31.3  Agree      "Peo~ NA       NA    NA   
+5  5 [Strongly agree]          383   18.9  Strongly ~ "Peo~ NA       NA    NA   
+6 NA                           107    5.29 Strongly ~ "Off~  1 [Str~ NA    NA   </code></pre>
 </div>
 </div>
 <p>Make a plot:</p>
@@ -1014,7 +1020,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">count</span>(climatechangeBIN)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 2
+<pre><code># A tibble: 3 x 2
   climatechangeBIN     n
              &lt;dbl&gt; &lt;int&gt;
 1                0  1582
@@ -1027,7 +1033,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">count</span>(climatechangeBIN,climatechange)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 3
+<pre><code># A tibble: 6 x 3
   climatechangeBIN climatechange     n
              &lt;dbl&gt;         &lt;dbl&gt; &lt;int&gt;
 1                0             1   733
@@ -1477,7 +1483,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./4b_tweet_ratings.html" class="pagination-link" aria-label="Mixed data (strings and numbers)">
+      <a href="./4a_tweet_ratings.html" class="pagination-link" aria-label="Mixed data (strings and numbers)">
         <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

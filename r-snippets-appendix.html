@@ -181,20 +181,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4b_tweet_ratings.html" class="sidebar-item-text sidebar-link">
+  <a href="./4a_tweet_ratings.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4_advanced-ggplot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
+  <a href="./4b_heatmaps-ridgelines.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Heatmaps</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4c_advanced-ggplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Advanced ggplot</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./5_visualizing-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Visualizing statistical models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -317,7 +323,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>A collection of practical solutions for common data visualization and analysis situations.</p>
 <p>Based on: <a href="https://github.com/zilinskyjan/R-snippets">github.com/zilinskyjan/R-snippets</a></p>
-<p>A slide deck version is available <a href="https://github.com/zilinskyjan/DataViz/blob/main/slides/r-snippets-teaching.html">here</a>.</p>
+<p>A slide deck version is available <a href="https://rawcdn.githack.com/zilinskyjan/DataViz/2e38f94acb5465e7bfe1e7a438de6701f9cd344b/slides/r-snippets-teaching.html#/title-slide">here</a>.</p>
 <section id="summary-of-tips" class="level2">
 <h2 class="anchored" data-anchor-id="summary-of-tips">Summary of Tips</h2>
 <table class="caption-top table">
@@ -410,7 +416,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview the data</span></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>outlet_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 12 × 3
+<pre><code># A tibble: 12 x 3
    outlet          n_articles outlet_label                   
    &lt;chr&gt;                &lt;int&gt; &lt;chr&gt;                          
  1 forbes                7036 Forbes                         
@@ -439,7 +445,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(daily_counts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 2
+<pre><code># A tibble: 6 x 2
   date       n_articles
   &lt;date&gt;          &lt;int&gt;
 1 2024-11-01         80
@@ -694,7 +700,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>outlet_categories</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 2
+<pre><code># A tibble: 3 x 2
   category     total_articles
   &lt;chr&gt;                 &lt;int&gt;
 1 Business              11281
@@ -970,7 +976,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>outlet_stats</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 3
+<pre><code># A tibble: 10 x 3
    outlet          n_articles mean_length
    &lt;chr&gt;                &lt;int&gt;       &lt;dbl&gt;
  1 forbes                7036        63.5
