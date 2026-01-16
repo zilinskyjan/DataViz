@@ -1,12 +1,20 @@
 ---
-title: "AI as a Teaching Tool"
-subtitle: "Opportunities and Risks"
+title: "AI in education"
+subtitle: "(Especially in this class)"
+author: "Jan Zilinsky, TUM, January 2026"
 format: 
   revealjs:
     slide-number: c
     theme: default
     css: intro-ai-teaching.css
 ---
+
+# What should we do about AI?
+
+## What I think we shold not do
+
+- Pretend chatbots don't exist
+- Ban technology that you will you in your future workplace
 
 ## LLMs can be excellent teachers
 
@@ -23,11 +31,14 @@ format:
 
 ------------------------------------------------------------------------
 
-## Open question {.spaced}
+## Open questions {.spaced}
 
-Can they spark curiosity?
-
-Or will they encourage users to delegate too much?
+::: {.incremental}
+- Can they spark curiosity?
+- Or will they...
+  - Encourage users to delegate too much?
+  - Create uniformity in taste?
+:::
 
 ::: fragment
 *(Probably depends on the context, the user's personality, etc.)*
@@ -62,10 +73,11 @@ The difference lies not in the impulse (which is timelessly human), but in the *
 
 ------------------------------------------------------------------------
 
-## Key takeaways
+## Provisional takeaways
 
 ::: {.incremental .highlight-last}
--   AI tools can be excellent teachers
--   But a frictionless environment has risks
--   The difference is in the efficiency of the tool
+-   AI tools can probably accelerate some forms of learning
+-   But be mindful of the risks
+-   This class is an opportunity to learn, get to know your classmates, build relationships, ...
+-   Trade-offs are everywhere. Let me know how you think about them
 :::

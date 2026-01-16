@@ -4,6 +4,8 @@ A collection of practical solutions for common data visualization and analysis s
 
 Based on: [github.com/zilinskyjan/R-snippets](https://github.com/zilinskyjan/R-snippets)
 
+A slide deck version is available [here](https://rawcdn.githack.com/zilinskyjan/DataViz/2e38f94acb5465e7bfe1e7a438de6701f9cd344b/slides/r-snippets-teaching.html#/title-slide).
+
 ## Summary of Tips
 
 | Tip | Solution |

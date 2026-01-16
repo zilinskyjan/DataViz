@@ -13,6 +13,8 @@ We'll be using this package to help us out:
 library(broom)
 ```
 
+(And in the second section will use `ggeffects` to make our life even easier.)
+
 ## Nationscape data
 
 ```{r}
@@ -104,28 +106,27 @@ aoc_Favorable %>% filter(pid3 <= 3,term == "age") %>%
   scale_color_manual(values = c("blue3","darkred","grey40"))
 ```
 
+## `ggeffects` if your friend
 
-
-## AJPS (2021) data
+### AJPS (2021) data
 
 ```{r}
 library(tidyverse)
 library(haven)
 library(labelled)
 
-# READ IN RECODED DATA
 source("data/ajps2021/0_ajps_recode.R")
 ```
 
 
 We now turn again to the dataset posted by Uscinski et al. (2021).
+We now turn again to the dataset posted by Uscinski et al. (2021).  
+The code below estimates four regression models to examine how party identification (PID) interacts with populism and conspiracy thinking in predicting attitudes about climate and Trump favorability. 
+
+First, we fit models using the original 7-point party ID scale:
 
 ```{r}
 #| eval: true
-
-# CT seems correlated with Trump FT among Dems
-# Pop seems correlated with Trump FT among Reps 
-# Manich. correlated with Trump FT among all
 
 int1 <- lm(cexaggerate ~ pid*pop_Index, data=d3)
 int2 <- lm(trumpft ~ pid*pop_Index, data=d3)
@@ -133,12 +134,88 @@ int3 <- lm(trumpft ~ pid*consp_Index, data=d3)
 int4 <- lm(trumpft ~ pid*goodevil + consp_Index + pop_Index, data=d3)
 ```
 
+We use `ggeffects` to plot predicted values from the first model, showing how the effect of populism on the belief that climate change is exaggerated varies across the 7-point party-ID scale:
+
 ```{r}
-ggeffects::ggeffect(int1, terms=c("pid","pop_Index")) %>% plot() +
+ggeffects::ggeffect(int1, terms=c("pop_Index","pid")) %>% plot() +
   labs(y="Climate change is exaggerated",
-       x="PID (7=Strong Republican",color="Populism")
+       color="PID (7=Strong Republican)",
+       x="Populism",
+       title = "Predicted beliefs (7-point PID scale)")
 ```
 
+To make the visualization clearer, we can also recode the 7-point party ID scale into three categories:
 
+- Values 1-3: Democrats
+- Value 4: Independents  
+- Values 5-7: Republicans
 
+```{r}
+#| eval: true
 
+# Recode PID into 3 categories
+d3 <- d3 %>%
+  mutate(pid3cat = case_when(
+    pid >= 1 & pid <= 3 ~ "Democrat",
+    pid == 4 ~ "Independent",
+    pid >= 5 & pid <= 7 ~ "Republican"
+  ) %>%
+  factor(levels = c("Democrat", "Independent", "Republican")))
+
+int1_3cat <- lm(cexaggerate ~ pid3cat*pop_Index, data=d3)
+int2_3cat <- lm(trumpft ~ pid3cat*pop_Index, data=d3)
+int3_3cat <- lm(trumpft ~ pid3cat*consp_Index, data=d3)
+int4_3cat <- lm(trumpft ~ pid3cat*goodevil + consp_Index + pop_Index, data=d3)
+```
+
+Now we plot the same relationship using the 3-category party ID variable:
+
+```{r}
+ggeffects::ggeffect(int1_3cat, terms=c("pop_Index","pid3cat")) %>% plot() +
+  labs(y="Climate change is exaggerated",
+       color="Party ID",
+       x="Populism",
+       title = "Predicted beliefs (3-category PID)")
+```
+
+Customize the colors of the 3 lines: Democrats = blue, Independents = gray, Republicans = red
+
+```{r}
+ggeffects::ggeffect(int1_3cat, terms=c("pop_Index","pid3cat")) %>%
+  plot() +
+  scale_color_manual(values = c(
+    "Democrat" = "#0072B2",     # blue
+    "Independent" = "gray40",   # gray
+    "Republican" = "#D55E00"    # red
+  )) +
+  labs(y="Climate change is exaggerated",
+       color="Party ID",
+       x="Populism",
+       title = "Predicted beliefs (3-category PID, custom colors)")
+```
+
+To ensure that both the lines **and** the confidence interval ribbons convey party ID with the same custom colors, we should also specify `scale_fill_manual()` in addition to `scale_color_manual()`. The fill controls the color of the confidence interval bands, which default to a lighter version of the respective line color. By matching the color and fill, the plot becomes more consistent and clear.
+
+Here's how to do it:
+
+```{r}
+ggeffects::ggeffect(int1_3cat, terms=c("pop_Index","pid3cat")) %>%
+  plot() +
+  scale_color_manual(values = c(
+    "Democrat" = "#0072B2",     # blue
+    "Independent" = "gray40",   # gray
+    "Republican" = "#FF0000"    # red
+  )) +
+  scale_fill_manual(values = c(
+    "Democrat" = "#0072B2",     
+    "Independent" = "gray70",   
+    "Republican" = "#FF0000"
+  )) +
+  labs(y="Climate change is exaggerated",
+       color="Party ID",
+       fill="Party ID",
+       x="Populism",
+       title = "Predicted beliefs",
+       subtitle = "3-category PID, custom colors including CI ribbons")
+
+```

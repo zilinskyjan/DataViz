@@ -1,0 +1,143 @@
+# Heatmaps
+
+This chapter demonstrates how to create **heatmaps** to display patterns across groups and time. We use Instagram posting data from Democratic presidential candidates during 2019-2020 to illustrate the technique.
+
+## Setup and Data
+
+```{r}
+library(tidyverse)
+library(lubridate)
+```
+
+We load Instagram posting data for US presidential candidates. This dataset contains individual posts with timestamps, engagement metrics, and account information.
+
+```{r}
+insta_pres <- read_csv("data/instagram_pres_candidates_2019_to_July162020.csv")
+```
+
+Let's examine the structure of the data:
+
+```{r}
+glimpse(insta_pres)
+```
+
+## Data Preparation
+
+The key to creating effective heatmaps is aggregating data to the right level. For our time-based analysis, we need to extract month-year information from the posting dates.
+
+```{r}
+insta_pres <- insta_pres %>%
+  mutate(
+    date = as.Date(Created),
+    monthyear = floor_date(date, "month")
+  )
+```
+
+We create a `monthyear` variable by flooring each date to the first of its month. This gives us a consistent grouping variable for aggregation.
+
+## Heatmaps with `geom_tile()`
+
+Heatmaps display values in a matrix format where color intensity represents the magnitude of a variable. They're excellent for showing patterns across two categorical dimensions---in our case, candidates and time periods.
+
+### Basic Heatmap: Selected Candidates
+
+We start by filtering to five major candidates and counting posts per month:
+
+```{r}
+#| fig-width: 10
+#| fig-height: 4
+insta_pres %>% 
+  filter(`User Name` %in% c("elizabethwarren", "joebiden", "berniesanders", 
+                            "pete.buttigieg", "amyklobuchar")) %>%
+  group_by(`User Name`, monthyear) %>%
+  summarize(n = n(), .groups = "drop") %>% 
+  ggplot(aes(monthyear, `User Name`, fill = n)) +
+  geom_tile(color = "white", size = 0.1) + 
+  theme_minimal() + 
+  scale_fill_gradient(low = "white", high = "purple") +
+  labs(x = "", y = "Instagram account", fill = "Number\nof posts",
+       subtitle = "Instagram use of selected Democratic candidates")
+```
+
+Key elements of this visualization:
+
+- **geom_tile()** creates rectangular tiles, one per candidate-month combination
+- **color = "white"** adds thin borders between tiles for visual separation
+- **scale_fill_gradient()** maps the count to a continuous color scale from white (low) to purple (high)
+
+### Expanding to All Candidates
+
+To show all candidates, we need to create a meaningful ordering. Here we order candidates by their total posting volume:
+
+```{r}
+# Create ordered list of accounts by total posts
+account_order <- insta_pres %>%
+  count(`User Name`) %>%
+  arrange(desc(n)) %>%
+  pull(`User Name`)
+```
+
+Now we can visualize all candidates:
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+insta_pres %>% 
+  group_by(`User Name`, monthyear) %>%
+  summarize(n = n(), .groups = "drop") %>% 
+  mutate(account = factor(`User Name`, levels = rev(account_order))) %>% 
+  ggplot(aes(monthyear, account, fill = n)) +
+  geom_tile(color = "white", size = 0.1) + 
+  theme_minimal() + 
+  scale_fill_gradient(low = "white", high = "navy") +
+  labs(x = "", y = "Instagram account", fill = "Number\nof posts",
+       subtitle = "Instagram use of Democrats who ran for president in 2019-2020")
+```
+
+### Categorical Color Scales
+
+Sometimes a continuous color scale can be difficult to interpret, especially when the distribution is skewed. Converting counts to categories can make patterns more readable.
+
+```{r}
+library(RColorBrewer)
+```
+
+We use `cut()` to bin the count into meaningful categories:
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+insta_pres %>% 
+  filter(monthyear >= "2019-01-01") %>%
+  group_by(`User Name`, monthyear) %>%
+  summarize(n = n(), .groups = "drop") %>% 
+  mutate(
+    countfactor = cut(n, 
+                      breaks = c(-1, 0, 5, 10, 20, 40, 60, 80, Inf),
+                      labels = c("0", "1-5", "6-10", "11-20", "21-40", "41-60", "61-80", ">80"))
+  ) %>%
+  mutate(account = factor(`User Name`, levels = rev(account_order))) %>% 
+  ggplot(aes(monthyear, account, fill = countfactor)) +
+  geom_tile(color = "white", size = 0.1) + 
+  theme_minimal() +
+  scale_fill_manual(values = brewer.pal(8, "Purples"), na.value = "grey90") +
+  labs(x = "", y = "Instagram account", fill = "Number\nof posts",
+       subtitle = "Instagram use of Democrats who ran for president in 2019-2020")
+```
+
+Key differences in this approach:
+
+- **cut()** creates bins with custom breakpoints---we chose bins that match how people naturally think about posting frequency
+- **scale_fill_manual()** with `brewer.pal()` provides a sequential color palette designed for ordered categories
+- **na.value = "grey90"** handles any missing month-candidate combinations
+
+## Summary
+
+This chapter covered heatmaps using `geom_tile()`:
+
+- Best for showing values across two categorical dimensions (e.g., candidates and time periods)
+- Use continuous color scales (`scale_fill_gradient()`) for fine-grained differences
+- Use categorical color scales (via `cut()`) for easier interpretation of ranges
+- Order categories meaningfully rather than alphabetically to reveal patterns
+- Add white borders between tiles for visual separation
+

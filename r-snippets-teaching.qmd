@@ -406,11 +406,21 @@ dataset <- dataverse::get_dataframe_by_name(
 
 ::::: columns
 ::: {.column width="50%"}
-**Visualization Tips** - Control legends, labels, titles - Manage spacing and gridlines - Use transparency effectively - Format dates properly
+**Visualization Tips** 
+
+- Control legends, labels, titles 
+- Manage spacing and gridlines 
+- Use transparency effectively 
+- Format dates properly
 :::
 
 ::: {.column width="50%"}
-**Analysis Tips** - Filter data within plots - Generate predictions - Calculate CIs correctly - Filter by sample size
+**Analysis Tips** 
+
+- Filter data within plots 
+- Generate predictions 
+- Calculate CIs correctly 
+- Filter by sample size
 :::
 :::::
 

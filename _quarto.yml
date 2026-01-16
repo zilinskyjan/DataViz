@@ -12,8 +12,9 @@ book:
     - 3_B_timeseries.qmd
     - 3_C_financial-markets.qmd
     - 3_standard-charts.qmd
-    - 4b_tweet_ratings.qmd
-    - 4_advanced-ggplot.qmd
+    - 4a_tweet_ratings.qmd
+    - 4b_heatmaps-ridgelines.qmd
+    - 4c_advanced-ggplot.qmd
     - 5_visualizing-models.qmd
     - part: "Resources"
       chapters:
