@@ -96,7 +96,9 @@ insta_pres %>%
 
 ### Categorical Color Scales
 
-Sometimes a continuous color scale can be difficult to interpret, especially when the distribution is skewed. Converting counts to categories can make patterns more readable.
+Sometimes a continuous color scale can be "too smooth".
+
+Converting counts to categories could make patterns more readable.
 
 ```{r}
 library(RColorBrewer)
@@ -113,8 +115,8 @@ insta_pres %>%
   summarize(n = n(), .groups = "drop") %>% 
   mutate(
     countfactor = cut(n, 
-                      breaks = c(-1, 0, 5, 10, 20, 40, 60, 80, Inf),
-                      labels = c("0", "1-5", "6-10", "11-20", "21-40", "41-60", "61-80", ">80"))
+                      breaks = c(-1, 0, 5, 10, 20, 50, 80, Inf),
+                      labels = c("0", "1-5", "6-10", "11-20", "21-50", "51-80", ">80"))
   ) %>%
   mutate(account = factor(`User Name`, levels = rev(account_order))) %>% 
   ggplot(aes(monthyear, account, fill = countfactor)) +

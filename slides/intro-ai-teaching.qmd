@@ -11,16 +11,18 @@ format:
 
 # What should we do about AI?
 
+# Main suggestion: We should have frank conversations
+
 ## What I think we shold not do
 
 - Pretend chatbots don't exist
-- Ban technology that you will you in your future workplace
+- Ban technology that you will probably use in your future workplace
 
 ## LLMs can be excellent teachers
 
 -   **They "know" a lot.** [Loosely speaking]{.note}
 -   **They are patient.** ["Let's go back", "explain it differently..."]{.note}
--   **The level of explanation can be dialed up/down.**
+- **Explanations are adjustable.** [You can ask for a simpler or more advanced explanation at any time.]{.note}
 
 ------------------------------------------------------------------------
 
@@ -30,6 +32,7 @@ format:
 -   **You can speak and explain what exactly you know and where you get lost.**
 
 ------------------------------------------------------------------------
+
 
 ## Open questions {.spaced}
 
@@ -46,6 +49,8 @@ format:
 
 ------------------------------------------------------------------------
 
+---
+
 ## Risks
 
 -   **A perfectly frictionless intellectual environment could stunt your growth.**
@@ -53,6 +58,15 @@ format:
 -   **Memory features might prevent serendipitous discovery.** [Less of a risk when starting fresh conversations]{.note}
 
 ------------------------------------------------------------------------
+
+## The freedom–laziness conundrum
+
+- I want you to have every tutor, assistant, and explainer at your fingertips (AI included).
+
+- Yet the easier it gets to "vibe-code" (or vibe-write, vibe-analyze, vibe-everything), the stronger the temptation to let the agent do **all** the work.  
+
+- That freedom/temptation to coast is a real temptation (perhaps among all of us).
+
 
 ## Brief reflections on (AI-driven) echo chambers
 
@@ -63,13 +77,6 @@ format:
 *Given this reality, why should we see the AI version of this problem as uniquely dangerous?*
 :::
 
-------------------------------------------------------------------------
-
-## The difference
-
-::: callout-note
-The difference lies not in the impulse (which is timelessly human), but in the **efficiency**, **perfection**, and **nature** of the tool we are building to satisfy that impulse.
-:::
 
 ------------------------------------------------------------------------
 
@@ -79,5 +86,5 @@ The difference lies not in the impulse (which is timelessly human), but in the *
 -   AI tools can probably accelerate some forms of learning
 -   But be mindful of the risks
 -   This class is an opportunity to learn, get to know your classmates, build relationships, ...
--   Trade-offs are everywhere. Let me know how you think about them
+-   Trade-offs are everywhere. Let me know how you think about them.[We should have open conversations about this.]{.note}
 :::

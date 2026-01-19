@@ -8,7 +8,7 @@ format:
 
 ::: {.callout-note}
 ## Note
-These are lecture notes and tutorials which combine many of the materials that I have used for teaching at the Technical University of Munich between 2022 and 2026.
+These are lecture notes and tutorials which combine many of the materials that I have used for teaching at the Technical University of Munich between 2023 and 2026.
 :::
 
 Some say visualization is what you do when you "form a mental picture of something" or when you try to represent an object or a situation and "render it visible." That's fine, but this will be our definition:\
