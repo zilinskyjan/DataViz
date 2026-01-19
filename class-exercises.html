@@ -285,7 +285,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tidyverse-refresher.html">Appendix</a></li><li class="breadcrumb-item"><a href="./class-exercises.html">More in-class exercises</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">More in-class exercises</h1>
+<div class="quarto-title-block"><div><h1 class="title">More in-class exercises</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -305,6 +305,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="tidyverse-basics" class="level2">
 <h2 class="anchored" data-anchor-id="tidyverse-basics">Tidyverse basics</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read about the density index</span></span>
@@ -494,6 +496,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a><span class="co"># You can save the fixed dataset:</span></span>
 <span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(CD_nonmissing,<span class="st">"newfile.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 </section>
 <section id="running-regressions-and-visualizing-coefficients-and-confidence-intervals" class="level2">
@@ -501,6 +504,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="public-opipinion-data" class="level3">
 <h3 class="anchored" data-anchor-id="public-opipinion-data">Public opipinion data</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"pollster"</span>)</span>
@@ -520,9 +525,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    White <span class="sc">+</span> Black <span class="sc">+</span> Hispanic, <span class="at">data =</span> a)</span>
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(reg1) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 <p><code>broom</code> is an excellent package:</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(reg1) <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> term, <span class="at">y =</span> estimate)) <span class="sc">+</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -533,16 +541,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">x =</span> <span class="st">"Coefficient"</span>,</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">"Estimate"</span>) <span class="sc">+</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 <p>The code above gives us a lot of flexibility.</p>
 <p>That said, it’s possible to also simply run:</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>modelsummary<span class="sc">::</span><span class="fu">modelplot</span>(reg1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 </section>
 <section id="voting-data-county-level" class="level3">
 <h3 class="anchored" data-anchor-id="voting-data-county-level">Voting data (county-level)</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -566,12 +580,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Equivalent to:</span></span>
 <span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(dem_2p_vote_share <span class="sc">~</span> lfp, <span class="at">data =</span> D, <span class="at">subset =</span> (year<span class="sc">==</span><span class="dv">2016</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 </section>
 </section>
 <section id="using-stat_density_2d-or-geom_hex" class="level2">
 <h2 class="anchored" data-anchor-id="using-stat_density_2d-or-geom_hex">Using stat_density_2d or geom_hex()</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>exp <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/zilinskyjan/datasets/master/public%20opinion/experts/BertsouCaramani-TechnocracySurvey.csv"</span>)</span>
@@ -598,6 +615,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>            <span class="at">M_POP =</span> <span class="fu">mean</span>(popscale)) <span class="sc">%&gt;%</span></span>
 <span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>M_AP,<span class="at">y=</span>M_POP)) <span class="sc">+</span></span>
 <span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -605,6 +623,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
+<details class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>exp <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">M_AP =</span> <span class="fu">mean</span>(antipolitics),</span>
@@ -618,6 +638,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="fu">as_factor</span>(cty_lab)) <span class="sc">+</span></span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_hline(yintercept = M_POP) +</span></span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -625,11 +646,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
+<details class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>exp <span class="sc">%&gt;%</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>antipolitics, <span class="at">y=</span>popscale) ) <span class="sc">+</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hex</span>(<span class="at">bins =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_continuous</span>(<span class="at">type =</span> <span class="st">"viridis"</span>) <span class="sc">+</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -639,6 +663,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 
+
+<!-- -->
 
 </section>
 
@@ -713,6 +739,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1051,7 +1128,341 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   <div class="nav-page nav-page-next">
   </div>
-</nav>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># More in-class exercises {.unnumbered}</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tidyverse basics</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Read about the density index</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># - Methodology: https://github.com/theatlantic/citylab-data/blob/master/citylab-congress/methodology.md</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># - https://www.bloomberg.com/news/articles/2018-11-20/citylab-s-congressional-density-index</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># - https://www.bloomberg.com/news/articles/2018-10-05/the-suburbs-are-the-midterm-election-battleground</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>CD <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/zilinskyjan/citylab-data/master/citylab-congress/citylab_cdi_extended.csv"</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. What does each row mean?</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. How many variables (columns) are contained in the dataset?</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. What variables (columns) are present?</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Which variables contain missing data?</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(CD)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Change variable name "CD" to "District"</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>CD <span class="ot">&lt;-</span> <span class="fu">rename</span>(CD, <span class="st">`</span><span class="at">District</span><span class="st">`</span> <span class="ot">=</span> <span class="st">`</span><span class="at">CD</span><span class="st">`</span>)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Move the variables you are interested in the left:</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">select</span>(District, Clinton16, <span class="fu">everything</span>())</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">relocate</span>(District, Clinton16)</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="co"># To see the names of all variables:  </span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(CD)</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="co"># For manual inspection, run:</span></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="co"># View(CD)</span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Reordering rows:</span></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(Clinton16) <span class="sc">%&gt;%</span> <span class="fu">relocate</span>(Clinton16)</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="sc">-</span>Clinton16) <span class="sc">%&gt;%</span> <span class="fu">relocate</span>(Clinton16)</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a><span class="co"># How are the district classified and how many districts of each type do we have in the data?</span></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(CD<span class="sc">$</span>Cluster)</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(CD, Cluster)</span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(CD, <span class="at">number_of_districts =</span> <span class="fu">n</span>())</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(CD, <span class="at">number_of_rows =</span> <span class="fu">n</span>())</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-do the above with pipes</span></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">count</span>(Cluster)</span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the total number of rows</span></span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">number_of_districts =</span> <span class="fu">n</span>(),</span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>                 <span class="at">average_clinton_performance =</span> <span class="fu">mean</span>(Clinton16))</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">tally</span>()</span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Any missing values?</span></span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">complete.cases</span>(CD))</span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(CD)</span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a><span class="co"># Where are the missing values?</span></span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(CD))</span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's list the KEY VERBS</span></span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. filter: Keep only some rows (depending on their particular values).</span></span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. select: Keep the specified columns (list their names, without quotation marks).</span></span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. mutate: Create new variables.</span></span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. summarise: Collapse multiple rows into a single summary value.</span></span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. arrange: Order rows based on their values.</span></span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the average Clinton vote share</span></span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">avg_HRC_vote_share =</span> <span class="fu">mean</span>(Clinton16))</span>
+<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a><span class="co"># Where was HRC's vote at its minimum? Would this work?</span></span>
+<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">min_HRC_vote_share =</span> <span class="fu">min</span>(Clinton16))</span>
+<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare summaries by district type</span></span>
+<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> </span>
+<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Cluster) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_HRC_vote_share =</span> <span class="fu">mean</span>(Clinton16))</span>
+<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort your data:</span></span>
+<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Cluster) <span class="sc">%&gt;%</span></span>
+<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_HRC_vote_share =</span> <span class="fu">mean</span>(Clinton16)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(avg_HRC_vote_share)</span>
+<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort your data from highest to lowest average Clinton vote share</span></span>
+<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a><span class="co"># and show the total number of districts per row:</span></span>
+<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Cluster) <span class="sc">%&gt;%</span></span>
+<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_HRC_vote_share =</span> <span class="fu">mean</span>(Clinton16),</span>
+<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a>            <span class="at">n=</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>avg_HRC_vote_share)</span>
+<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a><span class="do">##########################</span></span>
+<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a><span class="co"># GENERATING NEW VARIABLES (as a function of what we already have)</span></span>
+<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a><span class="do">##########################</span></span>
+<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a binary variable conveying the district is "safe Democratic"</span></span>
+<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Clinton16_over70 =</span> Clinton16 <span class="sc">&gt;=</span> .<span class="dv">7</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Clinton16_over70,Clinton16) <span class="sc">%&gt;%</span></span>
+<span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n=</span><span class="dv">10</span>)</span>
+<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a><span class="co"># Or make a string variable [not necessarily recommended]</span></span>
+<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Clinton16_over70_string =</span> <span class="fu">ifelse</span>(Clinton16 <span class="sc">&gt;=</span> .<span class="dv">7</span>,<span class="st">"Safe"</span>,<span class="st">"Not safe"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(District,Clinton16,Clinton16_over70_string) <span class="sc">%&gt;%</span></span>
+<span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n=</span><span class="dv">10</span>) </span>
+<span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a><span class="co"># Save a new dataset</span></span>
+<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a>CD_new <span class="ot">&lt;-</span> CD <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Clinton16_over70 =</span> Clinton16 <span class="sc">&gt;=</span> .<span class="dv">7</span>)</span>
+<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-120"><a href="#cb9-120" aria-hidden="true" tabindex="-1"></a><span class="co"># Check 3 randomly selected district from each group:</span></span>
+<span id="cb9-121"><a href="#cb9-121" aria-hidden="true" tabindex="-1"></a>CD_new <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Clinton16_over70) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-122"><a href="#cb9-122" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-123"><a href="#cb9-123" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(District,Clinton16_over70,Clinton16)</span>
+<span id="cb9-124"><a href="#cb9-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-125"><a href="#cb9-125" aria-hidden="true" tabindex="-1"></a><span class="co"># How many such (arbitrarily defined) safe districts are there?</span></span>
+<span id="cb9-126"><a href="#cb9-126" aria-hidden="true" tabindex="-1"></a>CD_new <span class="sc">%&gt;%</span> <span class="fu">count</span>(Clinton16_over70)</span>
+<span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-128"><a href="#cb9-128" aria-hidden="true" tabindex="-1"></a><span class="co"># What is the typical density in these types of districts?</span></span>
+<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a>CD_new <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Clinton16_over70<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Cluster) <span class="sc">%&gt;%</span></span>
+<span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n)</span>
+<span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-134"><a href="#cb9-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-135"><a href="#cb9-135" aria-hidden="true" tabindex="-1"></a><span class="do">######################################</span></span>
+<span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a><span class="co"># Working with strings</span></span>
+<span id="cb9-137"><a href="#cb9-137" aria-hidden="true" tabindex="-1"></a><span class="do">#####################################</span></span>
+<span id="cb9-138"><a href="#cb9-138" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb9-139"><a href="#cb9-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-140"><a href="#cb9-140" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">str_detect</span>(District,<span class="st">"NC"</span>))</span>
+<span id="cb9-141"><a href="#cb9-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-142"><a href="#cb9-142" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"NC"</span>,District))</span>
+<span id="cb9-143"><a href="#cb9-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-144"><a href="#cb9-144" aria-hidden="true" tabindex="-1"></a><span class="co"># Usually a better choice: generate a new variable</span></span>
+<span id="cb9-145"><a href="#cb9-145" aria-hidden="true" tabindex="-1"></a><span class="fu">substr</span>(CD<span class="sc">$</span>District,<span class="dv">1</span>,<span class="dv">2</span>) </span>
+<span id="cb9-146"><a href="#cb9-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-147"><a href="#cb9-147" aria-hidden="true" tabindex="-1"></a>CD<span class="sc">$</span>state <span class="ot">&lt;-</span> <span class="fu">substr</span>(CD<span class="sc">$</span>District,<span class="dv">1</span>,<span class="dv">2</span>) </span>
+<span id="cb9-148"><a href="#cb9-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-149"><a href="#cb9-149" aria-hidden="true" tabindex="-1"></a><span class="co"># But what happened in the ninth district, NC-09?</span></span>
+<span id="cb9-150"><a href="#cb9-150" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">filter</span>(state<span class="sc">==</span><span class="st">"NC"</span>) <span class="sc">%&gt;%</span> <span class="fu">relocate</span>(<span class="st">`</span><span class="at">2018 winner party</span><span class="st">`</span>)</span>
+<span id="cb9-151"><a href="#cb9-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-152"><a href="#cb9-152" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">count</span>(<span class="st">`</span><span class="at">Pre-2018 party</span><span class="st">`</span>)</span>
+<span id="cb9-153"><a href="#cb9-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-154"><a href="#cb9-154" aria-hidden="true" tabindex="-1"></a><span class="co"># How many Democrats and Republicans were re-elected?</span></span>
+<span id="cb9-155"><a href="#cb9-155" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">count</span>(<span class="st">`</span><span class="at">Pre-2018 party</span><span class="st">`</span>,<span class="st">`</span><span class="at">2018 winner party</span><span class="st">`</span>)</span>
+<span id="cb9-156"><a href="#cb9-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-157"><a href="#cb9-157" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate proportions</span></span>
+<span id="cb9-158"><a href="#cb9-158" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">count</span>(<span class="st">`</span><span class="at">Pre-2018 party</span><span class="st">`</span>,<span class="st">`</span><span class="at">2018 winner party</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-159"><a href="#cb9-159" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span>
+<span id="cb9-160"><a href="#cb9-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-161"><a href="#cb9-161" aria-hidden="true" tabindex="-1"></a><span class="co"># What about the missing results for one district? Where is it?</span></span>
+<span id="cb9-162"><a href="#cb9-162" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(<span class="st">`</span><span class="at">2018 winner party</span><span class="st">`</span>))</span>
+<span id="cb9-163"><a href="#cb9-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-164"><a href="#cb9-164" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(<span class="st">`</span><span class="at">2018 winner party</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="st">`</span><span class="at">2018 winner party</span><span class="st">`</span>)</span>
+<span id="cb9-165"><a href="#cb9-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-166"><a href="#cb9-166" aria-hidden="true" tabindex="-1"></a><span class="do">####################</span></span>
+<span id="cb9-167"><a href="#cb9-167" aria-hidden="true" tabindex="-1"></a><span class="co"># THIS IS IMPORTANT</span></span>
+<span id="cb9-168"><a href="#cb9-168" aria-hidden="true" tabindex="-1"></a><span class="do">####################</span></span>
+<span id="cb9-169"><a href="#cb9-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-170"><a href="#cb9-170" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(CD)</span>
+<span id="cb9-171"><a href="#cb9-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-172"><a href="#cb9-172" aria-hidden="true" tabindex="-1"></a><span class="fu">complete.cases</span>(CD)</span>
+<span id="cb9-173"><a href="#cb9-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-174"><a href="#cb9-174" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">complete.cases</span>(CD))</span>
+<span id="cb9-175"><a href="#cb9-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-176"><a href="#cb9-176" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">complete.cases</span>(CD))</span>
+<span id="cb9-177"><a href="#cb9-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-178"><a href="#cb9-178" aria-hidden="true" tabindex="-1"></a><span class="co"># Where are the missing values?</span></span>
+<span id="cb9-179"><a href="#cb9-179" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(CD))</span>
+<span id="cb9-180"><a href="#cb9-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-181"><a href="#cb9-181" aria-hidden="true" tabindex="-1"></a>CD <span class="sc">%&gt;%</span></span>
+<span id="cb9-182"><a href="#cb9-182" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(<span class="st">`</span><span class="at">2018 winner party</span><span class="st">`</span>))</span>
+<span id="cb9-183"><a href="#cb9-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-184"><a href="#cb9-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-185"><a href="#cb9-185" aria-hidden="true" tabindex="-1"></a><span class="co"># There were ballot-harvesting problems in NC-09, and a new election had to be called</span></span>
+<span id="cb9-186"><a href="#cb9-186" aria-hidden="true" tabindex="-1"></a><span class="co"># ... what happened next, a Republican won</span></span>
+<span id="cb9-187"><a href="#cb9-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-188"><a href="#cb9-188" aria-hidden="true" tabindex="-1"></a><span class="co"># So, we can update the dataset:</span></span>
+<span id="cb9-189"><a href="#cb9-189" aria-hidden="true" tabindex="-1"></a>CD_nonmissing <span class="ot">&lt;-</span> CD <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="st">`</span><span class="at">2018 winner party</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(District <span class="sc">==</span> <span class="st">"NC-09"</span>,</span>
+<span id="cb9-190"><a href="#cb9-190" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"R"</span>,</span>
+<span id="cb9-191"><a href="#cb9-191" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">`</span><span class="at">2018 winner party</span><span class="st">`</span>))</span>
+<span id="cb9-192"><a href="#cb9-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-193"><a href="#cb9-193" aria-hidden="true" tabindex="-1"></a><span class="co"># This has been cleaned</span></span>
+<span id="cb9-194"><a href="#cb9-194" aria-hidden="true" tabindex="-1"></a>CD_nonmissing</span>
+<span id="cb9-195"><a href="#cb9-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-196"><a href="#cb9-196" aria-hidden="true" tabindex="-1"></a><span class="co"># You can save the fixed dataset:</span></span>
+<span id="cb9-197"><a href="#cb9-197" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(CD_nonmissing,<span class="st">"newfile.csv"</span>)</span>
+<span id="cb9-198"><a href="#cb9-198" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-199"><a href="#cb9-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-200"><a href="#cb9-200" aria-hidden="true" tabindex="-1"></a><span class="fu">## Running regressions and visualizing coefficients and confidence intervals</span></span>
+<span id="cb9-201"><a href="#cb9-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-202"><a href="#cb9-202" aria-hidden="true" tabindex="-1"></a><span class="fu">### Public opipinion data</span></span>
+<span id="cb9-203"><a href="#cb9-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-206"><a href="#cb9-206" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-207"><a href="#cb9-207" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb9-208"><a href="#cb9-208" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-209"><a href="#cb9-209" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled)</span>
+<span id="cb9-210"><a href="#cb9-210" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"pollster"</span>)</span>
+<span id="cb9-211"><a href="#cb9-211" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pollster)</span>
+<span id="cb9-212"><a href="#cb9-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-213"><a href="#cb9-213" aria-hidden="true" tabindex="-1"></a>githubURL <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/zilinskyjan/DataViz/temp/data/nationscape/Nationscape_first10waves.rds"</span></span>
+<span id="cb9-214"><a href="#cb9-214" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(githubURL,<span class="st">"Nationscape_first10waves.rds"</span>, <span class="at">method=</span><span class="st">"curl"</span>)</span>
+<span id="cb9-215"><a href="#cb9-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-216"><a href="#cb9-216" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"Nationscape_first10waves.rds"</span>)</span>
+<span id="cb9-217"><a href="#cb9-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-218"><a href="#cb9-218" aria-hidden="true" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(week) <span class="sc">%&gt;%</span> <span class="fu">tally</span>()</span>
+<span id="cb9-219"><a href="#cb9-219" aria-hidden="true" tabindex="-1"></a><span class="fu">topline</span>(a,aoc_Favorable,<span class="at">weight =</span> weight)</span>
+<span id="cb9-220"><a href="#cb9-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-221"><a href="#cb9-221" aria-hidden="true" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(aoc_Favorable <span class="sc">~</span></span>
+<span id="cb9-222"><a href="#cb9-222" aria-hidden="true" tabindex="-1"></a>    gender_att3_by1SD <span class="sc">+</span></span>
+<span id="cb9-223"><a href="#cb9-223" aria-hidden="true" tabindex="-1"></a>    age <span class="sc">+</span> college_grad <span class="sc">+</span></span>
+<span id="cb9-224"><a href="#cb9-224" aria-hidden="true" tabindex="-1"></a>    White <span class="sc">+</span> Black <span class="sc">+</span> Hispanic, <span class="at">data =</span> a)</span>
+<span id="cb9-225"><a href="#cb9-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-226"><a href="#cb9-226" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(reg1) </span>
+<span id="cb9-227"><a href="#cb9-227" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-228"><a href="#cb9-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-229"><a href="#cb9-229" aria-hidden="true" tabindex="-1"></a><span class="in">`broom`</span> is an excellent package:</span>
+<span id="cb9-230"><a href="#cb9-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-233"><a href="#cb9-233" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-234"><a href="#cb9-234" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb9-235"><a href="#cb9-235" aria-hidden="true" tabindex="-1"></a><span class="co">#| </span></span>
+<span id="cb9-236"><a href="#cb9-236" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(reg1) <span class="sc">%&gt;%</span></span>
+<span id="cb9-237"><a href="#cb9-237" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> term, <span class="at">y =</span> estimate)) <span class="sc">+</span></span>
+<span id="cb9-238"><a href="#cb9-238" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb9-239"><a href="#cb9-239" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> estimate <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>std.error, <span class="at">ymax =</span> estimate <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>std.error), <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb9-240"><a href="#cb9-240" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb9-241"><a href="#cb9-241" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb9-242"><a href="#cb9-242" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Regression Coefficients"</span>,</span>
+<span id="cb9-243"><a href="#cb9-243" aria-hidden="true" tabindex="-1"></a>         <span class="at">x =</span> <span class="st">"Coefficient"</span>,</span>
+<span id="cb9-244"><a href="#cb9-244" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">"Estimate"</span>) <span class="sc">+</span></span>
+<span id="cb9-245"><a href="#cb9-245" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span>
+<span id="cb9-246"><a href="#cb9-246" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-247"><a href="#cb9-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-248"><a href="#cb9-248" aria-hidden="true" tabindex="-1"></a>The code above gives us a lot of flexibility.</span>
+<span id="cb9-249"><a href="#cb9-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-250"><a href="#cb9-250" aria-hidden="true" tabindex="-1"></a>That said, it's possible to also simply run:</span>
+<span id="cb9-251"><a href="#cb9-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-254"><a href="#cb9-254" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-255"><a href="#cb9-255" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb9-256"><a href="#cb9-256" aria-hidden="true" tabindex="-1"></a>modelsummary<span class="sc">::</span><span class="fu">modelplot</span>(reg1)</span>
+<span id="cb9-257"><a href="#cb9-257" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-258"><a href="#cb9-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-259"><a href="#cb9-259" aria-hidden="true" tabindex="-1"></a><span class="fu">### Voting data (county-level)</span></span>
+<span id="cb9-260"><a href="#cb9-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-263"><a href="#cb9-263" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-264"><a href="#cb9-264" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb9-265"><a href="#cb9-265" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-266"><a href="#cb9-266" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb9-267"><a href="#cb9-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-268"><a href="#cb9-268" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">"https://github.com/zilinskyjan/R-stata-tutorials/blob/master/data/PIIE_replication_wp17-7/Election%20Data.dta?raw=true"</span>)</span>
+<span id="cb9-269"><a href="#cb9-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-270"><a href="#cb9-270" aria-hidden="true" tabindex="-1"></a>D<span class="sc">$</span>dem_2p_vote_share <span class="ot">&lt;-</span> D<span class="sc">$</span>demvote <span class="sc">/</span> (D<span class="sc">$</span>demvote <span class="sc">+</span> D<span class="sc">$</span>repvote)</span>
+<span id="cb9-271"><a href="#cb9-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-272"><a href="#cb9-272" aria-hidden="true" tabindex="-1"></a><span class="co"># What is the correlation between LFP and Dem. vote share?</span></span>
+<span id="cb9-273"><a href="#cb9-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-274"><a href="#cb9-274" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(dem_2p_vote_share <span class="sc">~</span> lfp, <span class="at">data =</span> D)</span>
+<span id="cb9-275"><a href="#cb9-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-276"><a href="#cb9-276" aria-hidden="true" tabindex="-1"></a><span class="co"># Equivalent to:</span></span>
+<span id="cb9-277"><a href="#cb9-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-278"><a href="#cb9-278" aria-hidden="true" tabindex="-1"></a>D <span class="sc">%&gt;%</span></span>
+<span id="cb9-279"><a href="#cb9-279" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(dem_2p_vote_share <span class="sc">~</span> lfp, <span class="at">data =</span> .)</span>
+<span id="cb9-280"><a href="#cb9-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-281"><a href="#cb9-281" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the 2016 data only</span></span>
+<span id="cb9-282"><a href="#cb9-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-283"><a href="#cb9-283" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(dem_2p_vote_share <span class="sc">~</span> lfp, <span class="at">data=</span> D <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2016</span>))</span>
+<span id="cb9-284"><a href="#cb9-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-285"><a href="#cb9-285" aria-hidden="true" tabindex="-1"></a><span class="co"># Equivalent to:</span></span>
+<span id="cb9-286"><a href="#cb9-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-287"><a href="#cb9-287" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(dem_2p_vote_share <span class="sc">~</span> lfp, <span class="at">data =</span> D, <span class="at">subset =</span> (year<span class="sc">==</span><span class="dv">2016</span>))</span>
+<span id="cb9-288"><a href="#cb9-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-289"><a href="#cb9-289" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-290"><a href="#cb9-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-291"><a href="#cb9-291" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using stat_density_2d or geom_hex()</span></span>
+<span id="cb9-292"><a href="#cb9-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-295"><a href="#cb9-295" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-296"><a href="#cb9-296" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: true</span></span>
+<span id="cb9-297"><a href="#cb9-297" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-298"><a href="#cb9-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-299"><a href="#cb9-299" aria-hidden="true" tabindex="-1"></a>exp <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/zilinskyjan/datasets/master/public%20opinion/experts/BertsouCaramani-TechnocracySurvey.csv"</span>)</span>
+<span id="cb9-300"><a href="#cb9-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-301"><a href="#cb9-301" aria-hidden="true" tabindex="-1"></a>exp<span class="sc">$</span>AP4BIN <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(exp<span class="sc">$</span>AP4 <span class="sc">&gt;=</span><span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb9-302"><a href="#cb9-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-303"><a href="#cb9-303" aria-hidden="true" tabindex="-1"></a>exp <span class="ot">&lt;-</span> exp <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb9-304"><a href="#cb9-304" aria-hidden="true" tabindex="-1"></a>  <span class="at">cty_lab =</span> <span class="fu">case_when</span>(</span>
+<span id="cb9-305"><a href="#cb9-305" aria-hidden="true" tabindex="-1"></a>    country<span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">"Germany"</span>,</span>
+<span id="cb9-306"><a href="#cb9-306" aria-hidden="true" tabindex="-1"></a>    country<span class="sc">==</span><span class="dv">2</span> <span class="sc">~</span> <span class="st">"France"</span>,</span>
+<span id="cb9-307"><a href="#cb9-307" aria-hidden="true" tabindex="-1"></a>    country<span class="sc">==</span><span class="dv">3</span> <span class="sc">~</span> <span class="st">"Great Britain"</span>,</span>
+<span id="cb9-308"><a href="#cb9-308" aria-hidden="true" tabindex="-1"></a>    country<span class="sc">==</span><span class="dv">4</span> <span class="sc">~</span> <span class="st">"Greece"</span>,</span>
+<span id="cb9-309"><a href="#cb9-309" aria-hidden="true" tabindex="-1"></a>    country<span class="sc">==</span><span class="dv">5</span> <span class="sc">~</span> <span class="st">"Italy"</span>,</span>
+<span id="cb9-310"><a href="#cb9-310" aria-hidden="true" tabindex="-1"></a>    country<span class="sc">==</span><span class="dv">6</span> <span class="sc">~</span> <span class="st">"Netherlands"</span>,</span>
+<span id="cb9-311"><a href="#cb9-311" aria-hidden="true" tabindex="-1"></a>    country<span class="sc">==</span><span class="dv">7</span> <span class="sc">~</span> <span class="st">"Poland"</span>,</span>
+<span id="cb9-312"><a href="#cb9-312" aria-hidden="true" tabindex="-1"></a>    country<span class="sc">==</span><span class="dv">8</span> <span class="sc">~</span> <span class="st">"Romania"</span>,</span>
+<span id="cb9-313"><a href="#cb9-313" aria-hidden="true" tabindex="-1"></a>    country<span class="sc">==</span><span class="dv">9</span> <span class="sc">~</span> <span class="st">"Sweden"</span></span>
+<span id="cb9-314"><a href="#cb9-314" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-315"><a href="#cb9-315" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-316"><a href="#cb9-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-317"><a href="#cb9-317" aria-hidden="true" tabindex="-1"></a>exp <span class="sc">%&gt;%</span></span>
+<span id="cb9-318"><a href="#cb9-318" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span></span>
+<span id="cb9-319"><a href="#cb9-319" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">M_AP =</span> <span class="fu">mean</span>(antipolitics),</span>
+<span id="cb9-320"><a href="#cb9-320" aria-hidden="true" tabindex="-1"></a>            <span class="at">M_POP =</span> <span class="fu">mean</span>(popscale)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-321"><a href="#cb9-321" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>M_AP,<span class="at">y=</span>M_POP)) <span class="sc">+</span></span>
+<span id="cb9-322"><a href="#cb9-322" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb9-323"><a href="#cb9-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-324"><a href="#cb9-324" aria-hidden="true" tabindex="-1"></a>exp <span class="sc">%&gt;%</span></span>
+<span id="cb9-325"><a href="#cb9-325" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span></span>
+<span id="cb9-326"><a href="#cb9-326" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">M_AP =</span> <span class="fu">mean</span>(antipolitics),</span>
+<span id="cb9-327"><a href="#cb9-327" aria-hidden="true" tabindex="-1"></a>            <span class="at">M_POP =</span> <span class="fu">mean</span>(popscale)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-328"><a href="#cb9-328" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>antipolitics, <span class="at">y=</span>popscale) ) <span class="sc">+</span></span>
+<span id="cb9-329"><a href="#cb9-329" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Anti-politics (based on 4 items)"</span>,<span class="at">y=</span><span class="st">"Populist attitudes (6 items)"</span>,</span>
+<span id="cb9-330"><a href="#cb9-330" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Data: Bertsou, Eri and Daniele Caramani (2017). Citizens’ Technocratic Attitudes."</span>) <span class="sc">+</span></span>
+<span id="cb9-331"><a href="#cb9-331" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_density_2d</span>(<span class="fu">aes</span>(<span class="at">fill =</span> ..density..), <span class="at">geom =</span> <span class="st">"raster"</span>, <span class="at">contour =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb9-332"><a href="#cb9-332" aria-hidden="true" tabindex="-1"></a>  <span class="co">#scale_fill_continuous(type = "viridis") + </span></span>
+<span id="cb9-333"><a href="#cb9-333" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_continuous</span>(<span class="at">low=</span><span class="st">"white"</span>,<span class="at">high=</span><span class="st">"cyan3"</span>) <span class="sc">+</span> </span>
+<span id="cb9-334"><a href="#cb9-334" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="fu">as_factor</span>(cty_lab)) <span class="sc">+</span></span>
+<span id="cb9-335"><a href="#cb9-335" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_hline(yintercept = M_POP) +</span></span>
+<span id="cb9-336"><a href="#cb9-336" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb9-337"><a href="#cb9-337" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-338"><a href="#cb9-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-339"><a href="#cb9-339" aria-hidden="true" tabindex="-1"></a>exp <span class="sc">%&gt;%</span></span>
+<span id="cb9-340"><a href="#cb9-340" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>antipolitics, <span class="at">y=</span>popscale) ) <span class="sc">+</span></span>
+<span id="cb9-341"><a href="#cb9-341" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hex</span>(<span class="at">bins =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb9-342"><a href="#cb9-342" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_continuous</span>(<span class="at">type =</span> <span class="st">"viridis"</span>) <span class="sc">+</span></span>
+<span id="cb9-343"><a href="#cb9-343" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() </span>
+<span id="cb9-344"><a href="#cb9-344" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 
