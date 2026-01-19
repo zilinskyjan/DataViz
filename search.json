@@ -44,17 +44,7 @@
     "href": "index.html#course-outline",
     "title": "Data Visualization with R and ggplot",
     "section": "Course outline",
-    "text": "Course outline\n\nIntroductory topics\n\nWhat works and what to avoid even if it works?\nPrinciples of visual perception and effect communication\nGetting familiar with ggplot\n\n\n\nUsing ggplot for data visualization\n- Toplines, cross-tabs\n- Geometries, statistics and coordinates\n- Facets, themes\n- Refining plots\n- 3-way cross-tabs\n- Heatmaps\n\n\nVisualizing output from statistical models\n- Coefficients and uncertainty\n- Predicted probabilities, marginal effects, and interactions\n- Model performance (in-sample and out-of-sample comparisons) \n- Machine learning output (regression trees, most important variables, etc.)\nIf you are taking this class for credit with me, these are the main expectations:",
-    "crumbs": [
-      "Overview of this class"
-    ]
-  },
-  {
-    "objectID": "index.html#assignments",
-    "href": "index.html#assignments",
-    "title": "Data Visualization with R and ggplot",
-    "section": "Assignments",
-    "text": "Assignments\n\nCreate your own dataset\n\nCreate your own dataset. It needs to have at least one of these 3 attributes\n\nMultiple levels (at least 2).\nOriginal topic, subject or angle.\nImpressive scope\n\n\nFinal project\n\nForm a group of 2-3 students\nPrepare a compelling data visualization",
+    "text": "Course outline\n\nIntroductory topics\n\nWhat works and what to avoid even if it works?\nPrinciples of visual perception and effect communication\nGetting familiar with ggplot\n\n\n\nUsing ggplot for data visualization\n\nToplines, cross-tabs\nGeometries, statistics and coordinates\nFacets, themes\nRefining plots\n3-way cross-tabs\nHeatmaps\n\n\n\nVisualizing output from statistical models\n\nCoefficients and uncertainty\nPredicted probabilities, marginal effects, and interactions\nOptional: machine learning output (regression trees, most important variables, etc.)",
     "crumbs": [
       "Overview of this class"
     ]

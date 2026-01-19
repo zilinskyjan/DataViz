@@ -309,7 +309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="setup-and-data" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="setup-and-data"><span class="header-section-number">7.1</span> Setup and Data</h2>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -317,14 +317,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We load Instagram posting data for US presidential candidates. This dataset contains individual posts with timestamps, engagement metrics, and account information.</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>insta_pres <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/instagram_pres_candidates_2019_to_July162020.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>Let’s examine the structure of the data:</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(insta_pres)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
@@ -355,7 +355,7 @@ $ `Overperforming Score` &lt;dbl&gt; 71.91, 61.10, 27.59, 19.86, 17.44, 17.33, 1
 <h2 data-number="7.2" class="anchored" data-anchor-id="data-preparation"><span class="header-section-number">7.2</span> Data Preparation</h2>
 <p>The key to creating effective heatmaps is aggregating data to the right level. For our time-based analysis, we need to extract month-year information from the posting dates.</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>insta_pres <span class="ot">&lt;-</span> insta_pres <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -373,7 +373,7 @@ $ `Overperforming Score` &lt;dbl&gt; 71.91, 61.10, 27.59, 19.86, 17.44, 17.33, 1
 <h3 data-number="7.3.1" class="anchored" data-anchor-id="basic-heatmap-selected-candidates"><span class="header-section-number">7.3.1</span> Basic Heatmap: Selected Candidates</h3>
 <p>We start by filtering to five major candidates and counting posts per month:</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>insta_pres <span class="sc">%&gt;%</span> </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">User Name</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"elizabethwarren"</span>, <span class="st">"joebiden"</span>, <span class="st">"berniesanders"</span>, </span>
@@ -406,7 +406,7 @@ $ `Overperforming Score` &lt;dbl&gt; 71.91, 61.10, 27.59, 19.86, 17.44, 17.33, 1
 <h3 data-number="7.3.2" class="anchored" data-anchor-id="expanding-to-all-candidates"><span class="header-section-number">7.3.2</span> Expanding to All Candidates</h3>
 <p>To show all candidates, we need to create a meaningful ordering. Here we order candidates by their total posting volume:</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create ordered list of accounts by total posts</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>account_order <span class="ot">&lt;-</span> insta_pres <span class="sc">%&gt;%</span></span>
@@ -417,7 +417,7 @@ $ `Overperforming Score` &lt;dbl&gt; 71.91, 61.10, 27.59, 19.86, 17.44, 17.33, 1
 </div>
 <p>Now we can visualize all candidates:</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>insta_pres <span class="sc">%&gt;%</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">User Name</span><span class="st">`</span>, monthyear) <span class="sc">%&gt;%</span></span>
@@ -444,14 +444,14 @@ $ `Overperforming Score` &lt;dbl&gt; 71.91, 61.10, 27.59, 19.86, 17.44, 17.33, 1
 <p>Sometimes a continuous color scale can be “too smooth”.</p>
 <p>Converting counts to categories could make patterns more readable.</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>We use <code>cut()</code> to bin the count into meaningful categories:</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>insta_pres <span class="sc">%&gt;%</span> </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(monthyear <span class="sc">&gt;=</span> <span class="st">"2019-01-01"</span>) <span class="sc">%&gt;%</span></span>

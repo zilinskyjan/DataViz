@@ -308,7 +308,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>A more accurate title, of course, would be “visualizing <em>outputs</em> from statistical models”.</p>
 <p>We’ll be using this package to help us out:</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
@@ -317,7 +317,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="nationscape-data" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="nationscape-data"><span class="header-section-number">9.1</span> Nationscape data</h2>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in Nationscape survey data:</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -330,7 +330,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We estimate 10 separate model, aka “rolling regressions”.</p>
 <p>We run one model for each value of <code>week</code>, and create a tibble thanks to the <code>tidy()</code>function:</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">filter</span>(</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(aoc_Favorable),</span>
@@ -360,7 +360,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>It seems that the correlation between sexism and (lower) favorability of AOC is quite stable.</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>aoc_Favorable <span class="ot">&lt;-</span> a <span class="sc">%&gt;%</span> <span class="fu">filter</span>(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(aoc_Favorable),</span>
@@ -378,7 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We can now plot any set of coefficients, of course.</p>
 <p>Let us try to see whether age correlates negatively with AOC’s favorability, as we might perhaps suspect:</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>aoc_Favorable <span class="sc">%&gt;%</span> <span class="fu">filter</span>(pid3 <span class="sc">&lt;=</span> <span class="dv">3</span> <span class="sc">&amp;</span> term <span class="sc">==</span> <span class="st">"age"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as_factor</span>(pid3),<span class="at">y=</span>estimate,</span>
@@ -397,7 +397,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Let’s improve the design a little bit:</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>aoc_Favorable <span class="sc">%&gt;%</span> <span class="fu">filter</span>(pid3 <span class="sc">&lt;=</span> <span class="dv">3</span>,term <span class="sc">==</span> <span class="st">"age"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as_factor</span>(pid3),<span class="at">y=</span>estimate,</span>
@@ -418,7 +418,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Need to fix the party colors:</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>aoc_Favorable <span class="sc">%&gt;%</span> <span class="fu">filter</span>(pid3 <span class="sc">&lt;=</span> <span class="dv">3</span>,term <span class="sc">==</span> <span class="st">"age"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as_factor</span>(pid3),<span class="at">y=</span>estimate,</span>
@@ -445,7 +445,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="ajps-2021-data" class="level3" data-number="9.2.1">
 <h3 data-number="9.2.1" class="anchored" data-anchor-id="ajps-2021-data"><span class="header-section-number">9.2.1</span> AJPS (2021) data</h3>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
@@ -458,7 +458,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 The code below estimates four regression models to examine how party identification (PID) interacts with populism and conspiracy thinking in predicting attitudes about climate and Trump favorability.</p>
 <p>First, we fit models using the original 7-point party ID scale:</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>int1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(cexaggerate <span class="sc">~</span> pid<span class="sc">*</span>pop_Index, <span class="at">data=</span>d3)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>int2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(trumpft <span class="sc">~</span> pid<span class="sc">*</span>pop_Index, <span class="at">data=</span>d3)</span>
@@ -468,7 +468,7 @@ The code below estimates four regression models to examine how party identificat
 </div>
 <p>We use <code>ggeffects</code> to plot predicted values from the first model, showing how the effect of populism on the belief that climate change is exaggerated varies across the 7-point party-ID scale:</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ggeffects<span class="sc">::</span><span class="fu">ggeffect</span>(int1, <span class="at">terms=</span><span class="fu">c</span>(<span class="st">"pop_Index"</span>,<span class="st">"pid"</span>)) <span class="sc">%&gt;%</span> <span class="fu">plot</span>() <span class="sc">+</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Climate change is exaggerated"</span>,</span>
@@ -492,7 +492,7 @@ The code below estimates four regression models to examine how party identificat
 <li>Values 5-7: Republicans</li>
 </ul>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode PID into 3 categories</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> d3 <span class="sc">%&gt;%</span></span>
@@ -511,7 +511,7 @@ The code below estimates four regression models to examine how party identificat
 </div>
 <p>Now we plot the same relationship using the 3-category party ID variable:</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ggeffects<span class="sc">::</span><span class="fu">ggeffect</span>(int1_3cat, <span class="at">terms=</span><span class="fu">c</span>(<span class="st">"pop_Index"</span>,<span class="st">"pid3cat"</span>)) <span class="sc">%&gt;%</span> <span class="fu">plot</span>() <span class="sc">+</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Climate change is exaggerated"</span>,</span>
@@ -529,7 +529,7 @@ The code below estimates four regression models to examine how party identificat
 </div>
 <p>Customize the colors of the 3 lines: Democrats = blue, Independents = gray, Republicans = red</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ggeffects<span class="sc">::</span><span class="fu">ggeffect</span>(int1_3cat, <span class="at">terms=</span><span class="fu">c</span>(<span class="st">"pop_Index"</span>,<span class="st">"pid3cat"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>() <span class="sc">+</span></span>
@@ -554,7 +554,7 @@ The code below estimates four regression models to examine how party identificat
 <p>To ensure that both the lines <strong>and</strong> the confidence interval ribbons convey party ID with the same custom colors, we should also specify <code>scale_fill_manual()</code> in addition to <code>scale_color_manual()</code>. The fill controls the color of the confidence interval bands, which default to a lighter version of the respective line color. By matching the color and fill, the plot becomes more consistent and clear.</p>
 <p>Here’s how to do it:</p>
 <div class="cell">
-<details class="code-fold">
+<details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ggeffects<span class="sc">::</span><span class="fu">ggeffect</span>(int1_3cat, <span class="at">terms=</span><span class="fu">c</span>(<span class="st">"pop_Index"</span>,<span class="st">"pid3cat"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>() <span class="sc">+</span></span>
