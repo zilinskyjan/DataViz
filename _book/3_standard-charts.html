@@ -290,7 +290,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Standard charts</span></h1>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Standard charts</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -314,13 +314,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Consider this dataset from Hibbing et al.&nbsp;(2023), which contains survey responses about which groups should have more or less influence in politics. The original research examines how Americans view the appropriate role of different actors in the political system.</p>
 <p>This code loads a CSV file containing survey data from a GitHub repository. The dataset contains responses from Americans about which groups should hold political influence. We’ll use the tidyverse package for data manipulation and visualization throughout this lesson.</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>hib <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/zilinskyjan/datasets/master/politics/hibbing2023_who_should_govern.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 <p>The survey data has already been aggregated, so you can think of these cell entries as toplines. The rows are actors (groups) and the columns are the percentage of respondents who think that the influence of each group should increase or decrease:</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hib)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 x 5
   group                            influence_incr influence_decr political type 
@@ -336,11 +342,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>When you run this code, you should see a table with several columns. The <code>group</code> column contains different political actors (like “Journalists,” “Military leaders,” “Ordinary people”), the <code>influence_incr</code> column shows the percentage who want that group to have more influence, <code>influence_decr</code> shows those who want less influence, and the <code>type</code> column categorizes these groups.</p>
 <p>Although we could simply run this code to create a bar chart, we ought to treat this as a draft zero:</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>hib <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>group,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">x=</span>influence_incr)) <span class="sc">+</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">"Whose influence should increase?"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -351,7 +360,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Looks like I already added a type column:</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>hib <span class="sc">%&gt;%</span> <span class="fu">count</span>(type)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 x 2
   type                    n
@@ -365,9 +377,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This shows us that the data already includes a categorical variable that groups the political actors. We have four categories.</p>
 <p>I will now relabel one of the categories to make it more descriptive:</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>hib<span class="sc">$</span>type[hib<span class="sc">$</span>type<span class="sc">==</span><span class="st">"Standard"</span>] <span class="ot">&lt;-</span> <span class="st">"Establishment"</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(hib<span class="sc">$</span>type)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "People"              "Experts"             "Establishment"      
 [4] "Specialized experts"</code></pre>
@@ -376,10 +391,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The “Standard” label is being changed to “Establishment”.</p>
 <p>I will also store some color codes, using the <code>rcartocolor</code> package:</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>H_pal <span class="ot">&lt;-</span> rcartocolor<span class="sc">::</span><span class="fu">carto_pal</span>(<span class="at">n =</span> <span class="dv">4</span>, <span class="at">name =</span> <span class="st">"ag_Sunset"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 <p>And now I can make an enhanced version of the bar chart:</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>hib <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">fct_reorder</span>(group,influence_incr),</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">x=</span>influence_incr,</span>
@@ -396,6 +416,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
 <span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>),</span>
 <span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -415,6 +436,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="5.2" class="anchored" data-anchor-id="two-dimensions-of-american-politics"><span class="header-section-number">5.2</span> Two Dimensions of American Politics</h2>
 <p>We’ll now make bar charts, scatterplots, stacked overlapping distributions (joyplots), and some other charts, using data on which the paper <em>American Politics in Two Dimensions</em> is based:</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled)</span>
@@ -426,11 +449,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>             </span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># READ IN RECODED DATA</span></span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"data/ajps2021/0_ajps_recode.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 <p>As always, take a quick look at the structure of the datasets.</p>
 <p>In this case, we have data from 3 surveys, which are stored in <code>d1</code>, <code>d2</code>, and <code>d3</code>.</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 x 77
   caseid  female   edu black hispanic   age income pid      ideo interest attend
@@ -452,9 +479,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We’ll start by looking at the distribution of a binary (and moralizing) view of politics; how do people respond to the prompt <em>“Politics is a battle between good and evil”</em>? This question captures what political scientists call “Manichean” thinking - the tendency to view politics as a moral struggle between absolute good and absolute evil rather than as a contest between competing policy preferences.</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 x 3
   goodevil                            n percent
@@ -471,9 +501,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>A binary (and moralizing) view of politics</p>
 <p>This cross-tabulation shows whether belief that “politics is a battle between good and evil” varies across Democrats, Republicans, and Independents. Understanding this relationship helps us see whether moralistic thinking about politics is evenly distributed across the political spectrum or concentrated in certain partisan groups.</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(pid) <span class="sc">%&gt;%</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 25 x 4
 # Groups:   pid [5]
@@ -494,12 +527,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Let’s plot the frequency of this Manichean perspective:</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">as_factor</span>(goodevil),<span class="at">x=</span>percent)) <span class="sc">+</span></span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"Percent"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="cn">NULL</span>) <span class="sc">+</span></span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Opinion: Politics is a battle between good and evil"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -510,11 +546,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Would it be useful to plot bars in different colors? Potentially, but not like this…</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">as_factor</span>(goodevil),<span class="at">x=</span>percent,<span class="at">fill=</span><span class="fu">as_factor</span>(goodevil))) <span class="sc">+</span></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -530,6 +569,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>This scale might work - here darker colors indicate greater disagreement:</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
@@ -538,6 +579,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Proportion of respondents"</span>, <span class="at">y=</span> <span class="st">""</span>, <span class="at">fill =</span> <span class="st">""</span>,</span>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Opinion: Politics is a battle between good and evil"</span>, <span class="at">caption=</span> <span class="st">"Data: Uscinski et al. (AJPS, 2021)."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -556,6 +598,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>which means we also have to use <code>group_by(pid)</code> before running <code>count()</code></li>
 </ul>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(pid) <span class="sc">%&gt;%</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
@@ -563,6 +607,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Proportion of respondents"</span>, <span class="at">y=</span> <span class="st">""</span>, <span class="at">fill =</span> <span class="st">""</span>, <span class="at">subtitle =</span> <span class="st">"Opinion: Politics is a battle between good and evil"</span>, <span class="at">caption=</span> <span class="st">"Data: Uscinski et al. (AJPS, 2021)."</span>) <span class="sc">+</span></span>
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>pid) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -574,6 +619,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Also, we really need to show the party labels, not their numbers.</p>
 <p>Here <code>as_factor(variable)</code> will work as long as <code>variable</code> is indeed labelled:</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(pid) <span class="sc">%&gt;%</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
@@ -582,6 +629,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Proportion of respondents"</span>, <span class="at">y=</span> <span class="st">""</span>, <span class="at">fill =</span> <span class="st">""</span>, <span class="at">subtitle =</span> <span class="st">"Opinion: Politics is a battle between good and evil"</span>, <span class="at">caption=</span> <span class="st">"Data: Uscinski et al. (AJPS, 2021)."</span>) <span class="sc">+</span></span>
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="fu">as_factor</span>(pid)) <span class="sc">+</span></span>
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">9</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -593,6 +641,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Note that we often want to increase the size of the text elements (<code>theme(text=element_text(size=...))</code>) but in this case I’m actually making the text <strong>smaller</strong> so that facet labels fit on the page.</p>
 <p>Are stronger partisans are more Manichean on average?</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(pid) <span class="sc">%&gt;%</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
@@ -601,6 +651,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">alpha=</span>.<span class="dv">885</span>) <span class="sc">+</span></span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Proportion of respondents"</span>, <span class="at">y=</span> <span class="st">""</span>, <span class="at">fill =</span> <span class="st">""</span>,</span>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">"Opinion: Politics is a battle between good and evil"</span>, <span class="at">caption=</span> <span class="st">"Data: Uscinski et al. (AJPS, 2021)."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -615,6 +666,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We can display multiple related survey questions simultaneously to show broader patterns in anti-establishment thinking. Rather than making four separate charts for four conspiracy items, we’ll stack them vertically to create a “small multiples” visualization that makes comparisons easier.</p>
 <p>Let’s create several data objects: each of them will contain responses to the components of the conspiracy thinking scale:</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pop2share <span class="ot">&lt;-</span> d2 <span class="sc">%&gt;%</span> </span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>              <span class="fu">count</span>(pop2) <span class="sc">%&gt;%</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
@@ -638,9 +691,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">categories =</span> <span class="fu">as_factor</span>(con4)) <span class="sc">%&gt;%</span></span>
 <span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">q =</span> <span class="st">"Much of our lives are being controlled</span><span class="sc">\n</span><span class="st">by plots hatched in secret places."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 <p>Create one larger data objhect:</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>shareShow <span class="ot">&lt;-</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    pop2share,</span>
@@ -651,6 +707,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(categories))</span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(shareShow)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 x 8
   pop2                           n percent categories q     official con1  con4 
@@ -665,12 +722,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Make a plot:</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>shareShow <span class="sc">%&gt;%</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">as_factor</span>(q),<span class="at">x=</span>percent,<span class="at">fill=</span><span class="fu">as_factor</span>(categories))) <span class="sc">+</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"stack"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">width =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  jcolors<span class="sc">::</span><span class="fu">scale_fill_jcolors</span>(<span class="at">palette =</span> <span class="st">"pal4"</span>) <span class="sc">+</span></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">15</span>)) <span class="sc">+</span></span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">""</span>,<span class="at">x =</span> <span class="st">"Percent"</span>, <span class="at">fill =</span> <span class="st">""</span>,<span class="at">title =</span> <span class="st">"Uscinski et al. (AJPS, 2021) survey data</span><span class="sc">\n</span><span class="st">on anti-establishment sentiment"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -682,7 +742,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This stacked bar chart shows four anti-establishment attitude questions arranged vertically. Each bar is divided by response category (strongly disagree, disagree, neutral, agree, strongly agree). The color coding makes it easy to spot patterns.</p>
 <p>Look at the components of <code>jcolors</code>.</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>jcolors<span class="sc">::</span><span class="fu">display_all_jcolors</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -696,10 +759,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="5.5" class="anchored" data-anchor-id="putting-anti-establishment-thinking-on-the-2nd-axis"><span class="header-section-number">5.5</span> Putting anti-establishment thinking on the 2nd axis</h2>
 <p>The AJPS paper argues that American politics isn’t just left vs.&nbsp;right - there’s also a second dimension of anti-establishment versus pro-establishment attitudes. These scatterplots will help us visualize how these two dimensions relate to each other, using the dataset <code>d1</code> which contains individual-level responses.</p>
 <div class="cell" data-layout-align="center">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> leftright2, <span class="at">y =</span> suspicion2)) <span class="sc">+</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Left vs. Right dimension</span><span class="sc">\n</span><span class="st">(party ID, symbolic ideology, and party thermometer ratings)"</span>,</span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Anti-establishment thinking"</span>) <span class="sc">+</span> <span class="fu">theme_gray</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -710,11 +776,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>This scatterplot shows each survey respondent as a point. The x-axis represents how liberal (left) or conservative (right) they are, while the y-axis shows their level of anti-establishment thinking. If you see a cloud of points without a clear diagonal pattern, this suggests these two dimensions are largely independent - meaning you can be a left-wing anti-establishment type OR a right-wing anti-establishment type.</p>
 <div class="cell" data-layout-align="center">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> leftright2, <span class="at">y =</span> suspicion2)) <span class="sc">+</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Left vs. Right dimension</span><span class="sc">\n</span><span class="st">(party ID, symbolic ideology, and party thermometer ratings)"</span>,</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Anti-establishment thinking"</span>) <span class="sc">+</span></span>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -724,11 +793,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-layout-align="center">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> leftright2, <span class="at">y =</span> suspicion2)) <span class="sc">+</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Left vs. Right dimension</span><span class="sc">\n</span><span class="st">(party ID, symbolic ideology, and party thermometer ratings)"</span>,</span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Anti-establishment thinking"</span>) <span class="sc">+</span></span>
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -738,11 +810,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-layout-align="center">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> leftright2, <span class="at">y =</span> suspicion2)) <span class="sc">+</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">alpha=</span>.<span class="dv">55</span>) <span class="sc">+</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Left vs. Right dimension</span><span class="sc">\n</span><span class="st">(party ID, symbolic ideology, and party thermometer ratings)"</span>,</span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Anti-establishment thinking"</span>, <span class="at">title =</span> <span class="st">"Conspiracy, populist, and Manichean orientations</span><span class="sc">\n</span><span class="st">are orthogonal to the standard partisan divide"</span>, <span class="at">caption =</span> <span class="st">"Data: Uscinski et al. (AJPS, 2021)."</span>) <span class="sc">+</span></span>
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -756,10 +831,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="5.6" class="anchored" data-anchor-id="conspiratorial-orientation-and-pid"><span class="header-section-number">5.6</span> Conspiratorial orientation and PID</h2>
 <p>In principle, a box plot might make sense in this context… We’re now examining whether conspiracy thinking differs systematically across party lines. Box plots show the distribution of conspiracy thinking scores for each party identification group, allowing us to compare medians, quartiles, and outliers.</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as_factor</span>(pid), <span class="at">y=</span>consp_Index)) <span class="sc">+</span></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size=</span>.<span class="dv">4</span>) <span class="sc">+</span></span>
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -770,11 +848,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>You could simultaneously display all respondets (jittered):</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as_factor</span>(pid), <span class="at">y=</span>consp_Index)) <span class="sc">+</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size=</span>.<span class="dv">4</span>) <span class="sc">+</span></span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">color=</span><span class="st">"purple"</span>,<span class="at">alpha=</span>.<span class="dv">4</span>,<span class="at">width =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -786,11 +867,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The boxplot shows the median, quartiles, and outliers for each party group, while the jittered points display every individual respondent’s conspiracy thinking score. This combination reveals both the summary statistics and the full distribution - you can see whether scores are tightly clustered around the median or widely spread out within each party.</p>
 <p>Make small edits:</p>
 <div class="cell" data-layout-align="center">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as_factor</span>(pid), <span class="at">y=</span>consp_Index)) <span class="sc">+</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size=</span>.<span class="dv">4</span>) <span class="sc">+</span> </span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">color=</span><span class="st">"purple"</span>,<span class="at">alpha=</span>.<span class="dv">4</span>,<span class="at">width =</span> .<span class="dv">1</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Conspiratorial thinking</span><span class="sc">\n</span><span class="st">(Average agreement with 4 questions)"</span>,<span class="at">x =</span> <span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -801,6 +885,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Perhaps even better:</p>
 <div class="cell" data-layout-align="center">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as_factor</span>(pid), <span class="at">y=</span>consp_Index)) <span class="sc">+</span></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size=</span>.<span class="dv">4</span>) <span class="sc">+</span> <span class="fu">geom_jitter</span>(<span class="at">color=</span><span class="st">"purple"</span>,<span class="at">alpha=</span>.<span class="dv">4</span>,<span class="at">width =</span> .<span class="dv">1</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
@@ -809,6 +895,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="st">Q2: The people who really run the country, are not known to the voters.</span></span>
 <span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="st">Q3: Big events like wars, the recent recession, and the outcomes of elections are controlled</span><span class="sc">\n</span><span class="st">by small groups of people who are working in secret against the rest of us.</span></span>
 <span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="st">Q4: Much of our lives are being controlled by plots hatched in secret places."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -821,12 +908,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="all-3-components-of-the-anti-est.-orientation" class="level2" data-number="5.7">
 <h2 data-number="5.7" class="anchored" data-anchor-id="all-3-components-of-the-anti-est.-orientation"><span class="header-section-number">5.7</span> All 3 components of the anti-est. orientation</h2>
 <div class="cell" data-layout-align="center">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as_factor</span>(pid), <span class="at">y=</span>suspicion2)) <span class="sc">+</span></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="st">"purple"</span>, <span class="at">alpha=</span>.<span class="dv">2</span>) <span class="sc">+</span></span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha=</span>.<span class="dv">2</span>,<span class="at">width =</span> .<span class="dv">11</span>,<span class="at">color=</span><span class="st">"purple4"</span>) <span class="sc">+</span></span>
 <span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Conspiratorial thinking + Populism + Manichean outlook"</span>,<span class="at">x =</span> <span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -840,9 +930,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="5.8" class="anchored" data-anchor-id="narcissism-as-a-correlate-for-conspiracy-thinking"><span class="header-section-number">5.8</span> Narcissism as a correlate for conspiracy thinking?</h2>
 <p>The research also explores whether personality traits, specifically narcissism, relate to anti-establishment orientations. People who score high on narcissism tend to need admiration and may view themselves as superior to others - traits that might make them more likely to believe shadowy elites are controlling society.</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(attent1)) <span class="sc">%&gt;%</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">as_factor</span>(attent1), <span class="at">x=</span> suspicion2)) <span class="sc">+</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -853,12 +946,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>These “ridgeline” plots show the distribution of anti-establishment thinking scores for each level of agreement with “I tend to want others to admire me” (a narcissism indicator). Each ridge represents one response category, allowing us to see whether higher narcissism is associated with stronger anti-establishment views.</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(attent1)) <span class="sc">%&gt;%</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">as_factor</span>(attent1), <span class="at">x=</span> suspicion2)) <span class="sc">+</span></span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(</span>
 <span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"#00AFBB"</span>,</span>
 <span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">quantile_lines =</span> <span class="cn">TRUE</span>, <span class="at">quantiles =</span> <span class="dv">2</span>,<span class="at">alpha =</span> .<span class="dv">9</span>,<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
 <span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span> <span class="st">"I tend to want others to admire me"</span>,<span class="at">x=</span><span class="st">"Conspiracy thinking"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -868,12 +964,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(attent1)) <span class="sc">%&gt;%</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">as_factor</span>(attent1), <span class="at">x=</span> suspicion2)) <span class="sc">+</span></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(</span>
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"#00AFBB"</span>,</span>
 <span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">quantile_lines =</span> <span class="cn">TRUE</span>, <span class="at">quantiles =</span> <span class="dv">2</span>,<span class="at">alpha =</span> .<span class="dv">9</span>,<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">1</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span> <span class="st">"I tend to want others to admire me"</span>,<span class="at">x=</span><span class="st">"Conspiracy thinking"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -883,6 +982,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(attent1)) <span class="sc">%&gt;%</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">as_factor</span>(attent1), <span class="at">x=</span> suspicion2)) <span class="sc">+</span></span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(</span>
@@ -893,6 +994,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="st">1. Conspiratorial thinking (e.g. </span><span class="sc">\"</span><span class="st">Our lives are controlled by secret plots</span><span class="sc">\"</span><span class="st">)</span></span>
 <span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="st">2. Populist beliefs</span></span>
 <span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="st">3. Manichean political views"</span>,<span class="at">caption =</span> <span class="st">"Data: Uscinski et al. (AJPS, 2021)."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -902,9 +1004,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>narcissism,<span class="at">y=</span>suspicion2)) <span class="sc">+</span></span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Narcissism"</span>, <span class="at">y=</span><span class="st">"Anti-establishment orientation"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -914,11 +1019,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>narcissism,<span class="at">y=</span>suspicion2)) <span class="sc">+</span></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Narcissism"</span>, <span class="at">y=</span><span class="st">"Anti-establishment orientation"</span>) <span class="sc">+</span></span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  ggside<span class="sc">::</span><span class="fu">geom_xsidehistogram</span>() <span class="sc">+</span></span>
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  ggside<span class="sc">::</span><span class="fu">ggside</span>(<span class="at">x.pos =</span> <span class="st">"bottom"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -932,6 +1040,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="5.9" class="anchored" data-anchor-id="mainstream-news"><span class="header-section-number">5.9</span> Mainstream news</h2>
 <p>The survey also measured distrust in mainstream media, asking whether “much of the mainstream news is deliberately slanted to mislead us.” This analysis examines whether anti-establishment orientations and narcissism both correlate with media distrust - two potential pathways to believing that established news sources are unreliable. The <code>ggside</code> package adds histograms on the sides to show the distribution of predictors.</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  d1 <span class="sc">%&gt;%</span></span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>suspicion2,<span class="at">y=</span>msm)) <span class="sc">+</span></span>
@@ -947,6 +1057,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>  ggside<span class="sc">::</span><span class="fu">geom_xsidehistogram</span>() <span class="sc">+</span></span>
 <span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>  ggside<span class="sc">::</span><span class="fu">ggside</span>(<span class="at">x.pos =</span> <span class="st">"bottom"</span>) </span>
 <span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -959,10 +1070,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>This regression analysis examines whether the relationship between anti-establishment orientation and media distrust changes based on how much someone likes or dislikes Hillary Clinton. The <code>ggeffects</code> package helps visualize interaction effects - you might see that the slope of anti-establishment → media distrust is steeper for Clinton supporters or opponents.</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>collmod <span class="ot">&lt;-</span> <span class="fu">lm</span>(msm <span class="sc">~</span> clintonft<span class="sc">*</span>suspicion2, <span class="at">data=</span>d1)</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>ggeffects<span class="sc">::</span><span class="fu">ggeffect</span>(collmod, <span class="at">terms=</span><span class="fu">c</span>(<span class="st">"suspicion2"</span>,<span class="st">"clintonft"</span>)) <span class="sc">%&gt;%</span> <span class="fu">plot</span>() <span class="sc">+</span></span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color=</span><span class="st">"Rating of Hillary Clinton"</span>,<span class="at">y=</span><span class="st">"Much of the mainstream news is deliberately slanted to mislead us"</span>,</span>
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Anti-establishment orientation"</span>,<span class="at">title=</span><span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -976,6 +1090,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="5.10" class="anchored" data-anchor-id="i-often-disagree-with-conventional-views-about-the-world"><span class="header-section-number">5.10</span> “I often disagree with conventional views about the world”</h2>
 <p>Now we examine whether anti-establishment orientations and narcissism both predict a general tendency to reject conventional wisdom. This statement captures contrarian thinking, which might be driven by both skepticism toward institutions (anti-establishment) and a belief in one’s own superior insight (narcissism).</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>suspicion2,<span class="at">y=</span>conwis)) <span class="sc">+</span></span>
@@ -988,6 +1104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Narcissism"</span>, <span class="at">y=</span><span class="st">"I often disagree with conventional views about the world"</span>) <span class="sc">+</span></span>
 <span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>))</span>
 <span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1001,7 +1118,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="5.11" class="anchored" data-anchor-id="denial-of-climate-change"><span class="header-section-number">5.11</span> Denial of climate change</h2>
 <p>The survey also included a question about climate change denial.</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(d2<span class="sc">$</span>climatechange)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
   1   2   3   4   5 
@@ -1010,7 +1130,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>This shows the recoded binary variable, where responses 1-3 (disagree/neutral) become “0” and 4-5 (agree) become “1”. This dichotomization is commonly used when researchers want to separate climate change denial from acceptance.</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(d2<span class="sc">$</span>climatechangeBIN)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
    0    1 
@@ -1018,7 +1141,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">count</span>(climatechangeBIN)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 x 2
   climatechangeBIN     n
@@ -1031,7 +1157,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This is an alternative way to display the binary variable counts using dplyr’s <code>count()</code> function, which some find easier to read than base R’s <code>table()</code>.</p>
 <p>Are the missing observations the same for the original and the recoded variable? (If not, we would want to check whether earlier code did something unintended.)</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">count</span>(climatechangeBIN,climatechange)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 x 3
   climatechangeBIN climatechange     n
@@ -1047,6 +1176,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This cross-tabulation checks that missing values (NAs) are handled consistently between the original and recoded variables. (If we see different patterns of missing data, it would indicate that the recoding process introduced problems.)</p>
 <p>Now let’s visualize how climate change beliefs vary across the political spectrum:</p>
 <div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span></span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(climatechange) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(pid)) <span class="sc">%&gt;%</span></span>
 <span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pid) <span class="sc">%&gt;%</span></span>
@@ -1062,6 +1193,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption=</span><span class="st">"Data: Uscinski et al. (AJPS, 2021)"</span>) <span class="sc">+</span></span>
 <span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">13</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1072,6 +1204,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Strong Democrats show high agreement that climate change is real, while strong Republicans show much higher levels of skepticism. This visualization demonstrates how scientific issues can become polarized along partisan lines, with moderates (4) falling somewhere in between.</p>
 
+
+<!-- -->
 
 </section>
 
@@ -1146,6 +1280,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1487,7 +1672,611 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Mixed data (strings and numbers)</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb56" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Standard charts</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>This lesson covers fundamental visualization techniques using political survey data. We'll explore how to effectively communicate findings about public opinion through bar charts, scatterplots, and distribution plots. The examples demonstrate how survey data about political attitudes can reveal interesting patterns about how people view political power, candidates, and institutions.</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Who should hold more power? </span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>When we map rows (individual observations) to numbers, a bar chart can be a good choice for comparing quantities across different categories or groups.</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>Consider this dataset from Hibbing et al. (2023), which contains survey responses about which groups should have more or less influence in politics. The original research examines how Americans view the appropriate role of different actors in the political system.</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>This code loads a CSV file containing survey data from a GitHub repository. The dataset contains responses from Americans about which groups should hold political influence. We'll use the tidyverse package for data manipulation and visualization throughout this lesson.</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a>hib <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/zilinskyjan/datasets/master/politics/hibbing2023_who_should_govern.csv"</span>)</span>
+<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-21"><a href="#cb56-21" aria-hidden="true" tabindex="-1"></a>The survey data has already been aggregated, so you can think of these cell entries as toplines. The rows are actors (groups) and the columns are the percentage of respondents who think that the influence of each group should increase or decrease:</span>
+<span id="cb56-22"><a href="#cb56-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-25"><a href="#cb56-25" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-26"><a href="#cb56-26" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hib)</span>
+<span id="cb56-27"><a href="#cb56-27" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-28"><a href="#cb56-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-29"><a href="#cb56-29" aria-hidden="true" tabindex="-1"></a>When you run this code, you should see a table with several columns. The <span class="in">`group`</span> column contains different political actors (like "Journalists," "Military leaders," "Ordinary people"), the <span class="in">`influence_incr`</span> column shows the percentage who want that group to have more influence, <span class="in">`influence_decr`</span> shows those who want less influence, and the <span class="in">`type`</span> column categorizes these groups.</span>
+<span id="cb56-30"><a href="#cb56-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-31"><a href="#cb56-31" aria-hidden="true" tabindex="-1"></a>Although we could simply run this code to create a bar chart, we ought to treat this as a draft zero:</span>
+<span id="cb56-32"><a href="#cb56-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-35"><a href="#cb56-35" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-36"><a href="#cb56-36" aria-hidden="true" tabindex="-1"></a>hib <span class="sc">%&gt;%</span></span>
+<span id="cb56-37"><a href="#cb56-37" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>group,</span>
+<span id="cb56-38"><a href="#cb56-38" aria-hidden="true" tabindex="-1"></a>            <span class="at">x=</span>influence_incr)) <span class="sc">+</span></span>
+<span id="cb56-39"><a href="#cb56-39" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb56-40"><a href="#cb56-40" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">"Whose influence should increase?"</span>)</span>
+<span id="cb56-41"><a href="#cb56-41" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-42"><a href="#cb56-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-43"><a href="#cb56-43" aria-hidden="true" tabindex="-1"></a>Looks like I already added a type column:</span>
+<span id="cb56-44"><a href="#cb56-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-47"><a href="#cb56-47" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-48"><a href="#cb56-48" aria-hidden="true" tabindex="-1"></a>hib <span class="sc">%&gt;%</span> <span class="fu">count</span>(type)</span>
+<span id="cb56-49"><a href="#cb56-49" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-50"><a href="#cb56-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-51"><a href="#cb56-51" aria-hidden="true" tabindex="-1"></a>This shows us that the data already includes a categorical variable that groups the political actors. We have four categories.</span>
+<span id="cb56-52"><a href="#cb56-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-53"><a href="#cb56-53" aria-hidden="true" tabindex="-1"></a>I will now relabel one of the categories to make it more descriptive:</span>
+<span id="cb56-54"><a href="#cb56-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-57"><a href="#cb56-57" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-58"><a href="#cb56-58" aria-hidden="true" tabindex="-1"></a>hib<span class="sc">$</span>type[hib<span class="sc">$</span>type<span class="sc">==</span><span class="st">"Standard"</span>] <span class="ot">&lt;-</span> <span class="st">"Establishment"</span> </span>
+<span id="cb56-59"><a href="#cb56-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-60"><a href="#cb56-60" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(hib<span class="sc">$</span>type)</span>
+<span id="cb56-61"><a href="#cb56-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-62"><a href="#cb56-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-63"><a href="#cb56-63" aria-hidden="true" tabindex="-1"></a>The "Standard" label is being changed to "Establishment".</span>
+<span id="cb56-64"><a href="#cb56-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-65"><a href="#cb56-65" aria-hidden="true" tabindex="-1"></a>I will also store some color codes, using the <span class="in">`rcartocolor`</span> package:</span>
+<span id="cb56-66"><a href="#cb56-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-69"><a href="#cb56-69" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-70"><a href="#cb56-70" aria-hidden="true" tabindex="-1"></a>H_pal <span class="ot">&lt;-</span> rcartocolor<span class="sc">::</span><span class="fu">carto_pal</span>(<span class="at">n =</span> <span class="dv">4</span>, <span class="at">name =</span> <span class="st">"ag_Sunset"</span>)</span>
+<span id="cb56-71"><a href="#cb56-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-72"><a href="#cb56-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-73"><a href="#cb56-73" aria-hidden="true" tabindex="-1"></a>And now I can make an enhanced version of the bar chart:</span>
+<span id="cb56-74"><a href="#cb56-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-77"><a href="#cb56-77" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-78"><a href="#cb56-78" aria-hidden="true" tabindex="-1"></a>hib <span class="sc">%&gt;%</span></span>
+<span id="cb56-79"><a href="#cb56-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">fct_reorder</span>(group,influence_incr),</span>
+<span id="cb56-80"><a href="#cb56-80" aria-hidden="true" tabindex="-1"></a>             <span class="at">x=</span>influence_incr,</span>
+<span id="cb56-81"><a href="#cb56-81" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill=</span>type)) <span class="sc">+</span></span>
+<span id="cb56-82"><a href="#cb56-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb56-83"><a href="#cb56-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>H_pal[<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)]) <span class="sc">+</span></span>
+<span id="cb56-84"><a href="#cb56-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Percent"</span>,<span class="at">y=</span><span class="st">""</span>,</span>
+<span id="cb56-85"><a href="#cb56-85" aria-hidden="true" tabindex="-1"></a>       <span class="at">title=</span><span class="st">"Whose political power should be increased?"</span>,</span>
+<span id="cb56-86"><a href="#cb56-86" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Data: Hibbing et al. (2023)"</span>,</span>
+<span id="cb56-87"><a href="#cb56-87" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill=</span><span class="st">""</span>) <span class="sc">+</span> </span>
+<span id="cb56-88"><a href="#cb56-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_gray</span>() <span class="sc">+</span></span>
+<span id="cb56-89"><a href="#cb56-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">13</span>)) <span class="sc">+</span></span>
+<span id="cb56-90"><a href="#cb56-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.caption.position =</span> <span class="st">"plot"</span>,</span>
+<span id="cb56-91"><a href="#cb56-91" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
+<span id="cb56-92"><a href="#cb56-92" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb56-93"><a href="#cb56-93" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">1</span>))</span>
+<span id="cb56-94"><a href="#cb56-94" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-95"><a href="#cb56-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-96"><a href="#cb56-96" aria-hidden="true" tabindex="-1"></a>In Version 2, I first transformed the ordering of the bars by using f<span class="in">`ct_reorder(group, influence_incr)`</span>. Rather than displaying the groups in their original factor order, we now sort them by the value of influence_incr, which makes the largest to smallest progression visually intuitive. This reordering helps readers immediately grasp which groups have relatively low or high suggested increases in influence.</span>
+<span id="cb56-97"><a href="#cb56-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-98"><a href="#cb56-98" aria-hidden="true" tabindex="-1"></a>Next, we introduced a new aesthetic mapping by filling the bars according to a <span class="in">`type`</span> variable. Instead of the uniform color of the first version (draft zero), each bar now visually encodes its category, allowing the reader to distinguish subgroups at a glance. This addition only enhances the chart's informational depth and also leverages color to communicate an extra dimension of our data.</span>
+<span id="cb56-99"><a href="#cb56-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-100"><a href="#cb56-100" aria-hidden="true" tabindex="-1"></a>To maintain control over the appearance of those colored bars, we have applied <span class="in">`scale_fill_manual(values = H_pal[c(4,1,2,3)])`</span>. We customized the look of the plot by explicitly selecting colors from our H_pal palette in the order 4, 1, 2, 3. This manual scale replaces ggplot2's default palette, giving the plot a custom look.</span>
+<span id="cb56-101"><a href="#cb56-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-102"><a href="#cb56-102" aria-hidden="true" tabindex="-1"></a>We also enriched the chart's descriptive elements by refining titles, axis labels, and captions. </span>
+<span id="cb56-103"><a href="#cb56-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-104"><a href="#cb56-104" aria-hidden="true" tabindex="-1"></a>In contrast to the default styling, the second version adopts <span class="in">`theme_gray()`</span> and globally increases text size to 13 points. These changes create a cleaner stylistic foundation and improve legibility, particularly for presentations or printed formats. </span>
+<span id="cb56-105"><a href="#cb56-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-106"><a href="#cb56-106" aria-hidden="true" tabindex="-1"></a>Lastly, we fine-tuned the alignment of both the title and caption by setting <span class="in">`plot.title.position = "plot"`</span> and <span class="in">`plot.caption.position = "plot"`</span>, then aligning the title all the way to the left with <span class="in">`hjust = 0`</span>. Similarly, right-aligning the x-axis title via <span class="in">`axis.title.x = element_text(hjust = 1)`</span> anchors it neatly under the panel's right edge. These precise adjustments guarantee that textual elements hug the plot margins consistently, resulting in a balanced and intentional layout.</span>
+<span id="cb56-107"><a href="#cb56-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-108"><a href="#cb56-108" aria-hidden="true" tabindex="-1"></a><span class="fu">## Two Dimensions of American Politics</span></span>
+<span id="cb56-109"><a href="#cb56-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-110"><a href="#cb56-110" aria-hidden="true" tabindex="-1"></a>We'll now make bar charts, scatterplots, stacked overlapping distributions (joyplots), and some other charts, using data on which the paper *American Politics in Two Dimensions* is based:</span>
+<span id="cb56-111"><a href="#cb56-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-114"><a href="#cb56-114" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-115"><a href="#cb56-115" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb56-116"><a href="#cb56-116" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb56-117"><a href="#cb56-117" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled)</span>
+<span id="cb56-118"><a href="#cb56-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-119"><a href="#cb56-119" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_minimal</span>())</span>
+<span id="cb56-120"><a href="#cb56-120" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_update</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">13</span>),</span>
+<span id="cb56-121"><a href="#cb56-121" aria-hidden="true" tabindex="-1"></a>             <span class="co">#text = element_text(family="Source Sans Pro")</span></span>
+<span id="cb56-122"><a href="#cb56-122" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb56-123"><a href="#cb56-123" aria-hidden="true" tabindex="-1"></a>             </span>
+<span id="cb56-124"><a href="#cb56-124" aria-hidden="true" tabindex="-1"></a><span class="co"># READ IN RECODED DATA</span></span>
+<span id="cb56-125"><a href="#cb56-125" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"data/ajps2021/0_ajps_recode.R"</span>)</span>
+<span id="cb56-126"><a href="#cb56-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-127"><a href="#cb56-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-128"><a href="#cb56-128" aria-hidden="true" tabindex="-1"></a>As always, take a quick look at the structure of the datasets.</span>
+<span id="cb56-129"><a href="#cb56-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-130"><a href="#cb56-130" aria-hidden="true" tabindex="-1"></a>In this case, we have data from 3 surveys, which are stored in <span class="in">`d1`</span>, <span class="in">`d2`</span>, and <span class="in">`d3`</span>.</span>
+<span id="cb56-131"><a href="#cb56-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-132"><a href="#cb56-132" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=TRUE}</span></span>
+<span id="cb56-133"><a href="#cb56-133" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d2)</span>
+<span id="cb56-134"><a href="#cb56-134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-135"><a href="#cb56-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-136"><a href="#cb56-136" aria-hidden="true" tabindex="-1"></a>We'll start by looking at the distribution of a binary (and moralizing) view of politics; how do people respond to the prompt *"Politics is a battle between good and evil"*? This question captures what political scientists call "Manichean" thinking - the tendency to view politics as a moral struggle between absolute good and absolute evil rather than as a contest between competing policy preferences.</span>
+<span id="cb56-137"><a href="#cb56-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-140"><a href="#cb56-140" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-141"><a href="#cb56-141" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
+<span id="cb56-142"><a href="#cb56-142" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
+<span id="cb56-143"><a href="#cb56-143" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>)</span>
+<span id="cb56-144"><a href="#cb56-144" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-145"><a href="#cb56-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-146"><a href="#cb56-146" aria-hidden="true" tabindex="-1"></a>This table shows the overall percentage of respondents at each level of agreement with the Manichean statement. The output will display categories from "Strongly disagree" to "Strongly agree," revealing how prevalent this moralistic view of politics is among Americans.</span>
+<span id="cb56-147"><a href="#cb56-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-148"><a href="#cb56-148" aria-hidden="true" tabindex="-1"></a>Now let's create a cross-tab, breaking down the responses by party ID:</span>
+<span id="cb56-149"><a href="#cb56-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-150"><a href="#cb56-150" aria-hidden="true" tabindex="-1"></a>A binary (and moralizing) view of politics</span>
+<span id="cb56-151"><a href="#cb56-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-152"><a href="#cb56-152" aria-hidden="true" tabindex="-1"></a>This cross-tabulation shows whether belief that "politics is a battle between good and evil" varies across Democrats, Republicans, and Independents. Understanding this relationship helps us see whether moralistic thinking about politics is evenly distributed across the political spectrum or concentrated in certain partisan groups.</span>
+<span id="cb56-153"><a href="#cb56-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-156"><a href="#cb56-156" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-157"><a href="#cb56-157" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(pid) <span class="sc">%&gt;%</span></span>
+<span id="cb56-158"><a href="#cb56-158" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
+<span id="cb56-159"><a href="#cb56-159" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>)</span>
+<span id="cb56-160"><a href="#cb56-160" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-161"><a href="#cb56-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-162"><a href="#cb56-162" aria-hidden="true" tabindex="-1"></a>Let's plot the frequency of this Manichean perspective:</span>
+<span id="cb56-163"><a href="#cb56-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-166"><a href="#cb56-166" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-167"><a href="#cb56-167" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
+<span id="cb56-168"><a href="#cb56-168" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
+<span id="cb56-169"><a href="#cb56-169" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb56-170"><a href="#cb56-170" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">as_factor</span>(goodevil),<span class="at">x=</span>percent)) <span class="sc">+</span></span>
+<span id="cb56-171"><a href="#cb56-171" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"dodge"</span>, <span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"Percent"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb56-172"><a href="#cb56-172" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Opinion: Politics is a battle between good and evil"</span>)</span>
+<span id="cb56-173"><a href="#cb56-173" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-174"><a href="#cb56-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-175"><a href="#cb56-175" aria-hidden="true" tabindex="-1"></a>Would it be useful to plot bars in different colors? Potentially, but not like this...</span>
+<span id="cb56-176"><a href="#cb56-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-179"><a href="#cb56-179" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-180"><a href="#cb56-180" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
+<span id="cb56-181"><a href="#cb56-181" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
+<span id="cb56-182"><a href="#cb56-182" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb56-183"><a href="#cb56-183" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">as_factor</span>(goodevil),<span class="at">x=</span>percent,<span class="at">fill=</span><span class="fu">as_factor</span>(goodevil))) <span class="sc">+</span></span>
+<span id="cb56-184"><a href="#cb56-184" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span>
+<span id="cb56-185"><a href="#cb56-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-186"><a href="#cb56-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-187"><a href="#cb56-187" aria-hidden="true" tabindex="-1"></a>Let's:</span>
+<span id="cb56-188"><a href="#cb56-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-189"><a href="#cb56-189" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Change/improve the colors</span>
+<span id="cb56-190"><a href="#cb56-190" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Clean up the labels as appropriate</span>
+<span id="cb56-191"><a href="#cb56-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-192"><a href="#cb56-192" aria-hidden="true" tabindex="-1"></a>This scale might work - here darker colors indicate greater disagreement:</span>
+<span id="cb56-193"><a href="#cb56-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-196"><a href="#cb56-196" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-197"><a href="#cb56-197" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
+<span id="cb56-198"><a href="#cb56-198" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
+<span id="cb56-199"><a href="#cb56-199" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb56-200"><a href="#cb56-200" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">as_factor</span>(goodevil),<span class="at">x=</span>percent,<span class="at">fill=</span><span class="fu">as_factor</span>(goodevil))) <span class="sc">+</span></span>
+<span id="cb56-201"><a href="#cb56-201" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb56-202"><a href="#cb56-202" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb56-203"><a href="#cb56-203" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Proportion of respondents"</span>, <span class="at">y=</span> <span class="st">""</span>, <span class="at">fill =</span> <span class="st">""</span>,</span>
+<span id="cb56-204"><a href="#cb56-204" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Opinion: Politics is a battle between good and evil"</span>, <span class="at">caption=</span> <span class="st">"Data: Uscinski et al. (AJPS, 2021)."</span>)</span>
+<span id="cb56-205"><a href="#cb56-205" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-206"><a href="#cb56-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-207"><a href="#cb56-207" aria-hidden="true" tabindex="-1"></a><span class="fu">## Faceting by party ID</span></span>
+<span id="cb56-208"><a href="#cb56-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-209"><a href="#cb56-209" aria-hidden="true" tabindex="-1"></a>Faceting allows us to show multiple small versions of the same chart, one for each subgroup. </span>
+<span id="cb56-210"><a href="#cb56-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-211"><a href="#cb56-211" aria-hidden="true" tabindex="-1"></a>Let's try to:</span>
+<span id="cb56-212"><a href="#cb56-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-213"><a href="#cb56-213" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>add <span class="in">`facet_wrap(~pid)`</span></span>
+<span id="cb56-214"><a href="#cb56-214" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>which means we also have to use <span class="in">`group_by(pid)`</span> before running <span class="in">`count()`</span></span>
+<span id="cb56-215"><a href="#cb56-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-218"><a href="#cb56-218" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-219"><a href="#cb56-219" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(pid) <span class="sc">%&gt;%</span></span>
+<span id="cb56-220"><a href="#cb56-220" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
+<span id="cb56-221"><a href="#cb56-221" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb56-222"><a href="#cb56-222" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">as_factor</span>(goodevil),<span class="at">x=</span>percent,<span class="at">fill=</span><span class="fu">as_factor</span>(goodevil))) <span class="sc">+</span></span>
+<span id="cb56-223"><a href="#cb56-223" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb56-224"><a href="#cb56-224" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Proportion of respondents"</span>, <span class="at">y=</span> <span class="st">""</span>, <span class="at">fill =</span> <span class="st">""</span>, <span class="at">subtitle =</span> <span class="st">"Opinion: Politics is a battle between good and evil"</span>, <span class="at">caption=</span> <span class="st">"Data: Uscinski et al. (AJPS, 2021)."</span>) <span class="sc">+</span></span>
+<span id="cb56-225"><a href="#cb56-225" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>pid) </span>
+<span id="cb56-226"><a href="#cb56-226" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-227"><a href="#cb56-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-228"><a href="#cb56-228" aria-hidden="true" tabindex="-1"></a>Also, we really need to show the party labels, not their numbers.</span>
+<span id="cb56-229"><a href="#cb56-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-230"><a href="#cb56-230" aria-hidden="true" tabindex="-1"></a>Here <span class="in">`as_factor(variable)`</span> will work as long as <span class="in">`variable`</span> is indeed labelled:</span>
+<span id="cb56-231"><a href="#cb56-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-234"><a href="#cb56-234" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-235"><a href="#cb56-235" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(pid) <span class="sc">%&gt;%</span></span>
+<span id="cb56-236"><a href="#cb56-236" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
+<span id="cb56-237"><a href="#cb56-237" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb56-238"><a href="#cb56-238" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">as_factor</span>(goodevil),<span class="at">x=</span>percent,<span class="at">fill=</span><span class="fu">as_factor</span>(goodevil))) <span class="sc">+</span></span>
+<span id="cb56-239"><a href="#cb56-239" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb56-240"><a href="#cb56-240" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Proportion of respondents"</span>, <span class="at">y=</span> <span class="st">""</span>, <span class="at">fill =</span> <span class="st">""</span>, <span class="at">subtitle =</span> <span class="st">"Opinion: Politics is a battle between good and evil"</span>, <span class="at">caption=</span> <span class="st">"Data: Uscinski et al. (AJPS, 2021)."</span>) <span class="sc">+</span></span>
+<span id="cb56-241"><a href="#cb56-241" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="fu">as_factor</span>(pid)) <span class="sc">+</span></span>
+<span id="cb56-242"><a href="#cb56-242" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">9</span>))</span>
+<span id="cb56-243"><a href="#cb56-243" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-244"><a href="#cb56-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-245"><a href="#cb56-245" aria-hidden="true" tabindex="-1"></a>Note that we often want to increase the size of the text elements (<span class="in">`theme(text=element_text(size=...))`</span>) but in this case I'm actually making the text **smaller** so that facet labels fit on the page.</span>
+<span id="cb56-246"><a href="#cb56-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-247"><a href="#cb56-247" aria-hidden="true" tabindex="-1"></a>Are stronger partisans are more Manichean on average?</span>
+<span id="cb56-248"><a href="#cb56-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-249"><a href="#cb56-249" aria-hidden="true" tabindex="-1"></a><span class="in">```{r goodevil-b}</span></span>
+<span id="cb56-250"><a href="#cb56-250" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(pid) <span class="sc">%&gt;%</span></span>
+<span id="cb56-251"><a href="#cb56-251" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(goodevil) <span class="sc">%&gt;%</span></span>
+<span id="cb56-252"><a href="#cb56-252" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb56-253"><a href="#cb56-253" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">as_factor</span>(pid),<span class="at">x=</span>percent,<span class="at">fill=</span><span class="fu">as_factor</span>(goodevil))) <span class="sc">+</span></span>
+<span id="cb56-254"><a href="#cb56-254" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb56-255"><a href="#cb56-255" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">alpha=</span>.<span class="dv">885</span>) <span class="sc">+</span></span>
+<span id="cb56-256"><a href="#cb56-256" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Proportion of respondents"</span>, <span class="at">y=</span> <span class="st">""</span>, <span class="at">fill =</span> <span class="st">""</span>,</span>
+<span id="cb56-257"><a href="#cb56-257" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">"Opinion: Politics is a battle between good and evil"</span>, <span class="at">caption=</span> <span class="st">"Data: Uscinski et al. (AJPS, 2021)."</span>)</span>
+<span id="cb56-258"><a href="#cb56-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-259"><a href="#cb56-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-260"><a href="#cb56-260" aria-hidden="true" tabindex="-1"></a><span class="fu">## Showing more variables together</span></span>
+<span id="cb56-261"><a href="#cb56-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-262"><a href="#cb56-262" aria-hidden="true" tabindex="-1"></a>We can display multiple related survey questions simultaneously to show broader patterns in anti-establishment thinking. Rather than making four separate charts for four conspiracy items, we'll stack them vertically to create a "small multiples" visualization that makes comparisons easier.</span>
+<span id="cb56-263"><a href="#cb56-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-264"><a href="#cb56-264" aria-hidden="true" tabindex="-1"></a>Let's create several data objects: each of them will contain responses to the components of the conspiracy thinking scale:</span>
+<span id="cb56-265"><a href="#cb56-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-268"><a href="#cb56-268" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-269"><a href="#cb56-269" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb56-270"><a href="#cb56-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-271"><a href="#cb56-271" aria-hidden="true" tabindex="-1"></a>pop2share <span class="ot">&lt;-</span> d2 <span class="sc">%&gt;%</span> </span>
+<span id="cb56-272"><a href="#cb56-272" aria-hidden="true" tabindex="-1"></a>              <span class="fu">count</span>(pop2) <span class="sc">%&gt;%</span></span>
+<span id="cb56-273"><a href="#cb56-273" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb56-274"><a href="#cb56-274" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">categories =</span> <span class="fu">as_factor</span>(pop2)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-275"><a href="#cb56-275" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">q =</span> <span class="st">"People who have studied for a long time</span><span class="sc">\n</span><span class="st">and have many diplomas do not really know</span><span class="sc">\n</span><span class="st">what makes the world go round."</span>)</span>
+<span id="cb56-276"><a href="#cb56-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-277"><a href="#cb56-277" aria-hidden="true" tabindex="-1"></a>officialshare <span class="ot">&lt;-</span> d2 <span class="sc">%&gt;%</span> </span>
+<span id="cb56-278"><a href="#cb56-278" aria-hidden="true" tabindex="-1"></a>              <span class="fu">count</span>(official) <span class="sc">%&gt;%</span></span>
+<span id="cb56-279"><a href="#cb56-279" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb56-280"><a href="#cb56-280" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">categories =</span> <span class="fu">as_factor</span>(official)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-281"><a href="#cb56-281" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">q =</span> <span class="st">"Official government accounts of events</span><span class="sc">\n</span><span class="st">cannot be trusted."</span>)</span>
+<span id="cb56-282"><a href="#cb56-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-283"><a href="#cb56-283" aria-hidden="true" tabindex="-1"></a>con1share <span class="ot">&lt;-</span> d2 <span class="sc">%&gt;%</span> </span>
+<span id="cb56-284"><a href="#cb56-284" aria-hidden="true" tabindex="-1"></a>              <span class="fu">count</span>(con1) <span class="sc">%&gt;%</span></span>
+<span id="cb56-285"><a href="#cb56-285" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb56-286"><a href="#cb56-286" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">categories =</span> <span class="fu">as_factor</span>(con1)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-287"><a href="#cb56-287" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">q =</span> <span class="st">"Even though we live in a democracy,</span><span class="sc">\n</span><span class="st">a few people will always run things anyway"</span>)</span>
+<span id="cb56-288"><a href="#cb56-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-289"><a href="#cb56-289" aria-hidden="true" tabindex="-1"></a>con4share <span class="ot">&lt;-</span> d2 <span class="sc">%&gt;%</span> </span>
+<span id="cb56-290"><a href="#cb56-290" aria-hidden="true" tabindex="-1"></a>              <span class="fu">count</span>(con4) <span class="sc">%&gt;%</span></span>
+<span id="cb56-291"><a href="#cb56-291" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb56-292"><a href="#cb56-292" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">categories =</span> <span class="fu">as_factor</span>(con4)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-293"><a href="#cb56-293" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">q =</span> <span class="st">"Much of our lives are being controlled</span><span class="sc">\n</span><span class="st">by plots hatched in secret places."</span>)</span>
+<span id="cb56-294"><a href="#cb56-294" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-295"><a href="#cb56-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-296"><a href="#cb56-296" aria-hidden="true" tabindex="-1"></a>Create one larger data objhect:</span>
+<span id="cb56-297"><a href="#cb56-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-300"><a href="#cb56-300" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-301"><a href="#cb56-301" aria-hidden="true" tabindex="-1"></a>shareShow <span class="ot">&lt;-</span></span>
+<span id="cb56-302"><a href="#cb56-302" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(</span>
+<span id="cb56-303"><a href="#cb56-303" aria-hidden="true" tabindex="-1"></a>    pop2share,</span>
+<span id="cb56-304"><a href="#cb56-304" aria-hidden="true" tabindex="-1"></a>    officialshare,</span>
+<span id="cb56-305"><a href="#cb56-305" aria-hidden="true" tabindex="-1"></a>    con1share,</span>
+<span id="cb56-306"><a href="#cb56-306" aria-hidden="true" tabindex="-1"></a>    con4share</span>
+<span id="cb56-307"><a href="#cb56-307" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb56-308"><a href="#cb56-308" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(categories))</span>
+<span id="cb56-309"><a href="#cb56-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-310"><a href="#cb56-310" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(shareShow)</span>
+<span id="cb56-311"><a href="#cb56-311" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-312"><a href="#cb56-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-313"><a href="#cb56-313" aria-hidden="true" tabindex="-1"></a>Make a plot:</span>
+<span id="cb56-314"><a href="#cb56-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-317"><a href="#cb56-317" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-318"><a href="#cb56-318" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 7</span></span>
+<span id="cb56-319"><a href="#cb56-319" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 12</span></span>
+<span id="cb56-320"><a href="#cb56-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-321"><a href="#cb56-321" aria-hidden="true" tabindex="-1"></a>shareShow <span class="sc">%&gt;%</span></span>
+<span id="cb56-322"><a href="#cb56-322" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">as_factor</span>(q),<span class="at">x=</span>percent,<span class="at">fill=</span><span class="fu">as_factor</span>(categories))) <span class="sc">+</span></span>
+<span id="cb56-323"><a href="#cb56-323" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"stack"</span>, <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">width =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb56-324"><a href="#cb56-324" aria-hidden="true" tabindex="-1"></a>  jcolors<span class="sc">::</span><span class="fu">scale_fill_jcolors</span>(<span class="at">palette =</span> <span class="st">"pal4"</span>) <span class="sc">+</span></span>
+<span id="cb56-325"><a href="#cb56-325" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">15</span>)) <span class="sc">+</span></span>
+<span id="cb56-326"><a href="#cb56-326" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">""</span>,<span class="at">x =</span> <span class="st">"Percent"</span>, <span class="at">fill =</span> <span class="st">""</span>,<span class="at">title =</span> <span class="st">"Uscinski et al. (AJPS, 2021) survey data</span><span class="sc">\n</span><span class="st">on anti-establishment sentiment"</span>)</span>
+<span id="cb56-327"><a href="#cb56-327" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-328"><a href="#cb56-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-329"><a href="#cb56-329" aria-hidden="true" tabindex="-1"></a>This stacked bar chart shows four anti-establishment attitude questions arranged vertically. Each bar is divided by response category (strongly disagree, disagree, neutral, agree, strongly agree). The color coding makes it easy to spot patterns.</span>
+<span id="cb56-330"><a href="#cb56-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-331"><a href="#cb56-331" aria-hidden="true" tabindex="-1"></a>Look at the components of <span class="in">`jcolors`</span>.</span>
+<span id="cb56-332"><a href="#cb56-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-335"><a href="#cb56-335" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-336"><a href="#cb56-336" aria-hidden="true" tabindex="-1"></a>jcolors<span class="sc">::</span><span class="fu">display_all_jcolors</span>()</span>
+<span id="cb56-337"><a href="#cb56-337" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-338"><a href="#cb56-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-339"><a href="#cb56-339" aria-hidden="true" tabindex="-1"></a><span class="fu">## Putting anti-establishment thinking on the 2nd axis</span></span>
+<span id="cb56-340"><a href="#cb56-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-341"><a href="#cb56-341" aria-hidden="true" tabindex="-1"></a>The AJPS paper argues that American politics isn't just left vs. right - there's also a second dimension of anti-establishment versus pro-establishment attitudes. These scatterplots will help us visualize how these two dimensions relate to each other, using the dataset <span class="in">`d1`</span> which contains individual-level responses.</span>
+<span id="cb56-342"><a href="#cb56-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-345"><a href="#cb56-345" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-346"><a href="#cb56-346" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 7</span></span>
+<span id="cb56-347"><a href="#cb56-347" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 8</span></span>
+<span id="cb56-348"><a href="#cb56-348" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-align: center</span></span>
+<span id="cb56-349"><a href="#cb56-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-350"><a href="#cb56-350" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> leftright2, <span class="at">y =</span> suspicion2)) <span class="sc">+</span></span>
+<span id="cb56-351"><a href="#cb56-351" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb56-352"><a href="#cb56-352" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Left vs. Right dimension</span><span class="sc">\n</span><span class="st">(party ID, symbolic ideology, and party thermometer ratings)"</span>,</span>
+<span id="cb56-353"><a href="#cb56-353" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Anti-establishment thinking"</span>) <span class="sc">+</span> <span class="fu">theme_gray</span>()</span>
+<span id="cb56-354"><a href="#cb56-354" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-355"><a href="#cb56-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-356"><a href="#cb56-356" aria-hidden="true" tabindex="-1"></a>This scatterplot shows each survey respondent as a point. The x-axis represents how liberal (left) or conservative (right) they are, while the y-axis shows their level of anti-establishment thinking. If you see a cloud of points without a clear diagonal pattern, this suggests these two dimensions are largely independent - meaning you can be a left-wing anti-establishment type OR a right-wing anti-establishment type.</span>
+<span id="cb56-357"><a href="#cb56-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-360"><a href="#cb56-360" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-361"><a href="#cb56-361" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 7</span></span>
+<span id="cb56-362"><a href="#cb56-362" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 8</span></span>
+<span id="cb56-363"><a href="#cb56-363" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-align: center</span></span>
+<span id="cb56-364"><a href="#cb56-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-365"><a href="#cb56-365" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> leftright2, <span class="at">y =</span> suspicion2)) <span class="sc">+</span></span>
+<span id="cb56-366"><a href="#cb56-366" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb56-367"><a href="#cb56-367" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Left vs. Right dimension</span><span class="sc">\n</span><span class="st">(party ID, symbolic ideology, and party thermometer ratings)"</span>,</span>
+<span id="cb56-368"><a href="#cb56-368" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Anti-establishment thinking"</span>) <span class="sc">+</span></span>
+<span id="cb56-369"><a href="#cb56-369" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span>
+<span id="cb56-370"><a href="#cb56-370" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-371"><a href="#cb56-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-374"><a href="#cb56-374" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-375"><a href="#cb56-375" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 7</span></span>
+<span id="cb56-376"><a href="#cb56-376" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 8</span></span>
+<span id="cb56-377"><a href="#cb56-377" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-align: center</span></span>
+<span id="cb56-378"><a href="#cb56-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-379"><a href="#cb56-379" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> leftright2, <span class="at">y =</span> suspicion2)) <span class="sc">+</span></span>
+<span id="cb56-380"><a href="#cb56-380" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb56-381"><a href="#cb56-381" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Left vs. Right dimension</span><span class="sc">\n</span><span class="st">(party ID, symbolic ideology, and party thermometer ratings)"</span>,</span>
+<span id="cb56-382"><a href="#cb56-382" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Anti-establishment thinking"</span>) <span class="sc">+</span></span>
+<span id="cb56-383"><a href="#cb56-383" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb56-384"><a href="#cb56-384" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-385"><a href="#cb56-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-388"><a href="#cb56-388" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-389"><a href="#cb56-389" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 7</span></span>
+<span id="cb56-390"><a href="#cb56-390" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 8</span></span>
+<span id="cb56-391"><a href="#cb56-391" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-align: center</span></span>
+<span id="cb56-392"><a href="#cb56-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-393"><a href="#cb56-393" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> leftright2, <span class="at">y =</span> suspicion2)) <span class="sc">+</span></span>
+<span id="cb56-394"><a href="#cb56-394" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">alpha=</span>.<span class="dv">55</span>) <span class="sc">+</span></span>
+<span id="cb56-395"><a href="#cb56-395" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Left vs. Right dimension</span><span class="sc">\n</span><span class="st">(party ID, symbolic ideology, and party thermometer ratings)"</span>,</span>
+<span id="cb56-396"><a href="#cb56-396" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Anti-establishment thinking"</span>, <span class="at">title =</span> <span class="st">"Conspiracy, populist, and Manichean orientations</span><span class="sc">\n</span><span class="st">are orthogonal to the standard partisan divide"</span>, <span class="at">caption =</span> <span class="st">"Data: Uscinski et al. (AJPS, 2021)."</span>) <span class="sc">+</span></span>
+<span id="cb56-397"><a href="#cb56-397" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb56-398"><a href="#cb56-398" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-399"><a href="#cb56-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-400"><a href="#cb56-400" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conspiratorial orientation and PID</span></span>
+<span id="cb56-401"><a href="#cb56-401" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-402"><a href="#cb56-402" aria-hidden="true" tabindex="-1"></a>In principle, a box plot might make sense in this context... We're now examining whether conspiracy thinking differs systematically across party lines. Box plots show the distribution of conspiracy thinking scores for each party identification group, allowing us to compare medians, quartiles, and outliers.</span>
+<span id="cb56-403"><a href="#cb56-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-406"><a href="#cb56-406" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-407"><a href="#cb56-407" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
+<span id="cb56-408"><a href="#cb56-408" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as_factor</span>(pid), <span class="at">y=</span>consp_Index)) <span class="sc">+</span></span>
+<span id="cb56-409"><a href="#cb56-409" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size=</span>.<span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb56-410"><a href="#cb56-410" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span>
+<span id="cb56-411"><a href="#cb56-411" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-412"><a href="#cb56-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-413"><a href="#cb56-413" aria-hidden="true" tabindex="-1"></a>You could simultaneously display all respondets (jittered):</span>
+<span id="cb56-414"><a href="#cb56-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-417"><a href="#cb56-417" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-418"><a href="#cb56-418" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
+<span id="cb56-419"><a href="#cb56-419" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as_factor</span>(pid), <span class="at">y=</span>consp_Index)) <span class="sc">+</span></span>
+<span id="cb56-420"><a href="#cb56-420" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size=</span>.<span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb56-421"><a href="#cb56-421" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">color=</span><span class="st">"purple"</span>,<span class="at">alpha=</span>.<span class="dv">4</span>,<span class="at">width =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb56-422"><a href="#cb56-422" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span>
+<span id="cb56-423"><a href="#cb56-423" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-424"><a href="#cb56-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-425"><a href="#cb56-425" aria-hidden="true" tabindex="-1"></a>The boxplot shows the median, quartiles, and outliers for each party group, while the jittered points display every individual respondent's conspiracy thinking score. This combination reveals both the summary statistics and the full distribution - you can see whether scores are tightly clustered around the median or widely spread out within each party.</span>
+<span id="cb56-426"><a href="#cb56-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-427"><a href="#cb56-427" aria-hidden="true" tabindex="-1"></a>Make small edits:</span>
+<span id="cb56-428"><a href="#cb56-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-431"><a href="#cb56-431" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-432"><a href="#cb56-432" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-align: center</span></span>
+<span id="cb56-433"><a href="#cb56-433" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
+<span id="cb56-434"><a href="#cb56-434" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as_factor</span>(pid), <span class="at">y=</span>consp_Index)) <span class="sc">+</span></span>
+<span id="cb56-435"><a href="#cb56-435" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size=</span>.<span class="dv">4</span>) <span class="sc">+</span> </span>
+<span id="cb56-436"><a href="#cb56-436" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">color=</span><span class="st">"purple"</span>,<span class="at">alpha=</span>.<span class="dv">4</span>,<span class="at">width =</span> .<span class="dv">1</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb56-437"><a href="#cb56-437" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Conspiratorial thinking</span><span class="sc">\n</span><span class="st">(Average agreement with 4 questions)"</span>,<span class="at">x =</span> <span class="st">""</span>)</span>
+<span id="cb56-438"><a href="#cb56-438" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-439"><a href="#cb56-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-440"><a href="#cb56-440" aria-hidden="true" tabindex="-1"></a>Perhaps even better:</span>
+<span id="cb56-441"><a href="#cb56-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-444"><a href="#cb56-444" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-445"><a href="#cb56-445" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-align: center</span></span>
+<span id="cb56-446"><a href="#cb56-446" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
+<span id="cb56-447"><a href="#cb56-447" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as_factor</span>(pid), <span class="at">y=</span>consp_Index)) <span class="sc">+</span></span>
+<span id="cb56-448"><a href="#cb56-448" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size=</span>.<span class="dv">4</span>) <span class="sc">+</span> <span class="fu">geom_jitter</span>(<span class="at">color=</span><span class="st">"purple"</span>,<span class="at">alpha=</span>.<span class="dv">4</span>,<span class="at">width =</span> .<span class="dv">1</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb56-449"><a href="#cb56-449" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Conspiratorial thinking</span><span class="sc">\n</span><span class="st">(Average agreement with 4 questions)"</span>,<span class="at">x =</span> <span class="st">""</span>,<span class="at">subtitle =</span> <span class="st">"Conspiratorial thinking is uncorrelated with partisanship"</span>,</span>
+<span id="cb56-450"><a href="#cb56-450" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Q1: Even though we live in a democracy, a few people will always run things anyway.</span></span>
+<span id="cb56-451"><a href="#cb56-451" aria-hidden="true" tabindex="-1"></a><span class="st">Q2: The people who really run the country, are not known to the voters.</span></span>
+<span id="cb56-452"><a href="#cb56-452" aria-hidden="true" tabindex="-1"></a><span class="st">Q3: Big events like wars, the recent recession, and the outcomes of elections are controlled</span><span class="sc">\n</span><span class="st">by small groups of people who are working in secret against the rest of us.</span></span>
+<span id="cb56-453"><a href="#cb56-453" aria-hidden="true" tabindex="-1"></a><span class="st">Q4: Much of our lives are being controlled by plots hatched in secret places."</span>)</span>
+<span id="cb56-454"><a href="#cb56-454" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-455"><a href="#cb56-455" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-456"><a href="#cb56-456" aria-hidden="true" tabindex="-1"></a><span class="fu">## All 3 components of the anti-est. orientation</span></span>
+<span id="cb56-457"><a href="#cb56-457" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-460"><a href="#cb56-460" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-461"><a href="#cb56-461" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-align: center</span></span>
+<span id="cb56-462"><a href="#cb56-462" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> </span>
+<span id="cb56-463"><a href="#cb56-463" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as_factor</span>(pid), <span class="at">y=</span>suspicion2)) <span class="sc">+</span></span>
+<span id="cb56-464"><a href="#cb56-464" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="st">"purple"</span>, <span class="at">alpha=</span>.<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb56-465"><a href="#cb56-465" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha=</span>.<span class="dv">2</span>,<span class="at">width =</span> .<span class="dv">11</span>,<span class="at">color=</span><span class="st">"purple4"</span>) <span class="sc">+</span></span>
+<span id="cb56-466"><a href="#cb56-466" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb56-467"><a href="#cb56-467" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Conspiratorial thinking + Populism + Manichean outlook"</span>,<span class="at">x =</span> <span class="st">""</span>)</span>
+<span id="cb56-468"><a href="#cb56-468" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-469"><a href="#cb56-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-470"><a href="#cb56-470" aria-hidden="true" tabindex="-1"></a><span class="fu">## Narcissism as a correlate for conspiracy thinking?</span></span>
+<span id="cb56-471"><a href="#cb56-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-472"><a href="#cb56-472" aria-hidden="true" tabindex="-1"></a>The research also explores whether personality traits, specifically narcissism, relate to anti-establishment orientations. People who score high on narcissism tend to need admiration and may view themselves as superior to others - traits that might make them more likely to believe shadowy elites are controlling society.</span>
+<span id="cb56-473"><a href="#cb56-473" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-476"><a href="#cb56-476" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-477"><a href="#cb56-477" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(attent1)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-478"><a href="#cb56-478" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">as_factor</span>(attent1), <span class="at">x=</span> suspicion2)) <span class="sc">+</span></span>
+<span id="cb56-479"><a href="#cb56-479" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>()</span>
+<span id="cb56-480"><a href="#cb56-480" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-481"><a href="#cb56-481" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-482"><a href="#cb56-482" aria-hidden="true" tabindex="-1"></a>These "ridgeline" plots show the distribution of anti-establishment thinking scores for each level of agreement with "I tend to want others to admire me" (a narcissism indicator). Each ridge represents one response category, allowing us to see whether higher narcissism is associated with stronger anti-establishment views.</span>
+<span id="cb56-483"><a href="#cb56-483" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-486"><a href="#cb56-486" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-487"><a href="#cb56-487" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(attent1)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-488"><a href="#cb56-488" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">as_factor</span>(attent1), <span class="at">x=</span> suspicion2)) <span class="sc">+</span></span>
+<span id="cb56-489"><a href="#cb56-489" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(</span>
+<span id="cb56-490"><a href="#cb56-490" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"#00AFBB"</span>,</span>
+<span id="cb56-491"><a href="#cb56-491" aria-hidden="true" tabindex="-1"></a>    <span class="at">quantile_lines =</span> <span class="cn">TRUE</span>, <span class="at">quantiles =</span> <span class="dv">2</span>,<span class="at">alpha =</span> .<span class="dv">9</span>,<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb56-492"><a href="#cb56-492" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span> <span class="st">"I tend to want others to admire me"</span>,<span class="at">x=</span><span class="st">"Conspiracy thinking"</span>)</span>
+<span id="cb56-493"><a href="#cb56-493" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-494"><a href="#cb56-494" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-497"><a href="#cb56-497" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-498"><a href="#cb56-498" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(attent1)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-499"><a href="#cb56-499" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">as_factor</span>(attent1), <span class="at">x=</span> suspicion2)) <span class="sc">+</span></span>
+<span id="cb56-500"><a href="#cb56-500" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(</span>
+<span id="cb56-501"><a href="#cb56-501" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"#00AFBB"</span>,</span>
+<span id="cb56-502"><a href="#cb56-502" aria-hidden="true" tabindex="-1"></a>    <span class="at">quantile_lines =</span> <span class="cn">TRUE</span>, <span class="at">quantiles =</span> <span class="dv">2</span>,<span class="at">alpha =</span> .<span class="dv">9</span>,<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb56-503"><a href="#cb56-503" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">1</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span> <span class="st">"I tend to want others to admire me"</span>,<span class="at">x=</span><span class="st">"Conspiracy thinking"</span>)</span>
+<span id="cb56-504"><a href="#cb56-504" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-505"><a href="#cb56-505" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-508"><a href="#cb56-508" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-509"><a href="#cb56-509" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(attent1)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-510"><a href="#cb56-510" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">as_factor</span>(attent1), <span class="at">x=</span> suspicion2)) <span class="sc">+</span></span>
+<span id="cb56-511"><a href="#cb56-511" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(</span>
+<span id="cb56-512"><a href="#cb56-512" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"#00AFBB"</span>,</span>
+<span id="cb56-513"><a href="#cb56-513" aria-hidden="true" tabindex="-1"></a>    <span class="at">quantile_lines =</span> <span class="cn">TRUE</span>, <span class="at">quantiles =</span> <span class="dv">2</span>,<span class="at">alpha =</span> .<span class="dv">9</span>,<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb56-514"><a href="#cb56-514" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">1</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span> <span class="st">"I tend to want others to admire me"</span>,</span>
+<span id="cb56-515"><a href="#cb56-515" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"The horizontal dimension measures how strongly respondents exhibit 3 traits:</span></span>
+<span id="cb56-516"><a href="#cb56-516" aria-hidden="true" tabindex="-1"></a><span class="st">1. Conspiratorial thinking (e.g. </span><span class="sc">\"</span><span class="st">Our lives are controlled by secret plots</span><span class="sc">\"</span><span class="st">)</span></span>
+<span id="cb56-517"><a href="#cb56-517" aria-hidden="true" tabindex="-1"></a><span class="st">2. Populist beliefs</span></span>
+<span id="cb56-518"><a href="#cb56-518" aria-hidden="true" tabindex="-1"></a><span class="st">3. Manichean political views"</span>,<span class="at">caption =</span> <span class="st">"Data: Uscinski et al. (AJPS, 2021)."</span>)</span>
+<span id="cb56-519"><a href="#cb56-519" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-520"><a href="#cb56-520" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-523"><a href="#cb56-523" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-524"><a href="#cb56-524" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span></span>
+<span id="cb56-525"><a href="#cb56-525" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>narcissism,<span class="at">y=</span>suspicion2)) <span class="sc">+</span></span>
+<span id="cb56-526"><a href="#cb56-526" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Narcissism"</span>, <span class="at">y=</span><span class="st">"Anti-establishment orientation"</span>) </span>
+<span id="cb56-527"><a href="#cb56-527" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-528"><a href="#cb56-528" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-531"><a href="#cb56-531" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-532"><a href="#cb56-532" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span></span>
+<span id="cb56-533"><a href="#cb56-533" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>narcissism,<span class="at">y=</span>suspicion2)) <span class="sc">+</span></span>
+<span id="cb56-534"><a href="#cb56-534" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Narcissism"</span>, <span class="at">y=</span><span class="st">"Anti-establishment orientation"</span>) <span class="sc">+</span></span>
+<span id="cb56-535"><a href="#cb56-535" aria-hidden="true" tabindex="-1"></a>  ggside<span class="sc">::</span><span class="fu">geom_xsidehistogram</span>() <span class="sc">+</span></span>
+<span id="cb56-536"><a href="#cb56-536" aria-hidden="true" tabindex="-1"></a>  ggside<span class="sc">::</span><span class="fu">ggside</span>(<span class="at">x.pos =</span> <span class="st">"bottom"</span>) </span>
+<span id="cb56-537"><a href="#cb56-537" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-538"><a href="#cb56-538" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-539"><a href="#cb56-539" aria-hidden="true" tabindex="-1"></a><span class="fu">## Mainstream news</span></span>
+<span id="cb56-540"><a href="#cb56-540" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-541"><a href="#cb56-541" aria-hidden="true" tabindex="-1"></a>The survey also measured distrust in mainstream media, asking whether "much of the mainstream news is deliberately slanted to mislead us." This analysis examines whether anti-establishment orientations and narcissism both correlate with media distrust - two potential pathways to believing that established news sources are unreliable. The <span class="in">`ggside`</span> package adds histograms on the sides to show the distribution of predictors.</span>
+<span id="cb56-542"><a href="#cb56-542" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-545"><a href="#cb56-545" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-546"><a href="#cb56-546" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 7</span></span>
+<span id="cb56-547"><a href="#cb56-547" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 12</span></span>
+<span id="cb56-548"><a href="#cb56-548" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
+<span id="cb56-549"><a href="#cb56-549" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb56-550"><a href="#cb56-550" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(</span>
+<span id="cb56-551"><a href="#cb56-551" aria-hidden="true" tabindex="-1"></a>  d1 <span class="sc">%&gt;%</span></span>
+<span id="cb56-552"><a href="#cb56-552" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>suspicion2,<span class="at">y=</span>msm)) <span class="sc">+</span></span>
+<span id="cb56-553"><a href="#cb56-553" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb56-554"><a href="#cb56-554" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Anti-establishment orientation"</span>, <span class="at">y=</span><span class="st">"Much of the mainstream news is deliberately slanted to mislead us"</span>) <span class="sc">+</span></span>
+<span id="cb56-555"><a href="#cb56-555" aria-hidden="true" tabindex="-1"></a>  ggside<span class="sc">::</span><span class="fu">geom_xsidehistogram</span>() <span class="sc">+</span></span>
+<span id="cb56-556"><a href="#cb56-556" aria-hidden="true" tabindex="-1"></a>  ggside<span class="sc">::</span><span class="fu">ggside</span>(<span class="at">x.pos =</span> <span class="st">"bottom"</span>) ,</span>
+<span id="cb56-557"><a href="#cb56-557" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb56-558"><a href="#cb56-558" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span></span>
+<span id="cb56-559"><a href="#cb56-559" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>narcissism,<span class="at">y=</span>msm)) <span class="sc">+</span></span>
+<span id="cb56-560"><a href="#cb56-560" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb56-561"><a href="#cb56-561" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Narcissism"</span>, <span class="at">y=</span><span class="st">"Much of the mainstream news is deliberately slanted to mislead us"</span>) <span class="sc">+</span></span>
+<span id="cb56-562"><a href="#cb56-562" aria-hidden="true" tabindex="-1"></a>  ggside<span class="sc">::</span><span class="fu">geom_xsidehistogram</span>() <span class="sc">+</span></span>
+<span id="cb56-563"><a href="#cb56-563" aria-hidden="true" tabindex="-1"></a>  ggside<span class="sc">::</span><span class="fu">ggside</span>(<span class="at">x.pos =</span> <span class="st">"bottom"</span>) </span>
+<span id="cb56-564"><a href="#cb56-564" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb56-565"><a href="#cb56-565" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-566"><a href="#cb56-566" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-569"><a href="#cb56-569" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-570"><a href="#cb56-570" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 7</span></span>
+<span id="cb56-571"><a href="#cb56-571" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 12</span></span>
+<span id="cb56-572"><a href="#cb56-572" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb56-573"><a href="#cb56-573" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb56-574"><a href="#cb56-574" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(</span>
+<span id="cb56-575"><a href="#cb56-575" aria-hidden="true" tabindex="-1"></a>  d1 <span class="sc">%&gt;%</span></span>
+<span id="cb56-576"><a href="#cb56-576" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>suspicion2,<span class="at">y=</span>msm)) <span class="sc">+</span></span>
+<span id="cb56-577"><a href="#cb56-577" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb56-578"><a href="#cb56-578" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Anti-establishment orientation"</span>, <span class="at">y=</span><span class="st">"Much of the mainstream news is deliberately slanted to mislead us"</span>) <span class="sc">+</span></span>
+<span id="cb56-579"><a href="#cb56-579" aria-hidden="true" tabindex="-1"></a>  ggside<span class="sc">::</span><span class="fu">geom_xsidehistogram</span>() <span class="sc">+</span></span>
+<span id="cb56-580"><a href="#cb56-580" aria-hidden="true" tabindex="-1"></a>  ggside<span class="sc">::</span><span class="fu">ggside</span>(<span class="at">x.pos =</span> <span class="st">"bottom"</span>) ,</span>
+<span id="cb56-581"><a href="#cb56-581" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb56-582"><a href="#cb56-582" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span></span>
+<span id="cb56-583"><a href="#cb56-583" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>narcissism,<span class="at">y=</span>msm)) <span class="sc">+</span></span>
+<span id="cb56-584"><a href="#cb56-584" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb56-585"><a href="#cb56-585" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Narcissism"</span>, <span class="at">y=</span><span class="st">"Much of the mainstream news is deliberately slanted to mislead us"</span>) <span class="sc">+</span></span>
+<span id="cb56-586"><a href="#cb56-586" aria-hidden="true" tabindex="-1"></a>  ggside<span class="sc">::</span><span class="fu">geom_xsidehistogram</span>() <span class="sc">+</span></span>
+<span id="cb56-587"><a href="#cb56-587" aria-hidden="true" tabindex="-1"></a>  ggside<span class="sc">::</span><span class="fu">ggside</span>(<span class="at">x.pos =</span> <span class="st">"bottom"</span>) </span>
+<span id="cb56-588"><a href="#cb56-588" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb56-589"><a href="#cb56-589" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-590"><a href="#cb56-590" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-591"><a href="#cb56-591" aria-hidden="true" tabindex="-1"></a>This regression analysis examines whether the relationship between anti-establishment orientation and media distrust changes based on how much someone likes or dislikes Hillary Clinton. The <span class="in">`ggeffects`</span> package helps visualize interaction effects - you might see that the slope of anti-establishment → media distrust is steeper for Clinton supporters or opponents.</span>
+<span id="cb56-592"><a href="#cb56-592" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-595"><a href="#cb56-595" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-596"><a href="#cb56-596" aria-hidden="true" tabindex="-1"></a>collmod <span class="ot">&lt;-</span> <span class="fu">lm</span>(msm <span class="sc">~</span> clintonft<span class="sc">*</span>suspicion2, <span class="at">data=</span>d1)</span>
+<span id="cb56-597"><a href="#cb56-597" aria-hidden="true" tabindex="-1"></a>ggeffects<span class="sc">::</span><span class="fu">ggeffect</span>(collmod, <span class="at">terms=</span><span class="fu">c</span>(<span class="st">"suspicion2"</span>,<span class="st">"clintonft"</span>)) <span class="sc">%&gt;%</span> <span class="fu">plot</span>() <span class="sc">+</span></span>
+<span id="cb56-598"><a href="#cb56-598" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color=</span><span class="st">"Rating of Hillary Clinton"</span>,<span class="at">y=</span><span class="st">"Much of the mainstream news is deliberately slanted to mislead us"</span>,</span>
+<span id="cb56-599"><a href="#cb56-599" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Anti-establishment orientation"</span>,<span class="at">title=</span><span class="st">""</span>)</span>
+<span id="cb56-600"><a href="#cb56-600" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-601"><a href="#cb56-601" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-602"><a href="#cb56-602" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-603"><a href="#cb56-603" aria-hidden="true" tabindex="-1"></a><span class="fu">## "I often disagree with conventional views about the world"</span></span>
+<span id="cb56-604"><a href="#cb56-604" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-605"><a href="#cb56-605" aria-hidden="true" tabindex="-1"></a>Now we examine whether anti-establishment orientations and narcissism both predict a general tendency to reject conventional wisdom. This statement captures contrarian thinking, which might be driven by both skepticism toward institutions (anti-establishment) and a belief in one's own superior insight (narcissism).</span>
+<span id="cb56-606"><a href="#cb56-606" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-609"><a href="#cb56-609" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-610"><a href="#cb56-610" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(</span>
+<span id="cb56-611"><a href="#cb56-611" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span></span>
+<span id="cb56-612"><a href="#cb56-612" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>suspicion2,<span class="at">y=</span>conwis)) <span class="sc">+</span></span>
+<span id="cb56-613"><a href="#cb56-613" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb56-614"><a href="#cb56-614" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Anti-establishment orientation"</span>, <span class="at">y=</span><span class="st">"I often disagree with conventional views about the world"</span>) <span class="sc">+</span></span>
+<span id="cb56-615"><a href="#cb56-615" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>)),</span>
+<span id="cb56-616"><a href="#cb56-616" aria-hidden="true" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span></span>
+<span id="cb56-617"><a href="#cb56-617" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>narcissism,<span class="at">y=</span>conwis)) <span class="sc">+</span></span>
+<span id="cb56-618"><a href="#cb56-618" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb56-619"><a href="#cb56-619" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Narcissism"</span>, <span class="at">y=</span><span class="st">"I often disagree with conventional views about the world"</span>) <span class="sc">+</span></span>
+<span id="cb56-620"><a href="#cb56-620" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>))</span>
+<span id="cb56-621"><a href="#cb56-621" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb56-622"><a href="#cb56-622" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-623"><a href="#cb56-623" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-624"><a href="#cb56-624" aria-hidden="true" tabindex="-1"></a><span class="fu">## Denial of climate change</span></span>
+<span id="cb56-625"><a href="#cb56-625" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-626"><a href="#cb56-626" aria-hidden="true" tabindex="-1"></a>The survey also included a question about climate change denial. </span>
+<span id="cb56-627"><a href="#cb56-627" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-628"><a href="#cb56-628" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-629"><a href="#cb56-629" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-630"><a href="#cb56-630" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=TRUE}</span></span>
+<span id="cb56-631"><a href="#cb56-631" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(d2<span class="sc">$</span>climatechange)</span>
+<span id="cb56-632"><a href="#cb56-632" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-633"><a href="#cb56-633" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-634"><a href="#cb56-634" aria-hidden="true" tabindex="-1"></a>This shows the recoded binary variable, where responses 1-3 (disagree/neutral) become "0" and 4-5 (agree) become "1". This dichotomization is commonly used when researchers want to separate climate change denial from acceptance.</span>
+<span id="cb56-635"><a href="#cb56-635" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-636"><a href="#cb56-636" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=TRUE}</span></span>
+<span id="cb56-637"><a href="#cb56-637" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(d2<span class="sc">$</span>climatechangeBIN)</span>
+<span id="cb56-638"><a href="#cb56-638" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-639"><a href="#cb56-639" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-640"><a href="#cb56-640" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-641"><a href="#cb56-641" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=TRUE}</span></span>
+<span id="cb56-642"><a href="#cb56-642" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">count</span>(climatechangeBIN)</span>
+<span id="cb56-643"><a href="#cb56-643" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-644"><a href="#cb56-644" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-645"><a href="#cb56-645" aria-hidden="true" tabindex="-1"></a>This is an alternative way to display the binary variable counts using dplyr's <span class="in">`count()`</span> function, which some find easier to read than base R's <span class="in">`table()`</span>.</span>
+<span id="cb56-646"><a href="#cb56-646" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-647"><a href="#cb56-647" aria-hidden="true" tabindex="-1"></a>Are the missing observations the same for the original and the recoded variable? (If not, we would want to check whether earlier code did something unintended.)</span>
+<span id="cb56-648"><a href="#cb56-648" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-649"><a href="#cb56-649" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=TRUE}</span></span>
+<span id="cb56-650"><a href="#cb56-650" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">count</span>(climatechangeBIN,climatechange)</span>
+<span id="cb56-651"><a href="#cb56-651" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-652"><a href="#cb56-652" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-653"><a href="#cb56-653" aria-hidden="true" tabindex="-1"></a>This cross-tabulation checks that missing values (NAs) are handled consistently between the original and recoded variables. (If we see different patterns of missing data, it would indicate that the recoding process introduced problems.)</span>
+<span id="cb56-654"><a href="#cb56-654" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-655"><a href="#cb56-655" aria-hidden="true" tabindex="-1"></a>Now let's visualize how climate change beliefs vary across the political spectrum:</span>
+<span id="cb56-656"><a href="#cb56-656" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-659"><a href="#cb56-659" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-660"><a href="#cb56-660" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 7</span></span>
+<span id="cb56-661"><a href="#cb56-661" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb56-662"><a href="#cb56-662" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-663"><a href="#cb56-663" aria-hidden="true" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span></span>
+<span id="cb56-664"><a href="#cb56-664" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(climatechange) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(pid)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-665"><a href="#cb56-665" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pid) <span class="sc">%&gt;%</span></span>
+<span id="cb56-666"><a href="#cb56-666" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(climatechange) <span class="sc">%&gt;%</span></span>
+<span id="cb56-667"><a href="#cb56-667" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb56-668"><a href="#cb56-668" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">as_factor</span>(pid), <span class="at">x=</span>percent, <span class="at">fill=</span><span class="fu">as_factor</span>(climatechange))) <span class="sc">+</span></span>
+<span id="cb56-669"><a href="#cb56-669" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb56-670"><a href="#cb56-670" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"plasma"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb56-671"><a href="#cb56-671" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Percent of respondents"</span>, </span>
+<span id="cb56-672"><a href="#cb56-672" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">""</span>, </span>
+<span id="cb56-673"><a href="#cb56-673" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill=</span><span class="st">"Climate change is a hoax"</span>,</span>
+<span id="cb56-674"><a href="#cb56-674" aria-hidden="true" tabindex="-1"></a>       <span class="at">title=</span><span class="st">"Climate change beliefs across the political spectrum"</span>,</span>
+<span id="cb56-675"><a href="#cb56-675" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption=</span><span class="st">"Data: Uscinski et al. (AJPS, 2021)"</span>) <span class="sc">+</span></span>
+<span id="cb56-676"><a href="#cb56-676" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb56-677"><a href="#cb56-677" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">13</span>))</span>
+<span id="cb56-678"><a href="#cb56-678" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-679"><a href="#cb56-679" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-680"><a href="#cb56-680" aria-hidden="true" tabindex="-1"></a>Strong Democrats show high agreement that climate change is real, while strong Republicans show much higher levels of skepticism. This visualization demonstrates how scientific issues can become polarized along partisan lines, with moderates (4) falling somewhere in between.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 

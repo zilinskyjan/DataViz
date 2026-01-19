@@ -32,7 +32,7 @@ bibliography: references.bib
 format:
   html:
     theme: cosmo
-    code-fold: true
+    code-fold: show
     code-tools: true
   pdf:
     documentclass: scrreprt
@@ -43,8 +43,27 @@ format:
     colorlinks: true
     keep-tex: false
     code-block-bg: false
-    # Code folding doesn't work in PDF, so code is always visible
-    # This is usually desirable for printed material
+    filters:
+      - _callout-nobreak.lua
+    include-in-header:
+      text: |
+        \usepackage{needspace}
+        % Prevent callout boxes from breaking across pages
+        % This only affects PDF output, not HTML
+        % The Lua filter adds \needspace and \nopagebreak before callouts
+        \usepackage{etoolbox}
+        \makeatletter
+        % Also configure tcolorbox (used by Quarto for callouts) to not break
+        \@ifpackageloaded{tcolorbox}{%
+          \tcbuselibrary{breakable}
+          % Disable breaking for callout boxes
+          \tcbset{
+            callout/.style={
+              breakable=false
+            }
+          }
+        }{}
+        \makeatother
 
 execute:
   message: FALSE

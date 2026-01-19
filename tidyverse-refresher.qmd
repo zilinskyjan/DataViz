@@ -18,7 +18,7 @@ data_tidy <- read_csv("my_data.csv")
 - Returns a **tibble**, which prints more cleanly (truncated rows/columns).
 - Faster for large files.
 
-**Tip:** To write back out, use `write_csv(data, "out.csv")`.
+**Tip:** To store data locally, use `write_csv(data, "out.csv")`.
 
 
 ## Inspecting Your Data Immediately

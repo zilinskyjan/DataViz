@@ -69,35 +69,18 @@ If you want to browse datasets up front, see `datasets.qmd` for links and short 
 -   Getting familiar with ggplot
 
 ### Using ggplot for data visualization
-
-
-```         
+     
 - Toplines, cross-tabs
 - Geometries, statistics and coordinates
 - Facets, themes
 - Refining plots
 - 3-way cross-tabs
 - Heatmaps
-```
+
 
 ### Visualizing output from statistical models
 
-```         
+        
 - Coefficients and uncertainty
 - Predicted probabilities, marginal effects, and interactions
-- Model performance (in-sample and out-of-sample comparisons) 
-- Machine learning output (regression trees, most important variables, etc.)
-```
-
-If you are taking this class for credit with me, these are the main expectations:
-
-## Assignments
-
--   Create your own dataset
-    -   Create your own dataset. It needs to have at least one of these 3 attributes
-        1.  Multiple levels (at least 2).
-        2.  Original topic, subject or angle.
-        3.  Impressive scope
--   Final project
-    -   Form a group of 2-3 students
-    -   Prepare a compelling data visualization
+- Optional: machine learning output (regression trees, most important variables, etc.)

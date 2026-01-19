@@ -115,6 +115,28 @@ ggplot(outlet_summary, aes(y = n_articles, x = outlet_label)) +
 
 The `scales::label_wrap(15)` function breaks long labels into multiple lines at around 20 characters.
 
+**Bonus:** Format numbers nicely:
+
+```{r number-format}
+#| eval: false
+scale_y_continuous(labels = scales::comma)
+```
+
+```{r axis-labels-ctd}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 5
+ggplot(outlet_summary, aes(y = n_articles, x = outlet_label)) +
+  geom_col(fill = "steelblue") +
+  scale_x_discrete(labels = scales::label_wrap(15)) +
+  scale_y_continuous(labels = scales::comma) +
+  labs(
+    title = "News Coverage of ChatGPT by Media Outlet",
+    y = "Number of Articles",
+    x = NULL
+  )
+```
+
 **Alternative (a classic solution but often will not look great):**
 
 We could use: 
@@ -139,12 +161,7 @@ ggplot(outlet_summary, aes(y = n_articles, x = outlet_label)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
 ```
 
-**Bonus:** Format numbers nicely:
 
-```{r number-format}
-#| eval: false
-scale_x_continuous(labels = scales::comma)
-```
 
 ### Getting Rid of Awkward Padding
 
