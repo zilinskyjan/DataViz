@@ -47,7 +47,6 @@ format:
 *(Probably depends on the context, the user's personality, etc.)*
 :::
 
-------------------------------------------------------------------------
 
 ---
 
